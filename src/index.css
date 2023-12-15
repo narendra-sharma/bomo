@@ -5,9 +5,156 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+
+h1, h2 , h3, h4, h5, h6 , p{
+  margin: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.container {
+  width: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.d-block{
+  display: block;
+}
+.color-white{
+  color: #fff;
+}
+@media (min-width: 576px){
+.container {
+    max-width: 540px;}
+}
+@media (min-width: 768px){
+  .container {
+      max-width: 720px;}
+  }
+@media (min-width: 992px){
+    .container {
+      max-width: 960px;
+    }
+}
+@media (min-width: 1200px){
+  .container {
+      max-width: 1140px;
+    }
+}
+  
+.signup-form{
+  background-color: #284719;
+  color: #CDFFB5;
+  padding: 100px 0;
+}
+.signup-design-form{
+  background-color: #CDFFB5;
+  color:#284719;
+  padding: 100px 0;
+}
+.signup-form h2{
+  font-size: 75px;
+  font-weight: 500;
+  line-height: 80px;
+}
+.form-group{
+  margin-bottom: 15px;
+}
+.signup-content{
+  display:flex;
+  justify-content: space-between;
+  gap:30px;
+}
+.form-inner{
+  width:525px;
+  border: solid 0.71px #CDFFB5;
+  border-radius: 2.82px;
+  padding: 40px 45px;
+ }
+ .signup-design-form .form-inner{
+  border: solid 0.71px#56873F;
+ }
+.form-inner label{
+margin-bottom: 8px;
+display: block;
+font-weight: 500;
+}
+.signup-design-form 
+.form-inner label{
+color: #284719;
+}
+.form_control{
+  display: block;
+  width: -webkit-fill-available;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #56873F;
+  background-color: transparent;
+  border: 0.71px solid #CDFFB5;
+  border-radius: 2.82px;
+  outline: none;
+  font-weight: 500;
+  height: 38px;
+
+}
+.signup-design-form  .form_control{
+  border-color: #284719;
+  color: #56873F;
+}
+.submit-btn{
+  display: block;
+  padding: 14px 20px;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-weight: 600;
+}
+.signup-btn{
+  background: #CDFFB5;
+  color: #284719;
+}
+.signup-design-form .submit-btn{
+  background-color: #284719;
+  color: #CDFFB5;
+}
+.signup-form p{
+color:#56873F;
+font-weight: 500;
+}
+.already-register{
+  text-align: right;
+  margin-top: 30px;
+}
+.login-redirect{
+  padding: 10px 20px;
+  border-radius:10px;
+  border:solid 1px #56873F;
+  color: #CDFFB5;
+  text-decoration: none;
+}
+.signup-design-form .login-redirect{
+  color: #56873F;
+}
+@media(max-width:767px){
+  .form-inner{
+    width: auto;
+    padding: 20px 25px;
+  }
+  .form-heading {
+    margin-bottom: 40px;
+}
+  .signup-content{
+   display: block;
+  }
+  .signup-form h2 {
+    font-size: 60px;
+    line-height: 70px;
+  }
 }

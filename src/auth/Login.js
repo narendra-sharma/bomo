@@ -1,13 +1,14 @@
 import React from "react";
 
 const Login = () => {
-  return (
-    <> 
-        <div className="App">
-         Login
-         </div>
-    </>
-)
+    return (
+        <>
+          <Form>
+             <h5>Login</h5>
+          </Form>
+          
+        </>
+    )
 }
 
 
