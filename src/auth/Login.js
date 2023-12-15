@@ -1,14 +1,14 @@
 import React from "react";
-import { Form } from "react-router-dom";
 
 const Login = () => {
-    return (
-        <>
-          <Form>
-             <h5>Login</h5>
-          </Form>
-        </>
-    )
+  return (
+    <> 
+        <div className="App">
+         Login
+         </div>
+    </>
+)
 }
+
 
 export default Login;
