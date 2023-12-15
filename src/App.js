@@ -13,7 +13,7 @@ import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
 function App() {
-  const [isAuth,setIsAuth] = useState(true);
+  const [isAuth,setIsAuth] = useState(false);
 
   useEffect(()=> {
     let checkuser = localStorage.getItem('userdetails');
