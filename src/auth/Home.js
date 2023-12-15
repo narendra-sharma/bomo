@@ -10,16 +10,18 @@ const Bomohome = () => {
     }
     return(
         <>
-         <div className="App">
+         <div className="Home-screen">
+            <div className="container">
                {
                 bomousers.map((ele,index)=>{
                     return (
                         <>
-                         <button onClick={()=> Handleuser(ele)} key={index} style={{fontSize:'1rem'}}>{ele}</button>
+                         <button onClick={()=> Handleuser(ele)} key={index} className="Home-button">{ele}</button>
                         </>
                     )
                 })
                }
+            </div>
          </div>
         </>
     )
