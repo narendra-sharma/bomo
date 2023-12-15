@@ -1,47 +1,7 @@
+import React from "react";
 import React, { useState } from "react";
 const Signup = () => {
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        company: ''
-    });
-    const [nameerror, setNameerror] = useState(null);
-    const [emailerror, setEmailerror] = useState(null);
-    const [passworderror, setPassworderror] = useState(null);
-    const [companyerror, setCompanyerror] = useState(null);
-
-    const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        if (formData.name = '') {
-            setNameerror('Name is Required*');
-        } else {
-            setNameerror(null)
-        }
-
-        if (formData.email = '') {
-            setEmailerror('Email is Required*');
-        } else {
-            setEmailerror(null)
-        }
-
-        if (formData.password = '') {
-            setPassworderror('Password is Required*');
-        } else {
-            setPassworderror(null)
-        }
-
-        if (formData.company = '') {
-            setCompanyerror('Company is Required*');
-        } else {
-            setCompanyerror(null)
-        }
-    };
     return (
         <>
         <div className="signup-form">
