@@ -85,6 +85,10 @@ margin-bottom: 8px;
 display: block;
 font-weight: 500;
 }
+.form-inner input::placeholder{
+  color: #56873F;
+  font-weight: 500;
+}
 .signup-design-form 
 .form-inner label{
 color: #284719;
@@ -93,7 +97,7 @@ color: #284719;
   display: block;
   width: -webkit-fill-available;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 15px;
   line-height: 1.5;
   color: #56873F;
   background-color: transparent;
@@ -114,7 +118,9 @@ color: #284719;
   outline: none;
   border: none;
   width: 100%;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 17px;
+  margin-top: 40px;
 }
 .signup-btn{
   background: #CDFFB5;
@@ -141,6 +147,26 @@ font-weight: 500;
 }
 .signup-design-form .login-redirect{
   color: #56873F;
+}
+.mt-150{
+  margin-top: 150px;
+}
+.Home-screen{
+  height: 100vh;
+  background-color: #284719;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.Home-screen .Home-button{
+  background-color: transparent;
+  padding: 15px 25px;
+  color: #fff;
+  border: solid 1px #fff;
+  margin: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
 }
 @media(max-width:767px){
   .form-inner{

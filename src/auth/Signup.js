@@ -29,23 +29,23 @@ const Signup = () => {
                         <div class="form-group">
                         <label>
                             Name:</label>
-                            <input type="text" name="name" value={formData.name} onChange={handleInputChange}  className="form_control"/>
+                            <input type="text" placeholder="Your full name here. You can add members later"  name="name" value={formData.name} onChange={handleInputChange}  className="form_control"/>
                        
                        </div>
                        <div class="form-group">
                         <label>
                             Email:</label>                          
-                            <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control"/>
+                            <input type="email" name="email"  placeholder="Your company email here" value={formData.email} onChange={handleInputChange} className="form_control"/>
                         </div>
                         <div class="form-group">
                         <label>
                             Company:</label>                            
-                            <input type="text" name="company" value={formData.company} onChange={handleInputChange} className="form_control"/>
+                            <input type="text" name="company" placeholder="Your company name here" value={formData.company} onChange={handleInputChange} className="form_control"/>
                         </div>
                         <div class="form-group">
                         <label>
                             Password:</label>
-                            <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control"/>
+                            <input type="password" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control"/>
                         </div>
                       
                         <p>Fill out this form to create your account.</p>
