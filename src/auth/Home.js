@@ -7,6 +7,7 @@ const Bomohome = () => {
 
     const Handleuser = (usertype) => {
         navigate(`/login`);
+        localStorage.setItem('USERTYPE',JSON.stringify(usertype));
     }
     return(
         <>
