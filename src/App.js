@@ -14,33 +14,35 @@ import Subscription from './Customer/Subscription';
 import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
+import { Provider } from 'react-redux';
+import store from './reduxdata/Store/store';
 function App() {
   const [isAuth,setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(()=> {
-    let checkuser = localStorage.getItem('userdetails');
-    if(checkuser){
+  useEffect(() => {
+    let checkuser = localStorage.getItem('userDetails');
+    if (checkuser) {
       setIsAuth(true)
     }
-  },[])
-  const AuthRoutes=()=>useRoutes([
-    {path: "/",element:<Bomohome/>},
-    {path: "/login",element:<Login/>},
-    {path: "/signup", element:<Signup/>},
-    { path: "*", element: <Navigate to={{ pathname: '/' }} replace/>}
+  }, [])
+  const AuthRoutes = () => useRoutes([
+    { path: "/", element: <Bomohome /> },
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <Signup /> },
+    { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
-  const AfterLoginCustomerRoutes=()=>useRoutes([
-    {path: "/",element:<Home/>},
-    {path: "/past-requests",element:<PastRequest/>},
-    {path: "/brand-profile", element:<BrandProfile/>},
-    {path: "/subscription", element:<Subscription/>},
-    {path: "/members", element:<Members/>},
-    {path: "/user-profile", element:<Profile/>},
-    {path: "/setting", element:<Setting/>},
-    {path: "*", element: <Navigate to={{ pathname: '/' }} replace/>}
+  const AfterLoginCustomerRoutes = () => useRoutes([
+    { path: "/", element: <Home /> },
+    { path: "/past-requests", element: <PastRequest /> },
+    { path: "/brand-profile", element: <BrandProfile /> },
+    { path: "/subscription", element: <Subscription /> },
+    { path: "/members", element: <Members /> },
+    { path: "/user-profile", element: <Profile /> },
+    { path: "/setting", element: <Setting /> },
+    { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   return (
-    <>
       <BrowserRouter>
         {isAuth?<>
          <Sidebar/>
@@ -48,7 +50,6 @@ function App() {
          <AfterLoginCustomerRoutes/>
         </>:<AuthRoutes/>}
       </BrowserRouter>
-    </>
   );
 }
 
