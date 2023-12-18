@@ -1,4 +1,6 @@
 import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import Signup from './auth/Signup';
 import Login from './auth/Login';
 import { useEffect, useState } from 'react';
@@ -15,6 +17,7 @@ import Setting from './Customer/Setting';
 import { Provider } from 'react-redux';
 import store from './reduxdata/Store/store';
 function App() {
+  const [isAuth,setIsAuth] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
@@ -40,17 +43,13 @@ function App() {
     { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   return (
-    <>
-      <Provider store={store}>
-        <BrowserRouter>
-          {isAuth ? <>
-            <Header />
-            <Sidebar />
-            <AfterLoginCustomerRoutes />
-          </> : <AuthRoutes />}
-        </BrowserRouter>
-      </Provider>
-    </>
+      <BrowserRouter>
+        {isAuth?<>
+         <Sidebar/>
+         <Header/>
+         <AfterLoginCustomerRoutes/>
+        </>:<AuthRoutes/>}
+      </BrowserRouter>
   );
 }
 
