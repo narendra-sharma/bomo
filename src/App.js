@@ -1,4 +1,6 @@
 import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import Signup from './auth/Signup';
 import Login from './auth/Login';
 import { useEffect, useState } from 'react';
@@ -13,7 +15,7 @@ import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
 function App() {
-  const [isAuth,setIsAuth] = useState(false);
+  const [isAuth,setIsAuth] = useState(true);
 
   useEffect(()=> {
     let checkuser = localStorage.getItem('userdetails');
@@ -41,8 +43,8 @@ function App() {
     <>
       <BrowserRouter>
         {isAuth?<>
-         <Header/>
          <Sidebar/>
+         <Header/>
          <AfterLoginCustomerRoutes/>
         </>:<AuthRoutes/>}
       </BrowserRouter>
