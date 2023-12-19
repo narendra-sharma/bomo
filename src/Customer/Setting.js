@@ -4,7 +4,7 @@ const Setting = () => {
     return(
         <>
          <div className="App">
-         Setting
+          <h2>Setting</h2>
          </div>
         </>
     )

@@ -4,7 +4,7 @@ const Profile = () => {
     return(
         <>
          <div className="App">
-         Profile
+           <h2>Profile</h2>
          </div>
         </>
     )

@@ -4,7 +4,7 @@ const Subscription = () => {
     return(
         <>
          <div className="App">
-         Subscription
+         <h2>Subscription</h2>
          </div>
         </>
     )

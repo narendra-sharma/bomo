@@ -1,12 +1,13 @@
 import React from "react";
 
-const PastRequest = () => {
-    return(
+const Payments = () => {
+    return (
         <>
          <div className="App">
-           <h2>PastRequest</h2>
+           <h2>Payments</h2>
          </div>
         </>
     )
 }
-export default PastRequest;
+
+export default Payments;
