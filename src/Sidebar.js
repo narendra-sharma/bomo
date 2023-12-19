@@ -28,19 +28,19 @@ const Sidebar = () => {
                         <a href="#" className="list-group-item list-group-item-action border-0 align-items-center">
                         <span className="ml-2">Past Requests</span>
                         </a>
-                        <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+                        <a href="#" className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
                             <span className="ml-2">Brand Profiles</span>
                         </a>
-                        <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+                        <a href="#" className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
                             <span className="ml-2">Subscription</span>
                         </a>
-                        <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+                        <a href="#" className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
                             <span className="ml-2">Members</span>
                         </a>
-                        <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+                        <a href="#" className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
                             <span className="ml-2">Setting</span>
                         </a>
-                        <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
+                        <a href="#" className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
                             <span className="ml-2" onClick={handleLogout}>Logout</span>
                         </a>
                     </div>
