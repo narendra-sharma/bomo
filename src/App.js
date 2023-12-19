@@ -14,12 +14,19 @@ import Subscription from './Customer/Subscription';
 import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
+import AllCustomers from './SuperAdmin/AllCustomers';
+import AllDesigners from './SuperAdmin/AllDesigners';
+import AllRequests from './SuperAdmin/AllRequests';
+import Payments from './SuperAdmin/Payments';
+import SiteEdit from './SuperAdmin/SiteEdit';
+import ActiveRequests from './Designer/ActiveRequests';
+import MotionTips from './Designer/MotionTips';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    let checkuser = localStorage.getItem('userDetails');
+    let checkuser = localStorage.getItem('LoginuserDetails');
     if (checkuser) {
       setIsAuth(true)
     }
@@ -38,16 +45,23 @@ function App() {
     { path: "/members", element: <Members /> },
     { path: "/user-profile", element: <Profile /> },
     { path: "/setting", element: <Setting /> },
+    { path: "/all-Customers", element: <AllCustomers />},
+    { path: "/all-Designers", element: <AllDesigners />},
+    { path: "/all-requests", element: <AllRequests />},
+    { path: "payments", element: <Payments /> },
+    { path: "/site-edit", element: <SiteEdit /> },
+    { path: "/active-requests", element: <ActiveRequests /> },
+    { path: "/motion-tips", element: <MotionTips /> },
     { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   return (
-      <BrowserRouter>
-        {isAuth ? <>
-          <Sidebar />
-          <Header />
-          <AfterLoginCustomerRoutes />
-        </> : <AuthRoutes />}
-      </BrowserRouter>
+    <BrowserRouter>
+      {isAuth ? <>
+        <Sidebar />
+        <Header />
+        <AfterLoginCustomerRoutes />
+      </> : <AuthRoutes />}
+    </BrowserRouter>
   );
 }
 

@@ -4,7 +4,7 @@ const Members = () => {
     return(
         <>
          <div className="App">
-         Members
+           <h2>Members</h2>
          </div>
         </>
     )

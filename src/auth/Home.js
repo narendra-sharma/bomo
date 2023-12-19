@@ -1,14 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { setUserType } from "../reduxdata/Actions/authActions";
+import { useDispatch } from "react-redux";
 
 const Bomohome = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const bomousers = ['SuperAdmin', 'Customer', 'Designer'];
 
     const Handleuser = (usertype) => {
-        navigate(`/login`);
+        dispatch(setUserType(usertype));
+        navigate('/login');
         localStorage.setItem('USERTYPE',JSON.stringify(usertype));
-    }
+    };
     return(
         <>
          <div className="Home-screen">

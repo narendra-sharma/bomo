@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../reduxdata/Reducer/userSlice";
 import { useNavigate } from "react-router-dom";
+import { logIn } from "../reduxdata/Actions/authActions";
 
 const Login = () => {
 
     let typeuser = localStorage.getItem('USERTYPE');
     let checkusertype = JSON.parse(typeuser);
+    const userrole = useSelector((state) => state.auth.role || '')
+    console.log("userole",userrole);
 
-    const users = useSelector((state) => state.user.user);
+    const users = useSelector((state) => state.user);
+    console.log("redux-loginuser-data", users);
+    console.log("types of data", typeof users);
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+
+    // const userarray = Object.values(users).find((u)=> u.email === formData.email && u.password === formData.password);
+    // console.log("types of userarray", typeof userarray);
    
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,10 +46,9 @@ const Login = () => {
             setPassworderror(null);
         }
         
-        //const user = users.find((u) => u.email === formData.email && u.password === formData.password);
         if (formData.email !== '' && formData.password !== '') {
-            localStorage.setItem('userDetails', JSON.stringify(formData))
-            dispatch(login(formData));
+            localStorage.setItem('LoginuserDetails', JSON.stringify(formData))
+            dispatch(logIn(formData));
             window.location.reload();
             navigate('/');
         } else {
@@ -71,7 +77,7 @@ const Login = () => {
 
     return (
         <>
-        <div className={checkusertype === 'Designer' ? "designer-signup-form" : checkusertype === 'Customer' ? "signup-form" : ""}>
+        <div className={checkusertype === 'Designer' ? "designer-signup-form" : checkusertype === 'Customer' ? "signup-form" : checkusertype === 'SuperAdmin' ? "signup-form" : ""}>
           <div className="container">
               <div className="signup-content">
                   <div className="form-heading">
