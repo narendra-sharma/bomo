@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "./static/css/main.357a12ff.css",
+    "main.js": "./static/js/main.4e6693dc.js",
+    "static/js/787.47101580.chunk.js": "./static/js/787.47101580.chunk.js",
+    "static/media/bomo-logo.svg": "./static/media/bomo-logo.c323ceed660781e814a8d6a78f9250b7.svg",
+    "index.html": "./index.html",
+    "main.357a12ff.css.map": "./static/css/main.357a12ff.css.map",
+    "main.4e6693dc.js.map": "./static/js/main.4e6693dc.js.map",
+    "787.47101580.chunk.js.map": "./static/js/787.47101580.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.357a12ff.css",
+    "static/js/main.4e6693dc.js"
+  ]
+}

@@ -105,9 +105,9 @@ const Login = () => {
                   {checkusertype === 'SuperAdmin' ? (
                     <p></p>
                   ): checkusertype === 'Designer' ? (
-                    <p className="already-register">Don’t have an account? <a href='/signup' className="login-redirect">signup</a></p>
+                    <p className="already-register">Don’t have an account? <a href='/signup' className="login-redirect">Signup</a></p>
                   ) : checkusertype === 'Customer' ? (
-                    <p className="already-register">Don’t have an account? <a href='/signup' className="login-redirect">signup</a></p>
+                    <p className="already-register">Don’t have an account? <a href='/signup' className="login-redirect">Signup</a></p>
                   ): (
                     <p>Usertype not found,You can't Signup</p>
                   )}

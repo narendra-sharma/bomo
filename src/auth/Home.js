@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { setUserType } from "../reduxdata/Actions/authActions";
 import { useDispatch } from "react-redux";
+import bomowhiteLogo from '../images/logo-provisional.png';
 
 const Bomohome = () => {
     const navigate = useNavigate();
@@ -15,8 +16,9 @@ const Bomohome = () => {
     };
     return(
         <>
-         <div className="Home-screen">
+         <div className="Home-screen text-center">
             <div className="container">
+              <div className="mb-5"><img src={bomowhiteLogo} alt="Bomo logo" /></div>
                {
                 bomousers.map((ele,index)=>{
                     return (

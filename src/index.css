@@ -9,13 +9,15 @@ body {
   padding: 0;
   background-color: #f2f2f2!important;
 }
-
+.bg-gray-light{
+  background-color: #F2F2F2;
+}
 h1, h2 , h3, h4, h5, h6 , p{
   margin: 0;
 }
-.px-100{
-  padding-left: 100px;
-  padding-right: 100px;
+.px-60{
+  padding-left: 60px;
+  padding-right: 60px;
 }
 .d-block{
   display: block;
@@ -35,7 +37,7 @@ h1, h2 , h3, h4, h5, h6 , p{
   color:  #284719;
   padding: 100px 0;
 } */
-.signup-design-form{
+.designer-signup-form{
   background-color: #CDFFB5;
   color:#284719;
   padding: 100px 0;
@@ -59,7 +61,10 @@ h1, h2 , h3, h4, h5, h6 , p{
   border-radius: 2.82px;
   padding: 40px 45px;
  }
- .signup-design-form .form-inner{
+ .form-heading h2{
+  font-size: 50px;
+ }
+ .designer-signup-form .form-inner{
   border: solid 0.71px#56873F;
  }
 .form-inner label{
@@ -71,7 +76,7 @@ font-weight: 500;
   color: #56873F;
   font-weight: 500;
 }
-.signup-design-form 
+.designer-signup-form 
 .form-inner label{
 color: #284719;
 }
@@ -90,7 +95,7 @@ color: #284719;
   height: 38px;
 
 }
-.signup-design-form  .form_control{
+.designer-signup-form  .form_control{
   border-color: #284719;
   color: #56873F;
 }
@@ -103,12 +108,13 @@ color: #284719;
   font-weight: 700;
   font-size: 17px;
   margin-top: 40px;
+  border-radius: 3px;
 }
 .signup-btn{
   background: #CDFFB5;
   color: #284719;
 }
-.signup-design-form .submit-btn{
+.designer-signup-form .submit-btn{
   background-color: #284719;
   color: #CDFFB5;
 }
@@ -127,7 +133,7 @@ font-weight: 500;
   color: #CDFFB5;
   text-decoration: none;
 }
-.signup-design-form .login-redirect{
+.designer-signup-form .login-redirect{
   color: #56873F;
 }
 .mt-150{
@@ -172,41 +178,124 @@ nav{
   font-family: 'Roboto Flex', sans-serif;
 
 }
-.main-content{
+.main-content-wraaper{
   font-family: 'Roboto Flex', sans-serif;
+  color: #000;
 
 }
-.main-content h3{
+.review-main-content h3{
   font-weight: 700;
   font-size: 21px;
   line-height: 23px;
-  color: #000;
-  
 }
 .request-date p {
   font-size: 13px;
-  color: #000;
   line-height: 16px;
   font-weight: 600;
 }
 .review-content p {
   font-size: 13px;
-  line-height: 17px;
+  line-height: 16px;
+  margin-bottom: 0;
+  letter-spacing: -0.48px;
 }
-.short0ad {
+.review-content .short0ad {
   border: solid 1px #B185F2;
-  color: #B185F2;
-  padding: 4px 20px;
+  padding: 4px 15px;
   border-radius: 20px;
+  color:#B185F2;
+  font-weight: 600;
 }
-.review-content .dflex{
-  gap:35px;
+.review-content .d-flex{
+  gap:25px;
 }
-.review-delivery{
-  background-color:
-  #ECF7EE;
+.review-delivery a{
+  background-color:#ECF7EE;
   border: solid 1px #3FCE3C;
   padding: 10px 75px 10px 75px;
+  color:#012801;
+  font-weight: 700;
+}
+.review-content  .web-animation{
+  color:#EDAFFE;
+  border-color: #EDAFFE;
+ }
+ .draft-table{
+  border: solid 1px #000;
+ }
+ .draft-table tr{
+  border-color:#000 ;
+ }
+ .draft-table tr:last-child ,  .draft-table tr:last-child td{
+  border:none
+
+ }
+ .draft-table table>:not(caption)>*>*{
+  background-color: transparent!important;
+  }
+  .draft-table p a{
+    color: #000;
+  }
+  .review-content table  td{
+  vertical-align: middle;
+  padding: 13px 12px;
+  }
+.review-content .draft-table table  td{
+    padding: 13px 20px;
+}
+.review-content .feedback-queue td{
+  padding: 13px 6px;
+}
+.review-content .loop {
+    color: #FA812A;
+    border-color: #FA812A;
+    background: #fff;
+}
+.review-content table td:last-child {
+  padding-right: 0;
+}
+.draft-table .review-content table  td{
+  padding: 13px 8px;
+}
+
+.draft-table table td:first-child{
+  width: 175px;
+}
+.draft-table table td:nth-child(2){
+ width: 85px;
+}
+.draft-table table td:nth-child(3){
+  width: 85px;
+}
+.draft-table p.short0ad{
+  width: 111px;
+  padding: 8px 11px;
+}
+.review-content .brand-element {
+  color: #0657EB;
+  border-color: #0657EB;
+}
+.review-content .ui-animation {
+  color: #7C96FE;
+  border-color:#7C96FE;
+}
+.review-content .typography {
+  color: #D6C10B;
+  border-color: #D6C10B;
+}
+.review-content .transition{
+  color: #F92B34;
+  border-color: #F92B34;
+}
+p.serial-number {
+  background: #D2CECE;
+  border-radius: 50%;
+  height: 17px;
+  width: 17px;
+  text-align: center;
+  font-size: 10px;
+  color: #fff;
+  line-height: 17px;
 }
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
