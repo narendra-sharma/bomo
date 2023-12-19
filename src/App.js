@@ -14,10 +14,8 @@ import Subscription from './Customer/Subscription';
 import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
-import { Provider } from 'react-redux';
-import store from './reduxdata/Store/store';
+
 function App() {
-  const [isAuth,setIsAuth] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
@@ -44,11 +42,11 @@ function App() {
   ])
   return (
       <BrowserRouter>
-        {isAuth?<>
-         <Sidebar/>
-         <Header/>
-         <AfterLoginCustomerRoutes/>
-        </>:<AuthRoutes/>}
+        {isAuth ? <>
+          <Sidebar />
+          <Header />
+          <AfterLoginCustomerRoutes />
+        </> : <AuthRoutes />}
       </BrowserRouter>
   );
 }

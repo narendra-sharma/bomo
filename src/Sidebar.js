@@ -1,6 +1,19 @@
 import React from "react";
 import bomoLogo from './images/bomo-logo.svg'
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "./reduxdata/Reducer/userSlice";
 const Sidebar = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        window.location.reload();
+        localStorage.removeItem('userDetails');
+        dispatch(logout());
+        navigate('/login');
+    }
     
     return(
         <>
@@ -28,7 +41,7 @@ const Sidebar = () => {
                             <span className="ml-2">Setting</span>
                         </a>
                         <a className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#sale-collapse">
-                            <span className="ml-2">Logout</span>
+                            <span className="ml-2" onClick={handleLogout}>Logout</span>
                         </a>
                     </div>
                 </div>

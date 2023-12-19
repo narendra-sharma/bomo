@@ -1,19 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "./reduxdata/Reducer/userSlice";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        window.location.reload();
-        localStorage.removeItem('userDetails');
-        dispatch(logout());
-        navigate('/login');
-    }
     
     return(
         <div className="col-md-9 col-lg-10 ml-md-auto px-0 ms-md-auto">
