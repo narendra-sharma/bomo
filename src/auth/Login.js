@@ -30,13 +30,13 @@ const Login = () => {
         } else if (!exptest.test(formData.email)) {
             setEmailerror('Email is Invalid*');
         } else {
-            setEmailerror(null)
+            setEmailerror(null);
         }
 
         if (formData.password === '') {
             setPassworderror('Password is Required*');
         } else {
-            setPassworderror(null)
+            setPassworderror(null);
         }
         
         //const user = users.find((u) => u.email === formData.email && u.password === formData.password);
