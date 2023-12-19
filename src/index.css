@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'Recless Medium';
+  src: url("./font/Reckless-Medium.otf");
+  src: url("./font/Reckless-Medium.ttf");
+}
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
 body {
   margin: 0;
@@ -42,10 +47,11 @@ h1, h2 , h3, h4, h5, h6 , p{
   color:#284719;
   padding: 100px 0;
 }
-.signup-form h2{
+.signup-form h2, .form-heading h2{
   font-size: 75px;
   font-weight: 500;
   line-height: 80px;
+  font-family: "Recless Medium";
 }
 .form-group{
   margin-bottom: 15px;
@@ -61,9 +67,7 @@ h1, h2 , h3, h4, h5, h6 , p{
   border-radius: 2.82px;
   padding: 40px 45px;
  }
- .form-heading h2{
-  font-size: 50px;
- }
+ 
  .designer-signup-form .form-inner{
   border: solid 0.71px#56873F;
  }
