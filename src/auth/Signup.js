@@ -118,13 +118,13 @@ const Signup = () => {
                         <div className="form-heading">
                             {userrole === 'Designer' ? (
                                 <h2>Welcome
-                                    <span className="d-block">MOTION   </span>
-                                    <span className="d-block">DESIGNER</span>
+                                    <span className="d-block fw-bold font-roboto">MOTION   </span>
+                                    <span className="d-block fw-bold font-roboto">DESIGNER</span>
                                 </h2>
                             ) : userrole === 'Customer' ? (
                                 <h2>It’s time
                                     <span className="d-block">to step up   </span>
-                                    <span className="d-block">MOTION</span>
+                                    <span className="d-block font-roboto">MOTION</span>
                                 </h2>
                             ) : (
                                 <h2>Usertype not found</h2>
