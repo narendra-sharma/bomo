@@ -62,7 +62,7 @@ const Sidebar = () => {
             {userrole === 'Customer' ? (<>
                 <div className="">
                     <div id="sidebar-overlay" className="overlay w-100 vh-100 position-fixed d-none"></div>
-                        <div className="col-md-3 col-lg-2 px-0 position-fixed h-100 bg-white shadow-sm sidebar d-flex justify-content-between flex-column  pb-5" id="sidebar">
+                        <div className="px-0 position-fixed h-100 bg-white shadow-sm sidebar d-flex justify-content-between flex-column  pb-5" id="sidebar">
                             <div>
                                 <div className="text-center pt-3"><img src={bomoLogo} alt="Bomo logo" /></div>
                                 <div className="list-group pt-5">
