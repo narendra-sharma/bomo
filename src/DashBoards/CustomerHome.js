@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const CustomerHome = () => {
     return (
-        <div className="col-md-9 col-lg-10 ml-md-auto py-4 ms-md-auto">
+        <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
             <div className="mx-md-3 mx-lg-5 mb-4">
               <div className="d-flex justify-content-md-end">
                 <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                  <div className="new-request rounded-pill px-4 py-2 fw-bold">New Request</div>
+                <a href="#" className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</a>
                   <div className="request-date ms-2"><p className="mb-0"><span>21:43</span><span className="d-block">Wed 01 Nov, 2023 </span></p></div>
                 </div>
               </div>  
@@ -25,7 +25,7 @@ const CustomerHome = () => {
                   <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
                   <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                  <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none">Review Delivery</Link></div></td>
+                  <td className="pull-right"> <div className="review-delivery"><a href="#" className="rounded-pill text-decoration-none">Review Delivery</a></div></td>
                   </tr>
                   </tbody>
                   </table>
@@ -122,7 +122,7 @@ const CustomerHome = () => {
                       <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                       <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                       <td className="text-center"><p>DIOR</p></td>
-                      <td className="text-center"><p><Link className="text-decoration-none">continue editing</Link></p></td>
+                      <td className="text-center"><p><a href="#" className="text-decoration-none">continue editing</a></p></td>
                     </tr>
 
                     <tr>
@@ -131,7 +131,7 @@ const CustomerHome = () => {
                       <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                       <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                       <td className="text-center"><p>DIOR</p></td>
-                      <td className="text-center"><p><Link className="text-decoration-none">continue editing</Link></p></td>
+                      <td className="text-center"><p><a href="#" className="text-decoration-none">continue editing</a></p></td>
                     </tr>
 
                     <tr>
@@ -140,7 +140,7 @@ const CustomerHome = () => {
                       <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                       <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                       <td className="text-center"><p>DIOR</p></td>
-                      <td className="text-center"> <p><Link href="#" className="text-decoration-none">continue editing</Link></p></td>
+                      <td className="text-center"> <p><a href="#" className="text-decoration-none">continue editing</a></p></td>
                     </tr>
 
                     <tr>
@@ -149,7 +149,7 @@ const CustomerHome = () => {
                       <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                       <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                       <td className="text-center"><p>DIOR</p></td>
-                      <td className="text-center"><p><Link className="text-decoration-none">continue editing</Link></p></td>
+                      <td className="text-center"><p><a href="#" className="text-decoration-none">continue editing</a></p></td>
                     </tr>
                   </tbody>
                 </table>
