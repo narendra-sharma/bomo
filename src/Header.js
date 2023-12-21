@@ -1,14 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { connect, useSelector } from "react-redux";
 import userImage from './images/user-img.png';
 
-const Header = () => {
-
-    const userrole = useSelector((state) => state.auth.role || '')
-    const userdetails = localStorage.getItem('LoginuserDetails')
-    const usertypecheck = JSON.parse(userdetails);
-
-    
+const Header = ({user,userrole}) => {
+    const [cuser,setCuser]=useState(null);
+    useEffect(()=>{
+        setCuser(user);
+    },[user])
     return(
         <div className="col-md-9 col-lg-10 ml-md-auto px-0 ms-md-auto">
           <nav className="w-100 d-flex px-60 py-3 justify-content-between align-items-center bg-white">
@@ -20,11 +18,19 @@ const Header = () => {
               </div>
               <div className="d-flex text-right justify-content-between align-items-center">
               <img src={userImage} alt="Bomo logo" />
-                  <p className="mb-0 user-email  ms-1 ms-lg-2"><b className="d-none d-md-block">{usertypecheck.email}</b>
+                  <p className="mb-0 user-email  ms-1 ms-lg-2"><b className="d-none d-md-block">{cuser?.email}</b>
                       <span className="d-block">{userrole}</span></p>
               </div>
           </nav>
         </div>
     )
 }
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        user:state.auth.user,
+        userrole:state.auth.role,
+    };
+};
+
+
+export default connect(mapStateToProps, null)(Header);

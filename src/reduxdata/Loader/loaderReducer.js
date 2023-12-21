@@ -1,8 +1,7 @@
 import { START_LOADING, STOP_LOADING } from "./loaderTypes";
 
 const initialState = {
-    isLoading: false,
-    userdata: null
+    isLoading: false
   };
   
   const loaderReducer = (state = initialState, action) => {

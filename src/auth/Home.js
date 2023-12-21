@@ -8,7 +8,6 @@ const Bomohome = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const bomousers = ['SuperAdmin', 'Customer', 'Designer'];
-
     const Handleuser = (usertype) => {
         dispatch(setUserType(usertype));
         navigate('/login');

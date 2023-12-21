@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logIn, setUpdateUser } from "../reduxdata/User/userActions";
-import { startLoading, stopLoading } from "../reduxdata/Loader/loaderActions";
+import { logIn, startLoading } from "../reduxdata/rootAction";
+import { bindActionCreators } from "redux";
 
 const Login = (props) => {
-
     const { isLoading, startLoading, } = props;
-
     let typeuser = localStorage.getItem('USERTYPE');
     let checkusertype = JSON.parse(typeuser);
     const userrole = useSelector((state) => state.auth.role || '')
-    console.log("userole",userrole);
-
-
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
    
     const navigate = useNavigate();
-
+    const dispatch=useDispatch();
     const [emailerror, setEmailerror] = useState(null);
     const [passworderror, setPassworderror] = useState(null);
 
@@ -43,7 +38,6 @@ const Login = (props) => {
         }
         
         if (formData.email !== '' && formData.password !== '') {
-            localStorage.setItem('LoginuserDetails', JSON.stringify(formData))
             await handleSignup(formData, userrole);
         }
     };
@@ -67,11 +61,9 @@ const Login = (props) => {
         }
     };
 
-    const handleSignup = async (user, role) => {
-        console.log("APi Form Data--->",user,role);
-        await startLoading();
-        await logIn(user,navigate);
-        setUpdateUser(user);
+    const handleSignup = (user, role) => {
+        startLoading();
+        logIn(user,dispatch);
     }
 
     return (
@@ -127,12 +119,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        startLoading: () => dispatch(startLoading()),
-        stopLoading: () => dispatch(stopLoading()),
-        logIn: (user,navigate) => dispatch(logIn(user, navigate)),
-        setUpdateUser: (user) => dispatch(setUpdateUser(user)),
-    };
+    return bindActionCreators({
+        startLoading,
+        logIn,
+    },dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
