@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -25,6 +26,8 @@ import $ from 'jquery';
 import store from './reduxdata/store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Forgotpassword from './auth/Forgotpassword';
+import Changepassword from './auth/Changepassword';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -59,7 +62,7 @@ function App() {
     store.subscribe(() => {
       setUser(store.getState()?.auth?.user);
     });
-  }, [store]);
+  }, [ store ]);
   useEffect(() => {
     setIsAuth(user?true:false);
   }, [user]);
@@ -67,6 +70,8 @@ function App() {
     { path: "/", element: <Bomohome /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> },
+    { path: "/forgot-password", element: <Forgotpassword/> },
+    { path: "/reset-password", element: <Changepassword/> },
     { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   const AfterLoginCustomerRoutes = () => useRoutes([
