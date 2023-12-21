@@ -1,14 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { setUserType } from "../reduxdata/Actions/authActions";
 import { useDispatch } from "react-redux";
 import bomowhiteLogo from '../images/logo-provisional.png';
+import { setUserType } from "../reduxdata/User/userActions";
 
 const Bomohome = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const bomousers = ['SuperAdmin', 'Customer', 'Designer'];
-
     const Handleuser = (usertype) => {
         dispatch(setUserType(usertype));
         navigate('/login');

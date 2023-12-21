@@ -22,15 +22,14 @@ import SiteEdit from './SuperAdmin/SiteEdit';
 import ActiveRequests from './Designer/ActiveRequests';
 import MotionTips from './Designer/MotionTips';
 import $ from 'jquery';
+import store from './reduxdata/store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-
+  const [user, setUser] = useState(null);
   useEffect(() => {
-    let checkuser = localStorage.getItem('LoginuserDetails');
-    if (checkuser) {
-      setIsAuth(true)
-    }
     $(document).ready(()=>{
   
       $('#open-sidebar').click(()=>{
@@ -56,6 +55,14 @@ function App() {
       
     });
   }, [])
+  useEffect(() => {
+    store.subscribe(() => {
+      setUser(store.getState()?.auth?.user);
+    });
+  }, [store]);
+  useEffect(() => {
+    setIsAuth(user?true:false);
+  }, [user]);
   const AuthRoutes = () => useRoutes([
     { path: "/", element: <Bomohome /> },
     { path: "/login", element: <Login /> },
@@ -73,7 +80,7 @@ function App() {
     { path: "/all-Customers", element: <AllCustomers />},
     { path: "/all-Designers", element: <AllDesigners />},
     { path: "/all-requests", element: <AllRequests />},
-    { path: "payments", element: <Payments /> },
+    { path: "/payments", element: <Payments /> },
     { path: "/site-edit", element: <SiteEdit /> },
     { path: "/active-requests", element: <ActiveRequests /> },
     { path: "/motion-tips", element: <MotionTips /> },
@@ -81,6 +88,7 @@ function App() {
   ])
   return (
     <BrowserRouter>
+    <ToastContainer/>
       {isAuth ? <>
         <Sidebar />
         <Header />
@@ -89,5 +97,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
