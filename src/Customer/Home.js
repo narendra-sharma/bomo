@@ -6,7 +6,6 @@ import CustomerHome from "../DashBoards/CustomerHome";
 
 const Home = () => {
   const userrole = useSelector((state) => state.auth.role || '')
-
   return (
     <>
       {userrole === 'Designer' ? <DesignerHome />

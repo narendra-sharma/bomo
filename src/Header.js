@@ -8,7 +8,7 @@ const Header = ({user,userrole}) => {
         setCuser(user);
     },[user])
     return(
-        <div className="col-md-9 col-lg-10 ml-md-auto px-0 ms-md-auto">
+        <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
           <nav className="w-100 d-flex px-60 py-3 justify-content-between align-items-center bg-white">
           <button className="btn py-0 d-lg-none" id="open-sidebar">
            <span className="toggle-btn"></span>
