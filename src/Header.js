@@ -2,12 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import userImage from './images/user-img.png';
 
-const Header = ({usertype}) => {
+const Header = () => {
 
     const userrole = useSelector((state) => state.auth.role || '')
-
-    // const typeuser = localStorage.getItem('USERTYPE');
-    // const checkusertype = JSON.parse(typeuser);
     const userdetails = localStorage.getItem('LoginuserDetails')
     const usertypecheck = JSON.parse(userdetails);
 
