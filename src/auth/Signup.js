@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../reduxdata/User/userActions";
-import { startLoading, stopLoading } from "../reduxdata/Loader/loaderActions";
+import { signUp, startLoading } from "../reduxdata/rootAction";
+import { bindActionCreators } from "redux";
 
 const Signup = (props) => {
     const { isLoading, startLoading, signUp } = props;
 
     const userrole = useSelector((state) => state.auth.role || '')
-    console.log("userole", userrole);
 
     const navigate = useNavigate();
+    const dispatch=useDispatch();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -74,12 +74,7 @@ const Signup = (props) => {
             } else if (userrole === 'Customer') {
                 userFormData.company = formData.company;
             }
-    
-            localStorage.setItem('userDetails', JSON.stringify(userFormData));
              await handleSignup(userFormData, userrole);
-
-            // localStorage.setItem('userDetails', JSON.stringify(formData))
-            // await handleSignup(formData, userrole);
         }
     }
 
@@ -122,9 +117,8 @@ const Signup = (props) => {
     }
 
     const handleSignup = async (user, role) => {
-        console.log("APi Form Data--->",user,role.toLowerCase());
         await startLoading();
-        await signUp(user, role,navigate);
+        await signUp(user,role,navigate,dispatch);
     }
 
     return (
@@ -215,16 +209,14 @@ const Signup = (props) => {
 const mapStateToProps = (state) => {
     return {
         isLoading: state.loader.isLoading,
-        signupData:state.auth.signupData,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        startLoading: () => dispatch(startLoading()),
-        stopLoading: () => dispatch(stopLoading()),
-        signUp: (user,role,navigate) => dispatch(signUp(user,role,navigate)),
-    };
+    return bindActionCreators({
+        startLoading,
+        signUp,
+    },dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
