@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import bomoLogo from '../images/bomo-logo.svg'
 import { connect } from 'react-redux';
 import { forgot_password_reset } from "../reduxdata/User/userActions";
-import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 
 const Forgotpassword = (props) => {
@@ -93,10 +91,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = () => {
+  return {
     forgot_password_reset,
-  }, dispatch);
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forgotpassword);

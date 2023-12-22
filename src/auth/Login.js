@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../reduxdata/rootAction";
-import { bindActionCreators } from "redux";
 
 const Login = (props) => {
   const { isLoading,login } = props;
@@ -126,10 +125,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = () => {
+  return {
     login
-  }, dispatch);
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
