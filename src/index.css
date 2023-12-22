@@ -25,6 +25,10 @@ html body {
 .font-roboto{
   font-family: var(--main-font);
 }
+.font-reckless{
+  font-family:var(--secondary-font) ;
+
+}
 .font-public{
 font-family: var(--pubilc-sans-font);
 }
@@ -70,8 +74,8 @@ h1, h2 , h3, h4, h5, h6 , p{
   font-family: var(--secondary-font);
   letter-spacing: -0.48px;
 }
-.signup-form h2 span, .form-heading h2 span{
-  letter-spacing: -2px;
+.signup-form h2 .font-public, .form-heading h2 span.font-public{
+  letter-spacing: -7px;
 }
 .form-inner{
   width:525px;
@@ -81,7 +85,7 @@ h1, h2 , h3, h4, h5, h6 , p{
  }
  
  .designer-signup-form .form-inner{
-  border: solid 0.71px var(--mid-green);
+  border: solid 0.71px var(--dark-green);
  }
 .form-inner label{
 margin-bottom: 8px;
@@ -102,7 +106,7 @@ color: var(--dark-green);
   padding: 0.375rem 0.75rem;
   font-size: 15px;
   line-height: 1.5;
-  color: var(--mid-green);
+  color: var(--light-green);
   background-color: transparent;
   border: 0.71px solid #CDFFB5;
   border-radius: 2.82px;
@@ -113,7 +117,7 @@ color: var(--dark-green);
 }
 .designer-signup-form  .form_control{
   border-color: var(--dark-green);
-  color: var(--mid-green);
+  color: var(--dark-green);
 }
 .submit-btn{
   display: block;
@@ -172,6 +176,12 @@ font-weight: 500;
 }
 .signup-form .bomo-login-logo{
   color: #CDFFB5;
+}
+.designer-signup-form a.color-white{
+color: var(--dark-green);
+}
+.forgot-password h1 {
+  font-size: 55px;
 }
 .mt-150{
   margin-top: 150px;
@@ -544,6 +554,7 @@ table.feedback-queue tr:first-child td{
 .subscribers{
   border:solid 1px #000;
 }
+
 @media(max-width:767px){
   nav h4{
     font-size: 15px;
@@ -583,4 +594,7 @@ table.feedback-queue tr:first-child td{
     font-size: 33px;
     line-height: normal;
   }
+  .signup-form h2, .form-heading h2 , .forgot-password h1 {
+    font-size: 43px;
+    line-height: 50px;}
 }
