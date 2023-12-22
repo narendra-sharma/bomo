@@ -29,10 +29,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Forgotpassword from './auth/Forgotpassword';
 import Changepassword from './auth/Changepassword';
 import Updatepassword from './Modals/Updatepassword';
+import { connect } from 'react-redux';
 
-function App() {
+function App({user}) {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState(null);
   useEffect(() => {
     $(document).ready(()=>{
   
@@ -61,7 +61,7 @@ function App() {
   }, [])
   useEffect(() => {
     store.subscribe(() => {
-      setUser(store.getState()?.auth?.user);
+      setIsAuth(store.getState()?.auth?.user?true:false);
     });
   }, [ store ]);
   useEffect(() => {
@@ -104,4 +104,11 @@ function App() {
     </BrowserRouter>
   );
 }
-export default App;
+const mapStateToProps = (state) => {
+  return {
+      user:state.auth.user
+  };
+};
+
+
+export default connect(mapStateToProps, null)(App);
