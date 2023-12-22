@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logIn } from "../reduxdata/rootAction";
+import { login } from "../reduxdata/rootAction";
 import { bindActionCreators } from "redux";
 
 const Login = (props) => {
-  const { isLoading } = props;
+  const { isLoading,login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
   let checkusertype = JSON.parse(typeuser);
   const userrole = useSelector((state) => state.auth.role || '')
@@ -58,7 +58,7 @@ const Login = (props) => {
   };
 
   const handleSignup = (user, role) => {
-    logIn(user, dispatch);
+    login(user,role,dispatch);
   }
 
   return (
@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    logIn,
+    login
   }, dispatch);
 };
 

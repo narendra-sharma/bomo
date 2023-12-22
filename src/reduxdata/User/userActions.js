@@ -1,12 +1,12 @@
 import axios from "axios";
 import { LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
-import { startLoading, stopLoading } from "../rootAction";
+import { start_loading, stop_loading } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-export const signUp = async (user, role, navigate, dispatch) => {
-  dispatch(startLoading());
+export const signup = async (user, role, navigate, dispatch) => {
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/signup/${role.toLowerCase()}`;
     const HEADERS = {
@@ -25,12 +25,13 @@ export const signUp = async (user, role, navigate, dispatch) => {
   } catch (error) {
     toast.error(error.response.data.message);
   } finally {
-    dispatch(stopLoading());
+    dispatch(stop_loading());
   }
 };
 
-export const logIn = async (user, dispatch) => {
-  dispatch(startLoading());
+export const login = async (user,role,dispatch) => {
+  role=role.toLowerCase();
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/login`;
     const HEADERS = {
@@ -40,41 +41,45 @@ export const logIn = async (user, dispatch) => {
     }
     const res = await axios.post(url, user, HEADERS);
     if (res.data && res.data.status) {
-      toast.success('Successfully user logged-in!');
-      localStorage.setItem('userDetails', JSON.stringify(res.data.data));
-      dispatch(setUpdateUser(res.data.data));
+      if(res.data.data.role===role){
+        toast.success('Successfully user logged-in!');
+        localStorage.setItem('userDetails', JSON.stringify(res.data.data));
+        dispatch(set_update_user(res.data.data));
+      }else{
+        toast.error('Invalid credential.');
+      }
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
     toast.error(error.response.data.message)
   } finally {
-    dispatch(stopLoading());
+    dispatch(stop_loading());
   }
 };
 
-export const logOut = () => {
+export const logout = () => {
   return {
     type: LOG_OUT,
   };
 };
 
-export const setUserType = (usertype) => {
+export const set_user_type = (usertype) => {
   return {
     type: SET_USER_TYPE,
     payload: usertype,
   };
 };
 
-export const setUpdateUser = (user) => {
+export const set_update_user = (user) => {
   return {
     type: USER_UPDATE,
     payload: user,
   };
 }
 
-export const forgotPasswordReset = async (email, dispatch) => {
-  dispatch(startLoading());
+export const forgot_password_reset = async (email, dispatch) => {
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/forgot-password`;
     const HEADERS = {
@@ -91,12 +96,12 @@ export const forgotPasswordReset = async (email, dispatch) => {
   } catch (error) {
     toast.error(error.response.data.message)
   } finally {
-    dispatch(stopLoading());
+    dispatch(stop_loading());
   }
 };
 
-export const resetPassword = async (newPassword, token, navigate, dispatch) => {
-  dispatch(startLoading());
+export const reset_password = async (newPassword, token, navigate, dispatch) => {
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/reset-password/${token}`;
     const HEADERS = {
@@ -114,6 +119,6 @@ export const resetPassword = async (newPassword, token, navigate, dispatch) => {
   } catch (error) {
     toast.error(error.response.data.message)
   } finally {
-    dispatch(stopLoading());
+    dispatch(stop_loading());
   }
 };

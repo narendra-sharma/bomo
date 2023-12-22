@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import bomoLogo from "../images/bomo-logo.svg"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { connect } from 'react-redux';
-import { resetPassword } from "../reduxdata/User/userActions";
+import { reset_password } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const Changepassword = (props) => {
 
-  const { isLoading } = props;
+  const { isLoading,reset_password } = props;
   let [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     password: '',
@@ -60,7 +60,7 @@ const Changepassword = (props) => {
   };
 
   const handleLink = async (user) => {
-    await resetPassword(user, searchParams.get('token'), navigate, dispatch);
+    await reset_password(user, searchParams.get('token'), navigate, dispatch);
   }
 
   return (
@@ -105,7 +105,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    resetPassword,
+    reset_password,
   }, dispatch);
 };
 

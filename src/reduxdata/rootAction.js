@@ -1,10 +1,12 @@
-import { startLoading,stopLoading } from "./Loader/loaderActions";
-import { logIn,signUp,logOut,setUserType } from "./User/userActions";
+import { start_loading,stop_loading } from "./Loader/loaderActions";
+import { login,signup,logout,set_user_type } from "./User/userActions";
+import { get_plans } from "./Plans/planActions";
 export {
-    startLoading,
-    stopLoading,
-    logIn,
-    signUp,
-    logOut,
-    setUserType
+    start_loading,
+    stop_loading,
+    login,
+    signup,
+    logout,
+    set_user_type,
+    get_plans
 }  

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../reduxdata/rootAction";
+import { signup } from "../reduxdata/rootAction";
 import { bindActionCreators } from "redux";
 
 const Signup = (props) => {
-  const { isLoading, signUp } = props;
+  const { isLoading, signup } = props;
 
   const userrole = useSelector((state) => state.auth.role || '')
 
@@ -106,7 +106,7 @@ const Signup = (props) => {
   }
 
   const handleSignup = async (user, role) => {
-    await signUp(user, role, navigate, dispatch);
+    await signup(user, role, navigate, dispatch);
   }
 
   return (
@@ -202,7 +202,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    signUp,
+    signup,
   }, dispatch);
 };
 

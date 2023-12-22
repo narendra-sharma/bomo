@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import bomoLogo from '../images/bomo-logo.svg'
 import { connect } from 'react-redux';
-import { forgotPasswordReset } from "../reduxdata/User/userActions";
+import { forgot_password_reset } from "../reduxdata/User/userActions";
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 
 const Forgotpassword = (props) => {
-  const { isLoading } = props;
+  const { isLoading,forgot_password_reset } = props;
   const [formData, setFormData] = useState({
     email: ''
   });
@@ -47,7 +47,7 @@ const Forgotpassword = (props) => {
 
   const handleLink = async (user) => {
     console.log("APi Form Data--->", user);
-    await forgotPasswordReset(user, dispatch);
+    await forgot_password_reset(user, dispatch);
   }
 
   return (
@@ -91,7 +91,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    forgotPasswordReset,
+    forgot_password_reset,
   }, dispatch);
 };
 
