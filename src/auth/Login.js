@@ -68,8 +68,11 @@ const Login = (props) => {
       <div className={checkusertype === 'Designer' ? "designer-signup-form" : checkusertype === 'Customer' ? "signup-form" : checkusertype === 'SuperAdmin' ? "signup-form" : ""}>
         <div className="container">
           <div className="signup-content">
-            <div className="form-heading">
-              <h2>Login</h2>
+            <div className="form-heading d-flex flex-column justify-content-between">
+              <h2 class="">Login</h2>
+              <div class="login-date">11.28.2023
+                <div className="bomo-login-logo fw-bold">Bomo</div>
+              </div>
             </div>
             <div>
               <form onSubmit={(e) => handleSubmit(e, formData, userrole)} className="form-inner">
@@ -78,7 +81,7 @@ const Login = (props) => {
                   <label>
                     Email:</label>
                   <input type="email" autoComplete="off" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
-                  {emailerror ? <p>{emailerror}</p> : null}
+                  {emailerror ? <p >{emailerror}</p> : null}
                 </div>
 
                 <div className="form-group">
@@ -91,26 +94,28 @@ const Login = (props) => {
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
                   {isLoading ? 'Login.....' : 'Login'}
                 </button>
-                <div className="text-center h8 mt-4">
+                <div className="text-center h8 mt-4 ">
                   <Link
                     to="/forgot-password"
-                    className="text-no-decoration"
+                    className="text-decoration-none color-white"
                   >
                     Forgot Password?
                   </Link>
                 </div>
               </form>
+            </div>
+            </div>
               {checkusertype === 'SuperAdmin' ? (
                 <p></p>
               ) : checkusertype === 'Designer' ? (
-                <p className="already-register">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
+                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
               ) : checkusertype === 'Customer' ? (
-                <p className="already-register">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
+                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
               ) : (
                 <p>Usertype not found,You can't Signup</p>
               )}
-            </div>
-          </div>
+            
+       
         </div>
       </div>
     </>

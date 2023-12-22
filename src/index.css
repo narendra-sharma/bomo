@@ -4,19 +4,32 @@
   src: url("./font/Reckless-Medium.ttf");
 }
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap');
+:root {
+  --gray: #f2f2ff;
+  --main-font:'Roboto Flex', sans-serif;
+  --secondary-font:'Recless Medium';
+  --pubilc-sans-font:'Public Sans', sans-serif;
+  --mid-green: #56873F;
+  --dark-green:#284719;
+  --light-green:#CDFFB5
+}
 html body {
   margin: 0;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: var(--main-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
-  background-color: #f2f2f2!important;
+  background-color: var(--gray)!important;
 }
 .font-roboto{
-  font-family: 'Roboto Flex', sans-serif
+  font-family: var(--main-font);
+}
+.font-public{
+font-family: var(--pubilc-sans-font);
 }
 .bg-gray-light{
-  background-color: #F2F2F2;
+  background-color: var(--gray);
 }
 h1, h2 , h3, h4, h5, h6 , p{
   margin: 0;
@@ -25,34 +38,21 @@ h1, h2 , h3, h4, h5, h6 , p{
   padding-left: 60px;
   padding-right: 60px;
 }
-.d-block{
-  display: block;
-}
 .color-white{
   color: #fff;
 }
-
-  
+.h-100vh{
+  height: 100vh;
+}
 .signup-form{
-  background-color: #284719;
+  background-color: var(--dark-green);
   color: #CDFFB5;
   padding: 100px 0;
 }
-/* .designer-signup-form{
-  background-color:#CDFFB5;
-  color:  #284719;
-  padding: 100px 0;
-} */
 .designer-signup-form{
   background-color: #CDFFB5;
-  color:#284719;
+  color:var(--dark-green);
   padding: 100px 0;
-}
-.signup-form h2, .form-heading h2{
-  font-size: 75px;
-  font-weight: 500;
-  line-height: 80px;
-  font-family: "Recless Medium";
 }
 .form-group{
   margin-bottom: 15px;
@@ -61,6 +61,17 @@ h1, h2 , h3, h4, h5, h6 , p{
   display:flex;
   justify-content: space-between;
   gap:30px;
+  font-family: var(--pubilc-sans-font)!important;
+}
+.signup-form h2, .form-heading h2{
+  font-size: 88px;
+  font-weight: 500;
+  line-height: 84px;
+  font-family: var(--secondary-font);
+  letter-spacing: -0.48px;
+}
+.signup-form h2 span, .form-heading h2 span{
+  letter-spacing: -2px;
 }
 .form-inner{
   width:525px;
@@ -70,20 +81,20 @@ h1, h2 , h3, h4, h5, h6 , p{
  }
  
  .designer-signup-form .form-inner{
-  border: solid 0.71px#56873F;
+  border: solid 0.71px var(--mid-green);
  }
 .form-inner label{
 margin-bottom: 8px;
 display: block;
-font-weight: 500;
+font-weight: 700;
 }
 .form-inner input::placeholder{
-  color: #56873F;
+  color: var(--mid-green);
   font-weight: 500;
 }
 .designer-signup-form 
 .form-inner label{
-color: #284719;
+color: var(--dark-green);
 }
 .form_control{
   display: block;
@@ -91,7 +102,7 @@ color: #284719;
   padding: 0.375rem 0.75rem;
   font-size: 15px;
   line-height: 1.5;
-  color: #56873F;
+  color: var(--mid-green);
   background-color: transparent;
   border: 0.71px solid #CDFFB5;
   border-radius: 2.82px;
@@ -101,8 +112,8 @@ color: #284719;
 
 }
 .designer-signup-form  .form_control{
-  border-color: #284719;
-  color: #56873F;
+  border-color: var(--dark-green);
+  color: var(--mid-green);
 }
 .submit-btn{
   display: block;
@@ -117,14 +128,14 @@ color: #284719;
 }
 .signup-btn{
   background: #CDFFB5;
-  color: #284719;
+  color: var(--dark-green);
 }
 .designer-signup-form .submit-btn{
-  background-color: #284719;
+  background-color: var(--dark-green);
   color: #CDFFB5;
 }
 .signup-form p{
-color:#56873F;
+color:var(--mid-green);
 font-weight: 500;
 }
 .already-register{
@@ -134,19 +145,37 @@ font-weight: 500;
 .login-redirect{
   padding: 10px 20px;
   border-radius:10px;
-  border:solid 1px #56873F;
+  border:solid 1px var(--mid-green);
   color: #CDFFB5;
   text-decoration: none;
 }
 .designer-signup-form .login-redirect{
-  color: #56873F;
+  color: var(--mid-green);
+}
+.forgot-password{
+  display: flex;
+  align-items: center;
+}
+.bomo-login-logo{
+  font-style: italic;
+  font-family: var(--main-font);
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: -0.48px
+}
+.login-date {
+  font-size: 19px;
+  letter-spacing: -0.48px
+}
+.designer-signup-form .bomo-login-logo , .designer-signup-form .login-date {
+  color: var(--mid-green);
 }
 .mt-150{
   margin-top: 150px;
 }
 .Home-screen{
   height: 100vh;
-  background-color: #284719;
+  background-color: var(--dark-green);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -173,7 +202,7 @@ font-weight: 500;
   z-index: 99;
 }
 .sidebar .list-group-item.active{
-  background-color: #f2f2f2;
+  background-color: var(--gray);
   color: #000;
   font-weight: 700;
 }
@@ -336,7 +365,7 @@ table.feedback-queue {
   border-spacing: 0 10px;
 }
 table.feedback-queue tr td{
-  background-color: #f2f2f2;
+  background-color: var(--gray);
 }
 table.feedback-queue tr:first-child td{
   background-color: transparent;
@@ -369,7 +398,7 @@ table.feedback-queue tr:first-child td{
   font-size: 14px;
 }
 .modify-subscription{
-  color:#284719;
+  color:var(--dark-green);
   letter-spacing: -0.48px;
 }
 .modify-subscription h2{
@@ -379,12 +408,12 @@ table.feedback-queue tr:first-child td{
 
 }
 .modify-subscription .subscription-heading{
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: var(--main-font);
   font-weight: 700;
 }
 .subscription-data .savings{
-  border: solid 1px #56873F ;
-  color:#56873F;
+  border: solid 1px var(--mid-green) ;
+  color:var(--mid-green);
   font-weight: 500;
   letter-spacing: .48px; 
 }
@@ -397,12 +426,12 @@ table.feedback-queue tr:first-child td{
   font-weight: 500;
 }
 .modify-subscription .update-btn{
-  color: #284719;
-  border: solid 1px #56873F;
+  color: var(--dark-green);
+  border: solid 1px var(--mid-green);
   font-size: 17px;
 }
 .modify-subscription {
-  border: solid 1px #56873F;
+  border: solid 1px var(--mid-green);
 }
 .subscription-progress {
   gap: 5px;
@@ -419,7 +448,7 @@ table.feedback-queue tr:first-child td{
 }
 .subscription-progress .stepIndicator.active {
   font-weight: 600;
-  color:#56873F;
+  color:var(--mid-green);
 }
 .subscription-progress .stepIndicator::before {
   content: "";
@@ -432,12 +461,12 @@ table.feedback-queue tr:first-child td{
   height: 8px;
   background-color: transparent;
   border-radius: 50%;
-  border: 3px solid #56873F;
+  border: 3px solid var(--mid-green);
   top: 73%;
 }
 .subscription-progress .stepIndicator.active::before {
-  background-color: #56873F;
-  border: 3px solid #56873F;
+  background-color: var(--mid-green);
+  border: 3px solid var(--mid-green);
 }
 .subscription-progress .stepIndicator::after {
   content: "";
@@ -449,7 +478,7 @@ table.feedback-queue tr:first-child td{
   background-color: #f3f3f3;
 }
 .subscription-progress .stepIndicator.active::after {
-  background-color: #56873F;
+  background-color: var(--mid-green);
 }
 .subscription-progress .stepIndicator:last-child:after {
   display: none;
@@ -501,7 +530,7 @@ table.feedback-queue tr:first-child td{
   transition: .2s ease-in-out;
 }
 .new-request{
-  background-color: #f2f2f2;
+  background-color: var(--gray);
   transition: .2s ease-in-out;
 }
 .request-content:hover .new-request{

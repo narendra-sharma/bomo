@@ -51,30 +51,34 @@ const Forgotpassword = (props) => {
 
   return (
     <>
-      <div className="signup-form">
+      <div className="signup-form  forgot-password h-100vh">
         <div className="container">
           <div className="signup-content">
-            <div className="form-heading">
-              <img src={bomoLogo} alt="admin" />
-              <h5>Forgot Password</h5>
+            <div className="form-heading d-flex flex-column justify-content-between">
+              <h1 className="color-white font-roboto">Forgot Password</h1>
+              <div class="login-date">11.28.2023
+                <div className="bomo-login-logo fw-bold">Bomo</div>
+              </div>
             </div>
             <div>
-              <form onSubmit={(e) => handleSubmit(e, formData)}>
+              <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
                 <div className="mb-3">
-                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                <label>
+                    Enter Email Address:</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   {emailerror ? <p>{emailerror}</p> : null}
                 </div>
-                <button type="submit" className="btn btn-success btn-lg w-100">
+                <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Sending Link.....' : 'Send Link'}
                 </button>
               </form>
-              <div className="text-center h5 mt-4 fw-bold">
-                <Link to="/login" className="text-no-decoration">
+            </div>
+          </div>
+          <div className="text-end mt-5 ">
+                <Link to="/login" className="login-redirect">
                   Back to login
                 </Link>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </>
