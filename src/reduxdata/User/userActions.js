@@ -8,7 +8,7 @@ const { REACT_APP_BOMO_URL } = process.env;
 export const signUp = async (user, role, navigate, dispatch) => {
   dispatch(startLoading());
   try {
-    const url = `${REACT_APP_BOMO_URL}signup/${role.toLowerCase()}`;
+    const url = `${REACT_APP_BOMO_URL}auth/signup/${role.toLowerCase()}`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const signUp = async (user, role, navigate, dispatch) => {
 export const logIn = async (user, dispatch) => {
   dispatch(startLoading());
   try {
-    const url = `${REACT_APP_BOMO_URL}login`;
+    const url = `${REACT_APP_BOMO_URL}auth/login`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json"
@@ -76,7 +76,7 @@ export const setUpdateUser = (user) => {
 export const forgotPasswordReset = async (email, dispatch) => {
   dispatch(startLoading());
   try {
-    const url = `${REACT_APP_BOMO_URL}forgot-password`;
+    const url = `${REACT_APP_BOMO_URL}auth/forgot-password`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json"
@@ -98,7 +98,7 @@ export const forgotPasswordReset = async (email, dispatch) => {
 export const resetPassword = async (newPassword, token, navigate, dispatch) => {
   dispatch(startLoading());
   try {
-    const url = `${REACT_APP_BOMO_URL}reset-password/${token}`;
+    const url = `${REACT_APP_BOMO_URL}auth/reset-password/${token}`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json"

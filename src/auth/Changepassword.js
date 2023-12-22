@@ -15,7 +15,7 @@ const Changepassword = (props) => {
     confirmpassword: ''
   });
   const [passworderror, setPassworderror] = useState(null);
-  const [confirmpassworderror, setconfirmonfirmPassworderror] = useState(null);
+  const [confirmpassworderror, setconfirmPassworderror] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,9 +31,9 @@ const Changepassword = (props) => {
     }
 
     if (formData.confirmpassword !== formData.password) {
-      setconfirmonfirmPassworderror("Password doesn't match*");
+      setconfirmPassworderror("Password doesn't match*");
     } else {
-      setconfirmonfirmPassworderror(null);
+      setconfirmPassworderror(null);
     }
 
     if (formData.password === formData.confirmpassword) {
@@ -43,20 +43,19 @@ const Changepassword = (props) => {
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    if (formData.password === '') {
-      setPassworderror('Password is Required*');
-    } else if (formData.password.length < 5) {
-      setPassworderror("Password length should be more than 5*")
-    } else {
-      setPassworderror(null)
-    }
-
-    if (formData.confirmpassword !== formData.password) {
-      setconfirmonfirmPassworderror("Password doesn't match*");
-    } else {
-      setconfirmonfirmPassworderror(null);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  
+    switch (name) {
+      case 'password':
+        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5*' : null);
+        break;
+      case 'confirmpassword':
+        setconfirmPassworderror(value === '' ? 'Confirm your password*' : value !== formData.password ? "Password doesn't match*" : null);
+        break;
+      default:
+        break;
     }
   };
 

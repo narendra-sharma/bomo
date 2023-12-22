@@ -28,6 +28,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Forgotpassword from './auth/Forgotpassword';
 import Changepassword from './auth/Changepassword';
+import Updatepassword from './Modals/Updatepassword';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -89,6 +90,7 @@ function App() {
     { path: "/site-edit", element: <SiteEdit /> },
     { path: "/active-requests", element: <ActiveRequests /> },
     { path: "/motion-tips", element: <MotionTips /> },
+    { path: "/update-password", element: <Updatepassword/> },
     { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   return (
