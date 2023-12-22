@@ -2,12 +2,11 @@
 import React from "react";
 import bomoLogo from './images/bomo-logo.svg'
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logOut } from "./reduxdata/rootAction";
 const Sidebar = () => {
   const userrole = useSelector((state) => state.auth.role || '')
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('userDetails');
     localStorage.removeItem('USERTYPE');

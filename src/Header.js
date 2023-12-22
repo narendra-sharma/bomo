@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import userImage from './images/user-img.png';
 
 const Header = ({user,userrole}) => {
@@ -18,7 +18,7 @@ const Header = ({user,userrole}) => {
               </div>
               <div className="d-flex text-right justify-content-between align-items-center">
               <img src={userImage} alt="Bomo logo" />
-                  <p className="mb-0 user-email  ms-1 ms-lg-2"><b className="d-none d-md-block">{cuser?.email}</b>
+                  <p className="mb-0 user-email  ms-1 ms-lg-2"><b className="d-none d-md-block">{cuser?.name}</b>
                       <span className="d-block">{userrole}</span></p>
               </div>
           </nav>

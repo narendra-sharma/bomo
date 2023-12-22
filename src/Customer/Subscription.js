@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Subscription = () => {
     return(
@@ -11,7 +12,7 @@ const Subscription = () => {
                         <div className="col-md-5">
                             <div className="d-flex justify-content-md-end">
                                 <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                                    <a href="#" className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</a>
+                                    <Link className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>
                                     <div className="request-date ms-2"><p className="mb-0"><span>21:43</span>
                                     <span className="d-block">Wed 01 Nov, 2023 </span></p></div>
                                 </div>

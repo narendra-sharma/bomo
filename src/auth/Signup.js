@@ -79,40 +79,29 @@ const Signup = (props) => {
   }
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (formData.name === '') {
-      setNameerror('Name is Required*');
-    } else {
-      setNameerror(null)
-    }
 
-    const exptest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (formData.email === '') {
-      setEmailerror('Email is Required*');
-    } else if (!exptest.test(formData.email)) {
-      setEmailerror('Email is Invalid*');
-    } else {
-      setEmailerror(null)
-    }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
 
-    if (formData.password === '') {
-      setPassworderror('Password is Required*');
-    } else if (formData.password.length < 5) {
-      setPassworderror("Password length should be more than 5*")
-    } else {
-      setPassworderror(null)
-    }
-
-    if (formData.company === '') {
-      setCompanyerror('Company is Required*');
-    } else {
-      setCompanyerror(null)
-    }
-
-    if (formData.reel === '') {
-      setReelerror('Reel is Required*');
-    } else {
-      setReelerror(null);
+    switch (name) {
+      case 'name':
+        setNameerror(value === '' ? 'Name is Required*' : null);
+        break;
+      case 'email':
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        setEmailerror(value === '' ? 'Email is Required*' : !emailRegex.test(value) ? 'Email is Invalid*' : null);
+        break;
+      case 'password':
+        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5*' : null);
+        break;
+      case 'company':
+        setCompanyerror(value === '' ? 'Company is Required*' : null);
+        break;
+      case 'reel':
+        setReelerror(value === '' ? 'Reel is Required*' : null);
+        break;
+      default:
+        break;
     }
   }
 
