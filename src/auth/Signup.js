@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../reduxdata/rootAction";
-import { bindActionCreators } from "redux";
 
 const Signup = (props) => {
   const { isLoading, signup } = props;
@@ -204,10 +203,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = () => {
+  return {
     signup,
-  }, dispatch);
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

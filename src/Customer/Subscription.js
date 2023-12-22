@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
 import { get_plans } from "../reduxdata/rootAction";
-const Subscription = ({plans,get_plans}) => {
+const Subscription = (props) => {
+  const {plans,get_plans}=props;
   const dispatch=useDispatch();
   useEffect(()=>{
     get_plans(dispatch);
@@ -118,10 +118,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = () => {
+  return {
     get_plans,
-  }, dispatch);
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Subscription);

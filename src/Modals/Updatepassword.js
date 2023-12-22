@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 //import { connect } from 'react-redux';
 // import { useDispatch } from 'react-redux';
-import { Button, Modal } from "react-bootstrap";
-//import { bindActionCreators } from 'redux';
+import { Button, Modal } from "react-bootstrap"
 
 const Updatepassword = ({show, handleClose}) => {
 //   let [searchParams] = useSearchParams();
@@ -131,10 +130,10 @@ export default Updatepassword;
 //   };
 // };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({
+// const mapDispatchToProps = () => {
+//   return {
 //     resetPassword,
-//   }, dispatch);
+//   };
 // };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Updatepassword);

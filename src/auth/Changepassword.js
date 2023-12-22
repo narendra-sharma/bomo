@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import bomoLogo from "../images/bomo-logo.svg"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { connect } from 'react-redux';
 import { reset_password } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 const Changepassword = (props) => {
 
@@ -101,8 +99,6 @@ const Changepassword = (props) => {
   )
 }
 
-// export default Changepassword;
-
 const mapStateToProps = (state) => {
   return {
     isLoading: state.loader.isLoading,
@@ -110,10 +106,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+const mapDispatchToProps = () => {
+  return {
     reset_password,
-  }, dispatch);
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Changepassword);
