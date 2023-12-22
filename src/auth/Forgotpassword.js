@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { forgot_password_reset } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
 
 const Forgotpassword = (props) => {
   const { isLoading,forgot_password_reset } = props;
+  const userrole = useSelector((state) => state.auth.role || '')
   const [formData, setFormData] = useState({
     email: ''
   });
@@ -50,13 +51,13 @@ const Forgotpassword = (props) => {
 
   return (
     <>
-      <div className="signup-form  forgot-password h-100vh">
+      <div className={(userrole === 'Designer' ? "designer-signup-form" :"signup-form")+' forgot-password h-100vh'}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
-              <h1 className="color-white font-roboto">Forgot Password</h1>
+              <h1 className="font-roboto">Forgot Password</h1>
               <div class="login-date">11.28.2023
-                <div className="bomo-login-logo fw-bold">Bomo</div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
             <div>

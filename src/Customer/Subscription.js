@@ -8,7 +8,7 @@ const Subscription = (props) => {
     get_plans(dispatch);
   },[])
   return (
-    <>{console.log(plans)}
+    <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
           <div className="mx-md-3 mx-lg-5 mb-4 row">

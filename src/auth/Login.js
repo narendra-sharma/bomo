@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../reduxdata/rootAction";
-
+import { format } from 'date-fns';
 const Login = (props) => {
   const { isLoading,login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
@@ -59,16 +59,17 @@ const Login = (props) => {
   const handleSignup = (user, role) => {
     login(user,role,dispatch);
   }
-
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, 'MM.dd.yyyy');
   return (
     <>
-      <div className={checkusertype === 'Designer' ? "designer-signup-form" : checkusertype === 'Customer' ? "signup-form" : checkusertype === 'SuperAdmin' ? "signup-form" : ""}>
+      <div className={checkusertype === 'Designer' ? "designer-signup-form" : "signup-form"}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
-              <h2 class="">Login</h2>
-              <div class="login-date">11.28.2023
-                <div className="bomo-login-logo fw-bold">Bomo</div>
+              <h2>Login</h2>
+              <div className="login-date">{formattedDate}
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
             <div>

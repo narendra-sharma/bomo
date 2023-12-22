@@ -4,6 +4,7 @@ import bomoLogo from './images/bomo-logo.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "./reduxdata/rootAction";
+import Logout from "./Modals/Logout";
 const Sidebar = () => {
   const userrole = useSelector((state) => state.auth.role || '')
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const Sidebar = () => {
      }
      setItems(list);
   },[userrole])
+  const [show,setShow] = useState(false);
   return (
     <div>
       <div id="sidebar-overlay" className="overlay w-100 vh-100 position-fixed d-none"></div>
@@ -62,10 +64,11 @@ const Sidebar = () => {
             <span className="ml-2">Settings</span>
           </Link>
           <Link className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
-            <span className="ml-2" onClick={handleLogout}>Logout</span>
+            <span className="ml-2" onClick={()=>setShow(true)}>Logout</span>
           </Link>
         </div>
       </div>
+      <Logout show={show} handleClose={()=>setShow(false)} logout={()=>handleLogout()}/>
     </div>
   )
 }
