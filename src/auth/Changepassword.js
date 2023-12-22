@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { connect } from 'react-redux';
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { connect, useSelector } from 'react-redux';
 import { reset_password } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
 
@@ -8,6 +8,7 @@ const Changepassword = (props) => {
 
   const { isLoading,reset_password } = props;
   let [searchParams] = useSearchParams();
+  const userrole = useSelector((state) => state.auth.role || '')
   const [formData, setFormData] = useState({
     password: '',
     confirmpassword: ''
@@ -63,14 +64,14 @@ const Changepassword = (props) => {
 
   return (
     <>
-      <div className="signup-form forgot-password h-100vh">
+      <div className={(userrole === 'Designer' ? "designer-signup-form" : "signup-form")+' forgot-password h-100vh'}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
               
-            <h1 className="color-white font-roboto">Changed Password</h1>
+            <h1 className="font-roboto">Changed Password</h1>
               <div class="login-date">11.28.2023
-                <div className="bomo-login-logo fw-bold">Bomo</div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
             <div>

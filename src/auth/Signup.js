@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../reduxdata/rootAction";
-
+import { format } from 'date-fns';
 const Signup = (props) => {
   const { isLoading, signup } = props;
 
@@ -107,10 +107,11 @@ const Signup = (props) => {
   const handleSignup = async (user, role) => {
     await signup(user, role, navigate, dispatch);
   }
-
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, 'MM.dd.yyyy');
   return (
     <>
-      <div className={userrole === 'Designer' ? "designer-signup-form" : userrole === "Customer" ? "signup-form" : ""}>
+      <div className={userrole === 'Designer' ? "designer-signup-form" : "signup-form"}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
@@ -127,8 +128,8 @@ const Signup = (props) => {
               ) : (
                 <h2>Usertype not found</h2>
               )}
-              <div class="login-date fw-bold">11.28.2023
-                <div className="bomo-login-logo fw-bold">Bomo</div>
+              <div class="login-date fw-bold">{formattedDate}
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
             <div>

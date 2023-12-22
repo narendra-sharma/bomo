@@ -170,6 +170,9 @@ font-weight: 500;
 .designer-signup-form .bomo-login-logo , .designer-signup-form .login-date {
   color: var(--mid-green);
 }
+.signup-form .bomo-login-logo{
+  color: #CDFFB5;
+}
 .mt-150{
   margin-top: 150px;
 }
