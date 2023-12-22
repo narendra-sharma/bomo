@@ -65,24 +65,31 @@ const Changepassword = (props) => {
 
   return (
     <>
-      <div className="signup-form">
+      <div className="signup-form forgot-password h-100vh">
         <div className="container">
           <div className="signup-content">
-            <div className="form-heading">
-              <img src={bomoLogo} alt="admin" />
-              <h5>Changed Password</h5>
+            <div className="form-heading d-flex flex-column justify-content-between">
+              
+            <h1 className="color-white font-roboto">Changed Password</h1>
+              <div class="login-date">11.28.2023
+                <div className="bomo-login-logo fw-bold">Bomo</div>
+              </div>
             </div>
             <div>
-              <form onSubmit={(e) => handleSubmit(e, formData)}>
+              <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
                 <div className="mb-3">
-                  <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                <label>
+                    Password:</label>
+                  <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   {passworderror ? <p>{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
-                  <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                <label>
+                    Confirm:</label>
+                  <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   {confirmpassworderror ? <p>{confirmpassworderror}</p> : null}
                 </div>
-                <button type="submit" className="btn btn-success btn-lg w-100">
+                <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Changing.....' : 'Change Password'}
                 </button>
               </form>

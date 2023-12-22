@@ -114,20 +114,23 @@ const Signup = (props) => {
       <div className={userrole === 'Designer' ? "designer-signup-form" : userrole === "Customer" ? "signup-form" : ""}>
         <div className="container">
           <div className="signup-content">
-            <div className="form-heading">
+            <div className="form-heading d-flex flex-column justify-content-between">
               {userrole === 'Designer' ? (
                 <h2>Welcome
-                  <span className="d-block fw-bold font-roboto">MOTION   </span>
-                  <span className="d-block fw-bold font-roboto">DESIGNER</span>
+                  <span className="d-block fw-bold font-public">MOTION   </span>
+                  <span className="d-block fw-bold font-public">DESIGNER</span>
                 </h2>
               ) : userrole === 'Customer' ? (
                 <h2>It’s time
                   <span className="d-block">to step up   </span>
-                  <span className="d-block font-roboto">MOTION</span>
+                  <span className="d-block font-public">MOTION</span>
                 </h2>
               ) : (
                 <h2>Usertype not found</h2>
               )}
+              <div class="login-date fw-bold">11.28.2023
+                <div className="bomo-login-logo fw-bold">Bomo</div>
+              </div>
             </div>
             <div>
               <form onSubmit={(e) => handleSubmit(e, formData, userrole)} className="form-inner">
@@ -185,9 +188,10 @@ const Signup = (props) => {
                   </>
                 )}
               </form>
-              <p class="already-register">Already Registered? <a href='/login' className="login-redirect">Login</a></p>
+              
             </div>
           </div>
+          <p class="already-register">Already Registered? <a href='/login' className="login-redirect">Login</a></p>
         </div>
       </div>
     </>
