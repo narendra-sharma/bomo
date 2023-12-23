@@ -123,7 +123,7 @@ const Signup = (props) => {
               ) : userrole === 'Customer' ? (
                 <h2>It’s time
                   <span className="d-block">to step up   </span>
-                  <span className="d-block font-public">MOTION</span>
+                  <span className="d-block font-public fw-bold">MOTION</span>
                 </h2>
               ) : (
                 <h2>Usertype not found</h2>

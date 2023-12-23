@@ -55,8 +55,8 @@ const Forgotpassword = (props) => {
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
-              <h1 className="font-roboto">Forgot Password</h1>
-              <div class="login-date">11.28.2023
+              <h1 className="font-reckless">Forgot Password</h1>
+              <div class="login-date">
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
