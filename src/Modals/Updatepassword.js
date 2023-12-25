@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import { connect } from 'react-redux';
 // import { useDispatch } from 'react-redux';
 import { Button, Modal } from "react-bootstrap"
+import { update_password } from "../reduxdata/rootAction";
+import { connect } from 'react-redux';
 
 const Updatepassword = ({show, handleClose}) => {
 //   let [searchParams] = useSearchParams();
@@ -15,7 +17,7 @@ const Updatepassword = ({show, handleClose}) => {
   const [newpassworderror, setNewpassworderror] = useState(null);
   const [confirmpassworderror, setconfirmPassworderror] = useState(null);
 
-//   const navigate = useNavigate();
+const navigate = useNavigate();
 //   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,9 +45,23 @@ const Updatepassword = ({show, handleClose}) => {
     }
 
     if ((formData.newpassword === formData.confirmpassword) && (formData.oldpassword)) {
-      localStorage.setItem('update-password', JSON.stringify(formData))
-      console.log('Password changed!');
-      handleClose();
+      try {
+           const tokendata = JSON.parse(localStorage.getItem('userDetails'));
+           const usertoken = tokendata.token;
+           const userDataForm = {
+             currentUserPassword: formData.oldpassword,
+             newUserPassword: formData.newpassword
+           }
+        await update_password(
+          userDataForm,
+          usertoken,
+          navigate
+        );
+        console.log('Password changed!');
+        handleClose();
+      } catch (error) {
+        console.error('Error updating password:', error);
+      }
     }
   };
 
@@ -84,7 +100,7 @@ const Updatepassword = ({show, handleClose}) => {
       setNewpassworderror(null);
       setconfirmPassworderror(null);
     }
-  }, [show, formData]);
+  }, [show]);
 
   return (
     <>
@@ -121,19 +137,17 @@ const Updatepassword = ({show, handleClose}) => {
   )
 }
 
-export default Updatepassword;
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
 
-// const mapStateToProps = (state) => {
-//   return {
-//     isLoading: state.loader.isLoading,
-//     changePasswordLink: state.auth.linkResetStatus,
-//   };
-// };
+const mapDispatchToProps = () => {
+  return {
+    update_password,
+  };
+};
 
-// const mapDispatchToProps = () => {
-//   return {
-//     resetPassword,
-//   };
-// };
+export default connect(mapStateToProps, mapDispatchToProps)(Updatepassword);
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Updatepassword);

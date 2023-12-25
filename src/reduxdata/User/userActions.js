@@ -122,3 +122,71 @@ export const reset_password = async (newPassword, token, navigate, dispatch) => 
     dispatch(stop_loading());
   }
 };
+
+export const update_password = async (newPassword, token, navigate) => {
+  try {
+    const url = `${REACT_APP_BOMO_URL}profile/update-password`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token, 
+      }
+    }
+    const res = await axios.post(url,{currentPassword:newPassword.currentUserPassword, newPassword:newPassword.newUserPassword}, HEADERS);
+    if (res.data && res.data.status) {
+      toast.success('Successfully Change password!');
+      navigate('/setting');
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    toast.error(error.response.data.message)
+  }
+};
+
+export const profile_update = async (data,token,navigate) => {
+  try {
+    const url = `${REACT_APP_BOMO_URL}profile/update`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token, 
+      }
+    }
+    const res = await axios.post(url,{name:data.name, role:data.role}, HEADERS);
+    if (res.data && res.data.status) {
+      const userDetails = JSON.parse(localStorage.getItem('userDetails')) || {};
+      userDetails.name = data.name;
+      userDetails.role = data.role;
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      localStorage.setItem('USERTYPE', JSON.stringify(data.role));
+      toast.success('Successfully Update Profile!');
+      navigate('/setting');
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    toast.error(error.response.data.message)
+  }
+};
+
+export const profile_details = async (token) => {
+  try {
+    const url = `${REACT_APP_BOMO_URL}profile/details`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token, 
+      }
+    }
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      toast.success('Successfully Get Profile Details!');
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    toast.error(error.response.data.message)
+  }
+};
+

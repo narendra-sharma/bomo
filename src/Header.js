@@ -6,9 +6,9 @@ const Header = ({user,userrole}) => {
     const [cuser,setCuser]=useState(null);
     useEffect(()=>{
         setCuser(user);
-    },[user])
+    },[user,userrole])
     return(
-        <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
+        <div className="col-md-9 col-lg-10 ml-md-auto px-0 ms-md-auto">
           <nav className="w-100 d-flex px-60 py-3 justify-content-between align-items-center bg-white">
           <button className="btn py-0 d-lg-none" id="open-sidebar">
            <span className="toggle-btn"></span>

@@ -1,5 +1,5 @@
 import { start_loading,stop_loading } from "./Loader/loaderActions";
-import { login,signup,logout,set_user_type } from "./User/userActions";
+import { login,signup,logout,set_user_type,update_password,profile_update,profile_details } from "./User/userActions";
 import { get_plans } from "./Plans/planActions";
 export {
     start_loading,
@@ -8,5 +8,8 @@ export {
     signup,
     logout,
     set_user_type,
-    get_plans
+    get_plans,
+    update_password,
+    profile_update,
+    profile_details
 }  
