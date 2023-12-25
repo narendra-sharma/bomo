@@ -3,6 +3,7 @@ import userImage from '../images/user-img.png';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Updatepassword from "../Modals/Updatepassword";
+import EditProfile from "../Modals/EditProfile";
 
 const Setting = ({user,userrole}) => {
     const [cuser,setCuser]=useState(null);
@@ -11,12 +12,21 @@ const Setting = ({user,userrole}) => {
     },[user])
 
     const [showchangePassword,setShowchangePassword] = useState(false);
+    const [showchangeProfile,setShowchangeProfile] = useState(false);
     const handleShow = () => {
         setShowchangePassword(true);
     }
     const handleClose = () => {
         setShowchangePassword(false);
     }
+
+    const handleProfileShow = () => {
+        setShowchangeProfile(true);
+    }
+    const handleProfileClose = () => {
+        setShowchangeProfile(false);
+    }
+
     return(
         <>
            <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -56,7 +66,7 @@ const Setting = ({user,userrole}) => {
                                             <b className="d-md-block">Role</b>
                                             <span className="d-block">{userrole}</span></p>
                                    </div>
-                                   <div><Link className="text-secondary mb-0 px-3 text-decoration-none">edit</Link></div>
+                                   <div><Link onClick={handleProfileShow} className="text-secondary mb-0 px-3 text-decoration-none">edit</Link></div>
                                 </div>
                             </div>
                             <div className="col-lg-3">
@@ -225,6 +235,7 @@ const Setting = ({user,userrole}) => {
                     </div>
                 </div>
                 <Updatepassword show={showchangePassword} handleClose={handleClose} />
+                <EditProfile show={showchangeProfile} handleClose={handleProfileClose} />
            </div> 
         </>
     )

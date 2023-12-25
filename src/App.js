@@ -30,6 +30,7 @@ import Forgotpassword from './auth/Forgotpassword';
 import Changepassword from './auth/Changepassword';
 import Updatepassword from './Modals/Updatepassword';
 import { connect } from 'react-redux';
+import EditProfile from './Modals/EditProfile';
 
 function App({user}) {
   const [isAuth, setIsAuth] = useState(false);
@@ -91,6 +92,7 @@ function App({user}) {
     { path: "/active-requests", element: <ActiveRequests /> },
     { path: "/motion-tips", element: <MotionTips /> },
     { path: "/update-password", element: <Updatepassword/> },
+    { path: "/edit-profile", element: <EditProfile/> },
     { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
   ])
   return (
