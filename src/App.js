@@ -33,8 +33,10 @@ import { connect } from 'react-redux';
 import EditProfile from './Modals/EditProfile';
 
 function App({user}) {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
   useEffect(() => {
+    
+
     $(document).ready(()=>{
   
       $('#open-sidebar').click(()=>{
