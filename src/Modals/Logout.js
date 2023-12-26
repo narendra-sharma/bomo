@@ -4,19 +4,19 @@ import { Button, Modal } from "react-bootstrap";
 const Logout = (props) => {
   const { user, show, handleClose, logout } = props;
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>
-        <div className="p-4">
+        <div className="px-4 py-4">
           <h4 className="mb-0">{user.name}</h4>
           <p>do you really want to log out?</p>
-          <div className="d-flex gap-2 mt-4">
-            <div className="col-6">
-              <Button variant="dark" className="w-100" onClick={logout}>
+          <div className="d-flex gap-2 mt-5 pt-4">
+            <div className="col-md-6">
+              <Button variant="dark" className="w-100 rounded-pill" onClick={logout}>
                 Yes
               </Button>
             </div>
-            <div className="col-6">
-              <Button variant="light" className="w-100" onClick={handleClose}>
+            <div className="col-md-6">
+              <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={handleClose}>
                 No
               </Button>
             </div>

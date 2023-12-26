@@ -32,8 +32,10 @@ import Updatepassword from './Modals/Updatepassword';
 import { connect } from 'react-redux';
 
 function App({user}) {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
   useEffect(() => {
+    
+
     $(document).ready(()=>{
   
       $('#open-sidebar').click(()=>{

@@ -32,6 +32,9 @@ html body {
 .font-public{
 font-family: var(--pubilc-sans-font);
 }
+.display-inline{
+  display: inline;
+}
 .bg-gray-light{
   background-color: var(--gray);
 }
@@ -363,6 +366,25 @@ color: var(--dark-green);
   color: #F92B34;
   border-color: #F92B34;
 }
+.review-content .logo{
+  color:#6D3FF3;
+  border-color:#6D3FF3;
+}
+.review-content .icon{
+  color:#2DB985;
+  border-color: #2DB985;
+  background: rgba(45, 185, 133, 0.10);
+}
+.review-content .intro{
+  color:#FE58AE;
+  border-color: #FE58AE;
+  background: rgba(109, 63, 243, 0.10)
+}
+.review-content .loop{
+  color:#FA812A;
+  border-color: #FA812A;
+  background: rgba(250, 129, 42, 0.10);
+}
 p.serial-number {
   background: #D2CECE;
   border-radius: 50%;
@@ -509,7 +531,41 @@ table.feedback-queue tr:first-child td{
 .payment-history-section table tr th{
   padding-bottom: 20px;
 }
-
+.past-request-section table tr td{
+  padding: 13px 5px;
+}
+.past-request-section .review-content .short0ad {
+  width: 100px;
+  padding: 4px 8px;
+}
+.past-request-section .review-content .logo{
+  background: rgba(6, 87, 235, 0.10);
+}
+.past-request-section .review-content .typography{
+  background: rgba(206, 188, 24, 0.10)
+}
+.past-request-section .review-content .transition{
+  background: rgba(249, 43, 52, 0.10);
+}
+.past-request-section .review-content .brand-element{
+  background: rgba(6, 87, 235, 0.10)
+}
+.member-table tr td:nth-child(1)
+{
+width: 230px;
+}
+.member-table tr td:nth-child(2)
+{
+width: 175px;
+}
+.logout-popup .modal-dialog {
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  /* transform: translate(0,0); */
+  min-height: calc(100% - (1.75rem * 2));
+}
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
   
