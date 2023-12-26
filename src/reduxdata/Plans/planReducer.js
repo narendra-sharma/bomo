@@ -5,7 +5,6 @@ const initialState = {
   };
   
   const planReducer = (state = initialState, action) => {
-    console.log(action);
     switch (action.type) {
       case GET_PLANS:
         return { ...state, 

@@ -63,8 +63,8 @@ const Sidebar = () => {
           <Link to="/setting" className={'list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center '+(location.pathname==='/setting' && 'active')}>
             <span className="ml-2">Settings</span>
           </Link>
-          <Link className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center">
-            <span className="ml-2" onClick={()=>setShow(true)}>Logout</span>
+          <Link className="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" onClick={()=>setShow(true)}>
+            <span className="ml-2">Logout</span>
           </Link>
         </div>
       </div>

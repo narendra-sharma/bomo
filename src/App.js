@@ -31,6 +31,8 @@ import Changepassword from './auth/Changepassword';
 import Updatepassword from './Modals/Updatepassword';
 import { connect } from 'react-redux';
 import EditProfile from './Modals/EditProfile';
+import NewRequest from './Customer/NewRequest';
+import RequestStatus from './Customer/RequestStatus';
 
 function App({user}) {
   const [isAuth, setIsAuth] = useState(true);
@@ -80,6 +82,8 @@ function App({user}) {
   ])
   const AfterLoginCustomerRoutes = () => useRoutes([
     { path: "/", element: <Home /> },
+    { path: "/new-request", element: <NewRequest /> },
+    { path: "/request-status", element: <RequestStatus /> },
     { path: "/past-requests", element: <PastRequest /> },
     { path: "/brand-profile", element: <BrandProfile /> },
     { path: "/subscription", element: <Subscription /> },

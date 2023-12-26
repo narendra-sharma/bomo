@@ -25,7 +25,11 @@ export const get_plans = async (dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message);
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }

@@ -654,3 +654,7 @@ width: 175px;
     font-size: 43px;
     line-height: 50px;}
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

@@ -23,7 +23,11 @@ export const signup = async (user, role, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message);
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }
@@ -52,7 +56,11 @@ export const login = async (user,role,dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }
@@ -94,7 +102,11 @@ export const forgot_password_reset = async (email, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }
@@ -117,7 +129,11 @@ export const reset_password = async (newPassword, token, navigate, dispatch) => 
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }
@@ -140,7 +156,11 @@ export const update_password = async (newPassword, token, navigate) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   }
 };
 
@@ -166,7 +186,11 @@ export const profile_update = async (data,token,navigate) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   }
 };
 
@@ -186,7 +210,11 @@ export const profile_details = async (token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   }
 };
 
