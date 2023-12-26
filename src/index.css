@@ -552,19 +552,84 @@ table.feedback-queue tr:first-child td{
 }
 .member-table tr td:nth-child(1)
 {
-width: 230px;
+ width: 230px;
 }
 .member-table tr td:nth-child(2)
 {
-width: 175px;
+ width: 175px;
+}
+.member-table tr td:nth-child(4){
+ width:230px
 }
 .logout-popup .modal-dialog {
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  /* transform: translate(0,0); */
   min-height: calc(100% - (1.75rem * 2));
+}
+.new-request-form textarea.form-control {
+  min-height: 220px;
+}
+.new-request-form .form-control{
+  border: solid 1px #000;
+}
+.request-type .request-list {
+  flex: auto;
+  text-align: center;
+}
+.status-btn .btn{
+ font-size: 16px;
+ letter-spacing: .48px;
+}
+.bg-gray-dark{
+  background-color: #D0D0D0;
+}
+.bg-gray-mid{
+  background-color: #FAF5F5;
+}
+.bg-gray-mid .table>:not(caption)>*>*{
+  background-color: transparent;
+}
+.add-member span.plus {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  background: #D9D9D9;
+  text-align: center;
+  border-radius: 50%;
+  border: solid 1px;    display: inline-block;
+}
+.member-table .formcontrol {
+  border: none;
+  border-bottom: solid 2px #BBBBBB;
+}
+select.form-control {
+  appearance: auto;
+}
+.order-completed{
+  border: solid 1px #3FCE3C;
+}
+.order-completed p{
+  color:#012801;
+}
+.delivery-status-section{
+  background-color: #FBFBFB;
+}
+.delivery-status {
+  font-size: 22px;
+  letter-spacing: -0.48px;
+  color: #000;
+  line-height: normal;
+  
+}
+.download-btn button{
+  background-color:
+  #3FCE3C;
+  color: #000;
+}
+.bar-code{
+  height:100px;
 }
 /* sidebar for small screens */
 @media screen and (max-width: 767px){

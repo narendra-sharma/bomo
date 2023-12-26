@@ -167,15 +167,15 @@ const Members = () => {
                     </table>
                   </div>
                 </div>
-                <div className="review-content bg-white px-4 py-2 rounded mb-3">
+                <div className="review-content bg-gray-mid add-member px-4 py-2 rounded mb-3">
                   <div className="table-responsive">
                     <table className="table table-borderless mb-0">
                       <tbody>
                         <tr>
                           <td>
-                              <Link className="text-decoration-none fw-bold text-dark">
+                              <Link className="text-decoration-none text-dark">
                               <div className="d-flex  align-items-center">
-                                <span className="plus">+</span> <span><span className="fw-bold">Add</span> Memeber</span>
+                                <span className="plus">+</span> <span><span className="fw-bold ms-3">Add</span> New Memeber</span>
                               </div>
                               </Link>
                           </td>
@@ -183,8 +183,57 @@ const Members = () => {
                       </tbody>
                       </table>
                     </div>
-                  </div>
+                </div>
+                <div className="review-content add-member bg-white px-4 py-2 rounded mb-3">
+                  <div className="table-responsive">
+                    <table className="table table-borderless member-table  mb-0">
+                      <tbody>
+                        <tr>
+                         
+                          <td>
+                            <div className="d-flex  align-items-center"> 
+                            <span className="plus">+</span>
+                            <p className="mb-0 user-email  ms-1 ms-lg-2">
+                                <b>Name</b>
+                                <span className="d-block">
+                                <input type="text" className="formcontrol"/>
+                                </span>
+                            </p>
+                            
 
+                            </div>
+                           
+                          </td>
+                          <td>
+                            <p className="mb-0 user-email  ms-1 ms-lg-2">
+                                <b>Role </b>
+                                
+                            </p>
+                            <select type="select" className="">
+                              <option>Admin</option>
+                              <option>Team Member</option>
+
+                            </select>
+
+                          </td>
+                          <td>
+                            <p className="mb-0 user-email  ms-1 ms-lg-2">
+                            <b>Date added</b><span className="d-block">23/07/2022</span></p>
+                          </td>
+                          <td>
+                            <p className="mb-0 user-email  ms-1 ms-lg-2">
+                            <b>Email</b></p>
+                            <input type="email" className="formcontrol"/>
+                          </td>
+                          <td>
+                            <button type="button" className="bg-mid-gray fw-bold border rounded-pill px-4 py-1">create</button>
+                          </td>
+                        
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
