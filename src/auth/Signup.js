@@ -111,7 +111,7 @@ const Signup = (props) => {
   const formattedDate = format(currentDate, 'MM.dd.yyyy');
   return (
     <>
-      <div className={userrole === 'Designer' ? "designer-signup-form" : "signup-form"}>
+      <div className={userrole === 'Designer' ? "designer-signup-form registration-form" : "signup-form registration-form"}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
@@ -128,7 +128,7 @@ const Signup = (props) => {
               ) : (
                 <h2>Usertype not found</h2>
               )}
-              <div class="login-date fw-bold">{formattedDate}
+              <div className="login-date fw-bold">{formattedDate}
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
@@ -138,27 +138,27 @@ const Signup = (props) => {
                   <label>
                     Name:</label>
                   <input type="text" autoComplete="off" placeholder="Your full name here. You can add members later" name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
-                  {nameerror ? <p>{nameerror}</p> : null}
+                  {nameerror ? <p className="error fw-bold">{nameerror}</p> : null}
                 </div>
                 <div className="form-group">
                   <label>
                     Email:</label>
                   <input type="email" autoComplete="off" name="email" placeholder={userrole === 'Designer' ? "Your working email here" : "Your company email here"} value={formData.email} onChange={handleInputChange} className="form_control" />
-                  {emailerror ? <p>{emailerror}</p> : null}
+                  {emailerror ? <p className="error fw-bold">{emailerror}</p> : null}
                 </div>
                 {userrole === 'Designer' ? (
                   <div className="form-group">
                     <label>
                       Reel:</label>
                     <input type="text" autoComplete="off" name="reel" placeholder="Time to shine. Show us your best work" value={formData.reel} onChange={handleInputChange} className="form_control" />
-                    {reelerror ? <p>{reelerror}</p> : null}
+                    {reelerror ? <p className="error fw-bold">{reelerror}</p> : null}
                   </div>
                 ) : userrole === 'Customer' ? (
                   <div className="form-group">
                     <label>
                       Company:</label>
                     <input type="text" autoComplete="off" name="company" placeholder="Your company name here" value={formData.company} onChange={handleInputChange} className="form_control" />
-                    {companyerror ? <p>{companyerror}</p> : null}
+                    {companyerror ? <p className="error fw-bold">{companyerror}</p> : null}
                   </div>
                 ) : (
                   <p>Not Found!!!</p>
@@ -167,7 +167,7 @@ const Signup = (props) => {
                   <label>
                     Password:</label>
                   <input type="password" autoComplete="off" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
-                  {passworderror ? <p>{passworderror}</p> : null}
+                  {passworderror ? <p className="error fw-bold">{passworderror}</p> : null}
                 </div>
                 {userrole === 'Designer' ? (
                   <>
@@ -191,7 +191,7 @@ const Signup = (props) => {
               
             </div>
           </div>
-          <p class="already-register">Already Registered? <a href='/login' className="login-redirect">Login</a></p>
+          <p className="already-register">Already Registered? <a href='/login' className="login-redirect">Login</a></p>
         </div>
       </div>
     </>
