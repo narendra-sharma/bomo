@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-//import { connect } from 'react-redux';
-// import { useDispatch } from 'react-redux';
 import { Button, Modal } from "react-bootstrap"
 import { update_password } from "../reduxdata/rootAction";
 import { connect } from 'react-redux';
 
-const Updatepassword = ({show, handleClose}) => {
-//   let [searchParams] = useSearchParams();
+const Updatepassword = ({ isLoading,show, handleClose}) => {
   const [formData, setFormData] = useState({
     oldpassword: '',
     newpassword: '',
@@ -16,9 +13,11 @@ const Updatepassword = ({show, handleClose}) => {
   const [passworderror, setPassworderror] = useState(null);
   const [newpassworderror, setNewpassworderror] = useState(null);
   const [confirmpassworderror, setconfirmPassworderror] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
 const navigate = useNavigate();
-//   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -102,6 +101,17 @@ const navigate = useNavigate();
     }
   }, [show]);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  }
+  const toggleConfirmPasswordVisibility = () => {
+    setShowconfirmPassword(!showconfirmPassword);
+  }
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -111,16 +121,19 @@ const navigate = useNavigate();
         <Modal.Body>
         <form>
                 <div className="mb-3">
-                  <input type="password" name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Old Password" />
-                  {passworderror ? <p>{passworderror}</p> : null}
+                  <input type={showPassword ? "text" : "password"} name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Old Password" />
+                  <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
+                 {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
-                  <input type="password" name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="New Password" />
-                  {newpassworderror ? <p>{newpassworderror}</p> : null}
+                  <input  type={showNewPassword ? "text" : "password"} name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="New Password" />
+                  <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i>
+                  {newpassworderror ? <p style={{color: 'red'}}>{newpassworderror}</p> : null}
                 </div>
                 <div className="mb-3">
-                  <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Confirm Password" />
-                  {confirmpassworderror ? <p>{confirmpassworderror}</p> : null}
+                  <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Confirm Password" />
+                  <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
+                  {confirmpassworderror ? <p style={{color: 'red'}}>{confirmpassworderror}</p> : null}
                 </div>
               </form>
         </Modal.Body>
@@ -128,8 +141,8 @@ const navigate = useNavigate();
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={(e) => handleSubmit(e, formData)}>
-            Update Password
+          <Button variant="primary" onClick={(e) => handleSubmit(e, formData)} disabled={isLoading}>
+            {isLoading ? 'Updating.....' : 'Update Password'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -140,6 +153,7 @@ const navigate = useNavigate();
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    isLoading: state.loader.isLoading,
   };
 };
 

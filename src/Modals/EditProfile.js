@@ -7,11 +7,9 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = ({ show, handleClose }) => {
   const [formData, setFormData] = useState({
     username: '',
-    role: '',
   });
 
   const [usernameError, setUsernameError] = useState(null);
-  const [roleError, setRoleError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,18 +21,13 @@ const EditProfile = ({ show, handleClose }) => {
       setUsernameError(null);
     }
 
-    if (formData.role === '') {
-      setRoleError('Role is Required*');
-    } else {
-      setRoleError(null);
-    }
-    if (formData.username && formData.role) {
+    if (formData.username) {
         try {
             const tokendata = JSON.parse(localStorage.getItem('userDetails'));
            const usertoken = tokendata.token;
            const userDataForm = {
              name: formData.username,
-             role: formData.role
+
            }
         await profile_update(
           userDataForm,
@@ -55,19 +48,17 @@ const EditProfile = ({ show, handleClose }) => {
 
     if (name === 'username') {
       setUsernameError(value === '' ? 'Username is Required*' : null);
-    } else if (name === 'role') {
-      setRoleError(value === '' ? 'Role is Required*' : null);
     }
   };
 
   useEffect(() => {
-    if (!show) {
+    if (show) {
+      const storedUsername = JSON.parse(localStorage.getItem('userDetails'));
+      console.log(storedUsername.name);
       setFormData({
-        username: '',
-        role: '',
+        username: storedUsername.name || '',
       });
       setUsernameError(null);
-      setRoleError(null);
     }
   }, [show]);
 
@@ -89,17 +80,6 @@ const EditProfile = ({ show, handleClose }) => {
                 placeholder="Username"
               />
               {usernameError ? <p>{usernameError}</p> : null}
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                className="form-control form-control-lg"
-                placeholder="Role"
-              />
-              {roleError ? <p>{roleError}</p> : null}
             </div>
           </form>
         </Modal.Body>

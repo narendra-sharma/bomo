@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect, useSelector } from 'react-redux';
 import { forgot_password_reset } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 
 const Forgotpassword = (props) => {
   const { isLoading,forgot_password_reset } = props;
@@ -45,10 +46,11 @@ const Forgotpassword = (props) => {
   };
 
   const handleLink = async (user) => {
-    console.log("APi Form Data--->", user);
     await forgot_password_reset(user, dispatch);
   }
 
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, 'MM.dd.yyyy');
   return (
     <>
       <div className={(userrole === 'Designer' ? "designer-signup-form" :"signup-form")+' forgot-password h-100vh'}>
@@ -56,7 +58,7 @@ const Forgotpassword = (props) => {
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
               <h1 className="font-reckless">Forgot Password</h1>
-              <div class="login-date">
+              <div class="login-date">{formattedDate}
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
@@ -64,9 +66,10 @@ const Forgotpassword = (props) => {
               <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
                 <div className="mb-3">
                 <label>
-                    Email Address</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Enter email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    Enter Email Address:</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   {emailerror ? <p className="error fw-bold">{emailerror}</p> : null}
+
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Sending Link.....' : 'Send Link'}

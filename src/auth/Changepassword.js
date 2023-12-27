@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { connect, useSelector } from 'react-redux';
 import { reset_password } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 
 const Changepassword = (props) => {
 
@@ -29,7 +30,9 @@ const Changepassword = (props) => {
       setPassworderror(null)
     }
 
-    if (formData.confirmpassword !== formData.password) {
+    if (formData.confirmpassword === '') {
+      setconfirmPassworderror("Confirm Password is required*");
+    } else if (formData.confirmpassword !== formData.password) {
       setconfirmPassworderror("Password doesn't match*");
     } else {
       setconfirmPassworderror(null);
@@ -51,7 +54,7 @@ const Changepassword = (props) => {
         setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5*' : null);
         break;
       case 'confirmpassword':
-        setconfirmPassworderror(value === '' ? 'Confirm your password*' : value !== formData.password ? "Password doesn't match*" : null);
+        setconfirmPassworderror(value === '' ? 'Confirm password is required*' : value !== formData.password ? "Password doesn't match*" : null);
         break;
       default:
         break;
@@ -62,6 +65,9 @@ const Changepassword = (props) => {
     await reset_password(user, searchParams.get('token'), navigate, dispatch);
   }
 
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, 'MM.dd.yyyy');
+
   return (
     <>
       <div className={(userrole === 'Designer' ? "designer-signup-form" : "signup-form")+' forgot-password h-100vh'}>
@@ -70,7 +76,7 @@ const Changepassword = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               
             <h1 className="font-reckless">Changed Password</h1>
-              <div class="login-date">
+              <div class="login-date">{formattedDate}
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
               </div>
             </div>
@@ -80,13 +86,13 @@ const Changepassword = (props) => {
                 <label>
                     Password:</label>
                   <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {passworderror ? <p>{passworderror}</p> : null}
+                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                 <label>
                     Confirm:</label>
                   <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {confirmpassworderror ? <p>{confirmpassworderror}</p> : null}
+                  {confirmpassworderror ? <p style={{color: 'red'}}>{confirmpassworderror}</p> : null}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Changing.....' : 'Change Password'}
