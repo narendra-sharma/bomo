@@ -4,7 +4,7 @@ import { get_plans } from "../../reduxdata/rootAction";
 import { Link } from "react-router-dom";
 import SubscriptionSteps from "./SubscriptionSteps";
 import PaymentHistory from "./PaymentHistory";
-import SubscriptionStatus from "./SubscriptionStatus";
+import SubscriptionStatus from "../Sahred/SubscriptionStatus";
 const Subscription = () => {
   const [plan, setPlan] = useState(null);
   return (

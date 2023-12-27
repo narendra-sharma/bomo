@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { get_plans } from "../../reduxdata/rootAction";
-import { Link } from "react-router-dom";
 import DoPayment from "./DoPayment";
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -70,7 +69,7 @@ const SubscriptionSteps = ({plan,plans,get_plans}) => {
       {step === 1 && <Elements stripe={stripePromise}>
         <ElementsConsumer>
           {({stripe, elements}) => (
-              <DoPayment stripe={stripe} elements={elements}pieces={pieces} prize={prize} save={save} />
+              <DoPayment stripe={stripe} elements={elements} pieces={pieces} prize={prize} save={save} />
           )}
         </ElementsConsumer>
       </Elements>}
