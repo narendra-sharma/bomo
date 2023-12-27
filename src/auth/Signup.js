@@ -23,6 +23,8 @@ const Signup = (props) => {
   const [passworderror, setPassworderror] = useState(null);
   const [companyerror, setCompanyerror] = useState(null);
   const [reelerror, setReelerror] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name === '') {
@@ -109,6 +111,11 @@ const Signup = (props) => {
   }
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'MM.dd.yyyy');
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <div className={userrole === 'Designer' ? "designer-signup-form" : "signup-form"}>
@@ -138,27 +145,27 @@ const Signup = (props) => {
                   <label>
                     Name:</label>
                   <input type="text" autoComplete="off" placeholder="Your full name here. You can add members later" name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
-                  {nameerror ? <p>{nameerror}</p> : null}
+                  {nameerror ? <p style={{color: 'red'}}>{nameerror}</p> : null}
                 </div>
                 <div className="form-group">
                   <label>
                     Email:</label>
-                  <input type="email" autoComplete="off" name="email" placeholder={userrole === 'Designer' ? "Your working email here" : "Your company email here"} value={formData.email} onChange={handleInputChange} className="form_control" />
-                  {emailerror ? <p>{emailerror}</p> : null}
+                  <input type="text" autoComplete="off" name="email" placeholder={userrole === 'Designer' ? "Your working email here" : "Your company email here"} value={formData.email} onChange={handleInputChange} className="form_control" />
+                  {emailerror ? <p style={{color: 'red'}}>{emailerror}</p> : null}
                 </div>
                 {userrole === 'Designer' ? (
                   <div className="form-group">
                     <label>
                       Reel:</label>
                     <input type="text" autoComplete="off" name="reel" placeholder="Time to shine. Show us your best work" value={formData.reel} onChange={handleInputChange} className="form_control" />
-                    {reelerror ? <p>{reelerror}</p> : null}
+                    {reelerror ? <p style={{color: 'red'}}>{reelerror}</p> : null}
                   </div>
                 ) : userrole === 'Customer' ? (
                   <div className="form-group">
                     <label>
                       Company:</label>
                     <input type="text" autoComplete="off" name="company" placeholder="Your company name here" value={formData.company} onChange={handleInputChange} className="form_control" />
-                    {companyerror ? <p>{companyerror}</p> : null}
+                    {companyerror ? <p style={{color: 'red'}}>{companyerror}</p> : null}
                   </div>
                 ) : (
                   <p>Not Found!!!</p>
@@ -166,8 +173,9 @@ const Signup = (props) => {
                 <div className="form-group">
                   <label>
                     Password:</label>
-                  <input type="password" autoComplete="off" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
-                  {passworderror ? <p>{passworderror}</p> : null}
+                  <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
+                  <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
+                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
                 </div>
                 {userrole === 'Designer' ? (
                   <>

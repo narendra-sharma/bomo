@@ -173,13 +173,11 @@ export const profile_update = async (data,token,navigate) => {
         "x-access-token": token, 
       }
     }
-    const res = await axios.post(url,{name:data.name, role:data.role}, HEADERS);
+    const res = await axios.post(url,{name:data.name}, HEADERS);
     if (res.data && res.data.status) {
       const userDetails = JSON.parse(localStorage.getItem('userDetails')) || {};
       userDetails.name = data.name;
-      userDetails.role = data.role;
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      localStorage.setItem('USERTYPE', JSON.stringify(data.role));
       toast.success('Successfully Update Profile!');
       navigate('/setting');
     } else {

@@ -15,6 +15,7 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const [emailerror, setEmailerror] = useState(null);
   const [passworderror, setPassworderror] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +57,10 @@ const Login = (props) => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleSignup = (user, role) => {
     login(user,role,dispatch);
   }
@@ -78,15 +83,16 @@ const Login = (props) => {
                 <div className="form-group">
                   <label>
                     Email:</label>
-                  <input type="email" autoComplete="off" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
-                  {emailerror ? <p >{emailerror}</p> : null}
+                  <input type="text" autoComplete="off" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
+                  {emailerror ? <p style={{color: 'red'}} >{emailerror}</p> : null}
                 </div>
 
                 <div className="form-group">
                   <label>
                     Password:</label>
-                  <input type="password" autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
-                  {passworderror ? <p>{passworderror}</p> : null}
+                  <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
+                  <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
+                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
                 </div>
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
@@ -110,7 +116,7 @@ const Login = (props) => {
               ) : checkusertype === 'Customer' ? (
                 <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
               ) : (
-                <p>Usertype not found,You can't Signup</p>
+                <p></p>
               )}
             
        

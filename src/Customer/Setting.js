@@ -122,8 +122,7 @@ const Setting = ({user,userrole}) => {
                                             <div className="form-group">
                                               <label>
                                                 Surname:</label>
-                                                <input type="text" placeholder="" name="name"  className="form_control" />
-                                        
+                                                <input type="text" placeholder="" name="name"  className="form_control" />        
                                             </div>
                                         </div>
                                         <div className="col-md-6">
