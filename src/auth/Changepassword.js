@@ -91,22 +91,20 @@ const Changepassword = (props) => {
             </div>
             <div>
               <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
-                 <div className="password position-relative">
-                <div className="mb-3">
+                 <div className="mb-3">
+                <div className="password position-relative">
                 <label>
                     Password:</label>
-                  <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {passworderror ? <p className="error">{passworderror}</p> : null}
+                  
                   <input type={showNewPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i></div>
                   {passworderror && <p className="error fw-bold">{passworderror}</p>}
                 </div>
-                <div className="password position-relative">
-                  <div className="mb-3">
+                <div className="">
+                  <div className="password position-relative">
                     <label>
                     Confirm:</label>
-                  <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {confirmpassworderror ? <p className="error">{confirmpassworderror}</p> : null}
+                  
                   <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
                    </div>

@@ -94,7 +94,6 @@ const Login = (props) => {
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
                   </div>
                   {passworderror && <p className="error  fw-bold">{passworderror}</p>}
-                </div>
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
                   {isLoading ? 'Login.....' : 'Login'}
