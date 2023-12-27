@@ -21,15 +21,19 @@ export const uploadZip = async (zipFile) => {
     console.log("res status checkkkkkk",res.data.status);
     console.log("res.data:=====================>", res.data);
     if (res.data && res.data.status) {
-      console.log("Response Data ===> ", res);
+      console.log("Response Data path ===> ", res.data.path);
       uploadZipFileSuccess(res.data.path);
-      console.log("My Zip Path", uploadZipFileSuccess(res.data.path));
+      console.log("My Zip Path", res.data.path);
       return res.data.path;
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   }
 }
 
@@ -65,13 +69,16 @@ export const addBrand = async (branddata, dispatch) => {
       if (res.data && res.data.status) {
         toast.success(res.data.message);
         console.log("New Brand Response =========>", res.data);
-        dispatch(addBrandSuccess(res.data.data));
+        addBrandSuccess(res.data.data);
       } else {
         toast.error(res.data.message);
       }
   } catch (error) {
-    console.log(error);
-    toast.error(error.response.data.message)
+    if(error.response){
+      toast.error(error.response.data.message)
+    }else{
+      toast.error(error.message)
+    }
   } finally {
     dispatch(stop_loading());
   }
