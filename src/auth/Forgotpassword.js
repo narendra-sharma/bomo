@@ -17,9 +17,9 @@ const Forgotpassword = (props) => {
 
     const exptest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (formData.email === '') {
-      setEmailerror('Email is Required*');
+      setEmailerror('Email Address is Required*');
     } else if (!exptest.test(formData.email)) {
-      setEmailerror('Email is Invalid*');
+      setEmailerror('Email Address is Invalid*');
     } else {
       setEmailerror(null);
     }
@@ -37,7 +37,7 @@ const Forgotpassword = (props) => {
     switch (name) {
       case 'email':
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setEmailerror(value === '' ? 'Email Address is Required*' : !emailRegex.test(value) ? 'Email is Invalid*' : null);
+        setEmailerror(value === '' ? 'Email Address is Required*' : !emailRegex.test(value) ? 'Email Address is Invalid*' : null);
         break;
       default:
         break;
@@ -64,9 +64,9 @@ const Forgotpassword = (props) => {
               <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
                 <div className="mb-3">
                 <label>
-                    Enter Email Address:</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {emailerror ? <p>{emailerror}</p> : null}
+                    Email Address</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Enter email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  {emailerror ? <p className="error fw-bold">{emailerror}</p> : null}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Sending Link.....' : 'Send Link'}

@@ -35,10 +35,8 @@ import NewRequest from './Customer/NewRequest';
 import RequestStatus from './Customer/RequestStatus';
 
 function App({user}) {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
-    
-
     $(document).ready(()=>{
   
       $('#open-sidebar').click(()=>{
