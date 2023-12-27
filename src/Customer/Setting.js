@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Updatepassword from "../Modals/Updatepassword";
 import EditProfile from "../Modals/EditProfile";
+import SubscriptionStatus from "./Subscription/SubscriptionStatus";
 
 const Setting = ({user,userrole}) => {
     const [cuser,setCuser]=useState(null);
+    const [plan,setPlan]=useState(null);
     useEffect(()=>{
         setCuser(user);
     },[user])
@@ -80,19 +82,7 @@ const Setting = ({user,userrole}) => {
                                 </div>
                             </div>
                             <div className="col-lg-5">
-                                <div className="review-content bg-white rounded px-4 px-md-4 py-4">
-                                   <div className="row">
-                                        <div className="col-lg-6 col-6">
-                                            <h6 className="position-relative ps-sm-0 ps-2 mb-0"><b>Subscription Status</b><span className="d-block">ACTIVE</span></h6>
-                                        </div>
-                                        <div className="col-lg-6 col-6 text-end">
-                                            <div className="status-btn d-flex justify-content-end">
-                                                <button className="btn border rounded-pill pause-btn ">PAUSE </button>
-                                                <button className="btn border rounded-pill cancel-btn">CANCEL</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                               </div>
+                               <SubscriptionStatus plan={plan} isSetting={true}/>
                             </div>
                         </div>
 
