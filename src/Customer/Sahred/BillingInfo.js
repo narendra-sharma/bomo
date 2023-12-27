@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Country, State, City } from 'country-state-city';
+import { Country } from 'country-state-city';
 import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 const { REACT_APP_GOOGLE_API_KEY} = process.env;
 const BillingInfo = ({ card, errors, handleCardElementChange }) => {
+  const {name,company,address,city,postalCode,country,vatNumber}=errors;
   const [countries, setCountries] = useState([])
   useEffect(() => {
     const cArr = Country.getAllCountries();
@@ -26,8 +27,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
         <div className="form-group">
           <label htmlFor="cc-name">Name</label>
           <input id="cc-name" defaultValue={card.name} type="text" name="name" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'name')} />
-          {errors.name &&
-          errors.name.type === "required" && (
+          {name &&
+          name.type === "required" && (
             <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
               Enter the Name
             </p>
@@ -44,8 +45,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
         <div className="form-group">
           <label>Company</label>
           <input type="text" defaultValue={card.company} name="company" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'company')} />
-          {errors.company &&
-            errors.company.type === "required" && (
+          {company &&
+            company.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Enter the Company
               </p>
@@ -70,14 +71,14 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
               </div>
             </StandaloneSearchBox>
           </LoadScript>
-          {errors.address &&
-            errors.address.type === "required" && (
+          {address &&
+            address.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Enter the Address
               </p>
             )}
-          {errors.address &&
-            errors.address.type === "srequired" && (
+          {address &&
+            address.type === "srequired" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Please select the correct address from suggestions
               </p>
@@ -88,8 +89,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
         <div className="form-group">
           <label>City</label>
           <input type="text" defaultValue={card.city} name="city" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'city')} />
-          {errors.city &&
-            errors.city.type === "required" && (
+          {city &&
+            city.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Enter the City
               </p>
@@ -100,8 +101,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
         <div className="form-group">
           <label>Postal Code</label>
           <input type="text" defaultValue={card.poatalCode} name="postalCode" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
-          {errors.postalCode &&
-            errors.postalCode.type === "required" && (
+          {postalCode &&
+            postalCode.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Enter the Postal Code
               </p>
@@ -117,8 +118,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
               <option key={c.name} value={c.name}>{c.name}</option>
             )}
           </select>
-          {errors.state &&
-            errors.state.type === "required" && (
+          {country &&
+            country.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg">
                 Select the country
               </p>
@@ -129,8 +130,8 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
         <div className="form-group">
           <label>VAT number</label>
           <input type="text" defaultValue={card.vatNumber} name="vatNumber" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'vatNumber')} />
-          {errors.vatNumber &&
-            errors.vatNumber.type === "required" && (
+          {vatNumber &&
+            vatNumber.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                 Enter the VAT Number
               </p>

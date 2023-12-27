@@ -14,7 +14,7 @@ import BrandProfile from './Customer/BrandProfile';
 import Subscription from './Customer/Subscription/Index';
 import Members from './Customer/Members';
 import Profile from './Customer/Profile';
-import Setting from './Customer/Setting';
+import Setting from './Customer/Settings/Setting';
 import AllCustomers from './SuperAdmin/AllCustomers';
 import AllDesigners from './SuperAdmin/AllDesigners';
 import AllRequests from './SuperAdmin/AllRequests';
