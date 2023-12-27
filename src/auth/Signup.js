@@ -191,7 +191,7 @@ const Signup = (props) => {
               
             </div>
           </div>
-          <p className="already-register">Already Registered? <a href='/login' className="login-redirect">Login</a></p>
+          <p class="already-register">Already Registered? <Link to='/login' className="login-redirect">Login</Link></p>
         </div>
       </div>
     </>
