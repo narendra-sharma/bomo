@@ -68,7 +68,7 @@ const Login = (props) => {
   const formattedDate = format(currentDate, 'MM.dd.yyyy');
   return (
     <>
-      <div className={checkusertype === 'Designer' ? "designer-signup-form" : "signup-form"}>
+      <div className={checkusertype === 'Designer' ? "designer-signup-form h-100vh d-flex align-items-center" : "signup-form h-100vh d-flex align-items-center"}>
         <div className="container">
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
@@ -84,7 +84,7 @@ const Login = (props) => {
                   <label>
                     Email:</label>
                   <input type="text" autoComplete="off" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
-                  {emailerror ? <p style={{color: 'red'}} >{emailerror}</p> : null}
+                  {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 
                 <div className="form-group">
@@ -92,7 +92,7 @@ const Login = (props) => {
                     Password:</label>
                   <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
-                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
+                  {passworderror && <p className="error  fw-bold">{passworderror}</p>}
                 </div>
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
@@ -101,7 +101,7 @@ const Login = (props) => {
                 <div className="text-center h8 mt-4 ">
                   <Link
                     to="/forgot-password"
-                    className="text-decoration-none color-white"
+                    className="forgot-password-text color-white"
                   >
                     Forgot Password?
                   </Link>

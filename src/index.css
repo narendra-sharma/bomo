@@ -126,7 +126,7 @@ color: var(--dark-green);
   display: block;
   padding: 14px 20px;
   outline: none;
-  border: none;
+  border:solid 1px;
   width: 100%;
   font-weight: 700;
   font-size: 17px;
@@ -135,15 +135,32 @@ color: var(--dark-green);
 }
 .signup-btn{
   background: #CDFFB5;
+  border-color: #CDFFB5;
   color: var(--dark-green);
+  transition: 0.25 ease-in-out;
+}
+.signup-btn:hover{
+  background-color: transparent;
+  transition: 0.25 ease-in-out;
+  color: #CDFFB5;
 }
 .designer-signup-form .submit-btn{
   background-color: var(--dark-green);
+  border-color: var(--dark-green);
   color: #CDFFB5;
+}
+.designer-signup-form .submit-btn:hover{
+  background-color: transparent;
+  color: var(--dark-green);
 }
 .signup-form p{
 color:var(--mid-green);
 font-weight: 500;
+}
+.signup-content p.error {
+  font-size: 13px;
+  margin-top: 3px;
+  color: #ff7c7c;
 }
 .already-register{
   text-align: right;
@@ -154,14 +171,32 @@ font-weight: 500;
   border-radius:10px;
   border:solid 1px var(--mid-green);
   color: #CDFFB5;
+  font-weight: 700;;
   text-decoration: none;
+  transition: .2s ease-in-out;
+}
+.login-redirect:hover {
+  background: #cdffb5;
+  border-color: #cdffb5;
+  color: var(--dark-green);
+  transition: 0.2s ease-in-out;
 }
 .designer-signup-form .login-redirect{
   color: var(--mid-green);
 }
+.designer-signup-form .login-redirect:hover{
+  background-color: var(--dark-green);
+  color:#cdffb5;
+}
 .forgot-password{
   display: flex;
   align-items: center;
+}
+.forgot-password-text{
+  text-decoration: none;
+}
+.forgot-password-text:hover{
+  text-decoration: underline;
 }
 .bomo-login-logo{
   font-style: italic;
@@ -200,11 +235,18 @@ color: var(--dark-green);
 .Home-screen .Home-button{
   background-color: transparent;
   padding: 15px 25px;
-  color: #fff;
-  border: solid 1px #fff;
+  color: #CDFFB5;
+  border: solid 1px #CDFFB5;
   margin: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
+  letter-spacing: -.1px;
+  font-weight: 600;
+  transition: .2s ease-in-out;
+}
+.Home-screen .Home-button:hover{
+  background-color: #fff;
+  color: var(--dark-green);
+  transition: .2s ease-in-out;
 }
 .sidebar{
   top: 0;
@@ -675,7 +717,18 @@ select.form-control {
 .subscribers{
   border:solid 1px #000;
 }
+.registration-form{
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
 
+@media(max-width:1400px){
+  .registration-form{
+   
+    height: auto
+  }
+}
 @media(max-width:767px){
   nav h4{
     font-size: 15px;
@@ -689,6 +742,7 @@ select.form-control {
 }
   .signup-content{
    display: block;
+   padding: 0 15px;
   }
   .signup-form h2 {
     font-size: 60px;

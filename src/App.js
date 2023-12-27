@@ -11,7 +11,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import PastRequest from './Customer/PastRequests';
 import BrandProfile from './Customer/BrandProfile';
-import Subscription from './Customer/Subscription';
+import Subscription from './Customer/Subscription/Index';
 import Members from './Customer/Members';
 import Profile from './Customer/Profile';
 import Setting from './Customer/Setting';
@@ -35,10 +35,8 @@ import NewRequest from './Customer/NewRequest';
 import RequestStatus from './Customer/RequestStatus';
 
 function App({user}) {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
-    
-
     $(document).ready(()=>{
   
       $('#open-sidebar').click(()=>{
@@ -78,7 +76,7 @@ function App({user}) {
     { path: "/signup", element: <Signup /> },
     { path: "/forgot-password", element: <Forgotpassword/> },
     { path: "/reset-password", element: <Changepassword/> },
-    { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
+    { path: "*", element: <Navigate to='/' replace /> }
   ])
   const AfterLoginCustomerRoutes = () => useRoutes([
     { path: "/", element: <Home /> },
@@ -99,7 +97,7 @@ function App({user}) {
     { path: "/motion-tips", element: <MotionTips /> },
     { path: "/update-password", element: <Updatepassword/> },
     { path: "/edit-profile", element: <EditProfile/> },
-    { path: "*", element: <Navigate to={{ pathname: '/' }} replace /> }
+    { path: "*", element: <Navigate to='/' replace /> }
   ])
   return (
     <BrowserRouter>
