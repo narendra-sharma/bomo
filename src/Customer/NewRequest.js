@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NewRequest = () => {
     return (
@@ -53,7 +54,7 @@ const NewRequest = () => {
                                             <p className="short0ad web-animation">web animation</p>
                                             </div>
                                             <div className="request-list">
-                                            <p className="short0ad icon">icon</p>
+                                            <p className="short0ad icon bg-transparent">icon</p>
                                             </div>
                                         </div>
 
@@ -63,10 +64,10 @@ const NewRequest = () => {
                                             <p className="short0ad brand-element">Brand Element</p>
                                             </div>
                                             <div className="request-list">
-                                            <p className="short0ad intro">intro</p>
+                                            <p className="short0ad intro bg-transparent">intro</p>
                                             </div>
                                             <div className="request-list">
-                                            <p className="short0ad icon">ourto</p>
+                                            <p className="short0ad icon bg-transparent">ourto</p>
                                             </div>
 
                                         </div>
@@ -77,10 +78,10 @@ const NewRequest = () => {
                                             <p className="short0ad ui-animation">Ui animation</p>
                                             </div>
                                             <div className="request-list">
-                                            <p className="short0ad loop">loop</p>
+                                            <p className="short0ad loop bg-transparent">loop</p>
                                             </div>
                                             <div className="request-list">
-                                            <p className="short0ad custom">custom</p>
+                                            <p className="short0ad project-assets">custom</p>
                                             </div>
 
                                         </div>
@@ -124,7 +125,8 @@ const NewRequest = () => {
                             </div> 
                             <div className="col-md-12 mt-5 pt-5 text-center status-btn ">
                                 <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2">Submit</button>
-                            </div>                  
+                            </div>  
+                            <Link to="/request-status" className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>                
                         </div>
                     </form>
                  </div>

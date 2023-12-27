@@ -87,12 +87,13 @@ const Login = (props) => {
                   {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 
-                <div className="form-group">
+                <div className="password position-relative">
                   <label>
                     Password:</label>
                   <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
-                  {passworderror && <p style={{color: 'red'}}>{passworderror}</p>}
+                  </div>
+                  {passworderror && <p className="error  fw-bold">{passworderror}</p>}
                 </div>
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">

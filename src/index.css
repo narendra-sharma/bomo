@@ -160,15 +160,15 @@ font-weight: 500;
 .signup-content p.error {
   font-size: 13px;
   margin-top: 3px;
-  color: #ff7c7c;
+  color: #c74c4c;
 }
 .already-register{
   text-align: right;
   margin-top: 30px;
 }
 .login-redirect{
-  padding: 10px 20px;
-  border-radius:10px;
+  padding: 5px 15px;
+  border-radius:30px;
   border:solid 1px var(--mid-green);
   color: #CDFFB5;
   font-weight: 700;;
@@ -221,6 +221,12 @@ color: var(--dark-green);
 .forgot-password h1 {
   font-size: 55px;
 }
+.password i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(50%);
+}
 .mt-150{
   margin-top: 150px;
 }
@@ -244,7 +250,7 @@ color: var(--dark-green);
   transition: .2s ease-in-out;
 }
 .Home-screen .Home-button:hover{
-  background-color: #fff;
+  background-color: #ccffb5;
   color: var(--dark-green);
   transition: .2s ease-in-out;
 }
@@ -427,6 +433,22 @@ color: var(--dark-green);
   border-color: #FA812A;
   background: rgba(250, 129, 42, 0.10);
 }
+.review-content .project-assets{
+  border-color: #000;
+  color:#000000;
+}
+.review-content p.short0ad.dor {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 8px;
+  line-height: 26px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  border: none;
+  font-weight: 400;
+}
 p.serial-number {
   background: #D2CECE;
   border-radius: 50%;
@@ -592,6 +614,9 @@ table.feedback-queue tr:first-child td{
 .past-request-section .review-content .brand-element{
   background: rgba(6, 87, 235, 0.10)
 }
+.transition-bg{
+  background: rgba(249, 43, 52, 0.10);
+}
 .member-table tr td:nth-child(1)
 {
  width: 230px;
@@ -621,7 +646,7 @@ table.feedback-queue tr:first-child td{
   text-align: center;
 }
 .status-btn .btn{
- font-size: 16px;
+ font-size: 14px;
  letter-spacing: .48px;
 }
 .bg-gray-dark{
@@ -670,8 +695,9 @@ select.form-control {
   #3FCE3C;
   color: #000;
 }
-.bar-code{
-  height:100px;
+
+.review-content  table.request-status td , .review-content  table.request-status th{
+ padding: 0 10px;
 }
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
@@ -723,7 +749,7 @@ select.form-control {
   height: 100vh;
 }
 
-@media(max-width:1400px){
+@media(max-width:1900px){
   .registration-form{
    
     height: auto
