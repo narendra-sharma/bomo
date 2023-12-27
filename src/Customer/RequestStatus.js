@@ -1,4 +1,6 @@
 import React from "react";
+import designImage from "../images/nine-sixteen.png";
+import designImage2 from "../images/sixteen-nine.png";
 
 const RequestStatus = () => {
     return (
@@ -14,17 +16,17 @@ const RequestStatus = () => {
                             <h3>Transition Brand Video</h3>
                             <div className="review-content mt-3">
                                 <div className="d-flex">
-                                    <p className="short0ad transition">Transition</p>
-                                    <p className="short0ad transition rounded-pill ms-2">DOR</p>
-                                    <p className="short0ad project-assets ms-2">Project Assets</p>
+                                    <p className="short0ad transition transition-bg">Transition</p>
+                                    <p className="short0ad dor rounded-pill ms-2">DOR</p>
+                                    <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                 </div>
-                                <div className="delivery-date text-end">
-                                    <p className="fw-bold">Delivered on<span className="d-block fw-medium">Jan 20th 17:22</span></p>
+                                <div className="delivery-date text-end mb-3">
+                                    <p className="fw-bold h6">Delivered on<span className="d-block fw-medium h6">Jan 20th 17:22</span></p>
 
                                 </div>
 
                                 <div className="table-responsive">
-                                    <table className="table table-borderless mb-0">
+                                    <table className="table request-status table-borderless mb-0">
                                         <thead>
                                            <tr>
                                                 <th>Description</th>
@@ -56,20 +58,24 @@ const RequestStatus = () => {
                                                17/03/2023 14:11
                                             </p>
                                         </div>
-                                        <div className="col-md-4 text-center">
-                                            <div className="statusbar-section">
+                                        <div className="col-md-4 d-flex text-center">
+                                            <div className="statusbar-section d-flex flex-column">
                                                 <div className="delivery-status fw-bold">9:16</div>
-                                                <div className="bar-code"></div>
+                                                <div className="bar-code">
+                                                <img src={designImage} alt="Image" />
+                                                </div>
                                                 <div className="download-btn">
                                                     <button className="rounded-pill border px-3 py-1">Download</button>
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <div className="col-md-4 text-center">
-                                            <div className="statusbar-section">
+                                        <div className="col-md-4 d-flex text-center">
+                                            <div className="statusbar-section d-flex flex-column">
                                                 <div className="delivery-status fw-bold">9:16</div>
-                                                <div className="bar-code"></div>
+                                                <div className="bar-code">
+                                                <img src={designImage2} alt="Image" />
+                                                </div>
                                                 <div className="download-btn">
                                                     <button className="rounded-pill border px-3 py-1">Download</button>
                                                 </div>

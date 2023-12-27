@@ -86,13 +86,13 @@ const Changepassword = (props) => {
                 <label>
                     Password:</label>
                   <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
+                  {passworderror ? <p className="error">{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                 <label>
                     Confirm:</label>
                   <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {confirmpassworderror ? <p style={{color: 'red'}}>{confirmpassworderror}</p> : null}
+                  {confirmpassworderror ? <p className="error">{confirmpassworderror}</p> : null}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Changing.....' : 'Change Password'}
