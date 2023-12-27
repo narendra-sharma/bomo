@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const brandReducer = (state = initialState, action) => {
-  console.log("Zippath",state.zip_path);
+  console.log("Zippath ==>",state.zip_path);
   switch (action.type) {
     case UPLOAD_ZIP_FILE_SUCCESS:
       return {

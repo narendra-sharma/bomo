@@ -16,6 +16,8 @@ const Changepassword = (props) => {
   });
   const [passworderror, setPassworderror] = useState(null);
   const [confirmpassworderror, setconfirmPassworderror] = useState(null);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,6 +70,13 @@ const Changepassword = (props) => {
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'MM.dd.yyyy');
 
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  }
+  const toggleConfirmPasswordVisibility = () => {
+    setShowconfirmPassword(!showconfirmPassword);
+  }
+
   return (
     <>
       <div className={(userrole === 'Designer' ? "designer-signup-form" : "signup-form")+' forgot-password h-100vh'}>
@@ -85,14 +94,16 @@ const Changepassword = (props) => {
                 <div className="mb-3">
                 <label>
                     Password:</label>
-                  <input type="password" name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
+                  <input type={showNewPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleInputChange} className="form_control" placeholder="Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i>
+                  {passworderror && <p className="error fw-bold">{passworderror}</p>}
                 </div>
                 <div className="mb-3">
                 <label>
                     Confirm:</label>
-                  <input type="password" name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                  {confirmpassworderror ? <p style={{color: 'red'}}>{confirmpassworderror}</p> : null}
+                  <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
+                  {confirmpassworderror && <p className="error fw-bold">{confirmpassworderror}</p>}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
                   {isLoading ? 'Changing.....' : 'Change Password'}

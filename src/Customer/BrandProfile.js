@@ -159,7 +159,7 @@ const BrandProfile = ({ isLoading, zipfile_path, brandstore, addBrand, uploadZip
         tags: newbrand.tags,
       };
 
-      await addBrand(brandprofile, dispatch);
+      await addBrand(brandprofile,dispatch);
 
       setNewBrand({
         logo: null,
@@ -190,7 +190,7 @@ const BrandProfile = ({ isLoading, zipfile_path, brandstore, addBrand, uploadZip
               <tr key={brand?.id}>
                 <td><img src={brand?.logo} alt={brand?.name} style={{ height: '3rem' }} /></td>
                 <td>{brand?.brandname}</td>
-                <td><a href={brand?.brandassests} download>
+                <td><a href={brand?.zipFile} download>
                   Download ZIP
                 </a></td>
                 <td>{brand?.tags.join(', ')}</td>

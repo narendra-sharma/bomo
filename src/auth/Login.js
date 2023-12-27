@@ -92,7 +92,7 @@ const Login = (props) => {
                     Password:</label>
                   <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
-                  {passworderror && <p className="error  fw-bold">{passworderror}</p>}
+                  {passworderror && <p style={{color: 'red'}}>{passworderror}</p>}
                 </div>
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
