@@ -23,7 +23,6 @@ import SiteEdit from './SuperAdmin/SiteEdit';
 import ActiveRequests from './Designer/ActiveRequests';
 import MotionTips from './Designer/MotionTips';
 import $ from 'jquery';
-import store from './reduxdata/store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Forgotpassword from './auth/Forgotpassword';
@@ -62,14 +61,20 @@ function App({user}) {
       
     });
   }, [])
-  useEffect(() => {
-    store.subscribe(() => {
-      setIsAuth(store.getState()?.auth?.user?true:false);
-    });
-  }, [ store ]);
+  
   useEffect(() => {
     setIsAuth(user?true:false);
   }, [user]);
+  useEffect(() => {
+    const handleEndConcert = () => {
+      localStorage.setItem('path',window.location.pathname);
+      localStorage.setItem('time',new Date());
+    }
+    window.addEventListener('beforeunload', handleEndConcert);
+    return () => {
+      window.removeEventListener('beforeunload', handleEndConcert);
+    }
+  }, []);
   const AuthRoutes = () => useRoutes([
     { path: "/", element: <Bomohome /> },
     { path: "/login", element: <Login /> },
@@ -112,7 +117,7 @@ function App({user}) {
 }
 const mapStateToProps = (state) => {
   return {
-      user:state.auth.user
+    user:state.auth.user
   };
 };
 

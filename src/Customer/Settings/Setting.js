@@ -7,6 +7,7 @@ import EditProfile from "../../Modals/EditProfile";
 import SubscriptionStatus from "../Sahred/SubscriptionStatus";
 import BillingForm from "./BillingForm";
 import PaymentCardInfo from "./PaymentCardInfo";
+import SubscriptionSteps from "../Subscription/SubscriptionSteps";
 
 const Setting = ({ user, userrole }) => {
     const [cuser, setCuser] = useState(null);
@@ -54,7 +55,7 @@ const Setting = ({ user, userrole }) => {
 
                         </div>
                     </div>
-                    <div className="">
+                    <div className="mb-5">
                         <div className="row">
                             <div className="col-lg-4">
                                 <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
@@ -88,7 +89,7 @@ const Setting = ({ user, userrole }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="review-main-content mt-5">
+                    {user?.plan ? <div className="review-main-content">
                         <div className="row">
                             <div className="col-lg-6 col-md-6 d-flex flex-column">
                                 <BillingForm />
@@ -98,9 +99,12 @@ const Setting = ({ user, userrole }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="delete-account status-btn text-end mt-3">
+                    :<SubscriptionSteps plan={user?.plan}/>
+                    }
+
+                    {user?.plan && <div className="delete-account status-btn text-end mt-3">
                         <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-2">Delete account</button>
-                    </div>
+                    </div>}
                 </div>
                 <Updatepassword show={showchangePassword} handleClose={handleClose} />
                 <EditProfile show={showchangeProfile} handleClose={handleProfileClose} />
@@ -114,7 +118,4 @@ const mapStateToProps = (state) => {
         userrole: state.auth.role,
     };
 };
-
-
-export default connect(mapStateToProps, null)(Setting);
-// export default Setting;
+export default connect(mapStateToProps)(Setting);

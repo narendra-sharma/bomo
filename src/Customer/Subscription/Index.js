@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { get_plans } from "../../reduxdata/rootAction";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import SubscriptionSteps from "./SubscriptionSteps";
 import PaymentHistory from "./PaymentHistory";
 import SubscriptionStatus from "../Sahred/SubscriptionStatus";
-const Subscription = () => {
+const Subscription = ({user,isPay}) => {
   const [plan, setPlan] = useState(null);
+
   return (
     <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -34,6 +34,7 @@ const Subscription = () => {
           </>}
           <SubscriptionSteps plan={plan} />
           <PaymentHistory />
+          
         </div>
       </div>
     </>
@@ -41,14 +42,8 @@ const Subscription = () => {
 }
 const mapStateToProps = (state) => {
   return {
-    plans: state.plan.plans,
+    user: state.auth.user
   };
 };
 
-const mapDispatchToProps = () => {
-  return {
-    get_plans,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Subscription);
+export default connect(mapStateToProps)(Subscription);
