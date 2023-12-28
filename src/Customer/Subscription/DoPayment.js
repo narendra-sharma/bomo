@@ -3,8 +3,10 @@ import { CardNumberElement } from '@stripe/react-stripe-js';
 import BillingInfo from "../Sahred/BillingInfo";
 import { toast } from "react-toastify";
 import CardInfo from "../Sahred/CardInfo";
-const DoPayment = ({ stripe,elements,pieces, prize, save }) => {
-  const [loading, setLoading] = useState(false);
+import { pay_now } from "../../reduxdata/Plans/planActions";
+import { useDispatch } from "react-redux";
+const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
+  const dispatch=useDispatch();
   const [card, setCard] = useState({
     name:'',
     surname:'',
@@ -124,7 +126,6 @@ const DoPayment = ({ stripe,elements,pieces, prize, save }) => {
     if (!stripe || !elements) {
       return;
     }
-    setLoading(true);
     const cardElement = elements.getElement(CardNumberElement);
     const { error, token } = await stripe.createToken(cardElement);
     if (error) {
@@ -147,6 +148,18 @@ const DoPayment = ({ stripe,elements,pieces, prize, save }) => {
           handleCardElementChange(output[i].value,output[i].key);
         }
       };
+      let err=false;
+      const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
+      err=errOutput.find(r=>r.value?true:false);
+      if(err){
+        return false;
+      }
+      const data={
+        user_id:user._id,
+        pieces:pieces,
+        ...card
+      };
+      pay_now(token,data,dispatch);
     }
   };
   return (

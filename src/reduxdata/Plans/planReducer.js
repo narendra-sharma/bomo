@@ -1,15 +1,20 @@
-import { GET_PLANS } from "./planTypes";
+import { GET_PLANS, PAY_NOW } from "./planTypes";
 
 const initialState = {
-    plans: []
+    plans: [],
+    isPay:false
   };
   
   const planReducer = (state = initialState, action) => {
     switch (action.type) {
       case GET_PLANS:
         return { ...state, 
-            plans: action.payload 
+          plans: action.payload 
         };
+      case PAY_NOW:
+        return { ...state, 
+          isPay: !state.isPay 
+        };  
       default:
         return state;
     }
