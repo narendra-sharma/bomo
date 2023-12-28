@@ -35,7 +35,7 @@ const CustomerHome = () => {
           
           <div className="review-main-content mb-5">
             <div className="row">
-              <div className="col-lg-6 col-md-6 mb-5 mb-md-0">
+              <div className="col-lg-6 col-md-12 mb-5 mb-lg-0">
                 <div className="mx-md-5 mx-sm-0 mb-4">
                   <h3 >Active Requests</h3>
                 </div>
@@ -65,7 +65,7 @@ const CustomerHome = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-6 col-md-6">
+              <div className="col-lg-6 col-md-12">
                 <div className="mx-md-5 mx-sm-0 mb-4">
                   <h3 >Feedback Queue</h3>
                 </div>
