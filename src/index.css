@@ -699,6 +699,10 @@ select.form-control {
 .review-content  table.request-status td , .review-content  table.request-status th{
  padding: 0 10px;
 }
+.signup-form input:-webkit-autofill, .signup-form input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #284719 inset;
+  -webkit-text-fill-color: var(--light-green);
+}
 /* sidebar for small screens */
 @media screen and (max-width: 767px){
   
