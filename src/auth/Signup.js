@@ -171,10 +171,12 @@ const Signup = (props) => {
                   <p>Not Found!!!</p>
                 )}
                 <div className="form-group">
+                  <div className=" position-relative password">
                   <label>
                     Password:</label>
                     <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
                     <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
+                   </div>
                    {passworderror && <p className="error fw-bold">{passworderror}</p>}
                 </div>
                 {userrole === 'Designer' ? (
