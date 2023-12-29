@@ -36,31 +36,36 @@ import RequestStatus from './Customer/RequestStatus';
 function App({user}) {
   const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
-    $(document).ready(()=>{
-  
-      $('#open-sidebar').click(()=>{
-         
-          // add class active on #sidebar
-          $('#sidebar').addClass('active');
+      $(document).ready(()=>{
+    
+        $('#open-sidebar').click(()=>{
           
-          // show sidebar overlay
-          $('#sidebar-overlay').removeClass('d-none');
-        
-       });
-      
-      
-       $('#sidebar-overlay').click(function(){
-         
-          // add class active on #sidebar
-          $('#sidebar').removeClass('active');
+            // add class active on #sidebar
+            $('#sidebar').addClass('active');
+            
+            // show sidebar overlay
+            $('#sidebar-overlay').removeClass('d-none');
           
-          // show sidebar overlay
-          $(this).addClass('d-none');
+        });
         
-       });
+        
+        $('#sidebar-overlay').click(function(){
+          
+            // add class active on #sidebar
+            $('#sidebar').removeClass('active');
+            
+            // show sidebar overlay
+            $(this).addClass('d-none');
+          
+        });
+        
+      });
+
       
-    });
+
+    
   }, [])
+
   
   useEffect(() => {
     setIsAuth(user?true:false);
@@ -75,6 +80,8 @@ function App({user}) {
       window.removeEventListener('beforeunload', handleEndConcert);
     }
   }, []);
+   
+
   const AuthRoutes = () => useRoutes([
     { path: "/", element: <Bomohome /> },
     { path: "/login", element: <Login /> },

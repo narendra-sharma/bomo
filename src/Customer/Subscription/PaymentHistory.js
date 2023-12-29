@@ -2,7 +2,7 @@ import React from "react";
 
 const PaymentHistory = () => {
   return (
-    <div className="payment-history-section review-main-content p-5 rounderd mt-5">
+    <div className="payment-history-section review-main-content p-4 p-md-5 rounderd mt-5">
       <div className="d-flex justify-content-between align-item-center mb-5">
         <h5><strong>Payments</strong> History</h5>
         <div><button className="btn btn-outline-dark rounded-pill px-4 py-1">Download Csv</button></div>
