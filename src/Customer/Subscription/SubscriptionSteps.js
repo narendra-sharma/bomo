@@ -47,7 +47,7 @@ const SubscriptionSteps = ({ user, plan, isPay }) => {
   }, [isPay,dispatch])
   return (
     <>
-      <div className="review-main-content modify-subscription text-center bg-white py-5 px-3 rounded">
+      <div className="review-main-content modify-subscription  bg-white py-5 px-3 rounded">
         <div className="row">
           <div className="col-md-8 px-1 mx-auto">
             <div className="d-flex subscription-progress mb-4">
@@ -56,38 +56,40 @@ const SubscriptionSteps = ({ user, plan, isPay }) => {
           </div>
         </div>
         {step === 0 && <>
-          <h2>{plan ? 'Modify your' : 'Start using'}  <span className="subscription-heading">{plan ? 'Subscription' : 'BOMO'}</span> </h2>
-          <h4>
+          <h2 className="text-center">{plan ? 'Modify your' : 'Start using'}  <span className="subscription-heading">{plan ? 'Subscription' : 'BOMO'}</span> </h2>
+          <p className="sub-heading text-center">
             {plan ? `Your current plan includes 12 pieces per month. Need to change it?`
               : <>
                 Choose the number of Pieces you want to create monthly.
                 <br />Need more? You can modify it next month
               </>
             }
-          </h4>
-          <div className="pt-5 pb-4">
-            <div className="subscription-data mb-3 row no-gutters align-items-center w-75 ms-lg-auto">
-              <div className={`increament col-md-1 ${(pieces > 1) && 'cursor-pointer'}`} onClick={() => (pieces > 1) && decrease()}>-</div>
-              <div className="subscription-count offset-md-2 g-0 col-md-2">{pieces}</div>
-              <div className="increament cursor-pointer col-md-1 g-0" onClick={() => increase()}> +</div>
+          </p>
+          <div className="p-4 px-2 px-md-5">
+            <div className="subscription-data mb-3 row no-gutters align-items-center w-100">
+              <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
+              <span className={`increament  ${(pieces > 1) && 'cursor-pointer'}`} onClick={() => (pieces > 1) && decrease()}>-</span>
+              <span className="subscription-count">{pieces}</span>
+              <span className="increament cursor-pointer g-0" onClick={() => increase()}> +</span>
+              </div>
               <div className="col-md-4">
                 {!plan && <>
-                  <div className="savings rounded-pill py-1 g-0 mb-1">Order up to 25 items in one bulk request, or split them as needed</div>
-                  <div className="savings rounded-pill py-1 g-0 mb-1">Unlimited Revisions. 5 at a time with your current Plan</div>
+                  <div className="savings saving-bg-color rounded py-1 g-0 mb-1">Order up to 25 items in one bulk request, or split them as needed</div>
+                  <div className="savings rounded py-1 g-0 mb-2">Unlimited Revisions. 5 at a time with your current Plan</div>
                 </>}
-                {(save > 0) && <div className="savings rounded-pill py-1 g-0">You are saving ${save}</div>}
+                {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving ${save}</div>}
               </div>
             </div>
 
-            <div className="subscription-total mb-2">
-              <strong>{plan?'New total':'Total'} </strong><span>${prize}</span>
+            <div className="subscription-total text-center mb-2">
+              <span className="dark-green "> <strong>{plan?'New total':'Total'} </strong></span><span>${prize}</span>
             </div>
-            {plan && <p className="text-secondary">Before ${plan?.total}</p>}
+            {plan && <p className="text-secondary text-center">Before ${plan?.total}</p>}
           </div>
-          <div className="mb-5">
+          <div className="mb-5 text-center">
             <button type="button" className="btn update-btn rounded-pill px-5 fw-bold" onClick={() => setStep(1)}>{plan ? 'Update' : 'Go to Payment'}</button>
           </div>
-          <p>Subscriptions are billed monthly at the start of the period.</p>
+          <p className="text-center">Subscriptions are billed monthly at the start of the period.</p>
         </>}
         {step === 1 && <Elements stripe={stripePromise}>
           <ElementsConsumer>

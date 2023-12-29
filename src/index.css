@@ -36,6 +36,10 @@ p{
 .font-public{
 font-family: var(--pubilc-sans-font);
 }
+.dark-green{
+  color: var(--dark-green);
+}
+
 .display-inline{
   display: inline;
 }
@@ -509,31 +513,47 @@ table.feedback-queue tr:first-child td{
 .modify-subscription h2{
   font-size: 40px;
   font-weight: 500;
-  font-family: 'Recless Medium';
-
+  font-family: var(--secondary-font);
+  text-align: center;
 }
 .modify-subscription .subscription-heading{
-  font-family: var(--main-font);
   font-weight: 700;
+  font-family: var(--main-font);
+  letter-spacing: -3px;
 }
 .subscription-data .savings{
   border: solid 1px var(--mid-green) ;
   color:var(--mid-green);
   font-weight: 500;
-  letter-spacing: .48px; 
+  font-size: 10px;
+  letter-spacing: -.48px;
+  text-align: center;
 }
-.subscription-count {
+.subscription-data .subscription-count {
   font-size: 80px;
   font-weight: 700;
+  margin: 0 50px;
+}
+.subscription-data .increament {
+  font-size: 25px;
 }
 .subscription-total{
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
+  color: var(--mid-green);
+}
+.subscription-data .savings.saving-bg-color{
+  background-color: var(--light-green);
+  color: var(--dark-green);
 }
 .modify-subscription .update-btn{
   color: var(--dark-green);
   border: solid 1px var(--mid-green);
   font-size: 17px;
+}
+.modify-subscription .update-btn:hover{
+  background-color: var(--dark-green);
+  color: var(--light-green);
 }
 .modify-subscription {
   border: solid 1px var(--mid-green);
@@ -553,7 +573,7 @@ table.feedback-queue tr:first-child td{
 }
 .subscription-progress .stepIndicator.active {
   font-weight: 600;
-  color:var(--mid-green);
+  color:#777034;
 }
 .subscription-progress .stepIndicator::before {
   content: "";
@@ -566,7 +586,7 @@ table.feedback-queue tr:first-child td{
   height: 8px;
   background-color: transparent;
   border-radius: 50%;
-  border: 3px solid var(--mid-green);
+  border: 2px solid var(--mid-green);
   top: 73%;
 }
 .subscription-progress .stepIndicator.active::before {
@@ -579,8 +599,47 @@ table.feedback-queue tr:first-child td{
   left: 56%;
   bottom: 8px;
   width: 90%;
-  height: 3px;
-  background-color: #f3f3f3;
+  height: 1px;
+  background-color: var(--mid-green);
+}
+.modify-subscription form label {
+  color: #000;
+  margin-bottom: 4px;
+}
+.modify-subscription  .pay-now {
+  background: var(--mid-green);
+  color: #CDFFB5;
+  font-weight: 500;
+}
+.modify-subscription  .pay-now:hover{
+  border: solid 1px var(--mid-green);
+  color: var(--mid-green);
+}
+.hr-line {
+  border: solid 1px var(--mid-green);
+}
+.do-payment p {
+  color: var(--mid-green);
+}
+.modify-subscription form input ,
+.modify-subscription form .form-control , .modify-subscription form select{
+  border-color: #838383;
+}
+.modify-subscription .sub-heading{
+  font-size: 15px;
+  color: var(--dark-green);
+}
+.modify-subscription .sub-heading {
+  font-size: 17px;
+  color: var(--dark-green);
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.grand-total{
+  font-size: 23px;
+  color:
+  #284719;
 }
 .subscription-progress .stepIndicator.active::after {
   background-color: var(--mid-green);

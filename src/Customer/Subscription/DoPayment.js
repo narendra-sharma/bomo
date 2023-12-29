@@ -164,17 +164,17 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   };
   return (
     <>
-      <h2><span className="subscription-heading">Payment</span> </h2>
+      <h2>Payment</h2>
       <form className="form" onSubmit={handleSubmit}>
-      <div className="pt-5 pb-4">
-        <div className="row align-items-center ms-lg-auto">
-          <div className="col-md-6">
+      <div className="pt-4 pb-4 do-payment">
+        <div className="row align-items-center ms-lg-auto px-lg-5 px-2">
+          <div className="col-md-7">
               <div className="row">
                 <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
                 <BillingInfo card={card} errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
               </div>
           </div>
-          <div className="col-md-2"></div>
+          <div className="col-md-1"></div>
           <div className="col-md-4">
             <div className="d-flex align-items-center justify-content-between">
               <p className="mb-0">Subscription of {pieces} pieces per month</p><span className="subscription-total">${prize + save}</span>
@@ -182,12 +182,12 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
             {(save > 0) && <div className="d-flex align-items-center justify-content-between">
               <p className="mb-0">12% saving vs the basic plan</p><span>${save}</span>
             </div>}
-            <div className="d-flex align-items-center justify-content-between">
-              <p className="mb-0">Total</p><span className="subscription-total">${prize}</span>
+            <div className="d-flex align-items-center justify-content-between mt-5">
+              <p className="mb-0">Total</p><span className="subscription-total grand-total">${prize}</span>
             </div>
-            <hr />
+            <div className="hr-line mt-3 mb-4"></div>
             <div className="d-flex align-items-center justify-content-end">
-              <button type="submit" className="btn update-btn rounded-pill px-5 fw-bold" disabled={!stripe || !elements}>Play Now</button>
+              <button type="submit" className="btn pay-now rounded px-5 mt-3" disabled={!stripe || !elements}>Play Now</button>
             </div>
           </div>
         </div>
