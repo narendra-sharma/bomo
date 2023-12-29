@@ -39,7 +39,9 @@ font-family: var(--pubilc-sans-font);
 .dark-green{
   color: var(--dark-green);
 }
-
+.light-green{
+  color:var(--mid-green)
+}
 .display-inline{
   display: inline;
 }
@@ -540,7 +542,7 @@ table.feedback-queue tr:first-child td{
 .subscription-total{
   font-size: 25px;
   font-weight: 500;
-  color: var(--mid-green);
+  color: var(--dark-green);
 }
 .subscription-data .savings.saving-bg-color{
   background-color: var(--light-green);
@@ -619,7 +621,7 @@ table.feedback-queue tr:first-child td{
   border: solid 1px var(--mid-green);
 }
 .do-payment p {
-  color: var(--mid-green);
+  color: var(--dark-green);
 }
 .modify-subscription form input ,
 .modify-subscription form .form-control , .modify-subscription form select{
@@ -699,6 +701,32 @@ table.feedback-queue tr:first-child td{
   -ms-flex-align: center;
   align-items: center;
   min-height: calc(100% - (1.75rem * 2));
+}
+.modal-dialog .btn.btn-dark {
+  background: #000;
+}
+.modal-dialog .btn.btn-dark:hover{
+  background-color: transparent;
+}
+.modal-dialog .btn-light{
+  background-color: transparent;
+  color: #000;
+}
+ .modal-dialog  button{
+  font-weight: 700;
+}
+.cancel-popup .modal-content{
+  border: solid 5px #F82626;
+}
+.cancel-popup .modal-content .btn-danger  {
+  background-color: #F82626;
+}
+.cancel-popup .modal-content .btn-danger:hover{
+  background-color: transparent;
+  color: #F82626;
+}
+.suceess-popup .modal-content{
+  border: solid 1px #000;
 }
 .new-request-form textarea.form-control {
   min-height: 220px;

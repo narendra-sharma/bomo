@@ -7,11 +7,11 @@ const FinalCancel = (props) => {
     handleClose();
   }
   return (
-    <Modal show={show} onHide={handleClose} className="logout-popup">
+    <Modal show={show} onHide={handleClose} className="logout-popup cancel-popup">
       <Modal.Body>
         <div className="px-4 py-4">
-          <h4 className="mb-0">This is a final reminder.</h4>
-          <p>Your account will be deleted in 17 days</p>
+          <h5 className="mb-3 text-dark fw-bold">This is a final reminder.</h5>
+          <p>Your account will be deleted in <strong>17 days</strong></p>
           <p>
             You will lose access to all files after that, you can subscribe back anytime.
             <br />
