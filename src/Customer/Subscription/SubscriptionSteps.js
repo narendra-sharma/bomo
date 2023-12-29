@@ -3,9 +3,10 @@ import { connect, useDispatch } from "react-redux";
 import DoPayment from "./DoPayment";
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { PAY_NOW } from "../../reduxdata/Plans/planTypes";
+import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
-const stripePromise = loadStripe('pk_test_HaildCNdMAkdT0HruXtJPvig');
+const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = ({ user, plan, isPay }) => {
   const dispatch = useDispatch();
   const firstPrice = 250;

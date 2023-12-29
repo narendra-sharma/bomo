@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import PauseSubscription from "../../Modals/PauseSubscription";
+import CancelSubscription from "../../Modals/CancelSubscription";
+import FinalCancel from "../../Modals/FinalCancel";
 
 const SubscriptionStatus = ({plan,isSetting}) => {
+  const [pause,setPause]=useState(false);
+  const [cancel,setCancel]=useState(false);
+  const [final,setFinal]=useState(false);
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
@@ -21,11 +27,14 @@ const SubscriptionStatus = ({plan,isSetting}) => {
         </div>
         <div className={`col-lg-6 col-6 ${isSetting && 'text-end'}`}>
           <div className="status-btn d-flex justify-content-end">
-            <button className="btn border rounded-pill pause-btn ">PAUSE </button>
-            <button className="btn border rounded-pill cancel-btn">CANCEL</button>
+            <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>PAUSE </button>
+            <button className="btn border rounded-pill cancel-btn" onClick={()=>setCancel(true)}>CANCEL</button>
           </div>
         </div>
       </div>
+      <PauseSubscription show={pause} handleClose={() => setPause(false)} />
+      <CancelSubscription show={cancel} handleClose={() => setCancel(false)} final={()=>setFinal(true)} pause={()=>setPause(true)}/>
+      <FinalCancel show={final} handleClose={() => setFinal(false)} />
     </div>
   )
 }

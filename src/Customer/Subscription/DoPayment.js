@@ -3,7 +3,7 @@ import { CardNumberElement } from '@stripe/react-stripe-js';
 import BillingInfo from "../Sahred/BillingInfo";
 import { toast } from "react-toastify";
 import CardInfo from "../Sahred/CardInfo";
-import { pay_now } from "../../reduxdata/Plans/planActions";
+import { pay_now } from "../../reduxdata/PlansPayments/planActions";
 import { useDispatch } from "react-redux";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   const dispatch=useDispatch();
@@ -127,7 +127,14 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       return;
     }
     const cardElement = elements.getElement(CardNumberElement);
-    const { error, token } = await stripe.createToken(cardElement);
+    const { error, token } = await stripe.createToken(cardElement, {
+      name: card.name,
+      address_line1: card.address,
+      address_line2: card.address,
+      address_city: card.city,
+      address_zip: card.postalCode,
+      address_country: card.country,
+    });
     if (error) {
       let err={
         error:{message:error.message}
@@ -156,10 +163,12 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       }
       const data={
         user_id:user._id,
-        pieces:pieces,
+        email:user.email,
+        quantity:pieces,
+        cardToken:token.id,
         ...card
       };
-      pay_now(token,data,dispatch);
+      pay_now(user.token,token,data,dispatch);
     }
   };
   return (
