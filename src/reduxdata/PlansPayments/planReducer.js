@@ -1,8 +1,11 @@
-import { GET_PLANS, PAY_NOW } from "./planTypes";
+import { GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 
 const initialState = {
     plans: [],
-    isPay:false
+    isPay:false,
+    payments:[],
+    cpayments:[],
+    dpayments:[],
   };
   
   const planReducer = (state = initialState, action) => {
@@ -14,7 +17,12 @@ const initialState = {
       case PAY_NOW:
         return { ...state, 
           isPay: !state.isPay 
-        };  
+        }; 
+      case GET_PAYMENT_HISTORY:
+        return {
+          ...state,
+          payments:action.payload
+        }   
       default:
         return state;
     }

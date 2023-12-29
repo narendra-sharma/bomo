@@ -35,6 +35,8 @@ export const signup = async (user, role, navigate, dispatch) => {
 
 export const login = async (user,role,dispatch) => {
   role=role.toLowerCase();
+  role=role.replace(' ','');
+  console.log(role);
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/login`;

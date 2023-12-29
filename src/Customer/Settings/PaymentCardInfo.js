@@ -3,7 +3,8 @@ import CardInfo from "../Sahred/CardInfo";
 import { Elements, ElementsConsumer, CardNumberElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
-const stripePromise = loadStripe('pk_test_HaildCNdMAkdT0HruXtJPvig');
+const {REACT_APP_STRIPE_PUBLIC_KEY}=process.env;
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const PaymentCardInfo = ({ stripe, elements }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({

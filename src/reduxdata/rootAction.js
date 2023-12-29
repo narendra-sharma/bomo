@@ -1,6 +1,6 @@
 import { start_loading,stop_loading } from "./Loader/loaderActions";
 import { login,signup,logout,set_user_type,update_password,profile_update,profile_details } from "./User/userActions";
-import { get_plans } from "./Plans/planActions";
+import { get_plans } from "./PlansPayments/planActions";
 import { addBrand, uploadZip, uploadZipFileSuccess, addBrandSuccess } from "./Brand/brandActions";
 export {
     start_loading,

@@ -21,7 +21,6 @@ const Sidebar = () => {
     if (userrole === 'Customer') {
       list = [
         { name: 'Home', to: '/' },
-        { name: 'Active Requests', to: '/active-requests' },
         { name: 'Past Requests', to: '/past-requests' },
         { name: 'Brand Profiles', to: '/brand-profile' },
         { name: 'Subscription', to: '/subscription' },
