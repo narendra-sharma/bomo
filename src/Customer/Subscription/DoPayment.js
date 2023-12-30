@@ -188,8 +188,8 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
             <div className="d-flex align-items-center justify-content-between">
               <p className="mb-0">Subscription of {pieces} pieces per month</p><span className="subscription-total">${prize + save}</span>
             </div>
-            {(save > 0) && <div className="d-flex align-items-center justify-content-between">
-              <p className="mb-0">12% saving vs the basic plan</p><span>${save}</span>
+            {(save > 0) && <div className="d-flex align-items-center justify-content-between mt-2">
+              <p className="mb-0">12% saving vs the basic plan</p><span className="light-green"><del>${save}</del></span>
             </div>}
             <div className="d-flex align-items-center justify-content-between mt-5">
               <p className="mb-0">Total</p><span className="subscription-total grand-total">${prize}</span>
