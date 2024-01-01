@@ -61,6 +61,12 @@ h1, h2 , h3, h4, h5, h6 , p{
 .h-100vh{
   height: 100vh;
 }
+.form-control{
+  outline: none;
+  box-shadow: none!important;
+  font-size: 15px;
+  padding: 0.5rem 1rem!important;
+}
 .signup-form{
   background-color: var(--dark-green);
   color: #CDFFB5;
@@ -707,7 +713,9 @@ table.feedback-queue tr:first-child td{
 }
 .modal-dialog .btn.btn-dark:hover{
   background-color: transparent;
+  color: #000;
 }
+
 .modal-dialog .btn-light{
   background-color: transparent;
   color: #000;
@@ -844,6 +852,21 @@ select.form-control {
 }
 .feedback-request {
  background-color: #f2f2f2;
+}
+.form-row i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.review-content table tr td .checked-circle{
+  color:#3FCE3C;
+}
+.review-content table tr td .cancel{
+  color: #F92B34;
+} 
+.review-content table tr td i{
+  padding-right: 10px;
 }
 @media(max-width:1900px){
   .registration-form{
