@@ -16,20 +16,20 @@ const CustomerHome = () => {
             <div className="review-main-content mb-5">
               <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Ready to Review</h3></div>
               <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
-                    <div className="table-responsive">
-                      <table className="table table-borderless">
-                        <tbody>
-                          <tr>
-                  <td className="text-center"><p className="short0ad">short ad</p> </td>
-                  <td><p>DIOR</p></td>
-                  <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                  <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                  <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                  <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none">Review Delivery</Link></div></td>
-                  </tr>
-                  </tbody>
-                  </table>
-                </div>
+                  <div className="table-responsive">
+                    <table className="table table-borderless">
+                      <tbody>
+                        <tr>
+                          <td className="text-center"><p className="short0ad">short ad</p> </td>
+                          <td><p>DIOR</p></td>
+                          <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
+                          <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
+                          <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                          <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none">Review Delivery</Link></div></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
               </div>
             </div>
           

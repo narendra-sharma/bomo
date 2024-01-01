@@ -64,33 +64,33 @@ const EditProfile = ({ show, handleClose }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Profile</Modal.Title>
+      <Modal show={show} onHide={handleClose} className="logout-popup py-3">
+        <Modal.Header className="pt-4" closeButton>
+          <Modal.Title><h5 className="mb-0 text-dark fw-bold">Edit Profile</h5></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="py-4">
           <form>
-            <div className="mb-3">
+            <div className="mb-4">
               <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleInputChange}
-                className="form-control form-control-lg"
+                className="form-control"
                 placeholder="Username"
               />
-              {usernameError ? <p>{usernameError}</p> : null}
+              {usernameError ? <p class="mt-1">{usernameError}</p> : null}
             </div>
           </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={(e) => handleSubmit(e, formData)}>
-            Update Profile
-          </Button>
-        </Modal.Footer>
+          <div className="text-end">
+            <Button variant="secondary"  className ="rounded-pill px-4" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" className ="rounded-pill px-4 ms-3" onClick={(e) => handleSubmit(e, formData)}>
+              Update Profile
+            </Button>
+          </div>
+          </Modal.Body>
       </Modal>
     </>
   );

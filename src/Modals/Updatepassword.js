@@ -114,37 +114,44 @@ const navigate = useNavigate();
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Update Password</Modal.Title>
+      <Modal show={show} onHide={handleClose} className="logout-popup">
+        <Modal.Header  className="pt-4" closeButton>
+          <Modal.Title><h5 className="mb-0 text-dark fw-bold">Update Password</h5></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-        <form>
+        <Modal.Body className="py-4"> 
+            <form class="mb-4">
                 <div className="mb-3">
-                  <input type={showPassword ? "text" : "password"} name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Old Password" />
+                  <div className="form-row position-relative">
+                  <input type={showPassword ? "text" : "password"} name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control" placeholder="Old Password" />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
-                 {passworderror ? <p style={{color: 'red'}}>{passworderror}</p> : null}
+                 </div>{
+                 passworderror ? <p className="mt-1" style={{color: 'red'}}>{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
-                  <input  type={showNewPassword ? "text" : "password"} name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="New Password" />
+                  <div className="form-row position-relative">
+                  <input  type={showNewPassword ? "text" : "password"} name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control" placeholder="New Password" />
                   <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i>
-                  {newpassworderror ? <p style={{color: 'red'}}>{newpassworderror}</p> : null}
+                  </div>
+                  {newpassworderror ? <p className="mt-1" style={{color: 'red'}}>{newpassworderror}</p> : null}
                 </div>
                 <div className="mb-3">
-                  <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control form-control-lg" placeholder="Confirm Password" />
+                  <div className="form-row position-relative">
+                  <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control" placeholder="Confirm Password" />
                   <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
-                  {confirmpassworderror ? <p style={{color: 'red'}}>{confirmpassworderror}</p> : null}
+                  </div>
+                  {confirmpassworderror ? <p className="mt-1" style={{color: 'red'}}>{confirmpassworderror}</p> : null}
                 </div>
               </form>
+              <div className="text-end">
+      
+                <Button variant="secondary" className ="rounded-pill px-4" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" className ="rounded-pill px-4 ms-3" onClick={(e) => handleSubmit(e, formData)} disabled={isLoading}>
+                  {isLoading ? 'Updating.....' : 'Update Password'}
+                </Button>
+              </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={(e) => handleSubmit(e, formData)} disabled={isLoading}>
-            {isLoading ? 'Updating.....' : 'Update Password'}
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   )
