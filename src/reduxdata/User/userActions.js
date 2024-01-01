@@ -49,7 +49,6 @@ export const login = async (user,role,dispatch) => {
     if (res.data && res.data.status) {
       if(res.data.data.role===role){
         toast.success('Successfully user logged-in!');
-        localStorage.setItem('userDetails', JSON.stringify(res.data.data));
         dispatch(set_update_user(res.data.data));
       }else{
         toast.error('Invalid credential.');
@@ -82,6 +81,7 @@ export const set_user_type = (usertype) => {
 };
 
 export const set_update_user = (user) => {
+  localStorage.setItem('userDetails', JSON.stringify(user));
   return {
     type: USER_UPDATE,
     payload: user,

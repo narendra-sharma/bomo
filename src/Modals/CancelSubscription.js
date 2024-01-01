@@ -11,6 +11,13 @@ const CancelSubscription = (props) => {
     pause();
     handleClose();
   }
+  const getDifferece=()=>{
+    const now = new Date();
+    const nextBillingDate = new Date(user?.next_billing_date);
+    const timeDifference = nextBillingDate.getTime() - now.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference;
+   }
   return (
     <Modal show={show} onHide={handleClose} className="logout-popup cancel-popup">
       <Modal.Body>
@@ -18,7 +25,7 @@ const CancelSubscription = (props) => {
         <h5 className="mb-0 text-dark fw-bold">{user?.name},</h5>
           <p>do you really want to pause the subscription?</p>
           <p>
-            If you do, you will lose access to the platform and all previous requests. Your subscription ends in <strong>17 days.</strong>
+            If you do, you will lose access to the platform and all previous requests. Your subscription ends in <strong>{getDifferece()} days</strong>.
            </p>
            <p>
             Do you mean to pause instead? This will prevent all your previous requests to be deleted.

@@ -8,14 +8,14 @@ import { useDispatch } from "react-redux";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:'',
-    surname:'',
-    company:'',
-    address:'',
-    city:'',
-    postalCode:'',
-    country:'',
-    vatNumber:''
+    name:user?.subscription?user?.subscription?.name:'',
+    surname:user?.subscription?user?.subscription?.surname:'',
+    company:user?.subscription?user?.subscription?.company:'',
+    address:user?.subscription?user?.subscription?.address:'',
+    city:user?.subscription?user?.subscription?.city:'',
+    postalCode:user?.subscription?user?.subscription?.postalCode:'',
+    country:user?.subscription?user?.subscription?.country:'',
+    vatNumber:user?.subscription?user?.subscription?.vatNumber:''
   });
   const [errors, setErrors] = useState({
     cardNumber:'',
@@ -151,7 +151,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     } else {
       const output = Object.entries(card).map(([key, value]) => ({key,value}));
       for(let i=output.length-1;i>-1;i--){
-        if(!output[i].value){
+        if(!output[i].value && (output.key!=='surname')){
           handleCardElementChange(output[i].value,output[i].key);
         }
       };
@@ -196,7 +196,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
             </div>
             <div className="hr-line mt-3 mb-4"></div>
             <div className="d-flex align-items-center justify-content-end">
-              <button type="submit" className="btn pay-now rounded px-5 mt-3" disabled={!stripe || !elements}>Play Now</button>
+              <button type="submit" className="btn pay-now rounded px-5 mt-3" disabled={!stripe || !elements}>Pay Now</button>
             </div>
           </div>
         </div>

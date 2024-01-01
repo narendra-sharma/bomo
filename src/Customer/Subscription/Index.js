@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import SubscriptionSteps from "./SubscriptionSteps";
 import PaymentHistory from "../../Common/PaymentHistory";
 import SubscriptionStatus from "../Sahred/SubscriptionStatus";
-const Subscription = ({user,isPay}) => {
-  const [plan, setPlan] = useState(null);
-
+import { isSubscription } from "../../reduxdata/rootAction";
+import NewRequestShared from "../Sahred/NewRequestShared";
+import { format } from "date-fns";
+const Subscription = ({ user }) => {
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const getSubscription = async () => {
+    await isSubscription(user).then(r => {
+      setIsSubscribe(r);
+    });
+  }
+  useEffect(() => {
+    getSubscription();
+  }, []);
+  const getDifferece = () => {
+    const now = new Date();
+    const nextBillingDate = new Date(user?.next_billing_date);
+    const timeDifference = nextBillingDate.getTime() - now.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference;
+  }
   return (
     <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          {plan && <>
+          {isSubscribe && <>
             <div className="mx-md-3 mx-lg-5 mb-4 row">
               <div className="offset-lg-3 col-lg-4">
-                <p className="mb-md-0 mb-3">Your plan auto renews in 17 days<span className="d-block">You have 5 requests left until NOV 17</span></p></div>
+                <p className="mb-md-0 mb-3">Your plan auto renews in {getDifferece()} days<span className="d-block">You have {user?.Subscription?.new_quantity} requests left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
               <div className="col-md-5">
-                <div className="d-flex justify-content-md-end">
-                  <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                    <Link className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>
-                    <div className="request-date ms-2"><p className="mb-0"><span>21:43</span>
-                      <span className="d-block">Wed 01 Nov, 2023 </span></p></div>
-                  </div>
-                </div>
+                <NewRequestShared />
               </div>
             </div>
             <div className="review-main-content mb-5">
               <div className="mx-md-5 mx-sm-0 mb-4">
                 <h3>Subscription</h3>
               </div>
-              <SubscriptionStatus plan={plan}/>
+              <SubscriptionStatus user={user} />
             </div>
           </>}
-          <SubscriptionSteps plan={plan} />
+          <SubscriptionSteps user={user} />
           <PaymentHistory />
         </div>
       </div>

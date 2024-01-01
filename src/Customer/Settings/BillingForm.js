@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import BillingInfo from "../Sahred/BillingInfo";
-const BillingForm = () => {
-  const [loading, setLoading] = useState(false);
+import { edit_billing_info } from "../../reduxdata/rootAction";
+import { useDispatch } from "react-redux";
+const BillingForm = ({user}) => {
+  const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name: '',
-    surname: '',
-    company: '',
-    address: '',
-    city: '',
-    postalCode: '',
-    country: '',
-    vatNumber: ''
+    name:user?.subscription?user?.subscription?.name:'',
+    surname:user?.subscription?user?.subscription?.surname:'',
+    company:user?.subscription?user?.subscription?.company:'',
+    address:user?.subscription?user?.subscription?.address:'',
+    city:user?.subscription?user?.subscription?.city:'',
+    postalCode:user?.subscription?user?.subscription?.postalCode:'',
+    country:user?.subscription?user?.subscription?.country:'',
+    vatNumber:user?.subscription?user?.subscription?.vatNumber:''
   });
   const [errors, setErrors] = useState({
     name: '',
@@ -117,11 +119,18 @@ const BillingForm = () => {
     event.preventDefault();
     const output = Object.entries(card).map(([key, value]) => ({ key, value }));
     for (let i = output.length - 1; i > -1; i--) {
-      if (!output[i].value) {
+      if (!output[i].value && (output.key!=='surname')) {
+        let err=true;
         handleCardElementChange(output[i].value, output[i].key);
       }
     };
-    setLoading(true);
+    let err=false;
+    const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
+    err=errOutput.find(r=>r.value?true:false);
+    if(err){
+      return false;
+    }
+    edit_billing_info(user?.token,user?.subscription?._id,card,dispatch);
   };
   return (
     <>

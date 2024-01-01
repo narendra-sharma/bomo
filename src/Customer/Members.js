@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import userImage from "../images/user-img.png";
+import NewRequestShared from "./Sahred/NewRequestShared";
 
 const Members = () => {
     return(
@@ -8,12 +9,7 @@ const Members = () => {
           <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
               <div className="mx-md-3 mx-lg-5 mb-4">
-                <div className="d-flex justify-content-md-end">
-                  <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                  <Link to="/new-request" className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>
-                    <div className="request-date ms-2"><p className="mb-0"><span>21:43</span><span className="d-block">Wed 01 Nov, 2023 </span></p></div>
-                  </div>
-                </div>  
+                <NewRequestShared/>  
               </div>
               <div className="review-main-content mb-5">
                 <div className="mx-md-5 mx-sm-0 mb-4"><h3>Members</h3></div>

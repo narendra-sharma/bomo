@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PaymentHistory from "./Common/PaymentHistory";
 import SearchInput from "./Common/SearchInput";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
-const Payments = () => {
+const Payments = ({user}) => {
   const userrole = useSelector((state) => state.auth.role)
   const handleSearch = (value) => { };
+  
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
       <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
@@ -26,5 +27,9 @@ const Payments = () => {
     </div>
   )
 }
-
-export default Payments;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps)(Payments);

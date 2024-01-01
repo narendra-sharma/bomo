@@ -18,67 +18,147 @@ export const get_plans = async (dispatch) => {
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
       dispatch({
-        type:GET_PLANS,
-        payload:res.data.data
+        type: GET_PLANS,
+        payload: res.data.data
       })
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if(error.response){
+    if (error.response) {
       toast.error(error.response.data.message)
-    }else{
+    } else {
       toast.error(error.message)
     }
   } finally {
     dispatch(stop_loading());
   }
 };
-export const pay_now = async (uToken,token,data,dispatch) => {
+export const pay_now = async (uToken, token, data, dispatch) => {
   try {
     dispatch(start_loading());
     const url = `${REACT_APP_BOMO_URL}stripe/subscribe/${token.id}`;
-    let headers=HEADERS;
-    headers.headers['x-access-token']=uToken;
-    const res = await axios.post(url,data,headers);
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.post(url, data, headers);
     if (res.data && res.data.status) {
-      // set_update_user(res.data.data);
+      set_update_user({...res.data.user,token:uToken});
       dispatch({
-        type:PAY_NOW,
+        type: PAY_NOW,
       })
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if(error.response){
+    if (error.response) {
       toast.error(error.response.data.message)
-    }else{
+    } else {
       toast.error(error.message)
     }
   } finally {
     dispatch(stop_loading());
   }
 };
-export const get_payment_history = async (dispatch) => {
+export const edit_billing_info = async (uToken, sid, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}plans/list`;
-    const res = await axios.get(url, HEADERS);
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/update/${sid}`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.put(url, data, headers);
     if (res.data && res.data.status) {
-      dispatch({
-        type:GET_PAYMENT_HISTORY,
-        payload:res.data.data
-      })
+      toast.success('Successfully edit billing information.');
+      set_update_user({...res.data.user,token:uToken});
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if(error.response){
+    if (error.response) {
       toast.error(error.response.data.message)
-    }else{
+    } else {
       toast.error(error.message)
     }
   } finally {
     dispatch(stop_loading());
   }
 };
+export const cancel_subscription = async (uToken, sid, dispatch) => {
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/delete/${sid}`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.post(url, {}, headers);
+    if (res.data && res.data.status) {
+      toast.success('Successfully cancel subscription.');
+      set_update_user({...res.data.user,token:uToken});
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data.message)
+    } else {
+      toast.error(error.message)
+    }
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const pause_subscription = async (uToken, sid, dispatch) => {
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/pause/${sid}`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.post(url, {}, headers);
+    if (res.data && res.data.status) {
+      toast.success('Successfully pause subscription.');
+      set_update_user({...res.data.user,token:uToken});
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data.message)
+    } else {
+      toast.error(error.message)
+    }
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/payment_history?page=${page}&limi=${limit}`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.get(url, headers);
+    if (res.data && res.data.status) {
+      dispatch({
+        type: GET_PAYMENT_HISTORY,
+        payload: res.data
+      })
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data.message)
+    } else {
+      toast.error(error.message)
+    }
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const isSubscription = async (user) => {
+  const now = new Date().getTime();
+  let isExpired = false;
+  const expiry = user?.next_billing_date?new Date(user?.next_billing_date).getTime():'';
+  if (expiry && (now <= expiry)) {
+    isExpired = true;
+  }
+  return isExpired;
+}

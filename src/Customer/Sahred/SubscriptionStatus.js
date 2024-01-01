@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PauseSubscription from "../../Modals/PauseSubscription";
 import CancelSubscription from "../../Modals/CancelSubscription";
 import FinalCancel from "../../Modals/FinalCancel";
+import { isSubscription } from "../../reduxdata/rootAction";
 
-const SubscriptionStatus = ({plan,isSetting}) => {
+const SubscriptionStatus = ({user,isSetting}) => {
   const [pause,setPause]=useState(false);
   const [cancel,setCancel]=useState(false);
   const [final,setFinal]=useState(false);
+  const [isSubscribe,setIsSubscribe]=useState(false);
+    const getSubscription=async()=>{
+      await isSubscription(user).then(r=>{
+         setIsSubscribe(r);
+      });
+    }
+    useEffect(()=>{
+      getSubscription();
+    },[]);
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
-      <span className="d-block">ACTIVE</span>
+      <span className="d-block">{isSubscribe?'ACTIVE':'INACTIVE'}</span>
     </>
   }
   return (

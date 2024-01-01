@@ -63,6 +63,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
             >
               <div className="mb-0">
                 <input
+                  defaultValue={card?.address}
                   type="text"
                   className="form-control"
                   id="address"
@@ -100,7 +101,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Postal Code</label>
-          <input type="text" defaultValue={card.poatalCode} name="postalCode" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
+          <input type="text" defaultValue={card.postalCode} name="postalCode" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
           {postalCode &&
             postalCode.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
