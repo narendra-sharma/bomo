@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { format } from 'date-fns';
 import { CSVLink } from "react-csv";
 import CustomPagination from "./CustomPagination";
-const PaymentHistory = () => {
+import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
+const PaymentHistory = ({user}) => {
   const csvLinkRef = useRef();
   const userrole = useSelector((state) => state.auth.role)
   const data = [
@@ -11,6 +12,10 @@ const PaymentHistory = () => {
     { date: new Date(), status: "COMPLETED", amount: "240", brand: 'Craft' },
     { date: new Date(), status: "COMPLETED", amount: "240", brand: 'Craft' },
   ];
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    get_payment_history(dispatch,user?.token);
+  },[])
   const handleButtonClick = () => {
     if (csvLinkRef.current) {
       csvLinkRef.current.link.click();
@@ -52,10 +57,15 @@ const PaymentHistory = () => {
               </tr>}
           </tbody>
         </table>
-        {total > 0 && <CustomPagination total={total} onPageChange={(page, perPage) => console.log(page, perPage)} />}
+        {total > 0 && <CustomPagination total={total} onPageChange={(page, perPage) => get_payment_history(dispatch,user?.token,page, perPage)} />}
       </div>
     </div>
   )
 }
 
-export default PaymentHistory;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps)(PaymentHistory);

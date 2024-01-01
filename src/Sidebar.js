@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import bomoLogo from './images/bomo-logo.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { logout } from "./reduxdata/rootAction";
+import { isSubscription, logout } from "./reduxdata/rootAction";
 import Logout from "./Modals/Logout";
 const Sidebar = () => {
-  const userrole = useSelector((state) => state.auth.role || '')
+  const userrole = useSelector((state) => state.auth.role || '');
+  const user = useSelector((state) => state.auth.user || '')
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,6 +17,15 @@ const Sidebar = () => {
     dispatch(logout());
   }
   const [items, setItems] = useState([]);
+  const [isSubscribe,setIsSubscribe]=useState(false);
+  const getSubscription=async()=>{
+    await isSubscription(user).then(r=>{
+       setIsSubscribe(r);
+    });
+  }
+  useEffect(()=>{
+    getSubscription();
+  },[]);
   useEffect(() => {
     let list = [];
     if (userrole === 'Customer') {
@@ -48,9 +58,10 @@ const Sidebar = () => {
     let time = localStorage.getItem('time') || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = (n - time < 5000) ? localStorage.getItem('path') : '/';
+    location.pathname = ((userrole === 'Customer') && !isSubscribe)?'/subscription':(n - time < 5000) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole])
+
   const [show, setShow] = useState(false);
   return (
     <div>
@@ -59,7 +70,7 @@ const Sidebar = () => {
         <div>
           <div className="text-center pt-3"><img src={bomoLogo} alt="Bomo logo" /></div>
           <div className="list-group pt-5">
-            {items.map(item => <Link to={item.to} key={item.name} className={'list-group-item list-group-item-action border-0 d-flex align-items-center ' + (location.pathname === item.to && 'active')}>
+            {items.map(item => <Link to={item.to} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${(userrole === 'Customer') && (!isSubscribe && (item.name!=='Subscription') ? 'disable':'')}`}>
               <span className="ml-2">{item.name}</span>
             </Link>)}
           </div>

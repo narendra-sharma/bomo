@@ -1,17 +1,27 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
+import { cancel_subscription } from "../reduxdata/rootAction";
 const FinalCancel = (props) => {
   const { user, show, handleClose } = props;
-  const cancel = () => {
+  const dispatch=useDispatch();
+  const cancel = async() => {
+    await cancel_subscription(user?.token,user?.subscription?._id,dispatch);
     handleClose();
   }
+  const getDifferece=()=>{
+    const now = new Date();
+    const nextBillingDate = new Date(user?.next_billing_date);
+    const timeDifference = nextBillingDate.getTime() - now.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference;
+   }
   return (
     <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>
         <div className="px-4 py-4">
           <h4 className="mb-0">This is a final reminder.</h4>
-          <p>Your account will be deleted in 17 days</p>
+          <p>Your account will be deleted in {getDifferece()} days</p>
           <p>
             You will lose access to all files after that, you can subscribe back anytime.
             <br />

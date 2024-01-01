@@ -8,16 +8,21 @@ import SubscriptionStatus from "./Customer/Sahred/SubscriptionStatus";
 import BillingForm from "./Customer/Settings/BillingForm";
 import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
 import SubscriptionSteps from "./Customer/Subscription/SubscriptionSteps";
+import { isSubscription } from "./reduxdata/rootAction";
+import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 
 const Setting = ({ user, userrole }) => {
-    const [cuser, setCuser] = useState(null);
-    const [plan, setPlan] = useState(null);
-    useEffect(() => {
-        setCuser(user);
-    }, [user])
-
     const [showchangePassword, setShowchangePassword] = useState(false);
     const [showchangeProfile, setShowchangeProfile] = useState(false);
+    const [isSubscribe,setIsSubscribe]=useState(false);
+    const getSubscription=async()=>{
+      await isSubscription(user).then(r=>{
+         setIsSubscribe(r);
+      });
+    }
+    useEffect(()=>{
+      getSubscription();
+    },[]);
     const handleShow = () => {
         setShowchangePassword(true);
     }
@@ -31,27 +36,20 @@ const Setting = ({ user, userrole }) => {
     const handleProfileClose = () => {
         setShowchangeProfile(false);
     }
-
     return (
         <>
             <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
                 <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-                    {userrole==='Customer' && user.plan && <div className="mx-md-3 mx-lg-5 mb-4 row">
-                        <div className="d-flex justify-content-md-end">
-                            <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                                <Link className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>
-                                <div className="request-date ms-2"><p className="mb-0"><span>21:43</span>
-                                    <span className="d-block">Wed 01 Nov, 2023 </span></p></div>
-                            </div>
-                        </div>
+                    {userrole==='Customer' && user.quantity && isSubscribe && <div className="mx-md-3 mx-lg-5 mb-4 row">
+                        <NewRequestShared/>
                     </div>}
                     <div className="review-main-content mb-5">
                         <div className="mx-md-5 mx-sm-0 mb-4">
                             <h3>Settings</h3>
                         </div>
-                        {userrole==='Customer' && user.plan && <div className="d-flex justify-content-between align-item-center mb-5 rounded ps-5 px-4 py-4 subscribers">
-                            <h5><strong>Subscribed for 12 pieces /month</strong></h5>
-                            <div><Link className="text-dark text-decoration-none">Modify my Subscription</Link></div>
+                        {userrole==='Customer' && isSubscribe && <div className="d-flex justify-content-between align-item-center mb-5 rounded ps-5 px-4 py-4 subscribers">
+                            <h5><strong>Subscribed for {user?.subscription?.new_quantity} pieces /month</strong></h5>
+                            <div><Link to="/subscription" className="text-dark text-decoration-none">Modify my Subscription</Link></div>
                         </div>}
                     </div>
                     <div className="mb-5">
@@ -62,7 +60,7 @@ const Setting = ({ user, userrole }) => {
                                         <img src={userImage} alt="Bomo logo" />
                                         <p className="mb-0 user-email  ms-1 ms-lg-2">
                                             <b className=" d-md-block">Name</b>
-                                            <span className="d-block">{cuser?.name}</span></p>
+                                            <span className="d-block">{user?.name}</span></p>
                                     </div>
                                     <div className="d-flex text-right justify-content-between align-items-center">
 
@@ -84,21 +82,21 @@ const Setting = ({ user, userrole }) => {
                                 </div>
                             </div>
                             {userrole==='Customer' && <div className="col-lg-5">
-                                <SubscriptionStatus plan={plan} isSetting={true} />
+                                <SubscriptionStatus user={user} isSetting={true} />
                             </div>}
                         </div>
                     </div>
-                    {userrole==='Customer' && user?.plan ? <div className="review-main-content">
+                    {userrole==='Customer' && user?.plan_id ? <div className="review-main-content">
                         <div className="row">
                             <div className="col-lg-6 col-md-6 d-flex flex-column">
-                                <BillingForm />
+                                <BillingForm user={user}/>
                             </div>
                             <div className="col-lg-6 col-md-6 d-flex flex-column">
-                                <PaymentCardInfo/>
+                                <PaymentCardInfo user={user}/>
                             </div>
                         </div>
                     </div>
-                    :userrole==='Customer' && <SubscriptionSteps plan={user?.plan}/>
+                    :userrole==='Customer' && <SubscriptionSteps user={user}/>
                     }
 
                     <div className="delete-account status-btn text-end mt-3">

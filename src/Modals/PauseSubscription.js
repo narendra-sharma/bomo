@@ -1,9 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
+import { pause_subscription } from "../reduxdata/rootAction";
 const PauseSubscription = (props) => {
   const { user, show, handleClose } = props;
-  const pause = () => {
+  const dispatch=useDispatch();
+  const pause = async() => {
+    await pause_subscription(user?.token,user?.subscription?._id,dispatch);
     handleClose();
   }
   return (

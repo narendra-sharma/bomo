@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
+import { format } from "date-fns";
 const PaymentSuccess = (props) => {
   const { user, show, handleClose } = props;
   return (
@@ -8,9 +9,9 @@ const PaymentSuccess = (props) => {
       <Modal.Body>
         <div className="px-4 py-4">
           <h4 className="mb-0">{user?.name},</h4>
-          <p>you have succesfully subscribed for 25 pieces.</p>
+          <p>you have succesfully subscribed for {user?.subscription?.new_quantity} pieces.</p>
           <p>
-            Your subscription will renew on April 7, 2023.
+            Your subscription will renew on {user && format(new Date(user?.next_billing_date), 'MMMM d, yyy')}.
             <br />
             Make any changes for the next period before this date
           </p>

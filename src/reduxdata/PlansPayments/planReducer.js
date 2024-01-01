@@ -6,6 +6,7 @@ const initialState = {
     payments:[],
     cpayments:[],
     dpayments:[],
+    total:0
   };
   
   const planReducer = (state = initialState, action) => {
@@ -21,7 +22,8 @@ const initialState = {
       case GET_PAYMENT_HISTORY:
         return {
           ...state,
-          payments:action.payload
+          payments:action.payload.data,
+          total:action.payload.total
         }   
       default:
         return state;
