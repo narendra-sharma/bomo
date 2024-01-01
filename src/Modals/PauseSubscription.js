@@ -13,7 +13,7 @@ const PauseSubscription = (props) => {
     <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>
         <div className="px-4 py-4">
-          <h4 className="mb-0">{user?.name},</h4>
+          <h5 className="mb-0">{user?.name},</h5>
           <p>do you really want to pause the subscription?</p>
           <p>
             You will be charged $125 for each inactive month.
