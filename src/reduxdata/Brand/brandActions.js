@@ -1,29 +1,51 @@
 import { toast } from "react-toastify";
-import { BRAND_CREATE, UPLOAD_ZIP_FILE_SUCCESS } from "./brandTypes";
+import { BRAND_LIST, IS_ADD_EDIT, UPLOAD_ZIP_FILE_SUCCESS } from "./brandTypes";
 import axios from "axios";
 import { start_loading, stop_loading } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
+  export const getbrandlist = async (dispatch,token,page=1,limit=10) => {
+    dispatch(start_loading());
+    try {
+      const url = `${REACT_APP_BOMO_URL}brand-profile/list?page=${page}&limit=${limit}`;
+      const HEADERS = {
+        headers: {
+          "x-access-token": token, 
+        }
+      }
+      const res = await axios.get(url,HEADERS);
+      if (res.data && res.data.status) {
+        dispatch({type:BRAND_LIST,payload:res.data});
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      if(error.response){
+        toast.error(error.response.data.message)
+      } else{
+        toast.error(error.message)
+      }
+    } finally {
+      dispatch(stop_loading());
+    }
+  };
+// export const uploadZipFileSuccess = (zipPath) => ({
+//   type: UPLOAD_ZIP_FILE_SUCCESS,
+//   payload: zipPath,
+// });
 
-export const uploadZipFileSuccess = (zipPath) => ({
-  type: UPLOAD_ZIP_FILE_SUCCESS,
-  payload: zipPath,
-});
-
-export const uploadZip = async (zipFile) => {
+export const uploadZip = async (zipFile,dispatch) => {
+  dispatch(start_loading());
   try {
     const formData = new FormData();
     formData.append('zipFile', zipFile
     );
-    const url = `${REACT_APP_BOMO_URL}add_brand_profile_zip`;
-    console.log("API URL====>:", url);
+    const url = `${REACT_APP_BOMO_URL}brand-profile/zipupload`;
     const res = await axios.post(url, formData);
-    console.log("res status checkkkkkk",res.data.status);
-    console.log("res.data:=====================>", res.data);
+
     if (res.data && res.data.status) {
-      console.log("Response Data path ===> ", res.data.path);
-      uploadZipFileSuccess(res.data.path);
-      console.log("My Zip Path", res.data.path);
+      const zipPath = res.data.path;
+      dispatch({type:UPLOAD_ZIP_FILE_SUCCESS,payload:zipPath});
       return res.data.path;
     } else {
       toast.error(res.data.message);
@@ -34,15 +56,12 @@ export const uploadZip = async (zipFile) => {
     }else{
       toast.error(error.message)
     }
+  } finally {
+    dispatch(stop_loading());
   }
 }
 
-export const addBrandSuccess = (brandData) => ({
-  type: BRAND_CREATE,
-  payload: brandData,
-});
-
-export const addBrand = async (branddata, dispatch) => {
+export const addBrand = async (branddata, dispatch, token) => {
   dispatch(start_loading());
   console.log(branddata);
   try {
@@ -50,26 +69,34 @@ export const addBrand = async (branddata, dispatch) => {
       formData.append('zipFile', branddata.zipFile);
       formData.append('brandname', branddata.brandname);
 
-      const tagsArray = branddata.tags[0].split(',').map(tag => tag.trim());
+      const tagsArray = branddata.tags.map(tag => tag.trim());
+
+      if (tagsArray.length > 5) {
+        toast.error('You can add up to 5 tags*');
+        return; 
+      }
 
       tagsArray.forEach((tag) => {
-        formData.append('tags[]', tag);
+        formData.append(`tags[]`, tag);
       });
 
       formData.append('logo', branddata.logo);
 
-      console.log("Formdata====>",formData);
+      if (branddata?.brand_id){
+        formData.append('brand_id', branddata.brand_id);
+      }
 
-      const url = `${REACT_APP_BOMO_URL}add_brand_profile`;
+      const url = `${REACT_APP_BOMO_URL}brand-profile/${branddata?.brand_id?'update':'create'}`;
+      const headers = {
+          "x-access-token": token, 
+        }
 
-      const res = await axios.post(url, formData);
-      console.log("response branddata", res);
-      console.log("response Data of New Brand ====> ", res.data.data);
+      const res = branddata?.brand_id? await axios.put(url, formData, { headers }): await axios.post(url, formData, { headers });
 
       if (res.data && res.data.status) {
         toast.success(res.data.message);
-        console.log("New Brand Response =========>", res.data);
-        addBrandSuccess(res.data.data);
+        getbrandlist(dispatch,token);
+        change_add_edit(dispatch);
       } else {
         toast.error(res.data.message);
       }
@@ -83,3 +110,37 @@ export const addBrand = async (branddata, dispatch) => {
     dispatch(stop_loading());
   }
 };
+
+
+
+export const deleteBrand = async (brandId, dispatch, token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}brand-profile/delete/${brandId}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token, 
+      }
+    }
+    const res = await axios.post(url,{},HEADERS);
+
+    if (res.data && res.data.status) {
+      toast.success(res.data.message);
+      getbrandlist(dispatch,token);
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    if(error.response){
+      toast.error(error.response.data.message)
+    } else{
+      toast.error(error.message)
+    }
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const change_add_edit = (dispatch) => {
+  dispatch({type:IS_ADD_EDIT});
+};
+

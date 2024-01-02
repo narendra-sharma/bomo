@@ -1,2 +1,3 @@
-export const BRAND_CREATE= 'BRAND_CREATE';
+export const BRAND_LIST= 'BRAND_LIST';
 export const UPLOAD_ZIP_FILE_SUCCESS='UPLOAD_ZIP_FILE_SUCCESS';
+export const IS_ADD_EDIT='IS_ADD_EDIT'
