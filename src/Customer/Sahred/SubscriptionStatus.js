@@ -20,7 +20,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
-      <span className="d-block">{isSubscribe?'ACTIVE':'INACTIVE'}</span>
+      <span className="d-block">{isSubscribe?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):'EXPIRED'}</span>
     </>
   }
   return (
@@ -35,12 +35,12 @@ const SubscriptionStatus = ({user,isSetting}) => {
             <Status/>
           </p>}
         </div>
-        <div className={`col-lg-6 col-6 ${isSetting && 'text-end'}`}>
+        {isSubscribe &&<div className={`col-lg-6 col-6 ${isSetting && 'text-end'}`}>
           <div className="status-btn d-flex justify-content-end">
-            <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>PAUSE </button>
+            <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>{user?.subscription?.status==='paused'?'RESUME':'PAUSE'} </button>
             <button className="btn border rounded-pill cancel-btn" onClick={()=>setCancel(true)}>CANCEL</button>
           </div>
-        </div>
+        </div>}
       </div>
       <PauseSubscription show={pause} handleClose={() => setPause(false)} />
       <CancelSubscription show={cancel} handleClose={() => setCancel(false)} final={()=>setFinal(true)} pause={()=>setPause(true)}/>

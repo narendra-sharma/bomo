@@ -68,7 +68,7 @@ function App({user}) {
 
   
   useEffect(() => {
-    setIsAuth(user?true:true);
+    setIsAuth(user?true:false);
   }, [user]);
   useEffect(() => {
     const handleEndConcert = () => {
@@ -129,4 +129,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps)(App);

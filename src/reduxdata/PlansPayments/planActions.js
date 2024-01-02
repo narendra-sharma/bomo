@@ -92,6 +92,7 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     if (res.data && res.data.status) {
       toast.success('Successfully cancel subscription.');
       set_update_user({...res.data.user,token:uToken});
+      window.location.reload();
     } else {
       toast.error(res.data.message);
     }
@@ -105,16 +106,17 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     dispatch(stop_loading());
   }
 };
-export const pause_subscription = async (uToken, sid, dispatch) => {
+export const pause_subscription = async (user, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscription/pause/${sid}`;
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/pause/${user?.subscription?._id}`;
     let headers = HEADERS;
-    headers.headers['x-access-token'] = uToken;
-    const res = await axios.post(url, {}, headers);
+    headers.headers['x-access-token'] = user?.token;
+    const res = await axios.post(url, {pause:user?.subscription?.status==='paused'?false:true}, headers);
     if (res.data && res.data.status) {
       toast.success('Successfully pause subscription.');
-      set_update_user({...res.data.user,token:uToken});
+      set_update_user({...res.data.user,token:user?.token});
+      window.location.reload();
     } else {
       toast.error(res.data.message);
     }
