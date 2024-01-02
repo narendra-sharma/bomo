@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap');
 :root {
   --gray: #f2f2ff;
+  --gray-light:#f2f2f2;
   --main-font:'Roboto Flex', sans-serif;
   --secondary-font:'Recless Medium';
   --pubilc-sans-font:'Public Sans', sans-serif;
@@ -20,7 +21,7 @@ html body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
-  background-color: var(--gray)!important;
+  background-color: var(--gray-light)!important;
   letter-spacing: -0.56px;
 }
 p{
@@ -284,7 +285,7 @@ color: var(--dark-green);
   z-index: 99;
 }
 .sidebar .list-group-item.active{
-  background-color: var(--gray);
+  background-color: var(--gray-light);
   color: #000;
   font-weight: 700;
 }
@@ -317,6 +318,7 @@ color: var(--dark-green);
 }
 .sidebar a.list-group-item{
   cursor: pointer;
+  font-size: 14px;
 }
 .rightside-wrapper{
   width: calc(100% - 150px);
@@ -658,6 +660,11 @@ table.feedback-queue tr:first-child td{
 .payment-history-section {
   background: #EAEAEA;
   border: solid 0.5px #A4A4A4;
+  border-radius: 4px;
+}
+.admin-payments .payment-history-section{
+  background-color: #fff;
+  border-color: #fff;
 }
 .payment-history-section .table>:not(caption)>*>* {
  background-color: transparent;
@@ -868,6 +875,74 @@ select.form-control {
 .review-content table tr td i{
   padding-right: 10px;
 }
+.monthly-revenue-section {
+  flex: 0 0 27%;
+  background-color: #fff;
+  margin-right: 15px;
+}
+.designers-section {
+  flex: 0 0 16%;
+    background-color: #fff;
+  margin-right: 15px;
+}
+.monthly-revenue-price h2{
+  font-size:22px;
+  font-weight: 600;
+}
+.bar-code img {
+  width: 90px;
+}
+ul.talented-designer{
+  background-color: #ECF7EE;
+  padding: 10px 10px;
+  overflow-y:scroll;
+  height: 80px;
+}
+
+ul.talented-designer li i {
+ margin-right: 5px;
+ color:#838383
+}
+ul.designer-list {
+  background-color:#FBFBFB;
+  height: auto;
+  overflow: unset;
+  padding: 10px 5px;
+}
+ul.designer-list li{
+  width: 24%;
+  display: inline-block;
+  margin-right: 2px;
+}
+.admin-payments .form-control {
+  background: #F5F5F5;
+  border-radius: 30px;
+  border-color: #D2CECE;
+  border-right: none;
+  padding: 8px 30px!important;
+}
+.admin-payments .input-group-text{
+  border-radius: 0 30px 30px 0;
+  border-color: #D2CECE;
+  background-color: #F5F5F5;
+}
+.MuiTablePagination-root p {
+  margin-bottom: 0;
+}
+.request-status{
+  color: #F92B34;
+}
+@media (min-width: 992px){
+  .design-list-section  .col-lg-5 {
+    width: 37.666667%;
+  }
+  .design-list-section  .col-lg-2{
+  width: 15%;
+  }
+}
+.design-list-section .review-content table td {
+  padding: 13px 7px;
+}
 @media(max-width:1900px){
   .registration-form{
     height: auto
@@ -957,6 +1032,22 @@ select.form-control {
   }
   .already-register , .text-end.mt-5{
     padding: 0 15px;
+  }
+  ul.designer-list li {
+    width: 33%;
+  }
+  .monthly-revenue-section {
+    flex: 0 0 100%;
+    margin: 10px 0;
+    background-color: transparent;
+  }
+  .designers-section {
+    flex: 0 0 50%;
+    margin: 10px 0;
+    background-color: transparent;
+  }
+  .review-content .designers-section p , .review-content .monthly-revenue-section p{
+    font-size: 12px;
   }
 }
 
