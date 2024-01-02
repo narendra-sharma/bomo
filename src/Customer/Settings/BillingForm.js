@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 const BillingForm = ({user}) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.subscription?user?.subscription?.name:'',
-    surname:user?.subscription?user?.subscription?.surname:'',
-    company:user?.subscription?user?.subscription?.company:'',
-    address:user?.subscription?user?.subscription?.address:'',
-    city:user?.subscription?user?.subscription?.city:'',
-    postalCode:user?.subscription?user?.subscription?.postalCode:'',
-    country:user?.subscription?user?.subscription?.country:'',
-    vatNumber:user?.subscription?user?.subscription?.vatNumber:''
+    name:user?.address?user?.address?.name:'',
+    surname:user?.address?user?.address?.surname:'',
+    company:user?.address?user?.address?.company:'',
+    address:user?.address?user?.address?.address:'',
+    city:user?.address?user?.address?.city:'',
+    postalCode:user?.address?user?.address?.postalCode:'',
+    country:user?.address?user?.address?.country:'',
+    vatNumber:user?.address?user?.address?.vatNumber:''
   });
   const [errors, setErrors] = useState({
     name: '',

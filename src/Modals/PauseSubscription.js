@@ -6,7 +6,7 @@ const PauseSubscription = (props) => {
   const { user, show, handleClose } = props;
   const dispatch=useDispatch();
   const pause = async() => {
-    await pause_subscription(user?.token,user?.subscription?._id,dispatch);
+    await pause_subscription(user,dispatch);
     handleClose();
   }
   return (
@@ -23,7 +23,7 @@ const PauseSubscription = (props) => {
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="dark" className="w-100 rounded-pill" onClick={pause}>
-                Pause
+              {user?.subscription?.status==='paused'?'Resume':'Pause'}
               </Button>
             </div>
             <div className="col-md-6">

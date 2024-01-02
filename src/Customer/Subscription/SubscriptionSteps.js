@@ -22,7 +22,7 @@ const SubscriptionSteps = (props) => {
   const [step, setStep] = useState(0);
   useEffect(()=>{
     setUser(props.user);
-    const tpieces = props?.user?.subscription?.new_quantity || 1;
+    const tpieces = props?.user?.subscription?.quantity || 1;
     const lpieces=(tpieces > 10) ?tpieces-10:0;
     const spieces=(lpieces>0)?5:((tpieces > 5) && (tpieces < 11)) ?tpieces-5:0;
     const fpieces=(spieces>0)?5:(tpieces <= 5) ?tpieces:0;
@@ -79,7 +79,7 @@ const SubscriptionSteps = (props) => {
         {step === 0 && <>
           <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'}  <span className="subscription-heading">{user?.plan_id ? 'Subscription' : 'BOMO'}</span> </h2>
           <p className="sub-heading text-center">
-            {user?.plan_id ? `Your current plan includes ${user?.subscription?.new_quantity} pieces per month. Need to change it?`
+            {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
               : <>
                 Choose the number of Pieces you want to create monthly.
                 <br />Need more? You can modify it next month

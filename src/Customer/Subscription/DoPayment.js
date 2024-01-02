@@ -8,14 +8,14 @@ import { useDispatch } from "react-redux";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.subscription?user?.subscription?.name:'',
-    surname:user?.subscription?user?.subscription?.surname:'',
-    company:user?.subscription?user?.subscription?.company:'',
-    address:user?.subscription?user?.subscription?.address:'',
-    city:user?.subscription?user?.subscription?.city:'',
-    postalCode:user?.subscription?user?.subscription?.postalCode:'',
-    country:user?.subscription?user?.subscription?.country:'',
-    vatNumber:user?.subscription?user?.subscription?.vatNumber:''
+    name:user?.address?user?.address?.name:'',
+    surname:user?.address?user?.address?.surname:'',
+    company:user?.address?user?.address?.company:'',
+    address:user?.address?user?.address?.address:'',
+    city:user?.address?user?.address?.city:'',
+    postalCode:user?.address?user?.address?.postalCode:'',
+    country:user?.address?user?.address?.country:'',
+    vatNumber:user?.address?user?.address?.vatNumber:''
   });
   const [errors, setErrors] = useState({
     cardNumber:'',
@@ -189,7 +189,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
               <p className="mb-0">Subscription of {pieces} pieces per month</p><span className="subscription-total">${prize + save}</span>
             </div>
             {(save > 0) && <div className="d-flex align-items-center justify-content-between mt-2">
-              <p className="mb-0">12% saving vs the basic plan</p><span className="light-green"><del>${save}</del></span>
+              <p className="mb-0">{((save/(prize+save))*100).toFixed(0)}% saving vs the basic plan</p><span className="light-green"><del>${save}</del></span>
             </div>}
             <div className="d-flex align-items-center justify-content-between mt-5">
               <p className="mb-0">Total</p><span className="subscription-total grand-total">${prize}</span>
