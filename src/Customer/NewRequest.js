@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const NewRequest = () => {
+
+    const [formData, setFormData] = useState({
+        requestName: "",
+        brandProfile: "",
+        description: "",
+        fileType: "",
+        size: "",
+        references: "",
+        transparency: "",
+        uploadFiles: "",
+      });
+    
+    const [requestnameerror,setRequestnameerror]=useState(null);
+    const [brandprofileerror,setBrandprofileerror]=useState(null);
+    const [descriptionerror,setDescriptionerror]=useState(null);
+    const [fileTypeerror,setFileTypeerror]=useState(null);
+    const [sizeerror,setSizeerror]=useState(null);
+
     return (
         <>
            <div className="ml-md-auto pt-4 ms-md-auto rightside-wrapper">
