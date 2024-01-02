@@ -166,7 +166,8 @@ export const update_password = async (newPassword, token, navigate) => {
   }
 };
 
-export const profile_update = async (data,token,navigate) => {
+export const profile_update = async (data,token,navigate,dispatch) => {
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}profile/update`;
     const HEADERS = {
@@ -191,6 +192,8 @@ export const profile_update = async (data,token,navigate) => {
     }else{
       toast.error(error.message)
     }
+  } finally {
+    dispatch(stop_loading());
   }
 };
 
