@@ -138,12 +138,14 @@ const BillingForm = ({user}) => {
         <h3>Billing Information</h3>
       </div>
       <div className="bg-white billing-form py-5  rounded">
-        <form className="form px-60" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <div className="text-end">
-            <button type="submit" className="text-secondary mb-0 px-3 text-decoration-none">Edit</button>
+            <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
           </div>
-          <div className="row">
-            <BillingInfo card={card} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
+          <div className="px-60">
+            <div className="row">
+              <BillingInfo card={card} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
+            </div>
           </div>
         </form>
       </div>
