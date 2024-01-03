@@ -2,10 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import userImage from "../../images/user-img.png";
 import MemberForm from "./MemberForm";
-
+const roles = [
+  { id: 1, label: "Admin" },
+  { id: 2, label: "Team Member" },
+];
 const Members = () => {
   // show hide create members
   const [showAddComp, setShowAddComp] = React.useState(false);
+  const [updateRolepopUp, setupdateRolepopUp] = React.useState(false);
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -49,7 +53,15 @@ const Members = () => {
                       <td>
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
                           <b>Role</b>
-                          <span className="d-block">Admin</span>
+                          {updateRolepopUp ? (
+                            <select className="d-block">
+                              {roles.map((item) => (
+                                <option>{item.label}</option>
+                              ))}
+                            </select>
+                          ) : (
+                            <span className="d-block">Admin</span>
+                          )}
                         </p>
                       </td>
                       <td>
@@ -73,8 +85,19 @@ const Members = () => {
 
                       <td className="text-end">
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <span
+                            className=" text-decoration-none text-dark cursor-pointer"
+                            onClick={() => setupdateRolepopUp((prev) => !prev)}
+                          >
+                            {updateRolepopUp ? "update" : "+edit"}
+                          </span>
+                        </p>
+                      </td>
+
+                      <td className="text-end">
+                        <p className="mb-0 user-email  ms-1 ms-lg-2">
                           <Link className=" text-decoration-none text-dark">
-                            + edit
+                            - delete
                           </Link>
                         </p>
                       </td>
@@ -228,22 +251,14 @@ const Members = () => {
                       <tr>
                         <td>
                           <Link className="text-decoration-none text-dark">
-                            <div
-                              className="d-flex  align-items-center"
-                              onClick={() => setShowAddComp((prev) => !prev)}
-                            >
-                              {!showAddComp ? (
-                                <span className="plus">+</span>
-                              ) : (
-                                <span
-                                  className="plus"
-                                  onClick={() =>
-                                    setShowAddComp((prev) => !prev)
-                                  }
-                                >
-                                  -
-                                </span>
-                              )}
+                            <div className="d-flex  align-items-center">
+                              <span
+                                className="plus"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setShowAddComp((prev) => !prev)}
+                              >
+                                +
+                              </span>
                               <span>
                                 <span className="fw-bold ms-3">Add</span> New
                                 Memeber

@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 const MemberForm = ({ setShowAddComp }) => {
   // initial form data
   const initialFormData = {
     name: "",
-    role: 1,
+    role: 0,
     email: "",
     password: "",
   };
   const [formData, setformData] = React.useState(initialFormData);
   const [showPass, setshowPass] = React.useState(false);
+  const [data, sendData] = useState(null);
   const roles = [
     { id: 1, label: "Admin" },
     { id: 2, label: "Team Member" },
   ];
 
+  // for setting text
   const handleChange = (fieldName, value) => {
     setformData((prev) => ({ ...prev, [fieldName]: value }));
   };
 
+  // callback
+
+  const getformData = () => {
+    sendData(formData);
+  };
+
   // for submitting
   const handleCreate = () => {
+    if (formData?.name == "") {
+      alert("empty");
+      return;
+    }
     console.log(formData);
   };
 
@@ -57,6 +69,7 @@ const MemberForm = ({ setShowAddComp }) => {
             <select
               name="role"
               value={formData?.role}
+              defaultValue={"Select"}
               onChange={(e) => handleChange("role", e.target.value)}
             >
               {roles.map((item) => (
@@ -83,18 +96,17 @@ const MemberForm = ({ setShowAddComp }) => {
             />
           </td>
           <td>
-           
             <p className="mb-0 user-email  ms-1 ms-lg-2">
               <b>Password</b>
             </p>
             <div className="position-relative">
-            <input
-              type={showPass ? "text" : "password"}
-              className="formcontrol"
-              name="password"
-              value={formData?.password}
-              onChange={(e) => handleChange("password", e.target.value)}
-            />
+              <input
+                type={showPass ? "text" : "password"}
+                className="formcontrol"
+                name="password"
+                value={formData?.password}
+                onChange={(e) => handleChange("password", e.target.value)}
+              />
            
               <div className="eye-btn"
                 style={{ cursor: "pointer" }}
@@ -108,7 +120,7 @@ const MemberForm = ({ setShowAddComp }) => {
           <td>
             <button
               type="button"
-              className="bg-mid-gray fw-bold border rounded-pill px-4 py-1"
+              className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
               onClick={handleCreate}
             >
               create
