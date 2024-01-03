@@ -1,7 +1,7 @@
 import { start_loading,stop_loading } from "./Loader/loaderActions";
 import { login,signup,logout,set_user_type,update_password,profile_update,profile_details } from "./User/userActions";
 import { get_plans,edit_billing_info,pay_now, isSubscription,cancel_subscription,pause_subscription } from "./PlansPayments/planActions";
-import { addBrand, uploadZip, uploadZipFileSuccess, addBrandSuccess } from "./Brand/brandActions";
+import { addBrand, uploadZip, getbrandlist,deleteBrand,change_add_edit } from "./Brand/brandActions";
 export {
     start_loading,
     stop_loading,
@@ -15,11 +15,12 @@ export {
     update_password,
     addBrand,
     uploadZip,
-    uploadZipFileSuccess,
-    addBrandSuccess,
     edit_billing_info,
     pay_now,
     isSubscription,
     cancel_subscription,
-    pause_subscription
+    pause_subscription,
+    getbrandlist,
+    deleteBrand,
+    change_add_edit
 }  

@@ -10,7 +10,6 @@ import Bomohome from "./auth/Home";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import PastRequest from "./PastRequests";
-import BrandProfile from "./Customer/BrandProfile";
 import Subscription from "./Customer/Subscription/Index";
 import Members from "./Customer/members/Members";
 import Profile from "./Customer/Profile";
@@ -32,6 +31,9 @@ import { connect } from "react-redux";
 import EditProfile from "./Modals/EditProfile";
 import NewRequest from "./Customer/NewRequest";
 import RequestStatus from "./Customer/RequestStatus";
+import LoadingSpinner from "./LoadingSpinner";
+import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
+import 'react-tagsinput/react-tagsinput.css'
 
 function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
@@ -57,7 +59,6 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    //  setIsAuth(user ? true : true);
   }, [user]);
   useEffect(() => {
     const handleEndConcert = () => {
@@ -103,16 +104,13 @@ function App({ user }) {
     ]);
   return (
     <BrowserRouter>
-      <ToastContainer />
-      {isAuth ? (
-        <>
-          <Sidebar />
-          <Header />
-          <AfterLoginCustomerRoutes />
-        </>
-      ) : (
-        <AuthRoutes />
-      )}
+    <ToastContainer/>
+    <LoadingSpinner/>
+      {isAuth ? <>
+        <Sidebar />
+        <Header />
+        <AfterLoginCustomerRoutes />
+      </> : <AuthRoutes />}
     </BrowserRouter>
   );
 }
@@ -122,4 +120,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(App);
+
+export default connect(mapStateToProps)(App);

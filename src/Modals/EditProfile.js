@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { profile_update } from "../reduxdata/rootAction";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 const EditProfile = ({ show, handleClose }) => {
@@ -11,6 +11,7 @@ const EditProfile = ({ show, handleClose }) => {
 
   const [usernameError, setUsernameError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,12 +28,12 @@ const EditProfile = ({ show, handleClose }) => {
            const usertoken = tokendata.token;
            const userDataForm = {
              name: formData.username,
-
            }
         await profile_update(
           userDataForm,
           usertoken,
-          navigate
+          navigate,
+          dispatch
         );
         handleClose();
         } catch (error) {
