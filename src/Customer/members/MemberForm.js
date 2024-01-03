@@ -41,12 +41,11 @@ const MemberForm = ({ setShowAddComp }) => {
       <tbody>
         <tr>
           <td>
-            <div className="d-flex  align-items-center">
-              <span
-                className="plus"
-                onClick={() => setShowAddComp(false)}
-                style={{ cursor: "pointer" }}
-              >
+            <div
+              className="d-flex align-items-center"
+              style={{ cursor: "pointer" }}
+            >
+              <span className="plus" onClick={() => setShowAddComp(false)}>
                 -
               </span>
               <p className="mb-0 user-email  ms-1 ms-lg-2">
@@ -97,10 +96,10 @@ const MemberForm = ({ setShowAddComp }) => {
             />
           </td>
           <td>
-            <div className="mt-4">
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Password</b>
-              </p>
+            <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <b>Password</b>
+            </p>
+            <div className="position-relative">
               <input
                 type={showPass ? "text" : "password"}
                 className="formcontrol"
@@ -108,19 +107,15 @@ const MemberForm = ({ setShowAddComp }) => {
                 value={formData?.password}
                 onChange={(e) => handleChange("password", e.target.value)}
               />
-              <div
-                style={{
-                  position: "relative",
-                  left: "170px",
-                  bottom: "30px",
-                  maxWidth: 20,
-                  cursor: "pointer",
-                }}
+           
+              <div className="eye-btn"
+                style={{ cursor: "pointer" }}
                 onClick={() => setshowPass((prev) => !prev)}
               >
                 {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
               </div>
-            </div>
+              </div>
+          
           </td>
           <td>
             <button

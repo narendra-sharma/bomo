@@ -91,7 +91,7 @@ const Setting = ({ user, userrole }) => {
                             <div className="col-lg-6 col-md-6 d-flex flex-column">
                                 <BillingForm user={user}/>
                             </div>
-                            <div className="col-lg-6 col-md-6 d-flex flex-column">
+                            <div className="col-lg-6 col-md-6 mt-4 mt-md-0 d-flex flex-column">
                                 <PaymentCardInfo user={user}/>
                             </div>
                         </div>

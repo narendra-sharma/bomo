@@ -28,6 +28,7 @@ const brandReducer = (state = initialState, action) => {
     default:
       return state;
   }
+  
 };
 
 export default brandReducer;

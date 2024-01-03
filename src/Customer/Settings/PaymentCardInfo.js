@@ -79,11 +79,12 @@ const PaymentCardInfo = ({ stripe, elements }) => {
         <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ stripe, elements }) => (
-              <form className="form px-60" onSubmit={handleSubmit}>
+              <form className="form" onSubmit={handleSubmit}>
                 <div className="text-end">
-                  <button type="submit" className="text-secondary mb-0 px-3 text-decoration-none">Edit</button>
+                  <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
                 </div>
-                <div>
+
+                <div className="px-60">
                   <div className="row">
                     <CardInfo stripe={stripe} elements={elements} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
                   </div>

@@ -274,9 +274,6 @@ const Members = () => {
                 </table>
               </div>
             </div>
-            <div className="review-content add-member bg-white px-4 py-2 rounded mb-3">
-              <div className="table-responsive"></div>
-            </div>
           </div>
         </div>
       </div>
