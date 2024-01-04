@@ -23,6 +23,7 @@ import {
   deleteBrand,
   change_add_edit,
 } from "./Brand/brandActions";
+import { newRequest } from "./Requests/requestActions";
 import {
   getAllMembersList,
   addNewMember,
@@ -49,6 +50,7 @@ export {
   deleteBrand,
   change_add_edit,
   catch_errors_handle,
+  newRequest,
   getAllMembersList,
   addNewMember,
   deleteExistingUser,
