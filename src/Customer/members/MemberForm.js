@@ -197,7 +197,7 @@ const MemberForm = ({ setShowAddComp }) => {
                 </p>
               )}
             </div>
-            </div>
+            
           </td>
           <td>
             <button

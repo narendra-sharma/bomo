@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
+import dropdownImage from '../images/dropdown-img.png';
 
 const CustomerHome = () => {
     return (
@@ -55,6 +56,7 @@ const CustomerHome = () => {
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                           <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                          
                         </tr>
                       </tbody>
                     </table>
@@ -79,6 +81,7 @@ const CustomerHome = () => {
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                           <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                          <td><img src={dropdownImage} alt="" /></td>
                         </tr>
                         <tr>
                           <td><p className="serial-number">2</p></td>
@@ -87,7 +90,8 @@ const CustomerHome = () => {
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                           <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                        </tr>
+                          <td><img src={dropdownImage} alt="" /></td>
+                         </tr>
                         <tr>
                           <td><p className="serial-number">3</p></td>
                           <td className="text-center"><p className="short0ad typography">typography</p></td>
@@ -95,6 +99,7 @@ const CustomerHome = () => {
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                           <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                          <td><img src={dropdownImage} alt="" /></td>
                         </tr>
                       </tbody>
                     </table>
