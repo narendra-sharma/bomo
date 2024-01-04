@@ -19,9 +19,9 @@ const Bomohome = () => {
         <div className="container">
           <div className="mb-5"><img src={bomowhiteLogo} alt="Bomo logo" /></div>
           {
-            bomousers.map((ele, index) => {
+            bomousers.map((ele) => {
               return (
-                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{ele}</button>
+                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{(ele==='customer_admin')?'Customer':ele}</button>
               )
             })
           }

@@ -7,6 +7,7 @@ import {
   update_password,
   profile_update,
   catch_errors_handle,
+  delete_account
 } from "./User/userActions";
 import {
   get_plans,
