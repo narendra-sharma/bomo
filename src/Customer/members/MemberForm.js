@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { addNewMember } from "../../reduxdata/members/memberAction";
+import { connect, useDispatch } from "react-redux";
+import { add_new_member } from "../../reduxdata/members/memberAction";
 const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
@@ -31,7 +31,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     if (isAddEdit) {
       setformData({
         name: "",
-        role: "Admin",
+        role: "",
         email: "",
         password: "",
         colour: "#111111",
@@ -106,7 +106,8 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
       return false;
     }
     // api call
-    addNewMember(dispatch, formData, user.token);
+    console.log(user.token);
+    add_new_member(dispatch, formData, user?.token);
     // setting everything to null
   };
 
