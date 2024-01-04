@@ -70,11 +70,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, requestName: 'Request Name is required*' })
         } else {
           setErrors({ ...errors, requestName: '' });
-          setFormData({
-            ...formData,
-            requestName: value,
-          });
         }
+        setFormData({
+          ...formData,
+          requestName: value,
+        });
         break;
 
       case 'description':
@@ -82,11 +82,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, description: 'Description is required*' })
         } else {
           setErrors({ ...errors, description: '' });
-          setFormData({
-            ...formData,
-            description: value,
-          })
         }
+        setFormData({
+          ...formData,
+          description: value,
+        })
         break;
 
       case 'references':
@@ -94,11 +94,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, references: 'Reference is required*' })
         } else {
           setErrors({ ...errors, references: '' });
-          setFormData({
-            ...formData,
-            references: value
-          })
         }
+        setFormData({
+          ...formData,
+          references: value
+        })
         break;
 
       case 'size':
@@ -106,11 +106,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, size: 'Please Select your size*' });
         } else {
           setErrors({ ...errors, size: '' });
-          setFormData({
-            ...formData,
-            size: value
-          })
         }
+        setFormData({
+          ...formData,
+          size: value
+        })
         break;
 
       case 'brandProfile':
@@ -118,11 +118,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, brandProfile: 'BrandProfile is required*' })
         } else {
           setErrors({ ...errors, brandProfile: '' });
-          setFormData({
-            ...formData,
-            brandProfile: value,
-          });
         }
+        setFormData({
+          ...formData,
+          brandProfile: value,
+        });
         break;
 
       case 'transparency':
@@ -130,11 +130,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, transparency: 'transparency is required*' })
         } else {
           setErrors({ ...errors, transparency: '' });
-          setFormData({
-            ...formData,
-            transparency: value,
-          });
         }
+        setFormData({
+          ...formData,
+          transparency: value,
+        });
         break;
 
       case 'fileType':
@@ -142,11 +142,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, fileType: 'fileType is required*' })
         } else {
           setErrors({ ...errors, fileType: '' });
-          setFormData({
-            ...formData,
-            fileType: value,
-          });
         }
+        setFormData({
+          ...formData,
+          fileType: value,
+        });
         break;
 
       case 'uploadFiles':
@@ -158,11 +158,11 @@ const NewRequest = ({ brands,user }) => {
           setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         } else {
           setErrors({ ...errors, uploadFiles: '' });
-          setFormData({
-            ...formData,
-            uploadFiles: Fileupload,
-          });
         }
+        setFormData({
+          ...formData,
+          uploadFiles: Fileupload,
+        });
         break;
 
       default:
@@ -241,6 +241,9 @@ const NewRequest = ({ brands,user }) => {
         status: status
       };
       await newRequest(newrequest, dispatch, usertoken);
+      setFormData({  requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
+      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "",
+      });
     }
   };
 

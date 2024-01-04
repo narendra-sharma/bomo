@@ -15,10 +15,10 @@ export const newRequest = async (requestdata, dispatch, token) => {
         formData.append('size', requestdata.size);
         formData.append('references', requestdata.references);
         formData.append('transparency', requestdata.transparency);
-        formData.append('File', requestdata.uploadFiles);
+        formData.append('image', requestdata.uploadFiles);
         formData.append('status', requestdata.status);
   
-        const url = `${REACT_APP_BOMO_URL}new-request`;
+        const url = `${REACT_APP_BOMO_URL}customer/request_create`;
         const headers = {
             "x-access-token": token, 
           }

@@ -54,7 +54,6 @@ const Setting = ({ user, userrole }) => {
                       <span className="d-block">{user?.name}</span></p>
                   </div>
                   <div className="d-flex text-right justify-content-between align-items-center">
-
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className="d-md-block">Role</b>
                       <span className="d-block">{(userrole === 'customer_admin') ? 'Customer' : userrole}</span></p>

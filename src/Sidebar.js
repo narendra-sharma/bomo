@@ -61,7 +61,6 @@ const Sidebar = () => {
     let time = localStorage.getItem('time') || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    console.log(isSubscribe);
     location.pathname = ((userrole === 'customer_admin') && !isSubscribe)?'/subscription':((n - time) < 1500) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole,isSubscribe])
