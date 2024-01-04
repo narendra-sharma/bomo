@@ -57,7 +57,6 @@ const navigate = useNavigate();
           navigate,
           dispatch
         );
-        console.log('Password changed!');
         handleClose();
       } catch (error) {
         console.error('Error updating password:', error);

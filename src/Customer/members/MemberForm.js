@@ -13,8 +13,6 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   };
   const [formData, setformData] = React.useState(initialFormData);
   const [showPass, setshowPass] = React.useState(false);
-
-  console.log("USERRRR", user);
   const [errors, setErrors] = React.useState({
     nameError: "",
     emailError: "",

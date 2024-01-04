@@ -63,7 +63,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             logo: logoFile,
           });
           setImagePreview(URL.createObjectURL(logoFile));
-          console.log("New Logo", newbrand.logo);
         }
         break;
 

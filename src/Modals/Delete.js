@@ -8,7 +8,7 @@ const Delete = (props) => {
       <Modal.Body>
         <div className="px-4 py-4">
         <h4 className="mb-0">Delete {heading}</h4>
-          <p>do you really want to delete {heading} <b>{name}</b>?</p>
+          <p>do you really want to Delete {heading} <b>{name}</b>?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="dark" className="w-100 rounded-pill" onClick={DeleteBrand}>

@@ -18,7 +18,6 @@ const roles = [
 
 const Members = ({ user }) => {
   // show hide create members
-  console.log("TOKENSSSS", user.token);
   const [showAddComp, setShowAddComp] = useState(false);
   const [updateRolepopUp, setupdateRolepopUp] = useState(false);
   const [show, setShow] = useState(false);

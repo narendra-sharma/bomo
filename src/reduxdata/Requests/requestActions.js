@@ -5,7 +5,6 @@ const { REACT_APP_BOMO_URL } = process.env;
 
 export const newRequest = async (requestdata, dispatch, token) => {
     dispatch(start_loading());
-    console.log(requestdata);
     try {
         const formData = new FormData();
         formData.append('request_name', requestdata.requestName);

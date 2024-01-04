@@ -55,7 +55,6 @@ const EditProfile = ({ show, handleClose }) => {
   useEffect(() => {
     if (show) {
       const storedUsername = JSON.parse(localStorage.getItem('userDetails'));
-      console.log(storedUsername.name);
       setFormData({
         username: storedUsername.name || '',
       });

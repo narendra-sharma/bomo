@@ -241,7 +241,6 @@ const NewRequest = ({ brands,user }) => {
         status: status
       };
       await newRequest(newrequest, dispatch, usertoken);
-      console.log("Form submitted:", newrequest);
     }
   };
 

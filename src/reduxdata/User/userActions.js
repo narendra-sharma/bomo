@@ -46,7 +46,6 @@ export const signup = async (user, role, navigate, dispatch) => {
 export const login = async (user, role, dispatch) => {
   role = role.toLowerCase();
   role = role.replace(" ", "");
-  console.log(role);
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/login`;
@@ -56,7 +55,6 @@ export const login = async (user, role, dispatch) => {
       },
     };
     const res = await axios.post(url, user, HEADERS);
-    console.log("rsponse", res.data.data.role);
     if (res.data && res.data.status) {
       if (res.data.data.role === role) {
         toast.success("Successfully user logged-in!");
@@ -199,6 +197,32 @@ export const profile_update = async (data, token, navigate, dispatch) => {
       localStorage.setItem("userDetails", JSON.stringify(userDetails));
       toast.success("Successfully Update Profile!");
       navigate("/setting");
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const delete_account = async (token, navigate, dispatch) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}user/delete`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.post(url, {}, HEADERS);
+    if (res.data && res.data.status) {
+      localStorage.removeItem("userDetails");
+      localStorage.clear();
+      dispatch(set_update_user(null));
+      toast.success("Successfully deleted account!");
+      navigate("/");
     } else {
       toast.error(res.data.message);
     }
