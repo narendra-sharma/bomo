@@ -43,10 +43,9 @@ export const signup = async (user, role, navigate, dispatch) => {
   }
 };
 
-export const login = async (user, role, dispatch) => {
-  role = role.toLowerCase();
-  role = role.replace(" ", "");
-  console.log(role);
+export const login = async (user,role,dispatch) => {
+  role=role.toLowerCase();
+  role=role.replace(' ','');
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/login`;
@@ -56,7 +55,6 @@ export const login = async (user, role, dispatch) => {
       },
     };
     const res = await axios.post(url, user, HEADERS);
-    console.log("rsponse", res.data.data.role);
     if (res.data && res.data.status) {
       if (res.data.data.role === role) {
         toast.success("Successfully user logged-in!");

@@ -25,26 +25,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
     tags: '',
   });
 
-  const handleRemoveTag = (e, index) => {
-    e.preventDefault();
-
-    if (brand?.id) {
-      const updatedTags = [...newbrand.tags];
-      updatedTags.splice(index, 1);
-      setNewBrand({
-        ...newbrand,
-        tags: updatedTags,
-      });
-    } else {
-      const updatedTags = [...newbrand.tags];
-      updatedTags.splice(index, 1);
-      setNewBrand({
-        ...newbrand,
-        tags: updatedTags,
-      });
-    }
-  };
-
   const handleChange = async (e) => {
     const { name, value, files } = e.target;
 
@@ -63,7 +43,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             logo: logoFile,
           });
           setImagePreview(URL.createObjectURL(logoFile));
-          console.log("New Logo", newbrand.logo);
         }
         break;
 
@@ -85,18 +64,25 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           setErrors({ ...errors, brandassests: 'Upload your zip file*' });
         } else if (brandAssetsFile.type !== 'application/zip') {
           setErrors({ ...errors, brandassests: 'Please upload a valid zip file*' });
-        } else {
-          setErrors({ ...errors, brandassests: '' });
-          await uploadZip(brandAssetsFile, dispatch);
-        }
-        setNewBrand({
-          ...newbrand,
-          brandassests: zipfile_path,
-        });
-        setZipPreview(zipfile_path);
+        }  else {
+          try {
+            const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
 
-        if(!brand?.id) {
-          setAddzip(brandAssetsFile)
+            setNewBrand({
+              ...newbrand,
+              brandassests: uploadedZipPath,
+            });
+            setZipPreview(uploadedZipPath);
+      
+            if (!brand?.id) {
+              setAddzip(brandAssetsFile);
+            }
+      
+            setErrors({ ...errors, brandassests: '' });
+          } catch (error) {
+            console.error('Error uploading zip file:', error);
+            setErrors({ ...errors, brandassests: 'Error uploading zip file. Please try again.' });
+          }
         }
         break;
 
@@ -128,51 +114,26 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let valid = true;
 
-    if (!newbrand.logo) {
-      setErrors({ ...errors, logo: 'Upload Logo*' });
-    } else if (!newbrand.logo.type || !newbrand.logo.type.startsWith('image/')) {
-      setErrors({ ...errors, logo: 'Please upload a valid image file*' });
-    } else {
-      setErrors({ ...errors, logo: '' });
-    }
+    const fieldsToValidate = [
+      { name: 'logo', validation: (value) => !value ? 'Upload Logo*' : '' },
+      { name: 'brandname', validation: (value) => !value ? 'Brand Name is required*' : '' },
+      { name: 'brandassests', validation: (value) => !value ? 'Upload your zip file*' : '' },
+      { name: 'tags', validation: (value) => value.length === 0 ? 'Tags are required*' : (value.length > 5 ? 'You can add up to 5 tags*' : '') }
+    ];
+  
+    fieldsToValidate.forEach(({ name, validation }) => {
+      const value = newbrand[name];
+      const error = validation(value);
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+ 
+      if (error) {
+        valid = false;
+      }
+    });
 
-    if (newbrand.brandname === '') {
-      setErrors({ ...errors, brandname: 'Brand Name is required*' });
-    } else {
-      setErrors({ ...errors, brandname: '' });
-    }
-
-    if (!newbrand.brandassests) {
-      setErrors({ ...errors, brandassests: 'Upload your zip file*' });
-    } else if (newbrand.brandassests.type !== 'application/zip') {
-      setErrors({ ...errors, brandassests: 'Please upload a valid zip file*' });
-    } else {
-      setErrors({ ...errors, brandassests: '' });
-    }
-
-    if (newbrand.tags.length === 0) {
-      setErrors({ ...errors, tags: 'Tags are required*' });
-    } else if (newbrand.tags.length > 5) {
-      setErrors({ ...errors, tags: 'You can add up to 5 tags*' });
-    } else {
-      setErrors({ ...errors, tags: '' });
-    }
-
-    // const output = Object.entries(newbrand).map(([key, value]) => ({key,value}));
-    // for(let i=output.length-1;i>-1;i--){
-    //   if(!output[i].value && (output.key!=='surname')){
-    //     handleChange({target: {name: output[i].key}});
-    //   }
-    // };
-    // let err=false;
-    // const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
-    // err=errOutput.find(r=>r.value?true:false);
-    // if(err){
-    //   return false;
-    // }
-
-    if (Object.values(errors).every((error) => !error)) {
+    if (valid && (Object.values(errors).every((error) => !error))) {
 
       let brandprofile = {
         logo: newbrand.logo,

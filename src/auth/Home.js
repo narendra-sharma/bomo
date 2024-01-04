@@ -21,7 +21,7 @@ const Bomohome = () => {
           {
             bomousers.map((ele, index) => {
               return (
-                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{ele}</button>
+                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{ele==='customer_admin'?'Customer':ele}</button>
               )
             })
           }
