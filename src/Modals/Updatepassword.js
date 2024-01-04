@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap"
 import { update_password } from "../reduxdata/rootAction";
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
 
 const Updatepassword = ({ isLoading,show, handleClose}) => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const Updatepassword = ({ isLoading,show, handleClose}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
-
+  const dispatch=useDispatch();
 const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,9 +54,9 @@ const navigate = useNavigate();
         await update_password(
           userDataForm,
           usertoken,
-          navigate
+          navigate,
+          dispatch
         );
-        console.log('Password changed!');
         handleClose();
       } catch (error) {
         console.error('Error updating password:', error);

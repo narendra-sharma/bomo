@@ -9,38 +9,64 @@ import designImage2 from "./images/sixteen-nine.png";
 import designImage3 from "./images/sixteen-nine2.png";
 
 const Home = () => {
-  const userrole = useSelector((state) => state.auth.role || '')
+  const userrole = useSelector((state) => state.auth.role || "");
   return (
     <>
-      {userrole === 'Designer' ? <DesignerHome />
-      :userrole === 'Customer' ? <CustomerHome />
-      :userrole === 'SuperAdmin' ? <SuperAdminHome/>
-      : <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
+      {userrole === "Designer" ? (
+        <DesignerHome />
+      ) : userrole === "customer_admin" ? (
+        <CustomerHome />
+      ) : userrole === "SuperAdmin" ? (
+        <SuperAdminHome />
+      ) : (
+        <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
           <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
             <div className="review-main-content">
               <div className="mb-5">
                 <div className=" d-flex align-items-center mb-3">
                   <h3 className="mb-0 mx-2 mx-md-4">Approve Request</h3>
                   <div className="action-need ms-3 bg-white text-dark rounded-pill px-3 py-1">
-                    <small>12  Action Needed</small>
+                    <small>12 Action Needed</small>
                   </div>
                 </div>
                 <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
                   <div className="row">
                     <div className="col-lg-12">
-                    <small className="text-muted fw-bold">12 requests left </small>
+                      <small className="text-muted fw-bold">
+                        12 requests left{" "}
+                      </small>
                     </div>
                     <div className="col-lg-6">
                       <div className="table-responsive">
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad">short ad</p> </td>
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p>Ad ss23 Winter</p></td>
-                              <td><p><span className="fw-bold">Expand Request</span> </p></td>
-                              <td><i className="fa-solid fa-circle-check checked-circle"></i> <i className="fa-solid fa-circle-xmark cancel"></i></td>  
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad">short ad</p>{" "}
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>Ad ss23 Winter</p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">
+                                    Expand Request
+                                  </span>{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <i className="fa-solid fa-circle-check checked-circle"></i>{" "}
+                                <i className="fa-solid fa-circle-xmark cancel"></i>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -51,14 +77,33 @@ const Home = () => {
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad">short ad</p> </td>
-                              
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p>Ad ss23 Winter</p></td>
-                              <td><p><span className="fw-bold">Expand Request</span> </p></td>
-                              <td><i className="fa-solid fa-circle-check checked-circle"></i> <i className="fa-solid fa-circle-xmark cancel"></i></td>
-                              
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad">short ad</p>{" "}
+                              </td>
+
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>Ad ss23 Winter</p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">
+                                    Expand Request
+                                  </span>{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <i className="fa-solid fa-circle-check checked-circle"></i>{" "}
+                                <i className="fa-solid fa-circle-xmark cancel"></i>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -69,14 +114,33 @@ const Home = () => {
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad">short ad</p> </td>
-                              
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p>Ad ss23 Winter</p></td>
-                              <td><p><span className="fw-bold">Expand Request</span> </p></td>
-                              <td><i className="fa-solid fa-circle-check checked-circle"></i> <i className="fa-solid fa-circle-xmark cancel"></i></td>
-                              
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad">short ad</p>{" "}
+                              </td>
+
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>Ad ss23 Winter</p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">
+                                    Expand Request
+                                  </span>{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <i className="fa-solid fa-circle-check checked-circle"></i>{" "}
+                                <i className="fa-solid fa-circle-xmark cancel"></i>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -87,20 +151,38 @@ const Home = () => {
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad">short ad</p> </td>
-                              
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p>Ad ss23 Winter</p></td>
-                              <td><p><span className="fw-bold">Expand Request</span> </p></td>
-                              <td><i className="fa-solid fa-circle-check checked-circle"></i> <i className="fa-solid fa-circle-xmark cancel"></i></td>
-                              
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad">short ad</p>{" "}
+                              </td>
+
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>Ad ss23 Winter</p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">
+                                    Expand Request
+                                  </span>{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <i className="fa-solid fa-circle-check checked-circle"></i>{" "}
+                                <i className="fa-solid fa-circle-xmark cancel"></i>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -108,26 +190,50 @@ const Home = () => {
                 <div className=" d-flex align-items-center mb-3">
                   <h3 className="mb-0 mx-2 mx-md-4">Assign Request</h3>
                   <div className="action-need ms-3 bg-white text-dark rounded-pill px-3 py-1">
-                    <small>2  Action Needed</small>
+                    <small>2 Action Needed</small>
                   </div>
                 </div>
                 <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section">
                   <div className="row">
                     <div className="col-lg-12">
-                    <small className="text-muted fw-bold">2 requests left </small>
+                      <small className="text-muted fw-bold">
+                        2 requests left{" "}
+                      </small>
                     </div>
                     <div className="col-lg-5 g-0">
                       <div className="table-responsive">
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad loop">loop</p> </td> 
-                              <td><p><span className="fw-bold">Delivery</span> <span className="d-block">17/03/2023</span></p></td>
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p><span>Expand Request</span> </p></td>
-                              <td><p>Assign Request <i className="fa-solid fa-chevron-right"></i></p></td>
-                              
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad loop">loop</p>{" "}
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Delivery</span>{" "}
+                                  <span className="d-block">17/03/2023</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span>Expand Request</span>{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <p>
+                                  Assign Request{" "}
+                                  <i className="fa-solid fa-chevron-right"></i>
+                                </p>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -137,75 +243,175 @@ const Home = () => {
                       <p className="text-center mb-1">Top 10 Talent</p>
                       <ul className="talented-designer  rounded list-unstyled">
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Designerito</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Designerito
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Joosieteee</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Joosieteee
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Reservetest</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Reservetest
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
-
                       </ul>
                     </div>
                     <div className="col-lg-5 g-0">
                       <ul className="talented-designer designer-list rounded list-unstyled">
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Designerito</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Designerito
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Joosieteee</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Joosieteee
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Reservetest</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Reservetest
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
                         <li className="mb-1">
-                        <Link className="text-decoration-none text-dark fw-bold"><p><i className="fa-solid fa-circle-minus"></i> Motiongeud</p></Link>
+                          <Link className="text-decoration-none text-dark fw-bold">
+                            <p>
+                              <i className="fa-solid fa-circle-minus"></i>{" "}
+                              Motiongeud
+                            </p>
+                          </Link>
                         </li>
-
                       </ul>
                     </div>
                     <div className="col-lg-1 align-self-center">
-                    <button className="btn btn-sm btn-outline-dark rounded-pill">Assign</button>
+                      <button className="btn btn-sm btn-outline-dark rounded-pill">
+                        Assign
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -220,55 +426,83 @@ const Home = () => {
                 <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
                   <div className="row">
                     <div className="col-lg-12">
-                    <small className="text-muted fw-bold">5 requests left </small>
+                      <small className="text-muted fw-bold">
+                        5 requests left{" "}
+                      </small>
                     </div>
                     <div className="col-lg-12">
                       <div className="table-responsive">
                         <table className="table table-borderless">
                           <tbody>
                             <tr>
-                              <td><p>12h</p></td>
-                              <td className="text-center"><p className="short0ad typography">typography</p> </td> 
-                              <td><p><span className="fw-bold">Cratat</span> <span className="d-block">Dior</span></p></td>
-                              <td><p><span className="fw-bold">Delivery</span> <span className="d-block">17/03/2023</span></p></td>
-                              <td><p><span>Expand Request</span> </p></td>
+                              <td>
+                                <p>12h</p>
+                              </td>
+                              <td className="text-center">
+                                <p className="short0ad typography">
+                                  typography
+                                </p>{" "}
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Cratat</span>{" "}
+                                  <span className="d-block">Dior</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span className="fw-bold">Delivery</span>{" "}
+                                  <span className="d-block">17/03/2023</span>
+                                </p>
+                              </td>
+                              <td>
+                                <p>
+                                  <span>Expand Request</span>{" "}
+                                </p>
+                              </td>
                               <td>
                                 <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                  <div className="delivery-status fw-bold"><p>9:16</p></div>
-                                    <div className="bar-code">
+                                  <div className="delivery-status fw-bold">
+                                    <p>9:16</p>
+                                  </div>
+                                  <div className="bar-code">
                                     <img src={designImage} alt="Image" />
-                                    </div>
+                                  </div>
                                 </div>
                               </td>
                               <td>
                                 <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                  <div className="delivery-status fw-bold"><p>16:9</p></div>
-                                    <div className="bar-code">
+                                  <div className="delivery-status fw-bold">
+                                    <p>16:9</p>
+                                  </div>
+                                  <div className="bar-code">
                                     <img src={designImage2} alt="Image" />
-                                    </div>
+                                  </div>
                                 </div>
                               </td>
                               <td>
                                 <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                  <div className="delivery-status fw-bold"><p>.aep</p></div>
-                                    <div className="bar-code">
-                                    <img src={designImage3} alt="Image"/>
-                                    </div>
+                                  <div className="delivery-status fw-bold">
+                                    <p>.aep</p>
+                                  </div>
+                                  <div className="bar-code">
+                                    <img src={designImage3} alt="Image" />
+                                  </div>
                                 </div>
                               </td>
                               <td>
                                 <div className="d-flex align-items-center">
-                                  <button className="btn btn-sm btn-outline-success rounded-pill">Approve Delivery</button>
+                                  <button className="btn btn-sm btn-outline-success rounded-pill">
+                                    Approve Delivery
+                                  </button>
                                   <i className="fa-solid fa-circle-xmark cancel"></i>
                                 </div>
                               </td>
-                              
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
-                  
                   </div>
                 </div>
               </div>
@@ -279,12 +513,11 @@ const Home = () => {
                 <div className="row">
                   <div className="monthly-revenue-section d-flex flex-column rounded">
                     <div className="bg-white p-2 rounded">
-                      <p className="fw-bold">Monthly revenue</p >
+                      <p className="fw-bold">Monthly revenue</p>
                       <div className="monthly-revenue-price text-center py-4">
                         <h2 className="text-muted mb-0">$98500</h2>
                       </div>
                     </div>
-                    
                   </div>
                   <div className="designers-section d-flex flex-column rounded">
                     <div className="bg-white p-2 rounded">
@@ -311,7 +544,7 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="designers-section d-flex flex-column rounded">
-                  <div className="bg-white p-2 rounded">
+                    <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Requests Finished</p>
                       <div className="monthly-revenue-price text-center py-4">
                         <h2 className="text-muted mb-0">1022</h2>
@@ -355,7 +588,7 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="designers-section d-flex flex-column rounded">
-                  <div className="bg-white p-2 rounded">
+                    <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Pending to be paid</p>
                       <div className="monthly-revenue-price text-center py-4">
                         <h2 className="text-muted mb-0">$18370</h2>
@@ -363,17 +596,16 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
               <div className="mb-3 review-content">
                 <div className="row">
                   <div className="monthly-revenue-section d-flex flex-column rounded">
                     <div className="bg-white p-2 rounded">
-                      <p className="fw-bold">Average Applications / request</p >
+                      <p className="fw-bold">Average Applications / request</p>
                       <div className="monthly-revenue-price text-center py-4">
                         <h2 className="text-muted mb-0">87</h2>
                       </div>
                     </div>
-                    
                   </div>
                   <div className="designers-section d-flex flex-column rounded">
                     <div className="bg-white p-2 rounded">
@@ -400,7 +632,7 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="designers-section d-flex flex-column rounded">
-                  <div className="bg-white p-2 rounded">
+                    <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Late Delivered Requests</p>
                       <div className="monthly-revenue-price text-center py-4">
                         <h2 className="text-muted mb-0">31</h2>
@@ -409,13 +641,12 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Home;

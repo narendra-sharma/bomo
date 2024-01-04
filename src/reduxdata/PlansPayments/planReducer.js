@@ -13,7 +13,7 @@ const initialState = {
     switch (action.type) {
       case GET_PLANS:
         return { ...state, 
-          plans: action.payload 
+          plans: action.payload?.data[0]?.tiers
         };
       case PAY_NOW:
         return { ...state, 
@@ -22,8 +22,8 @@ const initialState = {
       case GET_PAYMENT_HISTORY:
         return {
           ...state,
-          payments:action.payload.data,
-          total:action.payload.total
+          payments:action.payload?.data,
+          total:action.payload?.total
         }   
       default:
         return state;

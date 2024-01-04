@@ -63,7 +63,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             logo: logoFile,
           });
           setImagePreview(URL.createObjectURL(logoFile));
-          console.log("New Logo", newbrand.logo);
         }
         break;
 
@@ -159,6 +158,19 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       setErrors({ ...errors, tags: '' });
     }
 
+    // const output = Object.entries(newbrand).map(([key, value]) => ({key,value}));
+    // for(let i=output.length-1;i>-1;i--){
+    //   if(!output[i].value && (output.key!=='surname')){
+    //     handleChange({target: {name: output[i].key}});
+    //   }
+    // };
+    // let err=false;
+    // const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
+    // err=errOutput.find(r=>r.value?true:false);
+    // if(err){
+    //   return false;
+    // }
+
     if (Object.values(errors).every((error) => !error)) {
 
       let brandprofile = {
@@ -217,8 +229,8 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               <label className="fw-bold">Brand Assests:</label>
               {(brand?.id && zipPreview ) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p> }
               {(addzip) ? <p>{addzip.name}</p> : ''}
-              <input type="file" className="d-none" name="brandassests" onChange={handleChange} ref={zipfileinputRef} />
-              <button className="upload-zip rounded" onClick={handleUploadZipFileClick}>
+              <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
+              <button onClick={handleUploadZipFileClick}>
                 Upload your zip.
               </button>
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}

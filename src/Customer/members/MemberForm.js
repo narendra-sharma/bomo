@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { addNewMember } from "../../reduxdata/members/memberAction";
-const MemberForm = ({ setShowAddComp }) => {
+import { connect, useDispatch } from "react-redux";
+import { add_new_member } from "../../reduxdata/members/memberAction";
+const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
     name: "",
-    role: 1,
+    role: "customer_admin",
     email: "",
     password: "",
+    colour: "#111111",
   };
   const [formData, setformData] = React.useState(initialFormData);
   const [showPass, setshowPass] = React.useState(false);
-  const [data, sendData] = React.useState(null);
   const [errors, setErrors] = React.useState({
     nameError: "",
     emailError: "",
     passError: "",
   });
   const roles = [
-    { id: 1, label: "Admin" },
+    { id: 1, label: "customer Admin" },
     { id: 2, label: "Team Member" },
   ];
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isAddEdit) {
+      setformData({
+        name: "",
+        role: "",
+        email: "",
+        password: "",
+        colour: "#111111",
+      });
+    }
+  }, [isAddEdit, dispatch]);
+
   // for setting text
   const handleChange = (name, value) => {
     switch (name) {
@@ -54,6 +67,9 @@ const MemberForm = ({ setShowAddComp }) => {
         }
         setformData({ ...formData, password: value });
         break;
+      case "colour":
+        setformData({ ...formData, colour: value });
+        break;
       default:
         break;
     }
@@ -61,9 +77,9 @@ const MemberForm = ({ setShowAddComp }) => {
 
   // callback
 
-  const getformData = () => {
-    sendData(formData);
-  };
+  // const getformData = () => {
+  //   sendData(formData);
+  // };
 
   // validations
 
@@ -88,15 +104,9 @@ const MemberForm = ({ setShowAddComp }) => {
       return false;
     }
     // api call
-    addNewMember(dispatch, formData, null);
-
+    console.log(user.token);
+    add_new_member(dispatch, formData, user?.token);
     // setting everything to null
-    setformData({
-      name: "",
-      role: 1,
-      email: "",
-      password: "",
-    });
   };
 
   return (
@@ -140,7 +150,7 @@ const MemberForm = ({ setShowAddComp }) => {
               onChange={(e) => handleChange("role", e.target.value)}
             >
               {roles.map((item) => (
-                <option value={item.id} key={item.id}>
+                <option value={item.label} key={item.id}>
                   {item?.label}
                 </option>
               ))}
@@ -181,8 +191,9 @@ const MemberForm = ({ setShowAddComp }) => {
                 value={formData.password}
                 onChange={(e) => handleChange("password", e.target.value)}
               />
-           
-              <div className="eye-btn"
+
+              <div
+                className="eye-btn"
                 style={{ cursor: "pointer" }}
                 onClick={() => setshowPass((prev) => !prev)}
               >
@@ -197,7 +208,19 @@ const MemberForm = ({ setShowAddComp }) => {
                 </p>
               )}
             </div>
-            
+          </td>
+          <td>
+            <div className="mt-2">
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Color</b>
+              </p>
+              <input
+                type="color"
+                name="colour"
+                value={formData.colour}
+                onChange={(e) => handleChange("colour", e.target.value)}
+              />
+            </div>
           </td>
           <td>
             <button
@@ -213,5 +236,10 @@ const MemberForm = ({ setShowAddComp }) => {
     </div>
   );
 };
-
-export default MemberForm;
+const mapStateToProps = (state) => {
+  return {
+    isAddEdit: state.brand.isAddEdit,
+    user: state.auth.user,
+  };
+};
+export default connect(mapStateToProps)(MemberForm);

@@ -7,7 +7,7 @@ import { set_user_type } from "../reduxdata/User/userActions";
 const Bomohome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const bomousers = ['Super admin', 'Customer', 'Designer'];
+  const bomousers = ['Super admin', 'customer_admin', 'Designer'];
   const Handleuser = (usertype) => {
     dispatch(set_user_type(usertype));
     navigate('/login');
@@ -19,9 +19,9 @@ const Bomohome = () => {
         <div className="container">
           <div className="mb-5"><img src={bomowhiteLogo} alt="Bomo logo" /></div>
           {
-            bomousers.map((ele, index) => {
+            bomousers.map((ele) => {
               return (
-                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{ele}</button>
+                <button key={ele} onClick={() => Handleuser(ele)} className="Home-button rounded">{(ele==='customer_admin')?'Customer':ele}</button>
               )
             })
           }
