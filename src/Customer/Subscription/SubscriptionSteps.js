@@ -14,6 +14,8 @@ const SubscriptionSteps = (props) => {
   const [firstPrice,setFirstPrice] = useState(250);
   const [secPrice,setSecPrice] =  useState(220);
   const [thirdPrice,setThirdPrice] = useState(200);
+  const [firstUpTo,setFirstUpTo] = useState(5);
+  const [secUpTo,setSecUpTo] =  useState(10);
   const steps = ['Subscription Setup', 'Payment'];
   const [pieces, setPieces] = useState(1);
   const [prize, setPrize] = useState(firstPrice);
@@ -23,9 +25,9 @@ const SubscriptionSteps = (props) => {
   useEffect(()=>{
     setUser(props.user);
     const tpieces = props?.user?.subscription?.quantity || 1;
-    const lpieces=(tpieces > 10) ?tpieces-10:0;
-    const spieces=(lpieces>0)?5:((tpieces > 5) && (tpieces < 11)) ?tpieces-5:0;
-    const fpieces=(spieces>0)?5:(tpieces <= 5) ?tpieces:0;
+    const lpieces=(tpieces > secUpTo) ?tpieces-secUpTo:0;
+    const spieces=(lpieces>0)?firstUpTo:((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ?tpieces-firstUpTo:0;
+    const fpieces=(spieces>0)?firstUpTo:(tpieces <= firstUpTo) ?tpieces:0;
     const price = ((fpieces*firstPrice)+(spieces*secPrice)+(lpieces*thirdPrice)) || firstPrice;
     const saved = ((spieces * (firstPrice - secPrice))+(lpieces*(secPrice - thirdPrice))) || 0;
     setPieces(tpieces);
@@ -36,18 +38,27 @@ const SubscriptionSteps = (props) => {
   useEffect(()=>{
     get_plans(dispatch);
   },[])
+  useEffect(()=>{
+    if(props.plans.length>0){
+      setFirstPrice(props.plans[0]?.unit_amount/100);
+      setSecPrice(props.plans[1]?.unit_amount/100);
+      setThirdPrice(props.plans[2]?.unit_amount/100);
+      setFirstUpTo(props.plans[0]?.up_to);
+      setSecUpTo(props.plans[1]?.up_to);
+    }
+  },[props.plans])
   const decrease = () => {
     const tpieces = pieces - 1
-    const price = ((tpieces > 5) && (tpieces < 11)) ? (prize - secPrice) : (tpieces > 10) ? prize - thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > 5) && (tpieces < 11)) ? (save - (firstPrice - secPrice)) : (tpieces > 10) ? (save - (secPrice - thirdPrice)) : 0;
+    const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize - secPrice) : (tpieces > secUpTo) ? prize - thirdPrice : tpieces * firstPrice;
+    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save - (firstPrice - secPrice)) : (tpieces > secUpTo) ? (save - (secPrice - thirdPrice)) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
   }
   const increase = () => {
     const tpieces = pieces + 1
-    const price = ((tpieces > 5) && (tpieces < 11)) ? (prize + secPrice) : (tpieces > 10) ? prize + thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > 5) && (tpieces < 11)) ? (save + firstPrice - secPrice) : (tpieces > 10) ? (save + secPrice - thirdPrice) : 0;
+    const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize + secPrice) : (tpieces > secUpTo) ? prize + thirdPrice : tpieces * firstPrice;
+    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save + firstPrice - secPrice) : (tpieces > secUpTo) ? (save + secPrice - thirdPrice) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
@@ -87,7 +98,7 @@ const SubscriptionSteps = (props) => {
             }
           </p>
           <div className="p-4 px-2 px-md-5">
-            <div className="subscription-data mb-3 row no-gutters align-items-center w-100">
+            <div className="subscription-data mb-3 row no-gutters align-items-center w-secUpTo0">
               <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
               <span className={`increament  ${(pieces > 1) && 'cursor-pointer'}`} onClick={() => (pieces > 1) && decrease()}>-</span>
               <span className="subscription-count">{pieces}</span>
@@ -128,7 +139,8 @@ const SubscriptionSteps = (props) => {
 const mapStateToProps = (state) => {
   return {
     isPay: state.plan.isPay,
-    user: state.auth.user
+    user: state.auth.user,
+    plans: state.plan.plans
   };
 };
 export default connect(mapStateToProps)(SubscriptionSteps);
