@@ -791,7 +791,7 @@ table.feedback-queue tr:first-child td{
   border: solid 1px #000;
 }
 .request-type .request-list {
-  flex: auto;
+  /* flex: auto; */
   text-align: center;
 }
 .status-btn .btn{

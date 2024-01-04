@@ -21,8 +21,8 @@ const PaymentHistory = ({user}) => {
       csvLinkRef.current.link.click();
     }
   };
-  const headers = userrole === 'customer' ? ['Date', 'Status', 'Amount($)'] : ['Date', 'Status', 'Amount($)', 'Brand'];
-  const csvData = [headers, ...data.map(item => userrole === 'customer' ? [format(item.date, 'MM/dd/yyyy'), item.status, item.amount] : [format(item.date, 'MM/dd/yyyy'), item.status, item.amount, item.brand])];
+  const headers = userrole === 'customer_admin' ? ['Date', 'Status', 'Amount($)'] : ['Date', 'Status', 'Amount($)', 'Brand'];
+  const csvData = [headers, ...data.map(item => userrole === 'customer_admin' ? [format(item.date, 'MM/dd/yyyy'), item.status, item.amount] : [format(item.date, 'MM/dd/yyyy'), item.status, item.amount, item.brand])];
   const total = 3;
   return (
     <div className="payment-history-section review-main-content p-5 rounderd mt-5">

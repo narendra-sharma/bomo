@@ -2,6 +2,7 @@ import { start_loading,stop_loading } from "./Loader/loaderActions";
 import { login,signup,logout,set_user_type,update_password,profile_update,profile_details } from "./User/userActions";
 import { get_plans,edit_billing_info,pay_now, isSubscription,cancel_subscription,pause_subscription } from "./PlansPayments/planActions";
 import { addBrand, uploadZip, getbrandlist,deleteBrand,change_add_edit } from "./Brand/brandActions";
+import { newRequest } from "./Requests/requestActions";
 export {
     start_loading,
     stop_loading,
@@ -22,5 +23,6 @@ export {
     pause_subscription,
     getbrandlist,
     deleteBrand,
-    change_add_edit
+    change_add_edit,
+    newRequest
 }  

@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       {userrole === 'Designer' ? <DesignerHome />
-      :userrole === 'Customer' ? <CustomerHome />
+      :userrole === 'customer_admin' ? <CustomerHome />
       :userrole === 'SuperAdmin' ? <SuperAdminHome/>
       : <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
           <div className="main-content-wraaper px-60 py-md-2 py-lg-5">

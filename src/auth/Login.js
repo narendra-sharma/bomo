@@ -113,7 +113,7 @@ const Login = (props) => {
                 <p></p>
               ) : checkusertype === 'Designer' ? (
                 <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
-              ) : checkusertype === 'Customer' ? (
+              ) : checkusertype === 'customer_admin' ? (
                 <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
               ) : (
                 <p></p>
