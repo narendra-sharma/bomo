@@ -189,50 +189,51 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
   }, [isAddEdit, brand, close, dispatch])
   return (
     <>
-      <form>
-        <div className="row">
-          <div className={brand?.id ? 'col-12' : 'col-lg-2 col-12'}>
-            <div className="form-group">
-              <label>Brand Logo:</label>
-              {imagePreview ? <img src={imagePreview} alt="" style={{ height: '3rem' }} />
-                : <img src={`${LOGO_URL}${logopath}`} alt="" style={{ height: '3rem' }} />}
+      <form class="add-brand-profile">
+
+        <div className="row align-items-center">
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
+            <div className="">
+              {/* <label className="fw-bold">Brand Logo:</label> */}
+              {imagePreview ? <img src={imagePreview} alt="" />
+                : <img src={`${LOGO_URL}${logopath}`} alt="" />}
               <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />
-              <br/>
-              <button onClick={handleUploadButtonClick}>
-                Upload Image
+              
+              <button className="add-btn bg-white" onClick={handleUploadButtonClick}>
+                  +
               </button>
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12' : 'col-lg-2 col-12'}>
-            <div className="form-group">
-              <label>Brand Name:</label>
-              <input type="text" name="brandname" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
+            <div className="">
+              <label className="fw-bold">Brand Name:</label>
+              <input type="text" className="input-name form-control" name="brandname" placeholder ="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12' : 'col-lg-3 col-12'}>
-            <div className="form-group">
-              <label>Brand Assests:</label>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+            <div className="">
+              <label className="fw-bold">Brand Assests:</label>
               {(brand?.id && zipPreview ) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p> }
               {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" onChange={handleChange} ref={zipfileinputRef} />
-              <button onClick={handleUploadZipFileClick}>
+              <button className="upload-zip rounded" onClick={handleUploadZipFileClick}>
                 Upload your zip.
               </button>
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12' : 'col-lg-3 col-12'}>
-            <label>Tags:</label>
-            <TagsInput value={newbrand.tags} onChange={handleTagsChange} disabled={newbrand.tags.length >= 5} />
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+            <label className="fw-bold">Tags:</label>
+            <TagsInput value={newbrand.tags} className="input-name" onChange={handleTagsChange} disabled={newbrand.tags.length >= 5} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
-          <div className={brand?.id ? 'col-12' : 'col-lg-2 col-12'}>
-            <button type="submit" onClick={(e) => handleSubmit(e)}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+            <button className="create-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
               {brand?.id ? 'Update' : 'Create'}
             </button>
-            <button type="button" onClick={() => close()}>
+            <button  className="create-add-btn delete-btn rounded-pill fw-bold" type="button" onClick={() => close()}>
               Close
             </button>
           </div>

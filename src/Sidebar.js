@@ -20,7 +20,7 @@ const Sidebar = () => {
   const [isSubscribe,setIsSubscribe]=useState(false);
   const getSubscription=async()=>{
     await isSubscription(user).then(r=>{
-      if(!r){
+      if(!r && (userrole === 'Customer')){
         navigate('/subscription');
       }
        setIsSubscribe(r);
