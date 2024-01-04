@@ -7,17 +7,18 @@ import CustomPagination from "../../Common/CustomPagination";
 import {
   deleteExistingUser,
   getAllMembersList,
-  updateUser,
+  addNewMember,
 } from "../../reduxdata/members/memberAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 const roles = [
   { id: 1, label: "Admin" },
   { id: 2, label: "Team Member" },
 ];
 
-const Members = () => {
+const Members = ({ user }) => {
   // show hide create members
+  console.log("TOKENSSSS", user.token);
   const [showAddComp, setShowAddComp] = useState(false);
   const [updateRolepopUp, setupdateRolepopUp] = useState(false);
   const [show, setShow] = useState(false);
@@ -28,18 +29,18 @@ const Members = () => {
 
   // getting list of the user
   useEffect(() => {
-    getAllMembersList(dispatch, null, page, limit);
+    getAllMembersList(dispatch, user.token, page, limit);
   }, [dispatch, page, limit]);
 
   // deleting a user
   const handleDeleteConfirm = () => {
-    deleteExistingUser(4, dispatch, null);
+    deleteExistingUser(4, dispatch, user.token);
     setShow(false);
   };
 
   // updating a user
   const updateUserRole = (id) => {
-    updateUser(id, FormData.role, dispatch, null);
+    addNewMember(dispatch, "customer", user.token);
     setupdateRolepopUp(false);
   };
   return (
@@ -123,6 +124,10 @@ const Members = () => {
                               onClick={() =>
                                 setupdateRolepopUp((prev) => !prev)
                               }
+                              style={{
+                                border: "none",
+                                backgroundColor: "#fff",
+                              }}
                             >
                               edit
                             </button>
@@ -343,4 +348,10 @@ const Members = () => {
     </>
   );
 };
-export default Members;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
+};
+export default connect(mapStateToProps)(Members);

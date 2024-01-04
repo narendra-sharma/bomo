@@ -10,7 +10,7 @@ const memberReducer = (state = initialState, action) => {
     case MEMBERS_LIST:
       return {
         ...state,
-        members: action.payload.members_listing_data,
+        members: action.payload.data,
         total: action.payload.members.length,
       };
     default:
