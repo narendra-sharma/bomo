@@ -15,10 +15,12 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
     if(place) {
       handleCardElementChange(place.formatted_address, 'address')
       let p=place.formatted_address.split(',');
-      handleCardElementChange(p[1].trim(), 'city')
-      let pst=p[2].trim();
-      pst=pst.split(' ');
-      handleCardElementChange(pst[1].trim(), 'postalCode')
+      if(p.length>1){
+        handleCardElementChange(p[1].trim(), 'city');
+        let pst=p[2].trim();
+        pst=pst.split(' ');
+        handleCardElementChange(pst[1].trim(), 'postalCode')
+      }
     }
   }
   return (
