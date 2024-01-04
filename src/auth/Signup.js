@@ -62,7 +62,7 @@ const Signup = (props) => {
       setReelerror(null);
     }
 
-    if (formData.email !== '' && ((userrole === 'Designer' && formData.reel !== '') || (userrole === 'Customer' && formData.company !== '')) && formData.name !== '' && formData.password !== '') {
+    if (formData.email !== '' && ((userrole === 'Designer' && formData.reel !== '') || (userrole === 'customer_admin' && formData.company !== '')) && formData.name !== '' && formData.password !== '') {
 
       const userFormData = {
         name: formData.name,
@@ -72,7 +72,7 @@ const Signup = (props) => {
 
       if (userrole === 'Designer') {
         userFormData.reel = formData.reel;
-      } else if (userrole === 'Customer') {
+      } else if (userrole === 'customer_admin') {
         userFormData.company = formData.company;
       }
       await handleSignup(userFormData, userrole);
@@ -127,7 +127,7 @@ const Signup = (props) => {
                   <span className="d-block fw-bold font-public">MOTION   </span>
                   <span className="d-block fw-bold font-public">DESIGNER</span>
                 </h2>
-              ) : userrole === 'Customer' ? (
+              ) : userrole === 'customer_admin' ? (
                 <h2>It’s time
                   <span className="d-block">to step up   </span>
                   <span className="d-block font-public fw-bold">MOTION</span>
@@ -160,7 +160,7 @@ const Signup = (props) => {
                     <input type="text" autoComplete="off" name="reel" placeholder="Time to shine. Show us your best work" value={formData.reel} onChange={handleInputChange} className="form_control" />
                  {reelerror && <p className="error fw-bold">{reelerror}</p>}
                   </div>
-                ) : userrole === 'Customer' ? (
+                ) : userrole === 'customer_admin' ? (
                   <div className="form-group">
                     <label>
                       Company:</label>
@@ -183,7 +183,7 @@ const Signup = (props) => {
                   <>
                     <button type="submit" className="submit-btn signup-btn">Create my Account</button>
                   </>
-                ) : userrole === 'Customer' ? (
+                ) : userrole === 'customer_admin' ? (
                   <>
                     <p>Fill out this form to create your account.</p>
                     <p>You can activate your <span className="color-white">subscription</span> and choose your monthly plan later in the dashboard.</p>

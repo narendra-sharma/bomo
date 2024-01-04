@@ -52,7 +52,6 @@ export const uploadZip = async (zipFile, dispatch) => {
 
 export const addBrand = async (branddata, dispatch, token) => {
   dispatch(start_loading());
-  console.log(branddata);
   try {
     const formData = new FormData();
     formData.append('zipFile', branddata.zipFile);

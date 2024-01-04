@@ -7,7 +7,7 @@ import { set_user_type } from "../reduxdata/User/userActions";
 const Bomohome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const bomousers = ['Super admin', 'Customer', 'Designer'];
+  const bomousers = ['Super admin', 'customer_admin', 'Designer'];
   const Handleuser = (usertype) => {
     dispatch(set_user_type(usertype));
     navigate('/login');

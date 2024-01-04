@@ -31,7 +31,7 @@ const Sidebar = () => {
   },[]);
   useEffect(() => {
     let list = [];
-    if (userrole === 'Customer') {
+    if (userrole === 'customer_admin') {
       list = [
         { name: 'Home', to: '/' },
         { name: 'Past Requests', to: '/past-requests' },
@@ -62,7 +62,7 @@ const Sidebar = () => {
     time = new Date(time).getTime();
     const n = new Date().getTime();
     console.log(isSubscribe);
-    location.pathname = ((userrole === 'Customer') && !isSubscribe)?'/subscription':((n - time) < 1500) ? localStorage.getItem('path') : '/';
+    location.pathname = ((userrole === 'customer_admin') && !isSubscribe)?'/subscription':((n - time) < 1500) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole,isSubscribe])
 
@@ -74,7 +74,7 @@ const Sidebar = () => {
         <div>
           <div className="text-center pt-3"><img src={bomoLogo} alt="Bomo logo" /></div>
           <div className="list-group pt-5">
-            {items.map(item => <Link to={`${((userrole === 'Customer') && (!isSubscribe && (item.name!=='Subscription') )? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${(userrole === 'Customer') && !isSubscribe && (item.name!=='Subscription') ?'disable':''}`}>
+              {items.map(item => <Link to={`${((userrole === 'customer_admin') && (!isSubscribe && (item.name!=='Subscription') )? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${(userrole === 'Customer') && !isSubscribe && (item.name!=='Subscription') ?'disable':''}`}>
               <span className="ml-2">{item.name}</span>
             </Link>)}
           </div>
