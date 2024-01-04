@@ -22,8 +22,8 @@ const initialState = {
       case GET_PAYMENT_HISTORY:
         return {
           ...state,
-          payments:action.payload.data,
-          total:action.payload.total
+          payments:action.payload?.data,
+          total:action.payload?.total
         }   
       default:
         return state;

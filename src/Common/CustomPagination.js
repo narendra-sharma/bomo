@@ -2,7 +2,7 @@ import { TablePagination } from "@mui/material";
 import React, { useState } from "react";
 const CustomPagination = ({ total, onPageChange }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const handleNavClick = (event, newPage) => {
     setPage(newPage)
     onPageChange(newPage + 1, rowsPerPage)

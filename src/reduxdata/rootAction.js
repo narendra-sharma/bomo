@@ -7,6 +7,7 @@ import {
   update_password,
   profile_update,
   catch_errors_handle,
+  delete_account
 } from "./User/userActions";
 import {
   get_plans,
@@ -25,9 +26,9 @@ import {
 } from "./Brand/brandActions";
 import { newRequest } from "./Requests/requestActions";
 import {
-  getAllMembersList,
-  addNewMember,
-  deleteExistingUser,
+  get_all_members,
+  add_new_member,
+  delete_existing_user,
 } from "./members/memberAction";
 export {
   start_loading,
@@ -51,7 +52,7 @@ export {
   change_add_edit,
   catch_errors_handle,
   newRequest,
-  getAllMembersList,
-  addNewMember,
-  deleteExistingUser,
+  get_all_members,
+  add_new_member,
+  delete_existing_user,
 };

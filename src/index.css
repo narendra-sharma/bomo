@@ -707,7 +707,8 @@ table.feedback-queue tr:first-child td{
   border-color: #fff;
 }
 .payment-history-section .table>:not(caption)>*>* , 
-.bg-gray-mid .table>:not(caption)>*>* , .brand-table .table>:not(caption)>*>*{
+.bg-gray-mid .table>:not(caption)>*>* , .brand-table .table>:not(caption)>*>* , 
+.designer-table .table>:not(caption)>*>* , .late-request .table>:not(caption)>*>*{
  background-color: transparent;
 }
 .payment-history-section table tr td{
@@ -976,6 +977,7 @@ ul.designer-list li{
 .request-status{
   color: #F92B34;
 }
+
 .brand-table{
   padding: 30px 25px;
 }
@@ -1073,6 +1075,34 @@ ul.designer-list li{
 }
 .add-brand-profile img {
   width: 100px;
+}
+.designer-table p{
+  margin-bottom: 0;
+}
+.designer-table table td:nth-child(2){
+  width: 200px;
+}
+.review-content table tr td button{
+  font-size: 13px;
+  color: #000;
+}
+.color-light-blue{
+  color: #7C96FE;
+}
+.late-request{
+  background-color: #F92B34;
+}
+.late-request table tr td , .late-request table tr td button , 
+ .review-content.late-request .short0ad
+{ 
+  color: #fff;
+  font-size: 13px;
+}
+.late-request table tr td button , .review-content.late-request .short0ad{
+  border-color:#fff ;
+}
+.active-request-status{
+  color: #3FCE3C;
 }
 @media (min-width: 992px){
   .design-list-section  .col-lg-5 {
