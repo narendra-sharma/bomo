@@ -3,48 +3,68 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 import { error } from "jquery";
-const { REACT_BOMO_URL } = process.env;
+import { MEMBERS_LIST } from "./mmebersTypes";
+
+const { REACT_APP_BOMO_URL } = process.env;
 
 // get all members list
-export const getAllMembersList = async (dispatch) => {
+export const getAllMembersList = async (
+  dispatch,
+  token,
+  page = 1,
+  limit = 10
+) => {
   dispatch(start_loading);
+  const HEADERS = {
+    headers: {
+      "x-access-token": token,
+    },
+  };
   try {
-    const res = await axios.get(`${REACT_BOMO_URL}`);
+    const res = await axios.get(
+      `${REACT_APP_BOMO_URL}page=${page}&limit=${limit}`,
+      HEADERS
+    );
     if (res?.data?.status === 200) {
       // store the data
+      dispatch({ type: MEMBERS_LIST, payload: res?.data });
     } else {
-      toast.error("Something went wrong please try again");
+      toast.error(res?.data?.message);
     }
   } catch (error) {
-    toast.error(error);
+    if (error.response) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error(error.message);
+    }
   } finally {
     dispatch(stop_loading);
   }
 };
 
 // add a new memeber
-export const addNewMember = async (
-  user,
-  role,
-  navigate,
-  dispatch,
-  userData
-) => {
+export const addNewMember = async (dispatch, userData, token) => {
   dispatch(start_loading);
   try {
-    const res = await axios.post(`${REACT_BOMO_URL}`, userData, {
+    const res = await axios.post(`${REACT_APP_BOMO_URL}`, userData, {
       Headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        "x-access-token": token,
       },
     });
     if (res?.data?.status === 200) {
-      // do something
-
-      toast.success("User added succesfully");
+      toast.success(res.data.message);
+      getAllMembersList(dispatch, token);
+    } else {
+      toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error("Something went wrong");
+    if (error.response) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error(error.message);
+    }
   } finally {
     dispatch(stop_loading());
   }
@@ -52,47 +72,58 @@ export const addNewMember = async (
 
 // delete an existing member
 
-export const deleteExistingUser = async (id, dispatch) => {
+export const deleteExistingUser = async (id, dispatch, token) => {
   dispatch(start_loading);
   try {
-    const res = await axios.delete(`${REACT_BOMO_URL}/${id}`, {
+    const res = await axios.delete(`${REACT_APP_BOMO_URL}${id}`, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        "x-access-token": token,
       },
     });
     if (res?.data?.status === 200) {
       // do something
-
-      toast.success("User deleted succesfully");
+      toast.success(res.data.message);
+      getAllMembersList(dispatch, token);
     } else {
-      toast.error("Something went wrong try again later!");
+      toast.error(res.data.message);
     }
   } catch (error) {
-    toast.error(error);
+    if (error.response) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error(error.message);
+    }
   } finally {
     dispatch(stop_loading);
   }
 };
 
 // update an existing user
-export const updateUser = async (userDetails, dispatch) => {
+export const updateUser = async (id, role, dispatch, token) => {
   dispatch(start_loading);
   try {
-    const res = axios.put(`${REACT_BOMO_URL}`, userDetails, {
+    const res = axios.put(`${REACT_APP_BOMO_URL}${id}`, role, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        "x-access-token": token,
       },
     });
-    if (res?.data?.status === 200) {
+    if (res?.data && res?.data?.status) {
       // do soemthing
-      toast.success("User updated succesfully");
+      toast.success(res.data.message);
+      getAllMembersList(dispatch, token);
     } else {
       toast.error("Something went wrong");
     }
   } catch (error) {
-    toast.error(error);
+    if (error.response) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error(error.message);
+    }
   } finally {
     toast.error(error);
   }
