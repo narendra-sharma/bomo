@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import userImage from "../../images/user-img.png";
 import MemberForm from "./MemberForm";
+import DeleteBrand from "../../Modals/Delete";
+import CustomPagination from "../../Common/CustomPagination";
+import {
+  deleteExistingUser,
+  getAllMembersList,
+  updateUser,
+} from "../../reduxdata/members/memberAction";
+import { useDispatch } from "react-redux";
+
 const roles = [
   { id: 1, label: "Admin" },
   { id: 2, label: "Team Member" },
 ];
+
 const Members = () => {
   // show hide create members
-  const [showAddComp, setShowAddComp] = React.useState(false);
-  const [updateRolepopUp, setupdateRolepopUp] = React.useState(false);
+  const [showAddComp, setShowAddComp] = useState(false);
+  const [updateRolepopUp, setupdateRolepopUp] = useState(false);
+  const [show, setShow] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(4);
+
+  const dispatch = useDispatch();
+
+  // getting list of the user
+  useEffect(() => {
+    getAllMembersList(dispatch, null, page, limit);
+  }, [dispatch, page, limit]);
+
+  // deleting a user
+  const handleDeleteConfirm = () => {
+    deleteExistingUser(4, dispatch, null);
+    setShow(false);
+  };
+
+  // updating a user
+  const updateUserRole = (id) => {
+    updateUser(id, FormData.role, dispatch, null);
+    setupdateRolepopUp(false);
+  };
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -85,22 +117,43 @@ const Members = () => {
 
                       <td className="text-end">
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
-                          <span
-                            className=" text-decoration-none text-dark cursor-pointer"
-                            onClick={() => setupdateRolepopUp((prev) => !prev)}
-                          >
-                            {updateRolepopUp ? "update" : "+edit"}
-                          </span>
+                          {!updateRolepopUp ? (
+                            <button
+                              className=" text-decoration-none text-dark cursor-pointer"
+                              onClick={() =>
+                                setupdateRolepopUp((prev) => !prev)
+                              }
+                            >
+                              edit
+                            </button>
+                          ) : (
+                            <button onClick={() => updateUserRole(4)}>
+                              update
+                            </button>
+                          )}
                         </p>
                       </td>
 
                       <td className="text-end">
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
-                          <Link className=" text-decoration-none text-dark">
-                            - delete
-                          </Link>
+                          <button
+                            className=" text-decoration-none text-dark"
+                            onClick={() => setShow(true)}
+                            style={{ border: "none", backgroundColor: "#fff" }}
+                          >
+                            delete
+                          </button>
                         </p>
                       </td>
+                      {show && (
+                        <DeleteBrand
+                          heading="Member"
+                          name={"peppins"}
+                          show={show}
+                          handleClose={() => setShow(false)}
+                          DeleteBrand={() => handleDeleteConfirm()}
+                        />
+                      )}
                     </tr>
                   </tbody>
                 </table>
@@ -274,7 +327,14 @@ const Members = () => {
                 </table>
               </div>
             </div>
-            <div className="review-content add-member bg-white px-4 py-2 rounded mb-3">
+            <div className="review-content add-member px-4 py-2 rounded mb-3">
+              <CustomPagination
+                total={4}
+                onPageChange={(newPage, newLimit) => {
+                  setPage(newPage);
+                  setLimit(newLimit + 1);
+                }}
+              />
               <div className="table-responsive"></div>
             </div>
           </div>

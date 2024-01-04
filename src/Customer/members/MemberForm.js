@@ -1,24 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addNewMember } from "../../reduxdata/members/memberAction";
 const MemberForm = ({ setShowAddComp }) => {
   // initial form data
   const initialFormData = {
     name: "",
-    role: 0,
+    role: 1,
     email: "",
     password: "",
   };
   const [formData, setformData] = React.useState(initialFormData);
   const [showPass, setshowPass] = React.useState(false);
-  const [data, sendData] = useState(null);
+  const [data, sendData] = React.useState(null);
+  const [errors, setErrors] = React.useState({
+    nameError: "",
+    emailError: "",
+    passError: "",
+  });
   const roles = [
     { id: 1, label: "Admin" },
     { id: 2, label: "Team Member" },
   ];
 
+  const dispatch = useDispatch();
   // for setting text
-  const handleChange = (fieldName, value) => {
-    setformData((prev) => ({ ...prev, [fieldName]: value }));
+  const handleChange = (name, value) => {
+    switch (name) {
+      case "name":
+        if (value == null || value == "") {
+          setErrors({ ...errors, nameError: "Name is required*" });
+        } else {
+          setErrors({ ...errors, nameError: null });
+        }
+        setformData({ ...formData, name: value });
+        break;
+      case "email":
+        if (value == null || value == "") {
+          setErrors({ ...errors, emailError: "Email is required*" });
+        } else {
+          setErrors({ ...errors, emailError: null });
+        }
+        setformData({ ...formData, email: value });
+        break;
+      case "role":
+        setformData({ ...formData, role: value });
+        break;
+      case "password":
+        if (value == null || value == "") {
+          setErrors({ ...errors, passError: "Password is required*" });
+        } else {
+          setErrors({ ...errors, passError: null });
+        }
+        setformData({ ...formData, password: value });
+        break;
+      default:
+        break;
+    }
   };
 
   // callback
@@ -27,13 +65,38 @@ const MemberForm = ({ setShowAddComp }) => {
     sendData(formData);
   };
 
+  // validations
+
   // for submitting
   const handleCreate = () => {
-    if (formData?.name == "") {
-      alert("empty");
-      return;
+    const output = Object.entries(formData).map(([key, value]) => ({
+      key,
+      value,
+    }));
+    for (let i = output.length - 1; i > -1; i--) {
+      if (!output[i].value) {
+        handleChange(output[i].key, output[i].value);
+      }
     }
-    console.log(formData);
+    let err = false;
+    const errOutput = Object.entries(errors).map(([key, value]) => ({
+      key,
+      value,
+    }));
+    err = errOutput.find((r) => (r.value ? true : false));
+    if (err) {
+      return false;
+    }
+    // api call
+    addNewMember(dispatch, formData, null);
+
+    // setting everything to null
+    setformData({
+      name: "",
+      role: 1,
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -59,6 +122,11 @@ const MemberForm = ({ setShowAddComp }) => {
                     value={formData?.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                   />
+                  {errors.nameError && (
+                    <p className="d-block" style={{ color: "red" }}>
+                      {errors.nameError}
+                    </p>
+                  )}
                 </span>
               </p>
             </div>
@@ -69,12 +137,13 @@ const MemberForm = ({ setShowAddComp }) => {
             </p>
             <select
               name="role"
-              value={formData?.role}
-              defaultValue={"Select"}
+              value={formData.role}
               onChange={(e) => handleChange("role", e.target.value)}
             >
               {roles.map((item) => (
-                <option>{item?.label}</option>
+                <option value={item.id} key={item.id}>
+                  {item?.label}
+                </option>
               ))}
             </select>
           </td>
@@ -95,6 +164,11 @@ const MemberForm = ({ setShowAddComp }) => {
               value={formData?.email}
               onChange={(e) => handleChange("email", e.target.value)}
             />
+            {errors.emailError && (
+              <p className="d-block" style={{ color: "red" }}>
+                {errors.emailError}
+              </p>
+            )}
           </td>
           <td>
             <div className="mt-4">
@@ -105,7 +179,7 @@ const MemberForm = ({ setShowAddComp }) => {
                 type={showPass ? "text" : "password"}
                 className="formcontrol"
                 name="password"
-                value={formData?.password}
+                value={formData.password}
                 onChange={(e) => handleChange("password", e.target.value)}
               />
               <div
@@ -120,6 +194,14 @@ const MemberForm = ({ setShowAddComp }) => {
               >
                 {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
               </div>
+              {errors.passError && (
+                <p
+                  className="d-block "
+                  style={{ color: "red", position: "relative", bottom: "20px" }}
+                >
+                  {errors.passError}
+                </p>
+              )}
             </div>
           </td>
           <td>
