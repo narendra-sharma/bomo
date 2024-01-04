@@ -2,7 +2,7 @@ import axios from "axios";
 import { GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
-import { set_update_user } from "../User/userActions";
+import { set_update_user, catch_errors_handle } from "../User/userActions";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const HEADERS = {
@@ -19,17 +19,13 @@ export const get_plans = async (dispatch) => {
     if (res.data && res.data.status) {
       dispatch({
         type: GET_PLANS,
-        payload: res.data.data
+        payload: res.data.prices
       })
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -50,11 +46,7 @@ export const pay_now = async (uToken, token, data, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -73,11 +65,7 @@ export const edit_billing_info = async (uToken, sid, data, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -97,11 +85,7 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -121,11 +105,7 @@ export const pause_subscription = async (user, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -146,11 +126,7 @@ export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.message)
-    } else {
-      toast.error(error.message)
-    }
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }

@@ -74,7 +74,7 @@ const Sidebar = () => {
         <div>
           <div className="text-center pt-3"><img src={bomoLogo} alt="Bomo logo" /></div>
           <div className="list-group pt-5">
-            {items.map(item => <Link to={`${(userrole === 'Customer') && (!isSubscribe && (item.name!=='Subscription') ? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${(userrole === 'Customer') && !isSubscribe && (item.name!=='Subscription') ?'disable':''}`}>
+            {items.map(item => <Link to={`${((userrole === 'Customer') && (!isSubscribe && (item.name!=='Subscription') )? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${(userrole === 'Customer') && !isSubscribe && (item.name!=='Subscription') ?'disable':''}`}>
               <span className="ml-2">{item.name}</span>
             </Link>)}
           </div>
