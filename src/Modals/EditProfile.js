@@ -74,7 +74,7 @@ const EditProfile = ({ show, handleClose }) => {
                 className="form-control"
                 placeholder="Username"
               />
-              {usernameError ? <p class="mt-1">{usernameError}</p> : null}
+              {usernameError ? <p class="mt-1 error fw-bold">{usernameError}</p> : null}
             </div>
           </form>
           <div className="text-end">

@@ -125,21 +125,21 @@ const navigate = useNavigate();
                   <input type={showPassword ? "text" : "password"} name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control" placeholder="Old Password" />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
                  </div>{
-                 passworderror ? <p className="mt-1" style={{color: 'red'}}>{passworderror}</p> : null}
+                 passworderror ? <p className="mt-1 error fw-bold">{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                   <div className="form-row position-relative">
                   <input  type={showNewPassword ? "text" : "password"} name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control" placeholder="New Password" />
                   <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i>
                   </div>
-                  {newpassworderror ? <p className="mt-1" style={{color: 'red'}}>{newpassworderror}</p> : null}
+                  {newpassworderror ? <p className="mt-1 error fw-bold">{newpassworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                   <div className="form-row position-relative">
                   <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control" placeholder="Confirm Password" />
                   <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
                   </div>
-                  {confirmpassworderror ? <p className="mt-1" style={{color: 'red'}}>{confirmpassworderror}</p> : null}
+                  {confirmpassworderror ? <p className="mt-1 error fw-bold">{confirmpassworderror}</p> : null}
                 </div>
               </form>
               <div className="text-end">

@@ -58,7 +58,7 @@ function App({ user }) {
   }, []);
 
   useEffect(() => {
-    setIsAuth(user ? true : false);
+    setIsAuth(user ? true : true);
   }, [user]);
   useEffect(() => {
     const handleEndConcert = () => {

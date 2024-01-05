@@ -178,7 +178,7 @@ color: var(--dark-green);
 color:var(--mid-green);
 font-weight: 500;
 }
-.signup-content p.error {
+.signup-content p.error ,  p.error {
   font-size: 13px;
   margin-top: 3px;
   color: #c74c4c;
@@ -769,6 +769,9 @@ table.feedback-queue tr:first-child td{
   background-color: transparent;
   color: #000;
 }
+.modal-dialog .btn.btn-light:hover{
+  background-color: #000;
+}
  .modal-dialog  button{
   font-weight: 700;
 }
@@ -1071,7 +1074,8 @@ ul.designer-list li{
 }
 .error-msg {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #c74c4c!important;
 }
 .add-brand-profile img {
   width: 100px;

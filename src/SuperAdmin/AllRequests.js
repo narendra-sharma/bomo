@@ -95,12 +95,12 @@ const AllRequests = () => {
                             </div>
                             <div className="bg-white py-3">
                                 <div className="col-md-12">
-                            <div className="late-request-section bg-white py-3 px-4 rounded d-flex mb-3">
-                                    <p className="request-status fw-bold mb-0">1 Request</p>
-                                    <div className="ms-4">
-                                      <p className="mb-0 fw-bold">Delivery 12h - Priority</p>
-                                     </div>
-                                </div> 
+                                    <div className="late-request-section bg-white py-3 px-4 rounded d-flex mb-3">
+                                            <p className="request-status fw-bold mb-0">1 Request</p>
+                                            <div className="ms-4">
+                                            <p className="mb-0 fw-bold">Delivery 12h - Priority</p>
+                                            </div>
+                                        </div> 
                                 </div>
                             <div className="col-md-6">
                                 
