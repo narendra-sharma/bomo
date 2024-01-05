@@ -22,23 +22,23 @@ const navigate = useNavigate();
     e.preventDefault();
 
     if (formData.oldpassword === '') {
-      setPassworderror('Old Password is Required*');
+      setPassworderror('Old Password is Required');
     } else {
       setPassworderror(null)
     }
 
     if (formData.newpassword ==='') {
-        setNewpassworderror("New Password is Required*");
+        setNewpassworderror("New Password is Required");
     }else if (formData.newpassword.length < 5) {
-        setNewpassworderror("Password length should be more than 5*")
+        setNewpassworderror("Password length should be more than 5 characters")
       } else {
         setNewpassworderror(null);
     }
 
     if (formData.confirmpassword ==='') {
-        setconfirmPassworderror("Confirm your password*");
+        setconfirmPassworderror("Confirm Password is Required");
     } else if (formData.confirmpassword !== formData.newpassword) {
-        setconfirmPassworderror("Password doesn't match*");
+        setconfirmPassworderror("Confirm Password doesn't match");
     } else {
         setconfirmPassworderror(null);
     }
@@ -68,20 +68,20 @@ const navigate = useNavigate();
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === 'oldpassword') {
-        setPassworderror(value === '' ? 'Old Password is Required*' : null);
+        setPassworderror(value === '' ? 'Old Password is Required' : null);
       } else if (name === 'newpassword') {
-        setNewpassworderror(value === '' ? 'New Password is Required*' : null);
+        setNewpassworderror(value === '' ? 'New Password is Required' : null);
         if(value === formData.oldpassword){
           setNewpassworderror('Old and New Password are same!')
       } else if (value.length < 5) {
-          setNewpassworderror("Password length should be more than 5*");
+          setNewpassworderror("Password length should be more than 5 characters");
         } else {
           setNewpassworderror(null);
         }
       } else if (name === 'confirmpassword') {
-        setconfirmPassworderror(value === '' ? 'Confirm your password*' : null);
+        setconfirmPassworderror(value === '' ? 'Confirm Password is Required' : null);
         if (value !== formData.newpassword) {
-          setconfirmPassworderror("Password doesn't match*");
+          setconfirmPassworderror("Confirm Password doesn't match");
         } else {
           setconfirmPassworderror(null);
         }

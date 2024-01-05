@@ -33,9 +33,9 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       case 'logo':
         const logoFile = files[0];
         if (!logoFile) {
-          setErrors({ ...errors, logo: 'Upload Logo*' });
+          setErrors({ ...errors, logo: 'Upload Logo' });
         } else if (!logoFile.type || !logoFile.type.startsWith('image/')) {
-          setErrors({ ...errors, logo: 'Please upload a valid image file*' });
+          setErrors({ ...errors, logo: 'Please upload a valid image file' });
         } else {
           setErrors({ ...errors, logo: '' });
         }
@@ -48,7 +48,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
       case 'brandname':
         if (value === '') {
-          setErrors({ ...errors, brandname: 'Brand Name is required*' });
+          setErrors({ ...errors, brandname: 'Brand Name is required' });
         } else {
           setErrors({ ...errors, brandname: '' });
         }
@@ -61,9 +61,9 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       case 'brandassests':
         const brandAssetsFile = files[0];
         if (brandAssetsFile === undefined) {
-          setErrors({ ...errors, brandassests: 'Upload your zip file*' });
+          setErrors({ ...errors, brandassests: 'Upload your zip file' });
         } else if (brandAssetsFile.type !== 'application/zip') {
-          setErrors({ ...errors, brandassests: 'Please upload a valid zip file*' });
+          setErrors({ ...errors, brandassests: 'Please upload a valid zip file' });
         }  else {
           try {
             const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
@@ -98,13 +98,18 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
     e.preventDefault();
     zipfileinputRef.current.click();
   }
+
+  const [isTagsInputDisabled, setIsTagsInputDisabled] = useState(false);
   const handleTagsChange = (tags) => {
     if (tags.length === 0) {
-      setErrors({ ...errors, tags: 'Tags are required*' });
+      setErrors({ ...errors, tags: 'Tags are required' });
+      setIsTagsInputDisabled(true);
     } else if (tags.length > 5) {
-      setErrors({ ...errors, tags: 'You can add up to 5 tags*' });
+      setErrors({ ...errors, tags: 'You can add up to 5 tags' });
+      setIsTagsInputDisabled(true);
     } else {
       setErrors({ ...errors, tags: '' });
+      setIsTagsInputDisabled(false);
     }
     setNewBrand({
       ...newbrand,
@@ -112,15 +117,36 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
     });
   };
 
+  const handleTagRemove = (e, index) => {
+    e.preventDefault();
+    setIsTagsInputDisabled(false);
+
+    if (brand?.id) {
+      const updatedTags = [...newbrand.tags];
+      updatedTags.splice(index, 1);
+      setNewBrand({
+        ...newbrand,
+        tags: updatedTags,
+      });
+    } else {
+      const updatedTags = [...newbrand.tags];
+      updatedTags.splice(index, 1);
+      setNewBrand({
+        ...newbrand,
+        tags: updatedTags,
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let valid = true;
 
     const fieldsToValidate = [
-      { name: 'logo', validation: (value) => !value ? 'Upload Logo*' : '' },
-      { name: 'brandname', validation: (value) => !value ? 'Brand Name is required*' : '' },
-      { name: 'brandassests', validation: (value) => !value ? 'Upload your zip file*' : '' },
-      { name: 'tags', validation: (value) => value.length === 0 ? 'Tags are required*' : (value.length > 5 ? 'You can add up to 5 tags*' : '') }
+      { name: 'logo', validation: (value) => !value ? 'Upload Logo' : '' },
+      { name: 'brandname', validation: (value) => !value ? 'Brand Name is Required' : '' },
+      { name: 'brandassests', validation: (value) => !value ? 'Upload your zip file' : '' },
+      { name: 'tags', validation: (value) => value.length === 0 ? 'Tags are Required' : (value.length > 5 ? 'You can add up to 5 tags' : '') }
     ];
   
     fieldsToValidate.forEach(({ name, validation }) => {
@@ -199,7 +225,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <label className="fw-bold">Tags:</label>
-            <TagsInput value={newbrand.tags} className="input-name" onChange={handleTagsChange} disabled={newbrand.tags.length >= 5} />
+            <TagsInput value={newbrand.tags} className="input-name" onChange={handleTagsChange} disabled={isTagsInputDisabled} removeTag={handleTagRemove} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
