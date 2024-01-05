@@ -82,7 +82,7 @@ export const addBrand = async (branddata, dispatch, token) => {
     const res = branddata?.brand_id ? await axios.put(url, formData, { headers }) : await axios.post(url, formData, { headers });
 
     if (res.data && res.data.status) {
-      toast.success(res.data.message);
+      toast.success(`Brand ${branddata?.brand_id ? 'updated' : 'created'} Successfully`);
       getbrandlist(dispatch, token);
       change_add_edit(dispatch);
     } else {

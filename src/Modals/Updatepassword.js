@@ -72,7 +72,7 @@ const navigate = useNavigate();
       } else if (name === 'newpassword') {
         setNewpassworderror(value === '' ? 'New Password is Required*' : null);
         if(value === formData.oldpassword){
-          setNewpassworderror('Create Different Password*')
+          setNewpassworderror('Old and New Password are same!')
       } else if (value.length < 5) {
           setNewpassworderror("Password length should be more than 5*");
         } else {

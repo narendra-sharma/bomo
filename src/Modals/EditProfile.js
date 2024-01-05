@@ -23,7 +23,6 @@ const EditProfile = ({ show, handleClose }) => {
     }
 
     if (formData.username) {
-        try {
             const tokendata = JSON.parse(localStorage.getItem('userDetails'));
            const usertoken = tokendata.token;
            const userDataForm = {
@@ -36,10 +35,6 @@ const EditProfile = ({ show, handleClose }) => {
           dispatch
         );
         handleClose();
-        } catch (error) {
-            console.error('Error updating profile:', error);
-        }
-      handleClose();
     }
   };
 
@@ -96,7 +91,6 @@ const EditProfile = ({ show, handleClose }) => {
   );
 };
 
-// export default EditProfile;
 const mapStateToProps = (state) => {
     return {
       token: state.auth.token,
