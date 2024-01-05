@@ -29,7 +29,7 @@ export const get_all_members = async (dispatch, token, page, limit) => {
       toast.error(res?.data?.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading);
   }
@@ -62,7 +62,7 @@ export const add_new_member = async (dispatch, userData, token, id, role) => {
       console.log("Inside else");
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -91,7 +91,7 @@ export const delete_existing_user = async (id, dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading);
   }
