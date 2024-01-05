@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { addBrand, change_add_edit, uploadZip } from "../../reduxdata/rootAction";
 import TagsInput from "react-tagsinput";
+import { toast } from "react-toastify";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
@@ -37,13 +38,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           setErrors({ ...errors, logo: 'Please upload a valid image file*' });
         } else {
           setErrors({ ...errors, logo: '' });
-
-          setNewBrand({
-            ...newbrand,
-            logo: logoFile,
-          });
-          setImagePreview(URL.createObjectURL(logoFile));
         }
+        setNewBrand({
+          ...newbrand,
+          logo: logoFile,
+        });
+        setImagePreview(URL.createObjectURL(logoFile));
         break;
 
       case 'brandname':
@@ -80,7 +80,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       
             setErrors({ ...errors, brandassests: '' });
           } catch (error) {
-            console.error('Error uploading zip file:', error);
+            toast.error(error);
             setErrors({ ...errors, brandassests: 'Error uploading zip file. Please try again.' });
           }
         }
@@ -168,7 +168,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
         <div className="row align-items-center">
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
             <div className="">
-              {/* <label className="fw-bold">Brand Logo:</label> */}
               {imagePreview ? <img src={imagePreview} alt="" />
                 : <img src={`${LOGO_URL}${logopath}`} alt="" />}
               <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />

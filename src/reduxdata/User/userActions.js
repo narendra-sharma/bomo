@@ -180,7 +180,7 @@ export const update_password = async (
   }
 };
 
-export const profile_update = async (data, token, navigate, dispatch) => {
+export const profile_update = async (data, token, dispatch) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}profile/update`;
@@ -192,11 +192,8 @@ export const profile_update = async (data, token, navigate, dispatch) => {
     };
     const res = await axios.post(url, { name: data.name }, HEADERS);
     if (res.data && res.data.status) {
-      const userDetails = JSON.parse(localStorage.getItem("userDetails")) || {};
-      userDetails.name = data.name;
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
       toast.success("Successfully Update Profile!");
-      navigate("/setting");
+      dispatch(set_update_user({...res.data.data,token:token}));
     } else {
       toast.error(res.data.message);
     }

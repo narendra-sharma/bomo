@@ -113,7 +113,7 @@ export const pause_subscription = async (user, dispatch) => {
 export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscription/payment_history?page=${page}&limi=${limit}`;
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/payment_history?page=${page}&limit=${limit}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.get(url, headers);

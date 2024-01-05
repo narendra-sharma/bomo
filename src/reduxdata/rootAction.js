@@ -55,4 +55,5 @@ export {
   get_all_members,
   add_new_member,
   delete_existing_user,
+  delete_account
 };
