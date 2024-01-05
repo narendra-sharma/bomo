@@ -32,6 +32,7 @@ const Setting = ({ userrole }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
+          <div className="container">
           {userrole === 'Customer' && user.quantity && isSubscribe && <div className="mx-md-3 mx-lg-5 mb-4 row">
             <NewRequestShared />
           </div>}
@@ -92,6 +93,7 @@ const Setting = ({ userrole }) => {
 
           <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-2" onClick={() => setShow(true)}>Delete account</button>
+          </div>
           </div>
         </div>
         <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
