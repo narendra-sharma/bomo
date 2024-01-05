@@ -12,7 +12,8 @@ import { delete_account, isSubscription } from "./reduxdata/rootAction";
 import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 import Delete from "./Modals/Delete";
 
-const Setting = ({ user, userrole }) => {
+const Setting = ({ userrole }) => {
+  const user=JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
   const [isSubscribe, setIsSubscribe] = useState(false);
@@ -102,7 +103,6 @@ const Setting = ({ user, userrole }) => {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
     userrole: state.auth.role,
   };
 };
