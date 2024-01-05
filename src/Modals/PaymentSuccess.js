@@ -1,9 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import { format } from "date-fns";
 const PaymentSuccess = (props) => {
-  const { user, show, handleClose } = props;
+  const { show, handleClose } = props;
+  const user=JSON.parse(localStorage.getItem('userDetails'));
   return (
     <Modal show={show} onHide={handleClose} className="logout-popup suceess-popup">
       <Modal.Body>
@@ -20,11 +20,5 @@ const PaymentSuccess = (props) => {
     </Modal>
   )
 }
-const mapStateToProps = (state) => {
-  return {
-    user: state.auth.user
-  };
-};
 
-
-export default connect(mapStateToProps, null)(PaymentSuccess);
+export default PaymentSuccess;

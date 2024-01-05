@@ -29,7 +29,7 @@ const SubscriptionSteps = (props) => {
     const spieces=(lpieces>0)?firstUpTo:((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ?tpieces-firstUpTo:0;
     const fpieces=(spieces>0)?firstUpTo:(tpieces <= firstUpTo) ?tpieces:0;
     const price = ((fpieces*firstPrice)+(spieces*secPrice)+(lpieces*thirdPrice)) || firstPrice;
-    const saved = ((spieces * (firstPrice - secPrice))+(lpieces*(secPrice - thirdPrice))) || 0;
+    const saved = ((spieces * (firstPrice - secPrice))+(lpieces*(firstPrice - thirdPrice))) || 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
@@ -50,7 +50,7 @@ const SubscriptionSteps = (props) => {
   const decrease = () => {
     const tpieces = pieces-1;
     const price = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (prize - secPrice) : ((tpieces >= secUpTo) ? (prize - thirdPrice) : (tpieces * firstPrice));
-    const saved = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (save - (firstPrice - secPrice)) : (tpieces >= secUpTo) ? (save - (secPrice - thirdPrice)) : 0;
+    const saved = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (save - (firstPrice - secPrice)) : (tpieces >= secUpTo) ? (save - (firstPrice - thirdPrice)) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
@@ -58,7 +58,7 @@ const SubscriptionSteps = (props) => {
   const increase = () => {
     const tpieces = pieces + 1
     const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize + secPrice) : (tpieces > secUpTo) ? prize + thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save + firstPrice - secPrice) : (tpieces > secUpTo) ? (save + secPrice - thirdPrice) : 0;
+    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save + firstPrice - secPrice) : (tpieces > secUpTo) ? (save + firstPrice - thirdPrice) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
