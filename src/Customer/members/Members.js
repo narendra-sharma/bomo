@@ -46,10 +46,17 @@ const Members = ({ user, member, total }) => {
   };
 
   // updating a user
-  const updateUserRole = (id) => {
+  const updateUserRole = (id = "6596a9aacde9f223fdb74337") => {
     const updatedMember = member?.find((item) => item?._id == id);
-    console.log("Member to update", updatedMember);
-    add_new_member(dispatch, updatedMember, user?.token);
+    console.log("Member to update", updatedMember?.role);
+    add_new_member(
+      dispatch,
+      updatedMember,
+      user?.token,
+      id,
+      updatedMember?.role
+    );
+
     setUpdateRolepopUps([]);
   };
   return (
@@ -89,10 +96,22 @@ const Members = ({ user, member, total }) => {
                       <tr>
                         <td>
                           <div className="d-flex  align-items-center">
-                            <img src={userImage} alt="Bomo logo" />
+                            <div
+                              style={{
+                                backgroundColor: item?.colour,
+                                width: 50,
+                                height: 50,
+                                borderRadius: 25,
+                              }}
+                            ></div>
                             <p className="mb-0 user-email  ms-1 ms-lg-2">
                               <b>Name</b>
-                              <span className="d-block">{item?.name}</span>
+                              <span
+                                className="d-block"
+                                style={{ maxWidth: "20px" }}
+                              >
+                                {item?.name}
+                              </span>
                             </p>
                           </div>
                         </td>
@@ -113,7 +132,9 @@ const Members = ({ user, member, total }) => {
                         <td>
                           <p className="mb-0 user-email  ms-1 ms-lg-2">
                             <b>Date added</b>
-                            <span className="d-block">{item?.updatedAt}</span>
+                            <span className="d-block">
+                              {item?.updatedAt?.trim(0, 6)}
+                            </span>
                           </p>
                         </td>
                         <td>
@@ -147,7 +168,7 @@ const Members = ({ user, member, total }) => {
                                 edit
                               </button>
                             ) : (
-                              <button onClick={() => updateUserRole(index)}>
+                              <button onClick={() => updateUserRole(item?._id)}>
                                 update
                               </button>
                             )}
@@ -172,7 +193,6 @@ const Members = ({ user, member, total }) => {
                             </button>
                           </p>
                         </td>
-                        {console.log("name", item?.name, "id", item?._id)}
                         {showDeleteModals[index] && (
                           <DeleteBrand
                             heading="Member"
