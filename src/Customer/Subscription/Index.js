@@ -28,12 +28,11 @@ const Subscription = ({ user }) => {
     <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-        <div className="container">
           {isSubscribe && <>
             <div className="mx-md-3 mx-lg-5 mb-4 row">
-              <div className="offset-lg-3 col-lg-4">
-                <p className="mb-md-0 mb-3">Your plan auto renews in {getDifferece()} days<span className="d-block">You have {user?.quantity} requests left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
-              <div className="col-md-5">
+              <div className="offset-lg-3 col-lg-4 col-md-5">
+                <p className="mb-md-0 mb-3">Your plan auto renews in {getDifferece()} days<span className="d-block">You have {user?.Subscription?.quantity} requests left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
+              <div className="col-md-7 col-lg-5">
                 <NewRequestShared />
               </div>
             </div>
@@ -46,7 +45,6 @@ const Subscription = ({ user }) => {
           </>}
           <SubscriptionSteps user={user} />
           <PaymentHistory />
-        </div>
         </div>
       </div>
     </>

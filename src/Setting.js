@@ -32,7 +32,7 @@ const Setting = ({ userrole }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          <div className="container">
+        
           {userrole === 'customer_admin' && user.quantity && isSubscribe && <div className="mx-md-3 mx-lg-5 mb-4 row">
             <NewRequestShared />
           </div>}
@@ -99,7 +99,6 @@ const Setting = ({ userrole }) => {
         <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
         <EditProfile show={showchangeProfile} handleClose={() => setShowchangeProfile(false)} />
         <Delete heading='Account' name={''} show={show} handleClose={() => setShow(false)} DeleteBrand={() => delete_account(user?.token, navigate, dispatch)} />
-      </div>
     </>
   )
 }
