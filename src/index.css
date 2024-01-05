@@ -307,7 +307,7 @@ nav {
   z-index: 99;
 }
 .main-content-wraaper {
-  margin-top: 70px!important;
+  margin-top: 70px;
 }
 .toggle-btn {
   border-top: solid 2px;
