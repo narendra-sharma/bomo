@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import userImage from './images/user-img.png';
 const Header = ({user,userrole}) => {
-    const [cuser,setCuser]=useState(user);
-    const local=JSON.parse(localStorage.getItem('userDetails'));
-    useEffect(() => {
-        setCuser(local);
-      }, [local]);
+    const cuser = useSelector((state) => state.auth.user);
     return(
         <div className=" ml-md-auto px-0 ms-md-auto rightside-wrapper">
                 <nav className="px-60 py-3 bg-white">
@@ -38,4 +34,4 @@ const mapStateToProps = (state) => {
         userrole:state.auth.role,
     };
 };
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(React.memo(Header));

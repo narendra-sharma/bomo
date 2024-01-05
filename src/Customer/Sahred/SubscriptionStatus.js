@@ -20,7 +20,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
-      <span className="d-block">{isSubscribe?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):'EXPIRED'}</span>
+      <span className="d-block">{(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}</span>
     </>
   }
   return (
