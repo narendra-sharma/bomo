@@ -14,8 +14,7 @@ export const catch_errors_handle = (error,dispatch) => {
     toast.error(error.response.data.message);
     if (error.response.status === 401) {
       localStorage.removeItem("userDetails");
-      localStorage.clear();
-      dispatch(logout());
+      dispatch(set_update_user(''));
     }
   } else {
     toast.error(error.message);

@@ -63,7 +63,7 @@ const SubscriptionSteps = (props) => {
     setPrize(price);
     setSave(saved);
   }
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   useEffect(() => {
     if (props.isPay) {
       setShow(true);

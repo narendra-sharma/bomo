@@ -293,8 +293,8 @@ color: var(--dark-green);
   color: #000;
   font-weight: 700;
 }
-.sidebar .list-group-item.disable{
-  color: #cfcaca;
+.sidebar .list-group-item .disable{
+  color: #cfcaca !important;
 }
 .toggle-btn {
   border-top: solid 2px;

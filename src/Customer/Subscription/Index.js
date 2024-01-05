@@ -31,7 +31,7 @@ const Subscription = ({ user }) => {
           {isSubscribe && <>
             <div className="mx-md-3 mx-lg-5 mb-4 row">
               <div className="offset-lg-3 col-lg-4">
-                <p className="mb-md-0 mb-3">Your plan auto renews in {getDifferece()} days<span className="d-block">You have {user?.Subscription?.quantity} requests left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
+                <p className="mb-md-0 mb-3">Your plan auto renews in {getDifferece()} days<span className="d-block">You have {user?.quantity} requests left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
               <div className="col-md-5">
                 <NewRequestShared />
               </div>
