@@ -31,6 +31,4 @@ const mapStateToProps = (state) => {
         userrole:state.auth.role,
     };
 };
-
-
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

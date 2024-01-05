@@ -152,7 +152,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       const output = Object.entries(card).map(([key, value]) => ({key,value}));
       for(let i=output.length-1;i>-1;i--){
         if(!output[i].value && (output.key!=='surname')){
-          handleCardElementChange(output[i].value,output[i].key);
+          await handleCardElementChange(output[i].value,output[i].key);
         }
       };
       let err=false;

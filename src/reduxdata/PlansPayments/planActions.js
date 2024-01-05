@@ -1,8 +1,8 @@
 import axios from "axios";
 import { GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 import { toast } from "react-toastify";
-import { start_loading, stop_loading } from "../rootAction";
-import { set_update_user, catch_errors_handle } from "../User/userActions";
+import { start_loading, stop_loading, catch_errors_handle } from "../rootAction";
+import { set_update_user } from "../User/userActions";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const HEADERS = {

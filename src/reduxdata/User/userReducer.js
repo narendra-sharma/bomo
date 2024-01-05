@@ -8,12 +8,13 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case LOG_OUT:
       return {
         ...state,
-        user:'',
-        role: '',
+        user:null,
+        role:null,
       };
     case SET_USER_TYPE:
       return {

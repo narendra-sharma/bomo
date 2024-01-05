@@ -48,9 +48,9 @@ const SubscriptionSteps = (props) => {
     }
   },[props.plans])
   const decrease = () => {
-    const tpieces = pieces - 1
-    const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize - secPrice) : (tpieces > secUpTo) ? prize - thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save - (firstPrice - secPrice)) : (tpieces > secUpTo) ? (save - (secPrice - thirdPrice)) : 0;
+    const tpieces = pieces-1;
+    const price = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (prize - secPrice) : ((tpieces >= secUpTo) ? (prize - thirdPrice) : (tpieces * firstPrice));
+    const saved = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (save - (firstPrice - secPrice)) : (tpieces >= secUpTo) ? (save - (secPrice - thirdPrice)) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);

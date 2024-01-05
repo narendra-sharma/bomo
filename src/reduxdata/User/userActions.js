@@ -4,16 +4,19 @@ import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
-
-export const catch_errors_handle = (error, dispatch) => {
+export const logout = () => {
+  return {
+    type: LOG_OUT,
+  };
+};
+export const catch_errors_handle = (error,dispatch) => {
   if (error.response) {
-    if (error.status === 401) {
-      dispatch(set_update_user(null));
+    toast.error(error.response.data.message);
+    if (error.response.status === 401) {
       localStorage.removeItem("userDetails");
       localStorage.clear();
-      window.location.reload();
+      dispatch(logout());
     }
-    toast.error(error.response.data.message);
   } else {
     toast.error(error.message);
   }
@@ -37,7 +40,7 @@ export const signup = async (user, role, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -66,17 +69,13 @@ export const login = async (user, role, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const logout = () => {
-  return {
-    type: LOG_OUT,
-  };
-};
+
 
 export const set_user_type = (usertype) => {
   return {
@@ -109,7 +108,7 @@ export const forgot_password_reset = async (email, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -141,7 +140,7 @@ export const reset_password = async (
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -176,7 +175,7 @@ export const update_password = async (
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   }
 };
 
@@ -198,7 +197,7 @@ export const profile_update = async (data, token, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -224,7 +223,7 @@ export const delete_account = async (token, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }

@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
 import { BRAND_LIST, IS_ADD_EDIT, UPLOAD_ZIP_FILE_SUCCESS } from "./brandTypes";
 import axios from "axios";
-import { start_loading, stop_loading } from "../rootAction";
-import { catch_errors_handle } from "../User/userActions";
+import { start_loading, stop_loading,catch_errors_handle } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
 export const getbrandlist = async (dispatch, token, page = 1, limit = 10) => {
@@ -21,7 +20,7 @@ export const getbrandlist = async (dispatch, token, page = 1, limit = 10) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch))
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -44,7 +43,7 @@ export const uploadZip = async (zipFile, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch))
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -89,7 +88,7 @@ export const addBrand = async (branddata, dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch))
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
@@ -115,7 +114,7 @@ export const deleteBrand = async (brandId, dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch))
+    dispatch(catch_errors_handle(error,dispatch))
   } finally {
     dispatch(stop_loading());
   }
