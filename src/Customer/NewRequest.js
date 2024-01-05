@@ -67,7 +67,7 @@ const NewRequest = ({ brands,user }) => {
     switch (name) {
       case 'requestName':
         if (value === '') {
-          setErrors({ ...errors, requestName: 'Request Name is required*' })
+          setErrors({ ...errors, requestName: 'Request Name is Required' })
         } else {
           setErrors({ ...errors, requestName: '' });
         }
@@ -79,7 +79,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'description':
         if (value === '') {
-          setErrors({ ...errors, description: 'Description is required*' })
+          setErrors({ ...errors, description: 'Description is Required' })
         } else {
           setErrors({ ...errors, description: '' });
         }
@@ -91,7 +91,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'references':
         if (value === '') {
-          setErrors({ ...errors, references: 'Reference is required*' })
+          setErrors({ ...errors, references: 'Reference is Required' })
         } else {
           setErrors({ ...errors, references: '' });
         }
@@ -103,7 +103,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'size':
         if (value === '') {
-          setErrors({ ...errors, size: 'Please Select your size*' });
+          setErrors({ ...errors, size: 'Please Select your size' });
         } else {
           setErrors({ ...errors, size: '' });
         }
@@ -115,7 +115,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'brandProfile':
         if (value === '') {
-          setErrors({ ...errors, brandProfile: 'BrandProfile is required*' })
+          setErrors({ ...errors, brandProfile: 'BrandProfile is Required' })
         } else {
           setErrors({ ...errors, brandProfile: '' });
         }
@@ -127,7 +127,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'transparency':
         if (value === '') {
-          setErrors({ ...errors, transparency: 'transparency is required*' })
+          setErrors({ ...errors, transparency: 'transparency is Required' })
         } else {
           setErrors({ ...errors, transparency: '' });
         }
@@ -139,7 +139,7 @@ const NewRequest = ({ brands,user }) => {
 
       case 'fileType':
         if (value === '') {
-          setErrors({ ...errors, fileType: 'fileType is required*' })
+          setErrors({ ...errors, fileType: 'fileType is Required' })
         } else {
           setErrors({ ...errors, fileType: '' });
         }
@@ -153,7 +153,7 @@ const NewRequest = ({ brands,user }) => {
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
         const Fileupload = files[0];
         if (!Fileupload) {
-          setErrors({ ...errors, uploadFiles: 'Upload your file*' })
+          setErrors({ ...errors, uploadFiles: 'Upload your file' })
         } else if (!allowedFileTypes.includes(Fileupload.type)) {
           setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         } else {
@@ -194,9 +194,11 @@ const NewRequest = ({ brands,user }) => {
   };
 
   const handlerequestType = (ele) => {
+    const formatedEle = ele.toLowerCase().replace(/\s+/g,'_');
+    console.log(formatedEle);
     setFormData({
       ...formData,
-      requestype: ele
+      requestype: formatedEle
     })
   }
 
@@ -206,14 +208,14 @@ const NewRequest = ({ brands,user }) => {
     let valid = true;
 
     const fieldsToValidate = [
-      { name: 'requestName', validation: (value) => !value ? 'Request Name is required*' : '' },
-      { name: 'brandProfile', validation: (value) => !value ? 'Brand Profile is required*' : '' },
-      { name: 'description', validation: (value) => !value ? 'Description is required*' : '' },
-      { name: 'fileType', validation: (value) => !value ? 'Please Select your filetype*' : '' },
-      { name: 'size', validation: (value) => !value ? 'Please Select your size*' : '' },
-      { name: 'references', validation: (value) => !value ? 'Reference is required*' : '' },
-      { name: 'uploadFiles', validation: (value) => !value ? 'Upload your file*' : '' },
-      { name: 'transparency', validation: (value) => !value ? 'Transparency is required*' : '' },
+      { name: 'requestName', validation: (value) => !value ? 'Request Name is Required' : '' },
+      { name: 'brandProfile', validation: (value) => !value ? 'Brand Profile is Required' : '' },
+      { name: 'description', validation: (value) => !value ? 'Description is Required' : '' },
+      { name: 'fileType', validation: (value) => !value ? 'Please Select your filetype' : '' },
+      { name: 'size', validation: (value) => !value ? 'Please Select your size' : '' },
+      { name: 'references', validation: (value) => !value ? 'Reference is Required' : '' },
+      { name: 'uploadFiles', validation: (value) => !value ? 'Upload your file' : '' },
+      { name: 'transparency', validation: (value) => !value ? 'Transparency is Required' : '' },
     ];
     
     fieldsToValidate.forEach(({ name, validation }) => {

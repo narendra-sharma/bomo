@@ -18,9 +18,9 @@ const Forgotpassword = (props) => {
 
     const exptest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (formData.email === '') {
-      setEmailerror('Email Address is Required*');
+      setEmailerror('Email Address is Required');
     } else if (!exptest.test(formData.email)) {
-      setEmailerror('Email Address is Invalid*');
+      setEmailerror('Email Address is Invalid');
     } else {
       setEmailerror(null);
     }
@@ -38,7 +38,7 @@ const Forgotpassword = (props) => {
     switch (name) {
       case 'email':
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setEmailerror(value === '' ? 'Email Address is Required*' : !emailRegex.test(value) ? 'Email Address is Invalid*' : null);
+        setEmailerror(value === '' ? 'Email Address is Required' : !emailRegex.test(value) ? 'Email Address is Invalid' : null);
         break;
       default:
         break;

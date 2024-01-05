@@ -17,7 +17,7 @@ const EditProfile = ({ show, handleClose }) => {
     e.preventDefault();
 
     if (formData.username === '') {
-      setUsernameError('Username is Required*');
+      setUsernameError('Username is Required');
     } else {
       setUsernameError(null);
     }
@@ -43,7 +43,7 @@ const EditProfile = ({ show, handleClose }) => {
     setFormData({ ...formData, [name]: value });
 
     if (name === 'username') {
-      setUsernameError(value === '' ? 'Username is Required*' : null);
+      setUsernameError(value === '' ? 'Username is Required' : null);
     }
   };
 
