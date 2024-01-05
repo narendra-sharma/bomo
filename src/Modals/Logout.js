@@ -10,12 +10,12 @@ const Logout = (props) => {
           <h4 className="mb-0">{user?.name}</h4>
           <p>do you really want to log out?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
-            <div className="col-md-6">
-              <Button variant="dark" className="w-100 rounded-pill" onClick={logout}>
+            <div className="col-md-6 col-6">
+              <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={logout}>
                 Yes
               </Button>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 col-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={handleClose}>
                 No
               </Button>

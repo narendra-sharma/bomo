@@ -11,7 +11,7 @@ const Delete = (props) => {
           <p>do you really want to Delete {heading} <b>{name}</b>?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
-              <Button variant="dark" className="w-100 rounded-pill" onClick={DeleteBrand}>
+              <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={DeleteBrand}>
                 Yes
               </Button>
             </div>
