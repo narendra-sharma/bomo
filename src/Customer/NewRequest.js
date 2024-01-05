@@ -195,12 +195,11 @@ const NewRequest = ({ brands,user }) => {
 
   const handlerequestType = (ele) => {
     const formatedEle = ele.toLowerCase().replace(/\s+/g,'_');
-    console.log(formatedEle);
     setFormData({
       ...formData,
       requestype: formatedEle
     })
-  }
+  };
 
   const handleSubmit = async (e,status) => {
     e.preventDefault();
