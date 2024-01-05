@@ -36,23 +36,25 @@ export const get_all_members = async (dispatch, token, page, limit) => {
 };
 
 // add a new memeber
-export const add_new_member = async (dispatch, userData, token) => {
-  console.log("ACTIONNNN", token);
+export const add_new_member = async (dispatch, userData, token, id, role) => {
+  console.log("ACTIONNNN", role);
   dispatch(start_loading);
   const headers = {
     headers: {
       "x-access-token": token,
     },
   };
-  const url = userData?._id
-    ? `${REACT_APP_BOMO_URL}customer/update-member/${userData.id}`
+  const url = id
+    ? `${REACT_APP_BOMO_URL}customer/edit/${id}`
     : `${REACT_APP_BOMO_URL}customer/add-member`;
   try {
-    const res = (await userData?._id)
-      ? axios.put(url, userData.role, headers)
-      : axios.post(url, userData, headers);
+    const res = await axios.post(
+      url,
+      { ...userData, role: "Team member" },
+      headers
+    );
     if (res?.data?.status) {
-      toast.success(res.data.message);
+      toast.success(res.data?.message);
       get_all_members(dispatch, token);
       change_add_edit(dispatch);
     } else {
