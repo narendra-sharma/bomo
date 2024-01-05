@@ -28,6 +28,7 @@ const Subscription = ({ user }) => {
     <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
+        <div className="container">
           {isSubscribe && <>
             <div className="mx-md-3 mx-lg-5 mb-4 row">
               <div className="offset-lg-3 col-lg-4">
@@ -45,6 +46,7 @@ const Subscription = ({ user }) => {
           </>}
           <SubscriptionSteps user={user} />
           <PaymentHistory />
+        </div>
         </div>
       </div>
     </>
