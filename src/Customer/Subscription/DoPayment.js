@@ -150,14 +150,13 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       }
     } else {
       const output = Object.entries(card).map(([key, value]) => ({key,value}));
+      let err=false;
       for(let i=output.length-1;i>-1;i--){
         if(!output[i].value && (output.key!=='surname')){
+          err=true;
           await handleCardElementChange(output[i].value,output[i].key);
         }
       };
-      let err=false;
-      const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
-      err=errOutput.find(r=>r.value?true:false);
       if(err){
         return false;
       }
