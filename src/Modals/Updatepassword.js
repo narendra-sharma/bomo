@@ -44,7 +44,6 @@ const navigate = useNavigate();
     }
 
     if ((formData.newpassword === formData.confirmpassword) && (formData.oldpassword)) {
-      try {
            const tokendata = JSON.parse(localStorage.getItem('userDetails'));
            const usertoken = tokendata.token;
            const userDataForm = {
@@ -58,9 +57,6 @@ const navigate = useNavigate();
           dispatch
         );
         handleClose();
-      } catch (error) {
-        console.error('Error updating password:', error);
-      }
     }
   };
 

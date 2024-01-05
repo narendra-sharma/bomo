@@ -2,17 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { addBrand, change_add_edit, uploadZip } from "../../reduxdata/rootAction";
 import TagsInput from "react-tagsinput";
-import { toast } from "react-toastify";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
 const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
+
   const dispatch = useDispatch();
   const [newbrand, setNewBrand] = useState(brand);
   const [imagePreview, setImagePreview] = useState('');
-  const [zipPreview,setZipPreview] = useState('');
-  const [addzip,setAddzip] = useState('');
+  const [zipPreview, setZipPreview] = useState('');
+  const [newzipuplod,setNewzipupload] = useState('');
+  const [addzip, setAddzip] = useState('');
   const logopath = brand.logo;
   const zipfilepath = brand.brandassests;
   const usertoken = user.token;
@@ -38,12 +39,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           setErrors({ ...errors, logo: 'Please upload a valid image file' });
         } else {
           setErrors({ ...errors, logo: '' });
+          setNewBrand({
+            ...newbrand,
+            logo: logoFile,
+          });
+          setImagePreview(URL.createObjectURL(logoFile));
         }
-        setNewBrand({
-          ...newbrand,
-          logo: logoFile,
-        });
-        setImagePreview(URL.createObjectURL(logoFile));
         break;
 
       case 'brandname':
@@ -64,25 +65,21 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           setErrors({ ...errors, brandassests: 'Upload your zip file' });
         } else if (brandAssetsFile.type !== 'application/zip') {
           setErrors({ ...errors, brandassests: 'Please upload a valid zip file' });
-        }  else {
-          try {
-            const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
+        } else {
+          const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
+          setNewzipupload(uploadedZipPath);
 
-            setNewBrand({
-              ...newbrand,
-              brandassests: uploadedZipPath,
-            });
-            setZipPreview(uploadedZipPath);
-      
-            if (!brand?.id) {
-              setAddzip(brandAssetsFile);
-            }
-      
-            setErrors({ ...errors, brandassests: '' });
-          } catch (error) {
-            toast.error(error);
-            setErrors({ ...errors, brandassests: 'Error uploading zip file. Please try again.' });
+          setNewBrand({
+            ...newbrand,
+            brandassests: uploadedZipPath,
+          });
+          setZipPreview(uploadedZipPath);
+
+          if (!brand?.id) {
+            setAddzip(brandAssetsFile);
           }
+
+          setErrors({ ...errors, brandassests: '' });
         }
         break;
 
@@ -103,7 +100,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
   const handleTagsChange = (tags) => {
     if (tags.length === 0) {
       setErrors({ ...errors, tags: 'Tags are required' });
-      setIsTagsInputDisabled(true);
     } else if (tags.length > 5) {
       setErrors({ ...errors, tags: 'You can add up to 5 tags' });
       setIsTagsInputDisabled(true);
@@ -148,12 +144,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       { name: 'brandassests', validation: (value) => !value ? 'Upload your zip file' : '' },
       { name: 'tags', validation: (value) => value.length === 0 ? 'Tags are Required' : (value.length > 5 ? 'You can add up to 5 tags' : '') }
     ];
-  
+
     fieldsToValidate.forEach(({ name, validation }) => {
       const value = newbrand[name];
       const error = validation(value);
       setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
- 
+
       if (error) {
         valid = false;
       }
@@ -169,6 +165,10 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       };
       if (brand?.id) {
         brandprofile.brand_id = brand?.id;
+        brandprofile.zipFile = brand.brandassests 
+      }
+      if ( newzipuplod) { 
+        brandprofile.zipFile = newzipuplod;
       }
       await addBrand(brandprofile, dispatch, usertoken);
     }
@@ -197,9 +197,9 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {imagePreview ? <img src={imagePreview} alt="" />
                 : <img src={`${LOGO_URL}${logopath}`} alt="" />}
               <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />
-              
+
               <button className="add-btn bg-white" onClick={handleUploadButtonClick}>
-                  +
+                +
               </button>
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
@@ -207,14 +207,14 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
             <div className="">
               <label className="fw-bold">Brand Name:</label>
-              <input type="text" className="input-name form-control" name="brandname" placeholder ="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
+              <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="">
               <label className="fw-bold">Brand Assests:</label>
-              {(brand?.id && zipPreview ) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p> }
+              {(brand?.id && zipPreview) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p>}
               {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
@@ -225,14 +225,14 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <label className="fw-bold">Tags:</label>
-            <TagsInput value={newbrand.tags} className="input-name" onChange={handleTagsChange} disabled={isTagsInputDisabled} removeTag={handleTagRemove} />
+            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand'}} onChange={handleTagsChange} disabled={isTagsInputDisabled} removeTag={handleTagRemove} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <button className="create-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
               {brand?.id ? 'Update' : 'Create'}
             </button>
-            <button  className="create-add-btn delete-btn rounded-pill fw-bold" type="button" onClick={() => close()}>
+            <button className="create-add-btn delete-btn rounded-pill fw-bold" type="button" onClick={() => close()}>
               Close
             </button>
           </div>
