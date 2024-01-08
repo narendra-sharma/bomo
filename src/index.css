@@ -1041,6 +1041,7 @@ ul.designer-list li{
   padding: 0!important;
 }
 .add-brand-profile .input-name input {
+  width: 80%;
   padding: 0;
 }
 .add-brand-profile .upload-zip {
