@@ -7,6 +7,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from './reduxdata/store';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+console.error = console.warn = () => {};
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>

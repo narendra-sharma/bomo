@@ -15,7 +15,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user:null,
         role:null,
-        updated:!state.updated
       };
     case SET_USER_TYPE:
       return {
@@ -25,8 +24,7 @@ const authReducer = (state = initialState, action) => {
     case USER_UPDATE:
       return {
         ...state,
-        user: action.payload,
-        updated:!state.updated
+        user: action.payload
       }
     case UPDATE_PASSWORD_SUCCESS:
       return {

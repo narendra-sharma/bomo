@@ -35,7 +35,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
 import 'react-tagsinput/react-tagsinput.css'
 
-function App({ user }) {
+function App({ user,updated }) {
   const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
     $(document).ready(() => {
@@ -108,7 +108,7 @@ function App({ user }) {
     <LoadingSpinner/>
       {isAuth ? <>
         <Sidebar />
-        <Header />
+        <Header/>
         <AfterLoginCustomerRoutes />
       </> : <AuthRoutes />}
     </BrowserRouter>
@@ -117,6 +117,7 @@ function App({ user }) {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
+    updated: state.auth.updated,
   };
 };
 
