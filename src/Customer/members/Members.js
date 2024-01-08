@@ -9,7 +9,8 @@ import {
   add_new_member,
 } from "../../reduxdata/members/memberAction";
 import { useDispatch, connect } from "react-redux";
-
+import NewRequestShared from "../Sahred/NewRequestShared";
+import { format } from 'date-fns';
 const roles = [
   { id: 1, label: "customer_admin" },
   { id: 2, label: "team_member" },
@@ -58,31 +59,15 @@ const Members = ({ user, member, total, isAddEdit }) => {
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
           <div className="mx-md-3 mx-lg-5 mb-4">
-            <div className="d-flex justify-content-md-end">
-              <div className="request-content d-flex align-items-center bg-white rounded-pill px-3 py-2 mb-4 mb-md-0">
-                <Link
-                  to="/new-request"
-                  className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark"
-                >
-                  New Request
-                </Link>
-                <div className="request-date ms-2">
-                  <p className="mb-0">
-                    <span>21:43</span>
-                    <span className="d-block">Wed 01 Nov, 2023 </span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <NewRequestShared/>
           </div>
           <div className="review-main-content mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Members</h3>
             </div>
-            <div className="review-content bg-white px-4 py-2 rounded mb-3">
+            {(member.length>0) && <div className="review-content bg-white px-4 py-2 rounded mb-3">
               <div className="table-responsive">
-                {member &&
-                  member.map((item, index) => (
+                {member.map((item, index) => (
                     <table
                       className="table table-borderless member-table mb-0"
                       key={index}
@@ -138,7 +123,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 width: "90px",
                               }}
                             >
-                              {item?.createdAt?.slice(0, 10)}
+                              {format(new Date(item?.createdAt), 'MM/dd/yyyy')}
                             </p>
                           </p>
                         </td>
@@ -215,28 +200,9 @@ const Members = ({ user, member, total, isAddEdit }) => {
                     </table>
                   ))}
               </div>
-            </div>
+            </div>}
             {!showAddComp ? (
-              <tbody>
-                <tr>
-                  <td>
-                    <Link className="text-decoration-none text-dark">
-                      <div className="d-flex  align-items-center">
-                        <span
-                          className="plus"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => setShowAddComp((prev) => !prev)}
-                        >
-                          +
-                        </span>
-                        <span>
-                          <span className="fw-bold ms-3">Add</span> New Memeber
-                        </span>
-                      </div>
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
+              <div className="add-new-brand" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
             ) : (
               <MemberForm setShowAddComp={setShowAddComp} />
             )}
@@ -249,7 +215,6 @@ const Members = ({ user, member, total, isAddEdit }) => {
                   }}
                 />
               )}
-              <div className="table-responsive"></div>
             </div>
           </div>
         </div>

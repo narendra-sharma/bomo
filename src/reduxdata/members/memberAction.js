@@ -26,7 +26,6 @@ export const get_all_members = async (
       `${REACT_APP_BOMO_URL}customer/member-listing?page=${page}&limit=${limit}`,
       HEADERS
     );
-    console.log("ressss", res);
     if (res?.data?.status) {
       // store the data
       dispatch({ type: MEMBERS_LIST, payload: res?.data });
@@ -42,7 +41,6 @@ export const get_all_members = async (
 
 // add a new memeber
 export const add_new_member = async (dispatch, userData, token, id, role) => {
-  console.log("ACTIONNNN", role);
   dispatch(start_loading);
   const headers = {
     headers: {
@@ -102,4 +100,37 @@ export const delete_existing_user = async (id, dispatch, token) => {
 
 export const change_add_edit = (dispatch) => {
   dispatch({ type: IS_ADD_EDIT });
+};
+export const get_all_users = async (
+  dispatch,
+  token,
+  user_type,
+  page = 1,
+  limit = 10,
+  search
+) => {
+  dispatch(start_loading);
+  const HEADERS = {
+    headers: {
+      "x-access-token": token,
+    },
+  };
+  try {
+    const res = await axios.get(
+      `${REACT_APP_BOMO_URL}superAdmin/customer_designer_list?page=${page}&limit=${limit}`,
+      {"role": user_type,
+      "search": search},
+      HEADERS
+    );
+    if (res?.data?.status) {
+      // store the data
+      dispatch({ type: MEMBERS_LIST, payload: res?.data });
+    } else {
+      toast.error(res?.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
 };

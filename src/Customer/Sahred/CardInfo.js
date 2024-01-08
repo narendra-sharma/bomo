@@ -22,7 +22,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
     <>
       <div className="col-md-12">
         <div className="form-group">
-          <label htmlFor="cc-number">Card Number</label>
+          <label htmlFor="cc-number">Card Number<span className="text-danger">*</span></label>
           <CardNumberElement
             id="cc-number"
             className="form-control"
@@ -38,7 +38,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label htmlFor="expiry">Card Expiry</label>
+          <label htmlFor="expiry">Card Expiry<span className="text-danger">*</span></label>
           <CardExpiryElement
             id="expiry"
             className="form-control"
@@ -54,7 +54,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label htmlFor="cvc">CVV</label>
+          <label htmlFor="cvc">CVV<span className="text-danger">*</span></label>
           <CardCvcElement
             id="cvc"
             className="form-control"

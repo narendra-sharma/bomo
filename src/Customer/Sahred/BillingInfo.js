@@ -27,7 +27,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
     <>
       <div className="col-md-6">
         <div className="form-group">
-          <label htmlFor="cc-name">Name</label>
+          <label htmlFor="cc-name">Name<span className="text-danger">*</span></label>
           <input id="cc-name" defaultValue={card.name} type="text" name="name" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'name')} />
           {name &&
           name.type === "required" && (
@@ -45,7 +45,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>Company</label>
+          <label>Company <span className="text-danger">*</span></label>
           <input type="text" defaultValue={card.company} name="company" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'company')} />
           {company &&
             company.type === "required" && (
@@ -57,7 +57,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>Address</label>
+          <label>Address<span className="text-danger">*</span></label>
           <LoadScript googleMapsApiKey={REACT_APP_GOOGLE_API_KEY} libraries={["places"]}>
             <StandaloneSearchBox
               onLoad={ref => inputRef.current = ref}
@@ -90,7 +90,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>City</label>
+          <label>City<span className="text-danger">*</span></label>
           <input type="text" defaultValue={card.city} name="city" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'city')} />
           {city &&
             city.type === "required" && (
@@ -102,7 +102,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>Postal Code</label>
+          <label>Postal Code<span className="text-danger">*</span></label>
           <input type="text" defaultValue={card.postalCode} name="postalCode" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
           {postalCode &&
             postalCode.type === "required" && (
@@ -114,7 +114,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>Country</label>
+          <label>Country<span className="text-danger">*</span></label>
           <select value={card.country} className={'form-select ' + (card.country === '' ? ' light-gray' : '')} aria-label="Default select example" onChange={(e) => handleCardElementChange(e.target.value, 'country')}>
             <option value="" disabled>Country</option>
             {(countries.length > 0) && countries.map((c) =>
@@ -131,7 +131,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label>VAT number</label>
+          <label>VAT Number<span className="text-danger">*</span></label>
           <input type="text" defaultValue={card.vatNumber} name="vatNumber" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'vatNumber')} />
           {vatNumber &&
             vatNumber.type === "required" && (
