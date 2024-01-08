@@ -307,7 +307,7 @@ nav {
   z-index: 99;
 }
 .main-content-wraaper {
-  margin-top: 70px;
+  margin-top: 70px!important;
 }
 .toggle-btn {
   border-top: solid 2px;
@@ -1137,7 +1137,13 @@ ul.designer-list li{
   padding-left: 60px;
   padding-right: 60px;
 }
-.active-status{
+.subscription-status .ACTIVE{
+  color: #000;
+}
+.ACTIVE{
+  color: #58DE55;
+}
+.INACTIVE{
   color: #838383;
 }
 @media (min-width: 576px){

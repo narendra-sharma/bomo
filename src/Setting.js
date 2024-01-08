@@ -60,7 +60,7 @@ const Setting = ({ userrole }) => {
                       <b className="d-md-block">Role</b>
                       <span className="d-block">{(userrole === 'customer_admin') ? 'Customer' : userrole}</span></p>
                   </div>
-                  <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 px-3 text-decoration-none">edit</Link></div>
+                  <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
                 </div>
               </div>
               <div className={userrole === 'customer_admin' ? 'col-lg-3' : 'col-lg-6'}>
@@ -69,7 +69,7 @@ const Setting = ({ userrole }) => {
                     <div><h6 className="mb-0">
                       Password<span className="d-block">*********</span>
                     </h6></div>
-                    <div><Link onClick={() => setShowchangePassword(true)} className="text-secondary mb-0 px-3 text-decoration-none">edit</Link></div>
+                    <div><Link onClick={() => setShowchangePassword(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
                   </div>
                 </div>
               </div>
