@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { newRequest } from "../reduxdata/rootAction";
 
-const NewRequest = ({ brands, user }) => {
+const NewRequest = ({ brands, user, createRequest }) => {
   const dispatch = useDispatch();
   const usertoken = user.token;
   const fileInputRef = useRef(null);
@@ -246,12 +246,18 @@ const NewRequest = ({ brands, user }) => {
         uploadFiles: formData.uploadFiles,
         status: status
       };
-      await newRequest(newrequest, dispatch, usertoken);
-      setFormData({ ...formData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
-      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
-      fileInputRef.current.value = "";
+        await newRequest(newrequest, dispatch, usertoken);
     }
   };
+
+  useEffect(() => {
+    if (createRequest) {
+      setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
+      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
+      fileInputRef.current.value = "";
+      setClickedIndex(null);
+    }
+  }, [createRequest, dispatch]);
 
   return (
     <>
@@ -268,14 +274,14 @@ const NewRequest = ({ brands, user }) => {
                   <div className="row">
                     <div className="col-md-5">
                       <div className="form-group">
-                        <label className="ms-3 mb-1">Request Name</label>
+                        <label htmlFor="Request Name">Request Name <span className="text-danger">*</span></label>
                         <input type="text" name="requestName" value={formData.requestName} className="form-control" onChange={handleInputChange} />
                         {errors.requestName && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.requestName}</p>}
                       </div>
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
-                        <label className="ms-3 mb-1">Brand Profile</label>
+                      <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
                         <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
                           <option value=""></option>
                           {brands.map((brand) => (
@@ -287,7 +293,7 @@ const NewRequest = ({ brands, user }) => {
                     </div>
                     <div className="col-md-12">
                       <div className="form-group">
-                        <label className="ms-3 mb-1">Description</label>
+                      <label htmlFor="Description">Description<span className="text-danger">*</span></label>
                         <textarea name="description" className="form-control w-100" placeholder="
                                             Describe the Brief for this piece. Include as much info as possible.
                                             Tone and Style
@@ -302,7 +308,7 @@ const NewRequest = ({ brands, user }) => {
                 </div>
                 <div className="col-md-5 review-content">
                   <div className="mb-4">
-                    <label className="ms-3 mb-1">Request Type</label>
+                  <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
                     <div className="form-control py-3">
                       <div className="row request-type">
                         {selectrequest.map((ele, index) => (
@@ -328,7 +334,7 @@ const NewRequest = ({ brands, user }) => {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="ms-3 mb-1">File Type</label>
+                        <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
                             <option value=""></option>
                             <option value="Mp4">Mp4</option>
@@ -340,7 +346,7 @@ const NewRequest = ({ brands, user }) => {
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="ms-3 mb-1">(Size Up to 2)</label>
+                        <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
                             <option value=""></option>
                             <option value="16:9">16:9</option>
@@ -376,14 +382,14 @@ const NewRequest = ({ brands, user }) => {
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="ms-3 mb-1">Refernces</label>
+                        <label htmlFor="References">References<span className="text-danger">*</span></label>
                           <input type="text" name="references" value={formData.references} className="form-control" onChange={handleInputChange} />
                           {errors.references && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.references}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="ms-3 mb-1">Transparency</label>
+                        <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
                             <option value=""></option>
                             <option value="Yes">Yes</option>
@@ -398,7 +404,7 @@ const NewRequest = ({ brands, user }) => {
                   </div>
                 </div>
                 <div className="col-md-12 review-content">
-                  <label className="ms-3 mb-1">Upload Files</label>
+                <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
                   <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>5 pieces </b>this month. <br />You can create 4 more pieces. Subscription renews on Nov 17</p>
@@ -427,6 +433,7 @@ const NewRequest = ({ brands, user }) => {
 const mapStateToProps = (state) => {
   return {
     brands: state.brand.brands,
+    createRequest: state.createrequest.createRequest,
     user: state.auth.user,
   };
 };
