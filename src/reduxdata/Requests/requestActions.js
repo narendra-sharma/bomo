@@ -1,6 +1,7 @@
 import axios from "axios";
 import { start_loading, stop_loading, catch_errors_handle } from "../rootAction";
 import { toast } from "react-toastify";
+import { CREATE_REQUEST_SUCCESS } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const newRequest = async (requestdata, dispatch, token) => {
@@ -27,6 +28,8 @@ export const newRequest = async (requestdata, dispatch, token) => {
   
         if (res.data && res.data.status) {
           toast.success(res.data.message);
+          send_request_success(dispatch);
+          return res.data;
         } else {
           toast.error(res.data.message);
         }
@@ -36,3 +39,9 @@ export const newRequest = async (requestdata, dispatch, token) => {
       dispatch(stop_loading());
     }
   };
+
+  export const send_request_success = (dispatch) => {
+    dispatch({ type: CREATE_REQUEST_SUCCESS });
+  };
+  
+

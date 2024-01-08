@@ -40,7 +40,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
   const handleDeleteConfirm = (id) => {
     delete_existing_user(id, dispatch, user?.token);
     setShowDeleteModals([]);
-    setdeletedFlag((prev) => !prev);
+    setdeletedFlag((prev) => !prev);  
   };
 
   // handling change of a value

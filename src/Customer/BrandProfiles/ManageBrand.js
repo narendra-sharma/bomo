@@ -178,6 +178,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
         <div className="row align-items-center">
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
             <div className="">
+              <label htmlFor="Upload Logo">Upload Logo<span className="text-danger">*</span></label>
               {(brand?.id && !imagePreview) ? <img src={`${LOGO_URL}${logopath}`} alt="" />
                 : (brand?.id && imagePreview) ? <img src={imagePreview} alt="Preview" /> : ''}
               <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />
@@ -191,14 +192,14 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
             <div className="">
-              <label className="fw-bold">Brand Name:</label>
+              <label htmlFor="Brand Name">Brand Name<span className="text-danger">*</span></label>
               <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="upload-zip">
-              <label className="fw-bold">Brand Assests:</label>
+              <label htmlFor="Brand Assests">Brand Assests<span className="text-danger">*</span></label>
               {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
               {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
@@ -209,7 +210,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
-            <label className="fw-bold">Tags:</label>
+            <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} disabled={isTagsInputDisabled || (!brand?.id && newbrand.tags.length >= 5)} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
