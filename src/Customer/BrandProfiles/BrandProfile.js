@@ -24,7 +24,7 @@ const BrandProfile = ({ brands,total,user,getbrandlist }) => {
   const [edit, setEdit] = useState(newBrand);
   const [isEdit,setIsEdit]=useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(10);
   const handleShowEditBrand = (brand) => {
     setEdit({
       id:brand._id,
