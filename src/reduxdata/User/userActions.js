@@ -56,9 +56,20 @@ export const login = async (user, role, dispatch) => {
       },
     };
     const res = await axios.post(url, user, HEADERS);
-    console.log("rsponse", res.data.data.role);
+    console.log("responsessss", res.data.data.role);
     if (res.data && res.data.status) {
-      if (res.data.data.role === role) {
+      if (
+        res?.data?.data?.role === "Team Member" ||
+        res?.data?.data?.role === "team_member" ||
+        res.data.data.role === role
+      ) {
+        if (
+          res?.data?.data?.role === "Team Member" ||
+          res?.data?.data?.role === "team_member"
+        ) {
+          dispatch(set_user_type("Team Member"));
+          localStorage.setItem("USERTYPE", JSON.stringify("Team Member"));
+        }
         toast.success("Successfully user logged-in!");
         dispatch(set_update_user(res.data.data));
       } else {

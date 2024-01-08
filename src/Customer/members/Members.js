@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import userImage from "../../images/user-img.png";
 import MemberForm from "./MemberForm";
 import DeleteBrand from "../../Modals/Delete";
 import CustomPagination from "../../Common/CustomPagination";
@@ -12,15 +11,14 @@ import {
 import { useDispatch, connect } from "react-redux";
 
 const roles = [
-  { id: 1, label: "Admin" },
-  { id: 2, label: "Team Member" },
+  { id: 1, label: "customer_admin" },
+  { id: 2, label: "team_member" },
 ];
 
-const Members = ({ user, member, total }) => {
+const Members = ({ user, member, total, isAddEdit }) => {
   // show hide create members
   const [showAddComp, setShowAddComp] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(4);
+  const [selectedRole, setselectedRole] = useState("");
   const [updateRolepopUps, setUpdateRolepopUps] = useState(
     Array(member.length).fill(false)
   );
@@ -36,7 +34,7 @@ const Members = ({ user, member, total }) => {
   // getting list of the user
   useEffect(() => {
     get_all_members(dispatch, user?.token);
-  }, [deletedFlag]);
+  }, [deletedFlag, isAddEdit]);
 
   // deleting a user
   const handleDeleteConfirm = (id) => {
@@ -45,18 +43,14 @@ const Members = ({ user, member, total }) => {
     setdeletedFlag((prev) => !prev);
   };
 
-  // updating a user
-  const updateUserRole = (id = "6596a9aacde9f223fdb74337") => {
-    const updatedMember = member?.find((item) => item?._id == id);
-    console.log("Member to update", updatedMember?.role);
-    add_new_member(
-      dispatch,
-      updatedMember,
-      user?.token,
-      id,
-      updatedMember?.role
-    );
+  // handling change of a value
+  const handleChange = (e) => {
+    setselectedRole(e.target.value);
+  };
 
+  // updating a user
+  const updateUserRole = (id) => {
+    add_new_member(dispatch, null, user?.token, id, selectedRole);
     setUpdateRolepopUps([]);
   };
   return (
@@ -106,12 +100,12 @@ const Members = ({ user, member, total }) => {
                             ></div>
                             <p className="mb-0 user-email  ms-1 ms-lg-2">
                               <b>Name</b>
-                              <span
+                              <p
                                 className="d-block"
-                                style={{ maxWidth: "20px" }}
+                                style={{ maxWidth: "60px" }}
                               >
                                 {item?.name}
-                              </span>
+                              </p>
                             </p>
                           </div>
                         </td>
@@ -119,9 +113,15 @@ const Members = ({ user, member, total }) => {
                           <p className="mb-0 user-email  ms-1 ms-lg-2">
                             <b>Role</b>
                             {updateRolepopUps[index] ? (
-                              <select className="d-block">
-                                {roles.map((item) => (
-                                  <option>{item.label}</option>
+                              <select
+                                className="d-block"
+                                defaultValue={item?.role}
+                                onChange={(e) => handleChange(e)}
+                              >
+                                {roles.map((roleItem) => (
+                                  <option key={roleItem.id}>
+                                    {roleItem.label}
+                                  </option>
                                 ))}
                               </select>
                             ) : (
@@ -130,11 +130,16 @@ const Members = ({ user, member, total }) => {
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             <b>Date added</b>
-                            <span className="d-block">
-                              {item?.updatedAt?.trim(0, 6)}
-                            </span>
+                            <p
+                              className="d-block"
+                              style={{
+                                width: "90px",
+                              }}
+                            >
+                              {item?.createdAt?.slice(0, 10)}
+                            </p>
                           </p>
                         </td>
                         <td>
@@ -240,8 +245,7 @@ const Members = ({ user, member, total }) => {
                 <CustomPagination
                   total={total}
                   onPageChange={(newPage, newLimit) => {
-                    setPage(newPage);
-                    setLimit(newLimit + 1);
+                    get_all_members(dispatch, user?.token, newPage, newLimit);
                   }}
                 />
               )}
@@ -259,6 +263,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     member: state.member.members,
     total: state.member.total,
+    isAddEdit: state.brand.isAddEdit,
   };
 };
 export default connect(mapStateToProps)(Members);

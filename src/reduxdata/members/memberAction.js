@@ -9,7 +9,12 @@ import { catch_errors_handle } from "../rootAction";
 const { REACT_APP_BOMO_URL } = process.env;
 
 // get all members list
-export const get_all_members = async (dispatch, token, page, limit) => {
+export const get_all_members = async (
+  dispatch,
+  token,
+  page = 1,
+  limit = 10
+) => {
   dispatch(start_loading);
   const HEADERS = {
     headers: {
@@ -18,7 +23,7 @@ export const get_all_members = async (dispatch, token, page, limit) => {
   };
   try {
     const res = await axios.get(
-      `${REACT_APP_BOMO_URL}customer/member-listing?page=1&limit=10`,
+      `${REACT_APP_BOMO_URL}customer/member-listing?page=${page}&limit=${limit}`,
       HEADERS
     );
     console.log("ressss", res);
@@ -45,14 +50,12 @@ export const add_new_member = async (dispatch, userData, token, id, role) => {
     },
   };
   const url = id
-    ? `${REACT_APP_BOMO_URL}customer/edit/${id}`
+    ? `${REACT_APP_BOMO_URL}customer/edit`
     : `${REACT_APP_BOMO_URL}customer/add-member`;
   try {
-    const res = await axios.post(
-      url,
-      { ...userData, role: "Team member" },
-      headers
-    );
+    const res = !id
+      ? await axios.post(url, userData, headers)
+      : await axios.post(url, { customer_id: id, role: role }, headers);
     if (res?.data?.status) {
       toast.success(res.data?.message);
       get_all_members(dispatch, token);
