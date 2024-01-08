@@ -1012,7 +1012,7 @@ ul.designer-list li{
   border: solid 1px #000;
   width: 50px;
   height: 50px;
-  line-height: 51px;
+  line-height: 47px;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
@@ -1043,12 +1043,15 @@ ul.designer-list li{
 .add-brand-profile .input-name input {
   padding: 0;
 }
-.add-brand-profile .upload-zip {
+.add-brand-profile .upload-zip button {
   font-size: 12px;
   display: block;
   border: solid 1px #838383;
   background: #fff;
   padding: 2px 30px;
+}
+.add-brand-profile .col-lg-1.col-12{
+  padding-right: 0;
 }
 .create-add-btn {
   background-color: #3FCE3C;
@@ -1091,7 +1094,11 @@ ul.designer-list li{
   color: #c74c4c!important;
 }
 .add-brand-profile img {
-  width: 100px;
+  width: 50px;
+  border-radius: 50%;
+}
+.add-brand-profile p{
+ margin: 0;
 }
 .designer-table p{
   margin-bottom: 0;
@@ -1145,6 +1152,29 @@ ul.designer-list li{
 }
 .INACTIVE{
   color: #838383;
+}
+/* customer popup */
+.view-customer-popup .modal-dialog{
+  max-width:1200px;
+}
+.view-customer-popup .modal-content{
+  background-color: #f2f2f2;
+}
+.view-customer-content .active-request-section {
+  flex: 0 0 20%;
+}
+.view-customer-content .active-request-section:last-child{
+  flex: 0 0 40%;
+}
+.view-customer-content .customer-details{
+ flex: 0 0 60%;
+}
+.view-customer-content .customer-subscription{
+  flex: 0 0 40%;
+}
+.view-customer-content .status-btn .btn {
+  font-size: 12px;
+
 }
 @media (min-width: 576px){
 .main-content-wraaper{
@@ -1293,6 +1323,15 @@ ul.designer-list li{
    .brand-table tr td:nth-child(3) , .member-table tr td:nth-child(1) ,
    .member-table tr td:nth-child(2) , .member-table tr td:nth-child(4){
     width: auto;
+  }
+  .view-customer-content .active-request-section, 
+  .view-customer-content .active-request-section:last-child ,
+  .view-customer-content .customer-details ,
+  .view-customer-content .customer-subscription{
+    flex: 0 0 100%;
+  }
+  .view-customer-popup .modal-dialog{
+    max-width: 100%;
   }
 }
 

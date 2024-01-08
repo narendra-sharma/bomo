@@ -212,7 +212,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
-            <div className="">
+            <div className="upload-zip">
               <label className="fw-bold">Brand Assests:</label>
               {(brand?.id && zipPreview) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p>}
               {(addzip) ? <p>{addzip.name}</p> : ''}
