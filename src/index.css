@@ -178,7 +178,7 @@ color: var(--dark-green);
 color:var(--mid-green);
 font-weight: 500;
 }
-.signup-content p.error {
+.signup-content p.error ,  p.error {
   font-size: 13px;
   margin-top: 3px;
   color: #c74c4c;
@@ -294,7 +294,20 @@ color: var(--dark-green);
   font-weight: 700;
 }
 .sidebar .list-group-item.disable{
-  color: #cfcaca;
+  color: #D2CECE;
+  cursor: default;
+}
+.sidebar .list-group-item.disable:hover{
+  background: transparent;
+}
+nav {
+  position: fixed;
+  top: 0;
+  width: calc(100% - 150px);
+  z-index: 99;
+}
+.main-content-wraaper {
+  margin-top: 70px!important;
 }
 .toggle-btn {
   border-top: solid 2px;
@@ -707,7 +720,8 @@ table.feedback-queue tr:first-child td{
   border-color: #fff;
 }
 .payment-history-section .table>:not(caption)>*>* , 
-.bg-gray-mid .table>:not(caption)>*>* , .brand-table .table>:not(caption)>*>*{
+.bg-gray-mid .table>:not(caption)>*>* , .brand-table .table>:not(caption)>*>* , 
+.designer-table .table>:not(caption)>*>* , .late-request .table>:not(caption)>*>*{
  background-color: transparent;
 }
 .payment-history-section table tr td{
@@ -767,6 +781,9 @@ table.feedback-queue tr:first-child td{
 .modal-dialog .btn-light{
   background-color: transparent;
   color: #000;
+}
+.modal-dialog .btn.btn-light:hover{
+  background-color: #000;
 }
  .modal-dialog  button{
   font-weight: 700;
@@ -976,6 +993,7 @@ ul.designer-list li{
 .request-status{
   color: #F92B34;
 }
+
 .brand-table{
   padding: 30px 25px;
 }
@@ -1069,10 +1087,74 @@ ul.designer-list li{
 }
 .error-msg {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #c74c4c!important;
 }
 .add-brand-profile img {
   width: 100px;
+}
+.designer-table p{
+  margin-bottom: 0;
+}
+.designer-table table td:nth-child(2){
+  width: 200px;
+}
+.review-content table tr td button{
+  font-size: 13px;
+  color: #000;
+}
+.color-light-blue{
+  color: #7C96FE;
+}
+.late-request{
+  background-color: #F92B34;
+}
+.late-request table tr td , .late-request table tr td button , 
+ .review-content.late-request .short0ad
+{ 
+  color: #fff;
+  font-size: 13px;
+}
+.late-request table tr td button , .review-content.late-request .short0ad{
+  border-color:#fff ;
+}
+.active-request-status{
+  color: #3FCE3C;
+}
+.text-mute {
+  color: #838383;
+}
+.spinner-container {
+  position: fixed!important;
+}
+.main-content-wraaper{
+  width: 100%;
+  margin: 0 auto;
+  padding-left:12px ;
+  padding-right: 12px;
+}
+.ml-md-auto.py-4.ms-md-auto.rightside-wrapper{
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.subscription-status .ACTIVE{
+  color: #000;
+}
+.ACTIVE{
+  color: #58DE55;
+}
+.INACTIVE{
+  color: #838383;
+}
+@media (min-width: 576px){
+.main-content-wraaper{
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px){
+  .main-content-wraaper{
+      max-width: 720px;
+    }
 }
 @media (min-width: 992px){
   .design-list-section  .col-lg-5 {
@@ -1080,6 +1162,19 @@ ul.designer-list li{
   }
   .design-list-section  .col-lg-2{
   width: 15%;
+  }
+   .main-content-wraaper{
+    max-width: 960px;
+  } 
+}
+ @media (min-width: 1200px){
+  .main-content-wraaper{
+    max-width: 1140px;
+  }
+} 
+@media(min-width: 1400px){
+  .main-content-wraaper{
+    max-width: 1320px;
   }
 }
 .design-list-section .review-content table td {
@@ -1106,7 +1201,7 @@ ul.designer-list li{
    .form-heading {
     margin-bottom: 40px;
   }
-  .px-60 {
+  .px-60 , .ml-md-auto.py-4.ms-md-auto.rightside-wrapper {
     padding-left: 30px;
     padding-right: 30px;
   }
@@ -1127,7 +1222,10 @@ ul.designer-list li{
   }
   .rightside-wrapper {
     width: 100%;
-}
+  }
+  nav {
+    width: 100%;
+  }
 }
 @media(max-width:767px){
   nav h4{
@@ -1140,7 +1238,7 @@ ul.designer-list li{
   .designer-signup-form {
     padding: 40px 0;
   }
-  .px-60 {
+  .px-60 , .ml-md-auto.py-4.ms-md-auto.rightside-wrapper{
     padding-left: 20px;
     padding-right: 20px;
   }

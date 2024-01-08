@@ -7,6 +7,7 @@ import {
   update_password,
   profile_update,
   catch_errors_handle,
+  delete_account
 } from "./User/userActions";
 import {
   get_plans,
@@ -54,4 +55,5 @@ export {
   get_all_members,
   add_new_member,
   delete_existing_user,
+  delete_account
 };

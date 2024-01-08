@@ -24,7 +24,7 @@ const BrandProfile = ({ brands,total,user,getbrandlist }) => {
   const [edit, setEdit] = useState(newBrand);
   const [isEdit,setIsEdit]=useState(false);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(10);
   const handleShowEditBrand = (brand) => {
     setEdit({
       id:brand._id,
@@ -73,9 +73,7 @@ const BrandProfile = ({ brands,total,user,getbrandlist }) => {
                   <tr>
                     <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
                     <td><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
-                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block"><a href={`${REACT_APP_BOMO_URL}${brand?.brandassests}`} download>
-                      Download ZIP
-                    </a></span></td>
+                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block">{brand?.brandassests}</span></td>
                     <td><span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span></td>
                     <td >
                       <Link style={{ textDecoration: "none" }} className="text-dark" onClick={() =>{handleShowEditBrand(brand)}}>+ edit</Link>

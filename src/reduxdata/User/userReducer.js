@@ -3,6 +3,7 @@ import { GET_PROFILE_SUCCESS, LOG_OUT, SET_USER_TYPE, UPDATE_PASSWORD_SUCCESS, U
 const initialState = {
   user: JSON.parse(localStorage.getItem('userDetails')),
   role: JSON.parse(localStorage.getItem('USERTYPE')),
+  updated:false,
   token:null,
   profile:null
 };
@@ -12,8 +13,9 @@ const authReducer = (state = initialState, action) => {
     case LOG_OUT:
       return {
         ...state,
-        user:'',
-        role: '',
+        user:null,
+        role:null,
+        updated:!state.updated
       };
     case SET_USER_TYPE:
       return {
@@ -24,6 +26,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        updated:!state.updated
       }
     case UPDATE_PASSWORD_SUCCESS:
       return {

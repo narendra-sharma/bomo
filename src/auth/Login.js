@@ -22,15 +22,15 @@ const Login = (props) => {
 
     const exptest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (formData.email === '') {
-      setEmailerror('Email is Required*');
+      setEmailerror('Email is Required');
     } else if (!exptest.test(formData.email)) {
-      setEmailerror('Email is Invalid*');
+      setEmailerror('Email is Invalid');
     } else {
       setEmailerror(null);
     }
 
     if (formData.password === '') {
-      setPassworderror('Password is Required*');
+      setPassworderror('Password is Required');
     } else {
       setPassworderror(null);
     }
@@ -47,10 +47,10 @@ const Login = (props) => {
     switch (name) {
       case 'email':
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setEmailerror(value === '' ? 'Email is Required*' : !emailRegex.test(value) ? 'Email is Invalid*' : null);
+        setEmailerror(value === '' ? 'Email is Required*' : !emailRegex.test(value) ? 'Email is Invalid' : null);
         break;
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5*' : null);
+        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
         break;
       default:
         break;

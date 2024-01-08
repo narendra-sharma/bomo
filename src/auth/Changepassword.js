@@ -25,17 +25,17 @@ const Changepassword = (props) => {
     e.preventDefault();
 
     if (formData.password === '') {
-      setPassworderror('Password is Required*');
+      setPassworderror('Password is Required');
     } else if (formData.password.length < 5) {
-      setPassworderror("Password length should be more than 5*")
+      setPassworderror("Password length should be more than 5 characters");
     } else {
       setPassworderror(null)
     }
 
     if (formData.confirmpassword === '') {
-      setconfirmPassworderror("Confirm Password is required*");
+      setconfirmPassworderror("Confirm Password is required");
     } else if (formData.confirmpassword !== formData.password) {
-      setconfirmPassworderror("Password doesn't match*");
+      setconfirmPassworderror("Confirm Password doesn't match");
     } else {
       setconfirmPassworderror(null);
     }
@@ -53,10 +53,10 @@ const Changepassword = (props) => {
   
     switch (name) {
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5*' : null);
+        setPassworderror(value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
         break;
       case 'confirmpassword':
-        setconfirmPassworderror(value === '' ? 'Confirm password is required*' : value !== formData.password ? "Password doesn't match*" : null);
+        setconfirmPassworderror(value === '' ? 'Confirm password is required' : value !== formData.password ? "Confirm Password doesn't match" : null);
         break;
       default:
         break;

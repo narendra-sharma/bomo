@@ -12,16 +12,18 @@ const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem("userDetails");
-    localStorage.removeItem("USERTYPE");
+    localStorage.removeItem('userDetails');
+    localStorage.removeItem('USERTYPE');
+    localStorage.clear();
     dispatch(logout());
-  };
+    navigate('/');
+  }
   const [items, setItems] = useState([]);
-  const [isSubscribe, setIsSubscribe] = useState(false);
-  const getSubscription = async () => {
-    await isSubscription(user).then((r) => {
-      if (!r && userrole === "Customer") {
-        navigate("/subscription");
+  const [isSubscribe,setIsSubscribe]=useState(false);
+  const getSubscription=async()=>{
+    await isSubscription(user).then(r=>{
+      if(!r && (userrole === 'customer_admin')){
+        navigate('/setting');
       }
       setIsSubscribe(r);
     });
@@ -67,13 +69,7 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    console.log(isSubscribe);
-    location.pathname =
-      userrole === "customer_admin" && !isSubscribe
-        ? "/subscription"
-        : n - time < 1500
-        ? localStorage.getItem("path")
-        : "/";
+    location.pathname = ((userrole === 'customer_admin') && !isSubscribe)?'/setting':((n - time) < 1500) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole, isSubscribe]);
 
@@ -93,29 +89,9 @@ const Sidebar = () => {
             <img src={bomoLogo} alt="Bomo logo" />
           </div>
           <div className="list-group pt-5">
-            {items.map((item) => (
-              <Link
-                to={`${
-                  userrole === "customer_admin" &&
-                  !isSubscribe &&
-                  item.name !== "Subscription"
-                    ? "#"
-                    : item.to
-                }`}
-                key={item.name}
-                className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${
-                  location.pathname === item.to ? "active" : ""
-                } ${
-                  userrole === "Customer" &&
-                  !isSubscribe &&
-                  item.name !== "Subscription"
-                    ? "disable"
-                    : ""
-                }`}
-              >
-                <span className="ml-2">{item.name}</span>
-              </Link>
-            ))}
+              {items.map(item => <Link to={`${(((userrole === 'customer_admin') && (!isSubscribe))? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${((userrole === 'customer_admin') && !isSubscribe)?'disable':''}`}>
+              <span className="ml-2">{item.name}</span>
+            </Link>)}
           </div>
         </div>
         <div className="list-group">

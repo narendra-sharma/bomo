@@ -20,7 +20,6 @@ const SubscriptionSteps = (props) => {
   const [pieces, setPieces] = useState(1);
   const [prize, setPrize] = useState(firstPrice);
   const [save, setSave] = useState(0);
-  const [total, setTotal] = useState(0);
   const [step, setStep] = useState(0);
   useEffect(()=>{
     setUser(props.user);
@@ -29,11 +28,10 @@ const SubscriptionSteps = (props) => {
     const spieces=(lpieces>0)?firstUpTo:((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ?tpieces-firstUpTo:0;
     const fpieces=(spieces>0)?firstUpTo:(tpieces <= firstUpTo) ?tpieces:0;
     const price = ((fpieces*firstPrice)+(spieces*secPrice)+(lpieces*thirdPrice)) || firstPrice;
-    const saved = ((spieces * (firstPrice - secPrice))+(lpieces*(secPrice - thirdPrice))) || 0;
+    const saved = ((spieces * (firstPrice - secPrice))+(lpieces*(firstPrice - thirdPrice))) || 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
-    setTotal(price);
   },[props.user])
   useEffect(()=>{
     get_plans(dispatch);
@@ -48,9 +46,9 @@ const SubscriptionSteps = (props) => {
     }
   },[props.plans])
   const decrease = () => {
-    const tpieces = pieces - 1
-    const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize - secPrice) : (tpieces > secUpTo) ? prize - thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save - (firstPrice - secPrice)) : (tpieces > secUpTo) ? (save - (secPrice - thirdPrice)) : 0;
+    const tpieces = pieces-1;
+    const price = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (prize - secPrice) : ((tpieces >= secUpTo) ? (prize - thirdPrice) : (tpieces * firstPrice));
+    const saved = ((tpieces > firstUpTo) && (tpieces < secUpTo)) ? (save - (firstPrice - secPrice)) : (tpieces >= secUpTo) ? (save - (firstPrice - thirdPrice)) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
@@ -58,7 +56,7 @@ const SubscriptionSteps = (props) => {
   const increase = () => {
     const tpieces = pieces + 1
     const price = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (prize + secPrice) : (tpieces > secUpTo) ? prize + thirdPrice : tpieces * firstPrice;
-    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save + firstPrice - secPrice) : (tpieces > secUpTo) ? (save + secPrice - thirdPrice) : 0;
+    const saved = ((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ? (save + firstPrice - secPrice) : (tpieces > secUpTo) ? (save + firstPrice - thirdPrice) : 0;
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
@@ -116,7 +114,7 @@ const SubscriptionSteps = (props) => {
             <div className="subscription-total text-center mb-2">
               <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span>${prize}</span>
             </div>
-            {user?.plan_id && <p className="text-secondary text-center">Before ${total}</p>}
+            {user?.plan_id && <p className="text-secondary text-center">Before ${firstPrice*pieces}</p>}
           </div>
           <div className="mb-5 text-center">
             <button type="button" className="btn update-btn rounded-pill px-5 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>

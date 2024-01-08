@@ -1,17 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import { format } from 'date-fns';
 import { CSVLink } from "react-csv";
 import CustomPagination from "./CustomPagination";
 import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
-const PaymentHistory = ({user}) => {
+const PaymentHistory = ({user,userrole,data,total}) => {
   const csvLinkRef = useRef();
-  const userrole = useSelector((state) => state.auth.role)
-  const data = [
-    { date: new Date(), status: "COMPLETED", amount: "240", brand: 'Craft' },
-    { date: new Date(), status: "COMPLETED", amount: "240", brand: 'Craft' },
-    { date: new Date(), status: "COMPLETED", amount: "240", brand: 'Craft' },
-  ];
   const dispatch=useDispatch();
   useEffect(()=>{
     get_payment_history(dispatch,user?.token);
@@ -22,8 +16,12 @@ const PaymentHistory = ({user}) => {
     }
   };
   const headers = userrole === 'customer_admin' ? ['Date', 'Status', 'Amount($)'] : ['Date', 'Status', 'Amount($)', 'Brand'];
-  const csvData = [headers, ...data.map(item => userrole === 'customer_admin' ? [format(item.date, 'MM/dd/yyyy'), item.status, item.amount] : [format(item.date, 'MM/dd/yyyy'), item.status, item.amount, item.brand])];
-  const total = 3;
+  const [csvData,setCsvData] = useState([headers,[]]);
+  useEffect(()=>{
+    if(data.length>0){
+      setCsvData([headers, ...data.map(item => userrole === 'customer_admin' ? [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='active'?'COMPLETED':'PENDING', (item.amount/100)] : [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='active'?'COMPLETED':'PENDING', (item.amount/100), item.brand])]);
+    }
+  },[data])
   return (
     <div className="payment-history-section review-main-content p-5 rounderd mt-5">
       <div className={`d-flex ${userrole !== 'Super admin' ? 'justify-content-between' : 'justify-content-end'} align-item-center mb-5`}>
@@ -45,10 +43,10 @@ const PaymentHistory = ({user}) => {
           </thead>
           <tbody>
             {(data.length > 0) ? data.map((item, i) => <tr key={i}>
-              <td>{format(item.date, 'MM/dd/yyyy')}</td>
-              <td>{item.status}</td>
-              <td>${item.amount} </td>
-              <td className="text-end"><button className="btn btn-outline-dark rounded-pill px-4 py-1">Invoice</button></td>
+              <td>{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</td>
+              <td>{item.payment_status==='active'?'COMPLETED':'PENDING'}</td>
+              <td>${(item.amount/100)} </td>
+              <td className="text-end"><a href={item?.invoice_link} className="btn btn-outline-dark rounded-pill px-4 py-1">Invoice</a></td>
             </tr>)
               : <tr>
                 <td colSpan="100%" className="text-center py-5">
@@ -65,7 +63,10 @@ const PaymentHistory = ({user}) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    userrole: state.auth.role,
+    data: state.plan.payments,
+    total: state.plan.total
   };
 };
 export default connect(mapStateToProps)(PaymentHistory);

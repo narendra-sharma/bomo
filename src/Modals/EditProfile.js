@@ -17,13 +17,12 @@ const EditProfile = ({ show, handleClose }) => {
     e.preventDefault();
 
     if (formData.username === '') {
-      setUsernameError('Username is Required*');
+      setUsernameError('Username is Required');
     } else {
       setUsernameError(null);
     }
 
     if (formData.username) {
-        try {
             const tokendata = JSON.parse(localStorage.getItem('userDetails'));
            const usertoken = tokendata.token;
            const userDataForm = {
@@ -36,10 +35,6 @@ const EditProfile = ({ show, handleClose }) => {
           dispatch
         );
         handleClose();
-        } catch (error) {
-            console.error('Error updating profile:', error);
-        }
-      handleClose();
     }
   };
 
@@ -48,14 +43,13 @@ const EditProfile = ({ show, handleClose }) => {
     setFormData({ ...formData, [name]: value });
 
     if (name === 'username') {
-      setUsernameError(value === '' ? 'Username is Required*' : null);
+      setUsernameError(value === '' ? 'Username is Required' : null);
     }
   };
 
   useEffect(() => {
     if (show) {
       const storedUsername = JSON.parse(localStorage.getItem('userDetails'));
-      console.log(storedUsername.name);
       setFormData({
         username: storedUsername.name || '',
       });
@@ -80,7 +74,7 @@ const EditProfile = ({ show, handleClose }) => {
                 className="form-control"
                 placeholder="Username"
               />
-              {usernameError ? <p class="mt-1">{usernameError}</p> : null}
+              {usernameError ? <p class="mt-1 error fw-bold">{usernameError}</p> : null}
             </div>
           </form>
           <div className="text-end">
@@ -97,7 +91,6 @@ const EditProfile = ({ show, handleClose }) => {
   );
 };
 
-// export default EditProfile;
 const mapStateToProps = (state) => {
     return {
       token: state.auth.token,

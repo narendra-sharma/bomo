@@ -4,16 +4,18 @@ import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
-
-export const catch_errors_handle = (error, dispatch) => {
+export const logout = () => {
+  return {
+    type: LOG_OUT,
+  };
+};
+export const catch_errors_handle = (error,dispatch) => {
   if (error.response) {
-    if (error.status === 401) {
-      dispatch(set_update_user(null));
-      localStorage.removeItem("userDetails");
-      localStorage.clear();
-      window.location.reload();
-    }
     toast.error(error.response.data.message);
+    if (error.response.status === 401) {
+      localStorage.removeItem("userDetails");
+      dispatch(set_update_user(''));
+    }
   } else {
     toast.error(error.message);
   }
@@ -37,7 +39,7 @@ export const signup = async (user, role, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -46,7 +48,6 @@ export const signup = async (user, role, navigate, dispatch) => {
 export const login = async (user, role, dispatch) => {
   role = role.toLowerCase();
   role = role.replace(" ", "");
-  console.log(role);
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}auth/login`;
@@ -56,7 +57,6 @@ export const login = async (user, role, dispatch) => {
       },
     };
     const res = await axios.post(url, user, HEADERS);
-    console.log("responsessss", res.data.data.role);
     if (res.data && res.data.status) {
       if (
         res?.data?.data?.role === "Team Member" ||
@@ -79,17 +79,13 @@ export const login = async (user, role, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const logout = () => {
-  return {
-    type: LOG_OUT,
-  };
-};
+
 
 export const set_user_type = (usertype) => {
   return {
@@ -122,7 +118,7 @@ export const forgot_password_reset = async (email, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -154,7 +150,7 @@ export const reset_password = async (
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -189,11 +185,11 @@ export const update_password = async (
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
   }
 };
 
-export const profile_update = async (data, token, navigate, dispatch) => {
+export const profile_update = async (data, token, dispatch) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}profile/update`;
@@ -205,16 +201,39 @@ export const profile_update = async (data, token, navigate, dispatch) => {
     };
     const res = await axios.post(url, { name: data.name }, HEADERS);
     if (res.data && res.data.status) {
-      const userDetails = JSON.parse(localStorage.getItem("userDetails")) || {};
-      userDetails.name = data.name;
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
       toast.success("Successfully Update Profile!");
-      navigate("/setting");
+      dispatch(set_update_user({...res.data.data,token:token}));
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error, dispatch));
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+export const delete_account = async (token, navigate, dispatch) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}user/delete`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.post(url, {}, HEADERS);
+    if (res.data && res.data.status) {
+      localStorage.removeItem("userDetails");
+      localStorage.clear();
+      dispatch(set_update_user(null));
+      toast.success("Successfully deleted account!");
+      navigate("/");
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
   } finally {
     dispatch(stop_loading());
   }

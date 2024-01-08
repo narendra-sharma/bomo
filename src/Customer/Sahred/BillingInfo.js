@@ -115,7 +115,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Country</label>
-          <select defaultValue={card.country} className={'form-select ' + (card.country === '' ? ' light-gray' : '')} aria-label="Default select example" onChange={(e) => handleCardElementChange(e.target.value, 'country')}>
+          <select value={card.country} className={'form-select ' + (card.country === '' ? ' light-gray' : '')} aria-label="Default select example" onChange={(e) => handleCardElementChange(e.target.value, 'country')}>
             <option value="" disabled>Country</option>
             {(countries.length > 0) && countries.map((c) =>
               <option key={c.name} value={c.name}>{c.name}</option>

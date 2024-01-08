@@ -22,29 +22,28 @@ const navigate = useNavigate();
     e.preventDefault();
 
     if (formData.oldpassword === '') {
-      setPassworderror('Old Password is Required*');
+      setPassworderror('Old Password is Required');
     } else {
       setPassworderror(null)
     }
 
     if (formData.newpassword ==='') {
-        setNewpassworderror("New Password is Required*");
+        setNewpassworderror("New Password is Required");
     }else if (formData.newpassword.length < 5) {
-        setNewpassworderror("Password length should be more than 5*")
+        setNewpassworderror("Password length should be more than 5 characters")
       } else {
         setNewpassworderror(null);
     }
 
     if (formData.confirmpassword ==='') {
-        setconfirmPassworderror("Confirm your password*");
+        setconfirmPassworderror("Confirm Password is Required");
     } else if (formData.confirmpassword !== formData.newpassword) {
-        setconfirmPassworderror("Password doesn't match*");
+        setconfirmPassworderror("Confirm Password doesn't match");
     } else {
         setconfirmPassworderror(null);
     }
 
     if ((formData.newpassword === formData.confirmpassword) && (formData.oldpassword)) {
-      try {
            const tokendata = JSON.parse(localStorage.getItem('userDetails'));
            const usertoken = tokendata.token;
            const userDataForm = {
@@ -57,11 +56,7 @@ const navigate = useNavigate();
           navigate,
           dispatch
         );
-        console.log('Password changed!');
         handleClose();
-      } catch (error) {
-        console.error('Error updating password:', error);
-      }
     }
   };
 
@@ -69,20 +64,20 @@ const navigate = useNavigate();
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === 'oldpassword') {
-        setPassworderror(value === '' ? 'Old Password is Required*' : null);
+        setPassworderror(value === '' ? 'Old Password is Required' : null);
       } else if (name === 'newpassword') {
-        setNewpassworderror(value === '' ? 'New Password is Required*' : null);
+        setNewpassworderror(value === '' ? 'New Password is Required' : null);
         if(value === formData.oldpassword){
-          setNewpassworderror('Create Different Password*')
+          setNewpassworderror('Old and New Password are same!')
       } else if (value.length < 5) {
-          setNewpassworderror("Password length should be more than 5*");
+          setNewpassworderror("Password length should be more than 5 characters");
         } else {
           setNewpassworderror(null);
         }
       } else if (name === 'confirmpassword') {
-        setconfirmPassworderror(value === '' ? 'Confirm your password*' : null);
+        setconfirmPassworderror(value === '' ? 'Confirm Password is Required' : null);
         if (value !== formData.newpassword) {
-          setconfirmPassworderror("Password doesn't match*");
+          setconfirmPassworderror("Confirm Password doesn't match");
         } else {
           setconfirmPassworderror(null);
         }
@@ -126,21 +121,21 @@ const navigate = useNavigate();
                   <input type={showPassword ? "text" : "password"} name="oldpassword" value={formData.oldpassword} onChange={handleInputChange} className="form-control" placeholder="Old Password" />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
                  </div>{
-                 passworderror ? <p className="mt-1" style={{color: 'red'}}>{passworderror}</p> : null}
+                 passworderror ? <p className="mt-1 error fw-bold">{passworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                   <div className="form-row position-relative">
                   <input  type={showNewPassword ? "text" : "password"} name="newpassword" value={formData.newpassword} onChange={handleInputChange} className="form-control" placeholder="New Password" />
                   <i className={showNewPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleNewPasswordVisibility} ></i>
                   </div>
-                  {newpassworderror ? <p className="mt-1" style={{color: 'red'}}>{newpassworderror}</p> : null}
+                  {newpassworderror ? <p className="mt-1 error fw-bold">{newpassworderror}</p> : null}
                 </div>
                 <div className="mb-3">
                   <div className="form-row position-relative">
                   <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form-control" placeholder="Confirm Password" />
                   <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>
                   </div>
-                  {confirmpassworderror ? <p className="mt-1" style={{color: 'red'}}>{confirmpassworderror}</p> : null}
+                  {confirmpassworderror ? <p className="mt-1 error fw-bold">{confirmpassworderror}</p> : null}
                 </div>
               </form>
               <div className="text-end">

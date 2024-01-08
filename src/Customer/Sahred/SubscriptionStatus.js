@@ -20,7 +20,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
-      <span className="d-block">{isSubscribe?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):'EXPIRED'}</span>
+      <span className={`d-block  ${(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}`}>{(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}</span>
     </>
   }
   return (
@@ -31,7 +31,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
           <h6 className="position-relative ps-sm-0 ps-2 mb-0">
             <Status/>
           </h6>
-          :<p className="status position-relative ps-sm-0 ps-2">
+          :<p className="status subscription-status position-relative ps-sm-0 ps-2">
             <Status/>
           </p>}
         </div>
