@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { newRequest } from "../reduxdata/rootAction";
 
-const NewRequest = ({ brands,user }) => {
+const NewRequest = ({ brands, user }) => {
   const dispatch = useDispatch();
   const usertoken = user.token;
+  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
     requestName: "",
@@ -24,6 +25,7 @@ const NewRequest = ({ brands,user }) => {
   const [errors, setErrors] = useState({
     requestName: '',
     brandProfile: '',
+    requestype: '',
     description: '',
     fileType: '',
     size: '',
@@ -194,14 +196,20 @@ const NewRequest = ({ brands,user }) => {
   };
 
   const handlerequestType = (ele) => {
-    const formatedEle = ele.toLowerCase().replace(/\s+/g,'_');
+    const formatedEle = ele.toLowerCase().replace(/\s+/g, '_');
+
+    if (formatedEle === '') {
+      setErrors({ ...errors, requestype: 'Select your Request Type' })
+    } else {
+      setErrors({ ...errors, requestype: '' });
+    }
     setFormData({
       ...formData,
       requestype: formatedEle
     })
   };
 
-  const handleSubmit = async (e,status) => {
+  const handleSubmit = async (e, status) => {
     e.preventDefault();
 
     let valid = true;
@@ -209,19 +217,20 @@ const NewRequest = ({ brands,user }) => {
     const fieldsToValidate = [
       { name: 'requestName', validation: (value) => !value ? 'Request Name is Required' : '' },
       { name: 'brandProfile', validation: (value) => !value ? 'Brand Profile is Required' : '' },
+      { name: 'requestype', validation: (value) => !value ? 'Select your Request Type' : '' },
       { name: 'description', validation: (value) => !value ? 'Description is Required' : '' },
-      { name: 'fileType', validation: (value) => !value ? 'Please Select your filetype' : '' },
-      { name: 'size', validation: (value) => !value ? 'Please Select your size' : '' },
+      { name: 'fileType', validation: (value) => !value ? 'Select your filetype' : '' },
+      { name: 'size', validation: (value) => !value ? 'Select your size' : '' },
       { name: 'references', validation: (value) => !value ? 'Reference is Required' : '' },
       { name: 'uploadFiles', validation: (value) => !value ? 'Upload your file' : '' },
       { name: 'transparency', validation: (value) => !value ? 'Transparency is Required' : '' },
     ];
-    
+
     fieldsToValidate.forEach(({ name, validation }) => {
       const value = formData[name];
       const error = validation(value);
       setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-    
+
       if (error) {
         valid = false;
       }
@@ -230,7 +239,7 @@ const NewRequest = ({ brands,user }) => {
     if (valid && (Object.values(errors).every((error) => !error))) {
 
       let newrequest = {
-        requestName:formData.requestName,
+        requestName: formData.requestName,
         brandProfile: formData.brandProfile,
         description: formData.description,
         requestype: formData.requestype,
@@ -242,9 +251,9 @@ const NewRequest = ({ brands,user }) => {
         status: status
       };
       await newRequest(newrequest, dispatch, usertoken);
-      setFormData({  requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
-      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "",
-      });
+      setFormData({ requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
+      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
+      fileInputRef.current.value = "";
     }
   };
 
@@ -289,7 +298,7 @@ const NewRequest = ({ brands,user }) => {
                                             Target Audience
                                             Goal of the Piece
                                             Display Platform
-                                            Duration" onChange={handleInputChange}  ></textarea>
+                                            Duration" onChange={handleInputChange} value={formData.description}  ></textarea>
                         {errors.description && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.description}</p>}
                       </div>
                     </div>
@@ -318,6 +327,7 @@ const NewRequest = ({ brands,user }) => {
                         ))}
                       </div>
                     </div>
+                    {errors.requestype && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.requestype}</p>}
                   </div>
                   <div className="">
                     <div className="row">
@@ -394,15 +404,14 @@ const NewRequest = ({ brands,user }) => {
                 </div>
                 <div className="col-md-12 review-content">
                   <label className="ms-3 mb-1">Upload Files</label>
-                  <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} />
+                  <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>5 pieces </b>this month. <br />You can create 4 more pieces. Subscription renews on Nov 17</p>
 
                 </div>
                 <div className="col-md-12 mt-5 pt-5 text-center status-btn ">
-                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e,'active')}>Submit</button>
+                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'active')}>Submit</button>
                 </div>
-                <Link to="/request-status" className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark">New Request</Link>
               </div>
             </form>
           </div>
@@ -411,7 +420,7 @@ const NewRequest = ({ brands,user }) => {
         <div className="bg-gray-dark py-5">
           <div className="d-flex justify-content-center align-items-center">
             <p className="text-dark"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
-            <button type="btn" className="py-1 px-4  border bg-white ms-3 rounded-pill" onClick={(e) => handleSubmit(e,'draft')}> Save as a <span className="fw-bold">Draft</span></button>              </div>
+            <button type="btn" className="py-1 px-4  border bg-white ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button>              </div>
 
         </div>
 
