@@ -21,6 +21,7 @@ const SubscriptionSteps = (props) => {
   const [prize, setPrize] = useState(firstPrice);
   const [save, setSave] = useState(0);
   const [step, setStep] = useState(0);
+  const [total, setTotal] = useState(0);
   useEffect(()=>{
     setUser(props.user);
     const tpieces = props?.user?.subscription?.quantity || 1;
@@ -32,6 +33,7 @@ const SubscriptionSteps = (props) => {
     setPieces(tpieces);
     setPrize(price);
     setSave(saved);
+    setTotal(price);
   },[props.user])
   useEffect(()=>{
     get_plans(dispatch);
