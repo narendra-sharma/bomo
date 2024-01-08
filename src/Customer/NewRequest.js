@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { newRequest } from "../reduxdata/rootAction";
 
 const NewRequest = ({ brands, user }) => {
@@ -48,7 +47,7 @@ const NewRequest = ({ brands, user }) => {
     'loop',
     'custom'
   ];
-  const colors = ['Violet', 'green', 'pink', 'red', 'orange', 'blue', 'brown', 'cyan', 'red', 'teal', 'orange', 'black'];
+  const colors = ['purple', 'green', 'pink', 'lightgreen', 'orange', 'blue', 'Violet', 'brown', 'red', 'teal', 'orange', 'black'];
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
@@ -57,10 +56,6 @@ const NewRequest = ({ brands, user }) => {
   };
   const handleLeave = () => {
     setHoveredIndex(null);
-  };
-
-  const handleClick = (index) => {
-    setClickedIndex(index);
   };
 
   const handleInputChange = (e) => {
@@ -195,7 +190,7 @@ const NewRequest = ({ brands, user }) => {
     }
   };
 
-  const handlerequestType = (ele) => {
+  const handlerequestType = (ele,index) => {
     const formatedEle = ele.toLowerCase().replace(/\s+/g, '_');
 
     if (formatedEle === '') {
@@ -203,10 +198,11 @@ const NewRequest = ({ brands, user }) => {
     } else {
       setErrors({ ...errors, requestype: '' });
     }
-    setFormData({
-      ...formData,
-      requestype: formatedEle
-    })
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      requestype: formatedEle,
+    }));
+    setClickedIndex(index);
   };
 
   const handleSubmit = async (e, status) => {
@@ -251,7 +247,7 @@ const NewRequest = ({ brands, user }) => {
         status: status
       };
       await newRequest(newrequest, dispatch, usertoken);
-      setFormData({ requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
+      setFormData({ ...formData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" });
       setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
       fileInputRef.current.value = "";
     }
@@ -313,9 +309,8 @@ const NewRequest = ({ brands, user }) => {
                           <div key={index} className="col-xl-3 col-md-4 col-sm-6 col-12 request-list mb-2"
                             onMouseEnter={() => handleHover(index)}
                             onMouseLeave={handleLeave}
-                            onClick={() => handleClick(index)}
                           >
-                            <p className="short0ad logo" onClick={() => handlerequestType(ele)}
+                            <p className="short0ad logo" onClick={() => handlerequestType(ele,index)}
                               style={{
                                 backgroundColor: clickedIndex === index ? colors[index] : hoveredIndex === index ? colors[index] : 'transparent',
                                 color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : colors[index],

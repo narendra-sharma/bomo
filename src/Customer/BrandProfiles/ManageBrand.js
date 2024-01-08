@@ -12,7 +12,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
   const [newbrand, setNewBrand] = useState(brand);
   const [imagePreview, setImagePreview] = useState('');
   const [zipPreview, setZipPreview] = useState('');
-  const [newzipuplod,setNewzipupload] = useState('');
+  const [newzipuplod, setNewzipupload] = useState('');
   const [addzip, setAddzip] = useState('');
   const logopath = brand.logo;
   const zipfilepath = brand.brandassests;
@@ -144,9 +144,9 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       };
       if (brand?.id) {
         brandprofile.brand_id = brand?.id;
-        brandprofile.zipFile = brand.brandassests 
+        brandprofile.zipFile = brand.brandassests
       }
-      if ( newzipuplod) { 
+      if (newzipuplod) {
         brandprofile.zipFile = newzipuplod;
       }
       await addBrand(brandprofile, dispatch, usertoken);
@@ -154,7 +154,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
   };
 
   useEffect(() => {
-    if (isAddEdit) {
+    if (isAddEdit || !brand) {
       setNewBrand({
         id: null,
         logo: null,
@@ -162,10 +162,15 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
         brandassests: null,
         tags: []
       });
+      setImagePreview('');
+      setZipPreview('');
+      setAddzip('');
+
       close();
       change_add_edit(dispatch);
     }
-  }, [isAddEdit, brand, close, dispatch])
+  }, [isAddEdit, brand, close, dispatch]);
+
   return (
     <>
       <form class="add-brand-profile">
@@ -173,12 +178,13 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
         <div className="row align-items-center">
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
             <div className="">
-              {imagePreview ? <img src={imagePreview} alt="" />
-                : <img src={`${LOGO_URL}${logopath}`} alt="" />}
+              {(brand?.id && !imagePreview) ? <img src={`${LOGO_URL}${logopath}`} alt="" />
+                : (brand?.id && imagePreview) ? <img src={imagePreview} alt="Preview" /> : ''}
               <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />
-
               <button className="add-btn bg-white" onClick={handleUploadButtonClick}>
-                +
+                {(!brand?.id && imagePreview) ? (
+                  <img src={imagePreview} alt="Preview" />
+                ) : ('+')}
               </button>
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
@@ -193,7 +199,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="upload-zip">
               <label className="fw-bold">Brand Assests:</label>
-              {(brand?.id && zipPreview) ? <p>{zipPreview}</p> : <p>{zipfilepath}</p>}
+              {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
               {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
@@ -204,7 +210,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <label className="fw-bold">Tags:</label>
-            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand'}} onChange={handleTagsChange} disabled={isTagsInputDisabled ||( !brand?.id && newbrand.tags.length >= 5)} />
+            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} disabled={isTagsInputDisabled || (!brand?.id && newbrand.tags.length >= 5)} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
