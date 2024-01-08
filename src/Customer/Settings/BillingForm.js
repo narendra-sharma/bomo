@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import BillingInfo from "../Sahred/BillingInfo";
 import { edit_billing_info } from "../../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
+import { Button } from "@mui/material";
 const BillingForm = ({user}) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.address?user?.address?.name:'',
+    name:user?.address?user?.address?.name:user?.name,
     surname:user?.address?user?.address?.surname:'',
-    company:user?.address?user?.address?.company:'',
+    company:user?.address?user?.address?.company:user?.company,
     address:user?.address?user?.address?.address:'',
     city:user?.address?user?.address?.city:'',
     postalCode:user?.address?user?.address?.postalCode:'',
@@ -140,7 +141,7 @@ const BillingForm = ({user}) => {
       <div className="bg-white billing-form py-5  rounded">
         <form className="form" onSubmit={handleSubmit}>
           <div className="text-end">
-            <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
+            <button type="submit" className="border-0 bg-transparent mx-3 text-muted">Edit</button>
           </div>
           <div className="px-60">
             <div className="row">

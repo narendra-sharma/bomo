@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.address?user?.address?.name:'',
+    name:user?.address?user?.address?.name:user?.name,
     surname:user?.address?user?.address?.surname:'',
-    company:user?.address?user?.address?.company:'',
+    company:user?.address?user?.address?.company:user?.company,
     address:user?.address?user?.address?.address:'',
     city:user?.address?user?.address?.city:'',
     postalCode:user?.address?user?.address?.postalCode:'',

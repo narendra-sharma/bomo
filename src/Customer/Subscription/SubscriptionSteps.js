@@ -116,7 +116,7 @@ const SubscriptionSteps = (props) => {
             <div className="subscription-total text-center mb-2">
               <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span>${prize}</span>
             </div>
-            {user?.plan_id && <p className="text-secondary text-center">Before ${firstPrice*pieces}</p>}
+            {user?.plan_id && <p className="text-secondary text-center">Before ${total}</p>}
           </div>
           <div className="mb-5 text-center">
             <button type="button" className="btn update-btn rounded-pill px-5 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>

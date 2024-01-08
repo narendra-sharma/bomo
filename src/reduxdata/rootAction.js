@@ -29,6 +29,7 @@ import {
   get_all_members,
   add_new_member,
   delete_existing_user,
+  get_all_users
 } from "./members/memberAction";
 export {
   start_loading,
@@ -55,5 +56,6 @@ export {
   get_all_members,
   add_new_member,
   delete_existing_user,
-  delete_account
+  delete_account,
+  get_all_users
 };

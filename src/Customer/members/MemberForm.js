@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { connect, useDispatch } from "react-redux";
 import { add_new_member } from "../../reduxdata/members/memberAction";
+import { format } from 'date-fns';
+
 const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
@@ -11,9 +13,9 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     password: "",
     colour: "#111111",
   };
-  const [formData, setformData] = React.useState(initialFormData);
-  const [showPass, setshowPass] = React.useState(false);
-  const [errors, setErrors] = React.useState({
+  const [formData, setformData] = useState(initialFormData);
+  const [showPass, setshowPass] = useState(false);
+  const [errors, setErrors] = useState({
     nameError: "",
     emailError: "",
     passError: "",
@@ -34,6 +36,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
         password: "",
         colour: "#111111",
       });
+      setShowAddComp();
     }
   }, [isAddEdit, dispatch]);
 
@@ -75,14 +78,6 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     }
   };
 
-  // callback
-
-  // const getformData = () => {
-  //   sendData(formData);
-  // };
-
-  // validations
-
   // for submitting
   const handleCreate = () => {
     const output = Object.entries(formData).map(([key, value]) => ({
@@ -104,25 +99,25 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
       return false;
     }
     // api call
-    console.log(user.token);
     add_new_member(dispatch, formData, user?.token);
     // setting everything to null
   };
 
   return (
     <div>
+      <table>
       <tbody>
         <tr>
           <td>
             <div
-              className="d-flex align-items-center"
+              className="add-new-brand d-flex align-items-center"
               style={{ cursor: "pointer" }}
             >
-              <span className="plus" onClick={() => setShowAddComp(false)}>
+              <button className="add-btn" onClick={() => setShowAddComp(false)}>
                 -
-              </span>
+              </button>
               <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Name</b>
+                <b>Name<span className="text-danger">*</span></b>
                 <span className="d-block">
                   <input
                     type="text"
@@ -142,7 +137,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
           </td>
           <td>
             <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Role </b>
+              <b>Role<span className="text-danger">*</span></b>
             </p>
             <select
               name="role"
@@ -158,13 +153,13 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
           </td>
           <td>
             <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Date added</b>
-              <span className="d-block">23/07/2022</span>
+              <b>Date added<span className="text-danger">*</span></b>
+              <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
             </p>
           </td>
           <td>
             <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Email</b>
+              <b>Email<span className="text-danger">*</span></b>
             </p>
             <input
               type="email"
@@ -181,7 +176,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
           </td>
           <td>
             <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Password</b>
+              <b>Password<span className="text-danger">*</span></b>
             </p>
             <div className="position-relative">
               <input
@@ -212,7 +207,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
           <td>
             <div className="mt-2">
               <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Color</b>
+                <b>Color<span className="text-danger">*</span></b>
               </p>
               <input
                 type="color"
@@ -233,6 +228,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
           </td>
         </tr>
       </tbody>
+      </table>
     </div>
   );
 };
