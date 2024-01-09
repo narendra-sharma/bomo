@@ -7,6 +7,7 @@ import ManageBrand from "./ManageBrand";
 import CustomPagination from "../../Common/CustomPagination";
 import DeleteBrand from "../../Modals/Delete";
 import { format } from "date-fns";
+import NewRequestShared from "../Sahred/NewRequestShared";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
@@ -64,6 +65,9 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
     <>
       <div className="ml-md-auto pt-5 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper brand-profile-section px-60 py-md-2 py-lg-5">
+          <div className="mx-md-3 mx-lg-5 mb-4">
+            <NewRequestShared/>
+          </div>
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">
             <h3>Brand Profile</h3>
           </div>

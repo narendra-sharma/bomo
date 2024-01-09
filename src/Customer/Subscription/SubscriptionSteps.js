@@ -102,7 +102,7 @@ const SubscriptionSteps = (props) => {
             <div className="subscription-data mb-3 row no-gutters align-items-center w-secUpTo0">
               <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
                 <span className="increament-content position-relative">
-                <span className={`increament plus-increment ${(pieces > firstUpTo) && 'cursor-pointer'}`} onClick={() => (pieces > 1) && decrease()}>-</span>
+                <span className={`increament plus-increment ${(pieces > firstUpTo) && 'cursor-pointer'}`} onClick={() => (pieces > firstUpTo) && decrease()}>-</span>
                 <span className="subscription-count">{pieces}</span>
                 <span className="increament decrease cursor-pointer g-0" onClick={() => increase()}> +</span>
                 </span>

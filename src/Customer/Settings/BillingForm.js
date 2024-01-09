@@ -138,7 +138,7 @@ const BillingForm = ({user}) => {
       <div className="bg-white billing-form py-5  rounded">
         <form className="form" onSubmit={handleSubmit}>
           <div className="text-end">
-            <button type="submit" className="border-0 bg-transparent mx-3 text-muted">Edit</button>
+            <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
           </div>
           <div className="px-60">
             <div className="row">
