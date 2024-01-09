@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   plan: planReducer,
   brand: brandReducer,
   member: memberReducer,
-  createrequest: requestReducer,
+  requests: requestReducer,
 });
 
 export default rootReducer;

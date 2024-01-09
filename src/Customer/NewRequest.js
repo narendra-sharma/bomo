@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { newRequest } from "../reduxdata/rootAction";
+import { map } from "jquery";
 
 const NewRequest = ({ brands, user, createRequest }) => {
   const dispatch = useDispatch();
   const usertoken = user.token;
   const fileInputRef = useRef(null);
+  const fileTypes = ['Mp4', 'Mov', 'gif'];
+
 
   const [formData, setFormData] = useState({
     requestName: "",
@@ -32,6 +35,8 @@ const NewRequest = ({ brands, user, createRequest }) => {
     transparency: '',
     uploadFiles: '',
   });
+  const [isDraftSaved, setDraftSaved] = useState(false);
+  const [isstatusPending,setStatusPending] = useState(false);
 
   const selectrequest = [
     'logo',
@@ -246,18 +251,27 @@ const NewRequest = ({ brands, user, createRequest }) => {
         uploadFiles: formData.uploadFiles,
         status: status
       };
-        await newRequest(newrequest, dispatch, usertoken);
+
+      if(newrequest.status === 'draft') {
+        setDraftSaved(true);
+      }
+
+      if(newrequest.status === 'pending') {
+        setStatusPending(true);
+      }
+      await newRequest(newrequest, dispatch, usertoken);
     }
   };
 
   useEffect(() => {
-    if (createRequest) {
+    if (createRequest && (!isDraftSaved || !isstatusPending)) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
       setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
       fileInputRef.current.value = "";
       setClickedIndex(null);
     }
-  }, [createRequest, dispatch]);
+    setDraftSaved(false);
+  }, [createRequest, dispatch, isDraftSaved, isstatusPending]);
 
   return (
     <>
@@ -337,9 +351,11 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
                             <option value=""></option>
-                            <option value="Mp4">Mp4</option>
-                            <option value="Mov">Mov</option>
-                            <option value="gif">gif</option>
+                            {fileTypes.map((option,index) => (
+                              <option key={index} value={option}>
+                                {option}
+                              </option>
+                            ))} 
                           </select>
                           {errors.fileType && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.fileType}</p>}
                         </div>
@@ -411,7 +427,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
 
                 </div>
                 <div className="col-md-12 mt-5 pt-5 text-center status-btn ">
-                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'active')}>Submit</button>
+                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
             </form>
@@ -433,7 +449,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
 const mapStateToProps = (state) => {
   return {
     brands: state.brand.brands,
-    createRequest: state.createrequest.createRequest,
+    createRequest: state.requests.createRequest,
     user: state.auth.user,
   };
 };
