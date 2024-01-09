@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
+import logoImage from '../images/bomo-light-green.svg';
 const Signup = (props) => {
   const { isLoading, signup } = props;
 
@@ -136,7 +137,7 @@ const Signup = (props) => {
                 <h2>Usertype not found</h2>
               )}
               <div className="login-date fw-bold">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>
@@ -144,7 +145,7 @@ const Signup = (props) => {
                 <div className="form-group">
                   <label>
                     Name<span className="text-danger">*</span></label>
-                  <input type="text" autoComplete="off" placeholder="Your full name here. You can add members later" name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
+                  <input type="text" autoComplete="off" placeholder="Your full name here" name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
                   {nameerror && <p className="error fw-bold">{nameerror}</p>}
                 </div>
                 <div className="form-group">
