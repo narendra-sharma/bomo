@@ -64,7 +64,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Members</h3>
             </div>
-            {(member.length>0) && <div className="review-content bg-white px-4 py-2 rounded mb-3">
+            {(member.length>0) && <div className="review-content bg-white rounded mb-3">
               <div className="table-responsive">
                 {member.map((item, index) => (
                     <table
@@ -77,8 +77,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
                             <div
                               style={{
                                 backgroundColor: item?.colour,
-                                width: 50,
-                                height: 50,
+                                width: 30,
+                                height: 30,
                                 borderRadius: 25,
                               }}
                             ></div>
@@ -211,7 +211,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
+              <div className="add-new-brand add-member-count" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}

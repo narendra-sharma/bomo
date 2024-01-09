@@ -20,7 +20,7 @@ const Header = ({ user, userrole }) => {
             <button className="btn py-0 d-lg-none" id="open-sidebar">
               <span className="toggle-btn"></span>
             </button>
-            <div className="mx-md-2 mx-lg-5">
+            <div className="mx-md-5">
               <h4 className="mb-0">{user?.company} <span className="fw-bold">Workspace</span></h4>
             </div>
             <div className="d-flex text-right justify-content-between align-items-center">
