@@ -34,7 +34,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
   // getting list of the user
   useEffect(() => {
     get_all_members(dispatch, user?.token);
-  }, [deletedFlag, isAddEdit]);
+  }, []);
 
   // deleting a user
   const handleDeleteConfirm = (id) => {

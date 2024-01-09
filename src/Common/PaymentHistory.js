@@ -43,7 +43,7 @@ const PaymentHistory = ({user,userrole,data,total}) => {
           </thead>
           <tbody>
             {(data.length > 0) ? data.map((item, i) => <tr key={i}>
-              <td>{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</td>
+              <td>{format(new Date(item?.createdAt), 'dd/MM/yyyy')}</td>
               <td>{item.payment_status==='active'?'COMPLETED':'PENDING'}</td>
               <td>${(item.amount/100)} </td>
               <td className="text-end"><a href={item?.invoice_link} className="btn btn-outline-dark rounded-pill px-4 py-1">Invoice</a></td>

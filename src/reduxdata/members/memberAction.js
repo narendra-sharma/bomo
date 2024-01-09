@@ -2,7 +2,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
-import { MEMBERS_LIST } from "./mmebersTypes";
+import { MEMBERS_LIST, USERS_LIST } from "./mmebersTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
 import { catch_errors_handle } from "../rootAction";
 
@@ -107,7 +107,8 @@ export const get_all_users = async (
   user_type,
   page = 1,
   limit = 10,
-  search
+  search,
+  active
 ) => {
   dispatch(start_loading);
   const HEADERS = {
@@ -117,14 +118,14 @@ export const get_all_users = async (
   };
   try {
     const res = await axios.get(
-      `${REACT_APP_BOMO_URL}superAdmin/customer_designer_list?page=${page}&limit=${limit}`,
-      {"role": user_type,
-      "search": search},
+      `${REACT_APP_BOMO_URL}superAdmin/${(user_type==='designer' && active)?'active_designer_listing':(user_type==='designer' && !active)?'inactive_designer_listing':'customer_listing'}?page=${page}&limit=${limit}${search?'&search='+search:''}`,
       HEADERS
     );
     if (res?.data?.status) {
       // store the data
-      dispatch({ type: MEMBERS_LIST, payload: res?.data });
+      res.data.role=user_type;
+      res.data.active=active;
+      dispatch({ type: USERS_LIST, payload: res?.data });
     } else {
       toast.error(res?.data?.message);
     }

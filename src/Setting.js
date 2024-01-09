@@ -45,7 +45,7 @@ const Setting = ({ userrole }) => {
             </div>}
           </div>
           <div className="mb-5">
-            <div className="row">
+            {((userrole === 'Designer') || (userrole === 'customer_admin'))?<div className="row">
               <div className={(userrole === 'customer_admin') ? 'col-lg-4' : 'col-lg-6'}>
                 <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                   <div className="d-flex text-right justify-content-between align-items-center">
@@ -75,7 +75,24 @@ const Setting = ({ userrole }) => {
               {(userrole === 'customer_admin') && <div className="col-lg-5">
                 <SubscriptionStatus user={user} isSetting={true} />
               </div>}
+            </div>:
+            <div className="row">
+            <div className='col-lg-12'>
+              <div className="review-main-content bg-white px-4 py-4 d-flex align-items-center justify-content-between align-items-center rounded">
+                <div className="d-flex text-right justify-content-between align-items-center">
+                  <p className="mb-0 user-email mx-1 mx-lg-2">
+                    <b className="d-md-block">Email</b>
+                    <span className="d-block">{user?.email}</span>
+                  </p>
+                  <p className="mb-0 user-email mx-1 mx-lg-2">
+                    <b className="d-md-block">Password</b>
+                    <span className="d-block">*********</span>
+                  </p>
+                </div>  
+                <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
+              </div>
             </div>
+          </div>}
           </div>
           {((userrole === 'customer_admin') && user?.plan_id )? <div className="review-main-content">
             <div className="row">
@@ -90,7 +107,7 @@ const Setting = ({ userrole }) => {
             : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
           }
 
-          {((userrole !== 'customer_admin') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
+          {((userrole === 'Designer') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1" onClick={() => setShow(true)}>Delete account</button>
           </div>}
           </div>
