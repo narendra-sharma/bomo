@@ -177,7 +177,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
         <div className="row align-items-center">
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
-              <label htmlFor="Upload Logo">Logo<span className="text-danger">*</span></label>
+              <label htmlFor="Upload Logo" className="d-none">Logo<span className="text-danger">*</span></label>
             <div>
               {(brand?.id && !imagePreview) ? <img src={`${LOGO_URL}${logopath}`} alt="" />
                 : (brand?.id && imagePreview) ? <img src={imagePreview} alt="Preview" /> : ''}
@@ -193,11 +193,11 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
             <div>
               <label htmlFor="Brand Name">Brand Name<span className="text-danger">*</span></label>
-              <input type="text" className="input-name form_control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
+              <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <div className="upload-zip">
               <label htmlFor="Brand Assests">Brand Assests<span className="text-danger">*</span></label>
               {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}

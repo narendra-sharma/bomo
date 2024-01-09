@@ -561,7 +561,8 @@ table.feedback-queue tr:first-child td{
   padding: 6px 30px;
   color: #fff;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
+  letter-spacing: -0.36px;
 }
 .status-btn .pause-btn{
   background-color: #000000;
@@ -730,6 +731,7 @@ table.feedback-queue tr:first-child td{
   color: var(--dark-green);
   line-height: 20px;
   font-weight: 500;
+  letter-spacing: -0.6px;
 }
 
 .grand-total{
@@ -784,6 +786,9 @@ table.feedback-queue tr:first-child td{
 .transition-bg{
   background: rgba(249, 43, 52, 0.10);
 }
+.member-table tr td{
+  padding: 13px 10px;
+}
 .member-table tr td:nth-child(1)
 {
  width: 230px;
@@ -791,6 +796,10 @@ table.feedback-queue tr:first-child td{
 .member-table tr td:nth-child(2)
 {
  width: 175px;
+}
+.member-table tr td:nth-child(3)
+{
+ width: 135px;
 }
 .member-table tr td:nth-child(4){
  width:230px
@@ -863,10 +872,6 @@ table.feedback-queue tr:first-child td{
   /* flex: auto; */
   text-align: center;
 }
-.status-btn .btn{
- font-size: 14px;
- letter-spacing: -0.36px;
-}
 .bg-gray-dark{
   background-color: #D0D0D0;
 }
@@ -891,6 +896,8 @@ table.feedback-queue tr:first-child td{
 .member-table .formcontrol {
   border: none;
   border-bottom: solid 2px #BBBBBB;
+  width: 80%;
+  font-size: 13px;
 }
 select.form-control {
   appearance: auto;
@@ -1047,7 +1054,7 @@ ul.designer-list li{
 }
 
 .brand-table{
-  padding: 30px 25px;
+  padding: 20px 25px;
 }
 .brand-table img {
   width: 50px;
@@ -1060,24 +1067,34 @@ ul.designer-list li{
   background-color: #FAF5F5;
   padding: 30px 25px;
 }
-.add-new-brand button.add-btn{
+.add-new-brand button.add-btn , .add-brand-profile button.add-btn{
   border: solid 1px #000;
   width: 50px;
   height: 50px;
-  line-height: 47px;
+  line-height: 51px;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
+  padding: 0;
 } 
+.add-brand-profile button.add-btn{
+  background: #fff;
+  display: flex;
+  line-height: normal;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
 .brand-table table td {
   padding: 10px 3px;
+  vertical-align: middle;
 }
 .brand-table tr td:first-child{
   width: 84px;
 } 
 
 .brand-table tr td:nth-child(2){
-  width: 175px;
+  width: 157px;
 } 
 
 .brand-table tr td:nth-child(3){
@@ -1093,8 +1110,9 @@ ul.designer-list li{
   padding: 0!important;
 }
 .add-brand-profile .input-name input {
-  width: 80%;
+  width: 100%;
   padding: 0;
+  margin-bottom: 0;
 }
 .add-brand-profile .upload-zip button {
   font-size: 12px;
@@ -1105,6 +1123,9 @@ ul.designer-list li{
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
+}
+.add-brand-profile label{
+  font-weight: 700;
 }
 .create-add-btn {
   background-color: #3FCE3C;
@@ -1129,9 +1150,9 @@ ul.designer-list li{
   font-weight: 700;
   margin-left: 10px;
 }
-.modal .add-brand-profile button.add-btn{
+/* .modal .add-brand-profile button.add-btn{
   margin-left: 10px;
-}
+} */
 .modal .add-brand-profile .create-add-btn {
   width: 47%;
   margin-right: 10px;
@@ -1149,6 +1170,8 @@ ul.designer-list li{
 .add-brand-profile img {
   width: 50px;
   border-radius: 50%;
+  height: 50px;
+  object-fit: cover;
 }
 .add-brand-profile p{
  margin: 0;
@@ -1244,6 +1267,32 @@ ul.designer-list li{
 .spinner-container .loading-spinner{
   border-top: 10px solid var(--dark-green);
 }
+.add-member-count{
+  padding: 15px 20px;
+}
+.add-member-count  button.add-btn , .member-content button.add-btn{
+  width: 30px;
+  height: 30px;
+  line-height: 31px;
+  font-size: 15px;
+}
+.member-content button.add-btn{
+  border: solid 1px #000;
+  border-radius: 50%;
+}
+.brand-assets {
+  color: #84A6FD;
+}
+.member-content p , .member-table select{
+  font-size: 13px;
+  line-height: 16px;
+  margin-bottom: 0;
+  letter-spacing: -0.48px;
+}
+.member-content .member-table input:-webkit-autofill, 
+.member-content .member-tablem input:-webkit-autofill:focus {
+  font-size: 13px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -1269,6 +1318,7 @@ ul.designer-list li{
   .main-content-wraaper{
     max-width: 1140px;
   }
+  
 } 
 @media(min-width: 1400px){
   .main-content-wraaper{
@@ -1290,6 +1340,33 @@ ul.designer-list li{
   .signup-form h2, .form-heading h2 {
     font-size: 72px;
     line-height: 75px;
+  }
+}
+
+@media(max-width:1300px){
+  .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .status-btn button {
+    padding: 6px 25px;
+  }
+  .billing-form label , .billing-form input.form-control {
+    font-size: 14px;
+  }
+  .billing-form .px-60 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media(max-width:1200px){
+  .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .status-btn button {
+    padding: 6px 18px;
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 992px){
