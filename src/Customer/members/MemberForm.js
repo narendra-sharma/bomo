@@ -83,132 +83,134 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   };
 
   return (
-    <div>
-      <table>
-      <tbody>
-        <tr>
-          <td>
-            <div
-              className="add-new-brand d-flex align-items-center"
-              style={{ cursor: "pointer" }}
-            >
-              <button className="add-btn" onClick={() => setShowAddComp(false)}>
-                -
-              </button>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Name<span className="text-danger">*</span></b>
-                <span className="d-block">
-                  <input
-                    type="text"
-                    className="formcontrol"
-                    name="name"
-                    value={formData?.name}
-                    onChange={(e) => handleChange("name", e.target.value)}
-                  />
-                  {errors.nameError && (
-                    <p className="d-block" style={{ color: "red" }}>
-                      {errors.nameError}
-                    </p>
-                  )}
-                </span>
-              </p>
-            </div>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Role<span className="text-danger">*</span></b>
-            </p>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={(e) => handleChange("role", e.target.value)}
-            >
-              {roles.map((item) => (
-                <option value={item.value} key={item.id}>
-                  {item?.label}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Date added<span className="text-danger">*</span></b>
-              <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
-            </p>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Email<span className="text-danger">*</span></b>
-            </p>
-            <input
-              type="email"
-              noValidate
-              className="formcontrol"
-              name="email"
-              value={formData?.email}
-              onChange={(e) => handleChange("email", e.target.value)}
-            />
-            {errors.emailError && (
-              <p className="d-block" style={{ color: "red" }}>
-                {errors.emailError}
-              </p>
-            )}
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Password<span className="text-danger">*</span></b>
-            </p>
-            <div className="position-relative">
-              <input
-                type={showPass ? "text" : "password"}
-                className="formcontrol"
-                name="password"
-                value={formData.password}
-                onChange={(e) => handleChange("password", e.target.value)}
-              />
-
+    <div className="bg-white member-content rounded">
+      <div className="table-responsive member-table"> 
+        <table>
+        <tbody>
+          <tr>
+            <td>
               <div
-                className="eye-btn"
+                className="d-flex align-items-center"
                 style={{ cursor: "pointer" }}
-                onClick={() => setshowPass((prev) => !prev)}
               >
-                {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
+                <button className="add-btn" onClick={() => setShowAddComp(false)}>
+                  -
+                </button>
+                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                  <b>Name<span className="text-danger">*</span></b>
+                  <span className="d-block">
+                    <input
+                      type="text"
+                      className="formcontrol"
+                      name="name"
+                      value={formData?.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                    />
+                    {errors.nameError && (
+                      <p className="d-block" style={{ color: "red" }}>
+                        {errors.nameError}
+                      </p>
+                    )}
+                  </span>
+                </p>
               </div>
-              {errors.passError && (
-                <p
-                  className="d-block "
-                  style={{ color: "red", position: "relative", bottom: "20px" }}
-                >
-                  {errors.passError}
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Role<span className="text-danger">*</span></b>
+              </p>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={(e) => handleChange("role", e.target.value)}
+              >
+                {roles.map((item) => (
+                  <option value={item.value} key={item.id}>
+                    {item?.label}
+                  </option>
+                ))}
+              </select>
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Date added<span className="text-danger">*</span></b>
+                <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
+              </p>
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Email<span className="text-danger">*</span></b>
+              </p>
+              <input
+                type="email"
+                noValidate
+                className="formcontrol"
+                name="email"
+                value={formData?.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+              />
+              {errors.emailError && (
+                <p className="d-block" style={{ color: "red" }}>
+                  {errors.emailError}
                 </p>
               )}
-            </div>
-          </td>
-          <td>
-            <div className="mt-2">
+            </td>
+            <td>
               <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Color<span className="text-danger">*</span></b>
+                <b>Password<span className="text-danger">*</span></b>
               </p>
-              <input
-                type="color"
-                name="colour"
-                value={formData.colour}
-                onChange={(e) => handleChange("colour", e.target.value)}
-              />
-            </div>
-          </td>
-          <td>
-            <button
-              type="button"
-              className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
-              onClick={handleCreate}
-            >
-              create
-            </button>
-          </td>
-        </tr>
-      </tbody>
-      </table>
+              <div className="position-relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  className="formcontrol"
+                  name="password"
+                  value={formData.password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                />
+
+                <div
+                  className="eye-btn"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setshowPass((prev) => !prev)}
+                >
+                  {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
+                </div>
+                {errors.passError && (
+                  <p
+                    className="d-block "
+                    style={{ color: "red", position: "relative", bottom: "20px" }}
+                  >
+                    {errors.passError}
+                  </p>
+                )}
+              </div>
+            </td>
+            <td>
+              <div className="mt-2">
+                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                  <b>Color<span className="text-danger">*</span></b>
+                </p>
+                <input
+                  type="color"
+                  name="colour"
+                  value={formData.colour}
+                  onChange={(e) => handleChange("colour", e.target.value)}
+                />
+              </div>
+            </td>
+            <td>
+              <button
+                type="button"
+                className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
+                onClick={handleCreate}
+              >
+                create
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
     </div>
   );
 };
