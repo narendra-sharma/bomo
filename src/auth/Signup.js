@@ -144,7 +144,7 @@ const Signup = (props) => {
                 <div className="form-group">
                   <label>
                     Name<span className="text-danger">*</span></label>
-                  <input type="text" autoComplete="off" placeholder="Your full name here. You can add members later" name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
+                  <input type="text" autoComplete="off" placeholder={`Your full name here. ${userrole!=='Designer' ? 'You can add members later':''}`} name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
                   {nameerror && <p className="error fw-bold">{nameerror}</p>}
                 </div>
                 <div className="form-group">

@@ -275,14 +275,14 @@ const NewRequest = ({ brands, user, createRequest }) => {
                     <div className="col-md-5">
                       <div className="form-group">
                         <label htmlFor="Request Name">Request Name <span className="text-danger">*</span></label>
-                        <input type="text" name="requestName" value={formData.requestName} className="form-control" onChange={handleInputChange} />
+                        <input type="text" name="requestName" value={formData.requestName} className="form_control" onChange={handleInputChange} />
                         {errors.requestName && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.requestName}</p>}
                       </div>
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
                       <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
-                        <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
+                        <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form_control">
                           <option value=""></option>
                           {brands.map((brand) => (
                             <option key={brand._id} value={brand?._id}>{brand?.brandname}</option>
@@ -294,7 +294,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                     <div className="col-md-12">
                       <div className="form-group">
                       <label htmlFor="Description">Description<span className="text-danger">*</span></label>
-                        <textarea name="description" className="form-control w-100" placeholder="
+                        <textarea name="description" className="form_control w-100" placeholder="
                                             Describe the Brief for this piece. Include as much info as possible.
                                             Tone and Style
                                             Target Audience
@@ -309,7 +309,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                 <div className="col-md-5 review-content">
                   <div className="mb-4">
                   <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
-                    <div className="form-control py-3">
+                    <div className="form_control py-3">
                       <div className="row request-type">
                         {selectrequest.map((ele, index) => (
                           <div key={index} className="col-xl-3 col-md-4 col-sm-6 col-12 request-list mb-2"
@@ -335,7 +335,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                       <div className="col-md-6">
                         <div className="form-group">
                         <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
-                          <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
+                          <select name="fileType" type="select" className="form_control" onChange={handleInputChange} value={formData.fileType}>
                             <option value=""></option>
                             <option value="Mp4">Mp4</option>
                             <option value="Mov">Mov</option>
@@ -347,7 +347,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                       <div className="col-md-6">
                         <div className="form-group">
                         <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
+                          <select name="size" value={formData.size} type="select" className="form_control" onChange={handleInputChange}>
                             <option value=""></option>
                             <option value="16:9">16:9</option>
                             <option value="9:6">9:6</option>
@@ -364,7 +364,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                             <input
                               type="text"
                               name="customsize"
-                              className="form-control mt-2"
+                              className="form_control mt-2"
                               placeholder="Enter Custom Size"
                               onChange={handleCustomSizeChange}
                               value={formData.customsize}
@@ -383,14 +383,14 @@ const NewRequest = ({ brands, user, createRequest }) => {
                       <div className="col-md-6">
                         <div className="form-group">
                         <label htmlFor="References">References<span className="text-danger">*</span></label>
-                          <input type="text" name="references" value={formData.references} className="form-control" onChange={handleInputChange} />
+                          <input type="text" name="references" value={formData.references} className="form_control" onChange={handleInputChange} />
                           {errors.references && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.references}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
                         <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
-                          <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
+                          <select name="transparency" type="select" className="form_control" onChange={handleInputChange} value={formData.transparency}>
                             <option value=""></option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
@@ -405,7 +405,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                 </div>
                 <div className="col-md-12 review-content">
                 <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
-                  <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
+                  <input name="uploadFiles" type="file" className="form_control" onChange={handleInputChange} ref={fileInputRef} />
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>5 pieces </b>this month. <br />You can create 4 more pieces. Subscription renews on Nov 17</p>
 

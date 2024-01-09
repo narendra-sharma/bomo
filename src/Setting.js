@@ -91,9 +91,9 @@ const Setting = ({ userrole }) => {
             : userrole === 'customer_admin' && <SubscriptionSteps user={user} />
           }
 
-          <div className="delete-account status-btn text-end mt-3">
+          {(userrole !== 'customer_admin') || ((userrole === 'customer_admin') && user?.plan_id) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-2" onClick={() => setShow(true)}>Delete account</button>
-          </div>
+          </div>}
           </div>
         </div>
         <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
