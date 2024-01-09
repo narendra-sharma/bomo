@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
+import logoImage from '../images/bomo-light-green.svg';
 const Login = (props) => {
   const { isLoading,login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
@@ -74,7 +75,7 @@ const Login = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               <h2>Login</h2>
               <div className="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>
