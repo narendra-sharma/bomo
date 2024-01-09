@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
+import logoImage from '../images/bomo-light-green.svg';
 const Login = (props) => {
   const { isLoading,login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
@@ -74,7 +75,7 @@ const Login = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               <h2>Login</h2>
               <div className="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>
@@ -83,14 +84,14 @@ const Login = (props) => {
                 <div className="form-group">
                   <label>
                     Email<span className="text-danger">*</span></label>
-                  <input type="text" autoComplete="off" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
+                  <input type="email" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate/>
                   {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 
                 <div className="password position-relative">
                   <label>
                     Password<span className="text-danger">*</span></label>
-                  <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
+                  <input type={showPassword ? "text" : "password"} name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
                   </div>
                   {passworderror && <p className="error  fw-bold">{passworderror}</p>}

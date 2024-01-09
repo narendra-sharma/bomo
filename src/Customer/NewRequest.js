@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { newRequest } from "../reduxdata/rootAction";
 import { map } from "jquery";
+import { format } from "date-fns";
 
 const NewRequest = ({ brands, user, createRequest }) => {
   const dispatch = useDispatch();
+  const now = new Date();
+  const currentTime = format(now, 'HH:mm');
   const usertoken = user.token;
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
@@ -279,7 +282,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
           <div className="review-main-content text-center mb-4">
             <h3>New Request</h3>
-            <p className="text-secondary">Sunday 16 Dec, 2023<span className="d-block">Barcelona, 21:43</span>  </p>
+            <p className="text-secondary">{format(now, 'EEEE dd MMM, yyyy')}<span className="d-block">{user?.address?.city}, {currentTime}</span>  </p>
           </div>
           <div className="mt-5 new-request-form">
             <form>
@@ -297,7 +300,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                       <div className="form-group">
                       <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
                         <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
-                          <option value=""></option>
+                          <option value="" disabled>Select</option>
                           {brands.map((brand) => (
                             <option key={brand._id} value={brand?._id}>{brand?.brandname}</option>
                           ))}
@@ -350,7 +353,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
-                            <option value=""></option>
+                             <option value="" disabled>Select</option>
                             {fileTypes.map((option,index) => (
                               <option key={index} value={option}>
                                 {option}
@@ -364,7 +367,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
-                            <option value=""></option>
+                            <option value="" disabled>Select</option>
                             <option value="16:9">16:9</option>
                             <option value="9:6">9:6</option>
                             <option value="1:1">1:1</option>
@@ -407,7 +410,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
-                            <option value=""></option>
+                            <option value="" disabled>Select</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                             <option value="Does not apply">Does not apply</option>
@@ -423,7 +426,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                 <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
                   <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
-                  <p className="mt-3">You have created <b>5 pieces </b>this month. <br />You can create 4 more pieces. Subscription renews on Nov 17</p>
+                  <p className="mt-3">You have created <b>{user?.subscription?.quantity-user?.quantity} pieces </b>this month. <br />You can create {user?.quantity} more pieces. Subscription renews on Nov 17</p>
 
                 </div>
                 <div className="col-md-12 mt-5 pt-5 text-center status-btn ">

@@ -4,6 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import { reset_password } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
+import logoImage from '../images/bomo-light-green.svg';
 
 const Changepassword = (props) => {
 
@@ -86,7 +87,7 @@ const Changepassword = (props) => {
               
             <h1 className="font-reckless">Changed Password</h1>
               <div class="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">Bomo</Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>

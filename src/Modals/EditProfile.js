@@ -71,7 +71,7 @@ const EditProfile = ({ show, handleClose }) => {
                 name="username"
                 value={formData.username}
                 onChange={handleInputChange}
-                className="form-control"
+                className="form_control"
                 placeholder="Username"
               />
               {usernameError ? <p class="mt-1 error fw-bold">{usernameError}</p> : null}

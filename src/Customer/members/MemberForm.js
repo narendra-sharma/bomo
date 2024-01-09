@@ -4,7 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_new_member } from "../../reduxdata/members/memberAction";
 import { format } from 'date-fns';
 
-const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
+const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
     name: "",
@@ -20,10 +20,6 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     emailError: "",
     passError: "",
   });
-  const roles = [
-    { id: 1, label: "customer Admin" },
-    { id: 2, label: "Team Member" },
-  ];
 
   const dispatch = useDispatch();
 
@@ -44,30 +40,19 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   const handleChange = (name, value) => {
     switch (name) {
       case "name":
-        if (value == null || value == "") {
-          setErrors({ ...errors, nameError: "Name is required*" });
-        } else {
-          setErrors({ ...errors, nameError: null });
-        }
+        setErrors({ ...errors, nameError: (value === '' ? 'Name is Required' : null) });
         setformData({ ...formData, name: value });
         break;
       case "email":
-        if (value == null || value == "") {
-          setErrors({ ...errors, emailError: "Email is required*" });
-        } else {
-          setErrors({ ...errors, emailError: null });
-        }
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        setErrors({ ...errors, emailError: (value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null) });
         setformData({ ...formData, email: value });
         break;
       case "role":
         setformData({ ...formData, role: value });
         break;
       case "password":
-        if (value == null || value == "") {
-          setErrors({ ...errors, passError: "Password is required*" });
-        } else {
-          setErrors({ ...errors, passError: null });
-        }
+        setErrors({ ...errors, passError: (value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null) });
         setformData({ ...formData, password: value });
         break;
       case "colour":
@@ -78,29 +63,23 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     }
   };
 
-  // for submitting
   const handleCreate = () => {
     const output = Object.entries(formData).map(([key, value]) => ({
       key,
       value,
     }));
+    let err = false;
     for (let i = output.length - 1; i > -1; i--) {
       if (!output[i].value) {
+        err=true;
         handleChange(output[i].key, output[i].value);
       }
     }
-    let err = false;
-    const errOutput = Object.entries(errors).map(([key, value]) => ({
-      key,
-      value,
-    }));
-    err = errOutput.find((r) => (r.value ? true : false));
+    
     if (err) {
       return false;
     }
-    // api call
     add_new_member(dispatch, formData, user?.token);
-    // setting everything to null
   };
 
   return (
@@ -145,7 +124,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
               onChange={(e) => handleChange("role", e.target.value)}
             >
               {roles.map((item) => (
-                <option value={item.label} key={item.id}>
+                <option value={item.value} key={item.id}>
                   {item?.label}
                 </option>
               ))}
@@ -163,6 +142,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
             </p>
             <input
               type="email"
+              noValidate
               className="formcontrol"
               name="email"
               value={formData?.email}
