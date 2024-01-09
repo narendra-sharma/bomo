@@ -25,7 +25,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
           <label htmlFor="cc-number">Card Number<span className="text-danger">*</span></label>
           <CardNumberElement
             id="cc-number"
-            className="form_control"
+            className="form-control"
             options={CARD_ELEMENT_OPTIONS}
             onChange={(e) => handleCardElementChange(e, 'cardNumber')}
           />
@@ -41,7 +41,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
           <label htmlFor="expiry">Card Expiry<span className="text-danger">*</span></label>
           <CardExpiryElement
             id="expiry"
-            className="form_control"
+            className="form-control"
             options={CARD_ELEMENT_OPTIONS}
             onChange={(e) => handleCardElementChange(e, 'cardExpiry')}
           />
@@ -57,7 +57,7 @@ const CardInfo = ({ errors, handleCardElementChange }) => {
           <label htmlFor="cvc">CVV<span className="text-danger">*</span></label>
           <CardCvcElement
             id="cvc"
-            className="form_control"
+            className="form-control"
             options={CARD_ELEMENT_OPTIONS}
             onChange={(e) => handleCardElementChange(e, 'cardCvc')}
           />
