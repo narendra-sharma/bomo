@@ -193,7 +193,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
             <div>
               <label htmlFor="Brand Name">Brand Name<span className="text-danger">*</span></label>
-              <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
+              <input type="text" className="input-name form_control" name="brandname" placeholder="Name" defaultValue={brand?.id ? brand.brandname : ''} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>

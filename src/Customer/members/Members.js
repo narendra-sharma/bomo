@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import MemberForm from "./MemberForm";
 import DeleteBrand from "../../Modals/Delete";
 import CustomPagination from "../../Common/CustomPagination";
@@ -12,8 +11,8 @@ import { useDispatch, connect } from "react-redux";
 import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from 'date-fns';
 const roles = [
-  { id: 1, label: "customer_admin" },
-  { id: 2, label: "team_member" },
+  { id: 1, label: "Customer Admin", value: "customer_admin" },
+  { id: 2, label: "Team Member",value: "team_member" },
 ];
 
 const Members = ({ user, member, total, isAddEdit }) => {
@@ -104,13 +103,13 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 onChange={(e) => handleChange(e)}
                               >
                                 {roles.map((roleItem) => (
-                                  <option key={roleItem.id}>
+                                  <option key={roleItem.id} value={roleItem.value}>
                                     {roleItem.label}
                                   </option>
                                 ))}
                               </select>
                             ) : (
-                              <span className="d-block">{item?.role}</span>
+                              <span className="d-block text-capitalize">{item?.role.replace('_',' ')}</span>
                             )}
                           </p>
                         </td>
@@ -201,11 +200,6 @@ const Members = ({ user, member, total, isAddEdit }) => {
                   ))}
               </div>
             </div>}
-            {!showAddComp ? (
-              <div className="add-new-brand" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
-            ) : (
-              <MemberForm setShowAddComp={setShowAddComp} />
-            )}
             <div className="review-content add-member px-4 py-2 rounded mb-3">
               {total > 0 && (
                 <CustomPagination
@@ -216,6 +210,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
                 />
               )}
             </div>
+            {!showAddComp ? (
+              <div className="add-new-brand" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
+            ) : (
+              <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
+            )}
           </div>
         </div>
       </div>
