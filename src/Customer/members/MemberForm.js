@@ -4,7 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_new_member } from "../../reduxdata/members/memberAction";
 import { format } from 'date-fns';
 
-const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
+const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
     name: "",
@@ -20,10 +20,6 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     emailError: "",
     passError: "",
   });
-  const roles = [
-    { id: 1, label: "customer Admin" },
-    { id: 2, label: "Team Member" },
-  ];
 
   const dispatch = useDispatch();
 
@@ -128,7 +124,7 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
               onChange={(e) => handleChange("role", e.target.value)}
             >
               {roles.map((item) => (
-                <option value={item.label} key={item.id}>
+                <option value={item.value} key={item.id}>
                   {item?.label}
                 </option>
               ))}
