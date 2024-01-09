@@ -28,7 +28,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label htmlFor="cc-name">Name<span className="text-danger">*</span></label>
-          <input id="cc-name" defaultValue={card.name} type="text" name="name" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'name')} />
+          <input id="cc-name" defaultValue={card.name} type="text" name="name" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'name')} />
           {name &&
           name.type === "required" && (
             <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
@@ -40,13 +40,13 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Surname</label>
-          <input type="text" defaultValue={card.surname} name="surname" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'surname')} />
+          <input type="text" defaultValue={card.surname} name="surname" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'surname')} />
         </div>
       </div>
       <div className="col-md-6">
         <div className="form-group">
           <label>Company <span className="text-danger">*</span></label>
-          <input type="text" defaultValue={card.company} name="company" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'company')} />
+          <input type="text" defaultValue={card.company} name="company" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'company')} />
           {company &&
             company.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
@@ -67,7 +67,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
                 <input
                   defaultValue={card?.address}
                   type="text"
-                  className="form_control"
+                  className="form-control"
                   id="address"
                   onChange={(e) => handleCardElementChange(e.target.value, 'address')}
                 />
@@ -91,7 +91,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>City<span className="text-danger">*</span></label>
-          <input type="text" defaultValue={card.city} name="city" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'city')} />
+          <input type="text" defaultValue={card.city} name="city" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'city')} />
           {city &&
             city.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
@@ -103,7 +103,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Postal Code<span className="text-danger">*</span></label>
-          <input type="text" defaultValue={card.postalCode} name="postalCode" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
+          <input type="text" defaultValue={card.postalCode} name="postalCode" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'postalCode')} />
           {postalCode &&
             postalCode.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
@@ -132,7 +132,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>VAT Number<span className="text-danger">*</span></label>
-          <input type="text" defaultValue={card.vatNumber} name="vatNumber" className="form_control" onChange={(e) => handleCardElementChange(e.target.value, 'vatNumber')} />
+          <input type="text" defaultValue={card.vatNumber} name="vatNumber" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'vatNumber')} />
           {vatNumber &&
             vatNumber.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">

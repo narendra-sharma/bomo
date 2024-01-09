@@ -19,7 +19,7 @@ const SearchInput = ({placeholder,handleSearch}) => {
       <input
         type="text"
         onChange={(e) => optimizedFn(e.target.value)}
-        className="form_control"
+        className="form-control"
         placeholder={placeholder}
       />
       <span className="input-group-text">

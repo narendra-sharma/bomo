@@ -83,7 +83,7 @@ const Login = (props) => {
                 <div className="form-group">
                   <label>
                     Email<span className="text-danger">*</span></label>
-                  <input type="text" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} />
+                  <input type="email" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate/>
                   {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 

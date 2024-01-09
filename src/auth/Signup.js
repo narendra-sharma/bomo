@@ -144,27 +144,27 @@ const Signup = (props) => {
                 <div className="form-group">
                   <label>
                     Name<span className="text-danger">*</span></label>
-                  <input type="text" autoComplete="off" placeholder={`Your full name here. ${userrole!=='Designer' ? 'You can add members later':''}`} name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
+                  <input type="text" placeholder={`Your full name here. ${userrole!=='Designer' ? 'You can add members later':''}`} name="name" value={formData.name} onChange={handleInputChange} className="form_control" />
                   {nameerror && <p className="error fw-bold">{nameerror}</p>}
                 </div>
                 <div className="form-group">
                   <label>
                     Email<span className="text-danger">*</span></label>
-                  <input type="text" autoComplete="off" name="email" placeholder={userrole === 'Designer' ? "Your working email here" : "Your company email here"} value={formData.email} onChange={handleInputChange} className="form_control" />
+                  <input type="email" noValidate name="email" placeholder={userrole === 'Designer' ? "Your working email here" : "Your company email here"} value={formData.email} onChange={handleInputChange} className="form_control" />
                   {emailerror && <p className="error fw-bold">{emailerror}</p> }
                 </div>
                 {userrole === 'Designer' ? (
                   <div className="form-group">
                     <label>
                       Reel<span className="text-danger">*</span></label>
-                    <input type="text" autoComplete="off" name="reel" placeholder="Time to shine. Show us your best work" value={formData.reel} onChange={handleInputChange} className="form_control" />
+                    <input type="text"  name="reel" placeholder="Time to shine. Show us your best work" value={formData.reel} onChange={handleInputChange} className="form_control" />
                  {reelerror && <p className="error fw-bold">{reelerror}</p>}
                   </div>
                 ) : userrole === 'customer_admin' ? (
                   <div className="form-group">
                     <label>
                       Company<span className="text-danger">*</span></label>
-                    <input type="text" autoComplete="off" name="company" placeholder="Your company name here" value={formData.company} onChange={handleInputChange} className="form_control" />
+                    <input type="text"  name="company" placeholder="Your company name here" value={formData.company} onChange={handleInputChange} className="form_control" />
                     {companyerror && <p className="error fw-bold">{companyerror}</p>}
                   </div>
                 ) : (
@@ -174,7 +174,7 @@ const Signup = (props) => {
                   <div className=" position-relative password">
                   <label>
                     Password<span className="text-danger">*</span></label>
-                    <input type={showPassword ? "text" : "password"} autoComplete="off" name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
+                    <input type={showPassword ? "text" : "password"}  name="password" placeholder="Choose your own password" value={formData.password} onChange={handleInputChange} className="form_control" />
                     <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
                    </div>
                    {passworderror && <p className="error fw-bold">{passworderror}</p>}

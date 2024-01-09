@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import BillingInfo from "../Sahred/BillingInfo";
 import { edit_billing_info } from "../../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
-import { Button } from "@mui/material";
 const BillingForm = ({user}) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
@@ -119,19 +118,17 @@ const BillingForm = ({user}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const output = Object.entries(card).map(([key, value]) => ({ key, value }));
+    let err=false;
     for (let i = output.length - 1; i > -1; i--) {
-      if (!output[i].value && (output.key!=='surname')) {
-        let err=true;
+      if (!output[i].value && (output[i].key!=='surname')) {
+        err=true;
         handleCardElementChange(output[i].value, output[i].key);
       }
     };
-    let err=false;
-    const errOutput = Object.entries(errors).map(([key, value]) => ({key,value}));
-    err=errOutput.find(r=>r.value?true:false);
     if(err){
       return false;
     }
-    edit_billing_info(user?.token,user?.subscription?._id,card,dispatch);
+    edit_billing_info(user?.token,user?.address?._id,card,dispatch);
   };
   return (
     <>
