@@ -4,11 +4,15 @@ import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import dropdownImage from '../images/dropdown-img.png';
 import { connect, useDispatch } from "react-redux";
 import { getrequestlist } from "../reduxdata/rootAction";
+import CustomPagination from "../Common/CustomPagination";
 
 const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
   const dispatch = useDispatch();
   const usertoken = user.token;
   const [isHovered, setIsHovered] = useState(null);
+  const total = draftrequests.length;
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(15);
 
   const handleMouseOver = (requestid) => {
     setIsHovered(requestid);
@@ -34,8 +38,8 @@ const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
   };
 
   useEffect(() => {
-    getrequestlist(dispatch, usertoken);
-  }, [dispatch, getrequestlist, usertoken]);
+    getrequestlist(dispatch, usertoken, page, limit);
+  }, [dispatch, getrequestlist, usertoken, page, limit]);
 
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -147,10 +151,10 @@ const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
             <h3>Draft</h3>
           </div>
           <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
-            <div className="bg-gray-light draft-table table-responsive">
-              <table className="table mb-0">
+            <div className={draftrequests.length > 0 ? 'bg-gray-light draft-table table-responsive' : ''}>
+              <table className={draftrequests.length > 0 ? 'table mb-0' : ''}>
                 <tbody>
-                  {draftrequests.map((request) => (
+                  {(draftrequests.length > 0) ? draftrequests.map((request) => (
                     <tr key={request._id}>
                       <td>
                         <p className="short0ad text-center"
@@ -170,10 +174,17 @@ const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
                       <td className="text-center"><p>DIOR</p></td>
                       <td className="text-center"><p><Link className="text-decoration-none">continue editing</Link></p></td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan="100%" className="text-center py-1 my-1">
+                        <p className="py-1 my-1 text-muted">Draft Request is empty!</p>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
+            {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => { setPage(newPage); setLimit(newLimit + 1); }} />}
           </div>
         </div>
       </div>
