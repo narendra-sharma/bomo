@@ -10,8 +10,8 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
   const usertoken = user.token;
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
-  const sizeUpTo = ['16:9','9:6','1:1','4:5'];
-  const transparencies = ['Yes','No','Does not apply'];
+  const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
+  const transparencies = ['Yes', 'No', 'Does not apply'];
 
   const [formData, setFormData] = useState({
     requestName: "",
@@ -39,7 +39,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
     uploadFiles: '',
   });
   const [isDraftSaved, setDraftSaved] = useState(false);
-  const [isstatusPending,setStatusPending] = useState(false);
+  const [isstatusPending, setStatusPending] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
   const handleHover = (index) => {
@@ -181,7 +181,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
     }
   };
 
-  const handlerequestType = (ele,index) => {
+  const handlerequestType = (ele, index) => {
     const formatedEle = ele.toLowerCase().replace(/\s+/g, '_');
 
     if (formatedEle === '') {
@@ -238,11 +238,11 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
         status: status
       };
 
-      if(newrequest.status === 'draft') {
+      if (newrequest.status === 'draft') {
         setDraftSaved(true);
       }
 
-      if(newrequest.status === 'pending') {
+      if (newrequest.status === 'pending') {
         setStatusPending(true);
       }
       await newRequest(newrequest, dispatch, usertoken);
@@ -281,17 +281,17 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
-                      <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
+                        <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
                         <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
                           <option value="" disabled>Select</option>
-                          {brands.map((brand) => ( <option key={brand._id} value={brand?._id}>{brand?.brandname}</option> ))}
+                          {brands.map((brand) => (<option key={brand._id} value={brand?._id}>{brand?.brandname}</option>))}
                         </select>
                         {errors.brandProfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandProfile}</p>}
                       </div>
                     </div>
                     <div className="col-md-12">
                       <div className="form-group">
-                      <label htmlFor="Description">Description<span className="text-danger">*</span></label>
+                        <label htmlFor="Description">Description<span className="text-danger">*</span></label>
                         <textarea name="description" className="form-control w-100" placeholder="
                                             Describe the Brief for this piece. Include as much info as possible.
                                             Tone and Style
@@ -306,7 +306,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                 </div>
                 <div className="col-md-5 review-content">
                   <div className="mb-4">
-                  <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
+                    <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
                     <div className="form-control py-3">
                       <div className="row request-type">
                         {requestTypes.map((ele, index) => (
@@ -314,7 +314,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                             onMouseEnter={() => handleHover(index)}
                             onMouseLeave={handleLeave}
                           >
-                            <p className="short0ad logo" onClick={() => handlerequestType(ele.type,index)}
+                            <p className="short0ad logo" onClick={() => handlerequestType(ele.type, index)}
                               style={{
                                 backgroundColor: clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
                                 color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : ele.color,
@@ -332,21 +332,21 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                        <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
+                          <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
                             <option value="" disabled></option>
-                            {fileTypes.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
+                            {fileTypes.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.fileType && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.fileType}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                        <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
+                          <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
                             <option value="" disabled></option>
-                           {sizeUpTo.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
-                           {formData.customsizes.map((customSize, index) => ( <option key={index} value={customSize}>{customSize}</option> ))}
+                            {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
+                            {formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
                             <option value="Custom">Custom</option>
                           </select>
                           {(formData.size === 'Custom') && <>
@@ -358,17 +358,17 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                        <label htmlFor="References">References<span className="text-danger">*</span></label>
+                          <label htmlFor="References">References<span className="text-danger">*</span></label>
                           <input type="text" name="references" value={formData.references} className="form-control" onChange={handleInputChange} />
                           {errors.references && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.references}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                        <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
+                          <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
                             <option value="" disabled></option>
-                            {transparencies.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
+                            {transparencies.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.transparency && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.transparency}</p>}
                         </div>
@@ -378,10 +378,10 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                   </div>
                 </div>
                 <div className="col-md-12 review-content">
-                <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
+                  <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
                   <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
-                  <p className="mt-3">You have created <b>{user?.subscription?.quantity-user?.quantity} pieces </b>this month. <br />You can create {user?.quantity} more pieces. Subscription renews on Nov 17</p>
+                  <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. <br />You can create {user?.quantity} more pieces. Subscription renews on Nov 17</p>
 
                 </div>
                 <div className="col-md-12 mt-5 pt-5 text-center status-btn ">

@@ -70,12 +70,12 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">
             <h3>Brand Profile</h3>
           </div>
-          {(brands.length > 0) ? brands.map((brand) => (
+          {(brands.length > 0) && brands.map((brand) => (
             <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'':'bg-white'}`}>
               <table className="table table-borderless mb-0">
                 <tbody>
                   <tr>
-                    <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
+                    <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found'/></td>
                     <td><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
                     <td><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
                     <td>
@@ -83,7 +83,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
                     <td>
-                      {edit?.id===brand?._id ?<>
+                      {edit?.id===brand?._id ? <>
                         <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
                           Update
                         </button>
@@ -104,9 +104,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                 </tbody>
               </table>
             </div>
-          )) : <div className="text-center py-1">
-          <p className="py-1 my-1 text-muted">No Brand is Created!</p>
-        </div>}
+          ))}
           {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
             setPage(newPage);
             setLimit(newLimit + 1);
