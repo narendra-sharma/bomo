@@ -1,8 +1,7 @@
 import { GET_REQUEST_LIST } from "./requestTypes";
-
-
+import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
 const initialState = {
-  draftrequests: [],
+  allRequest: [],
   totaldrafts:0,
   requestTypes:[
     {type: 'logo', color: 'purple'},
@@ -27,6 +26,11 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         draftrequests: action.payload.data,
         totaldrafts: action.payload.request_length,
+      };
+    case GET_ADMIN_REQUEST_LIST:
+      return {
+        ...state,
+        allRequest: action.payload.data,
       };
     default:
       return state;
