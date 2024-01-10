@@ -235,7 +235,9 @@ font-weight: 500;
   letter-spacing: -0.48px
 }
 .designer-signup-form .bomo-login-logo , .designer-signup-form .login-date {
-  color: var(--mid-green);
+  color: var(--dark-green);
+  font-weight: 700;
+  letter-spacing: -0.48px
 }
 .signup-form .bomo-login-logo{
   color: #CDFFB5;
@@ -933,6 +935,10 @@ select.form-control {
 .signup-form input:-webkit-autofill, .signup-form input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #284719 inset;
   -webkit-text-fill-color: var(--light-green);
+}
+.designer-signup-form input:-webkit-autofill, .designer-signup-form input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #CDFFB5 inset;
+  -webkit-text-fill-color: var(--dark-green);
 }
 
 #MenuToggle:checked~.sidebar {

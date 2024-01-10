@@ -68,7 +68,8 @@ const Forgotpassword = (props) => {
               <form onSubmit={(e) => handleSubmit(e, formData)} className="form-inner">
                 <div className="mb-3">
                 <label>
-                    Enter Email Address:</label>
+                    Enter Email Address<span className="text-danger">*</span></label>
+                    
                   <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="form_control" placeholder="Email address" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   {emailerror ? <p className="error fw-bold">{emailerror}</p> : null}
 
