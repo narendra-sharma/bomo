@@ -70,9 +70,10 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">
             <h3>Brand Profile</h3>
           </div>
-          {(brands.length > 0) ? brands.map((brand) => (
-            <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'':'bg-white'}`}>
-              <table className="table table-borderless mb-0">
+          {brands.map((brand) => (
+            <div className="table-responsive brand-table bg-white rounded">
+              <table className="table table-borderless mb-0" key={brand?._id}>
+
                 <tbody>
                   <tr>
                     <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
@@ -104,9 +105,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                 </tbody>
               </table>
             </div>
-          )) : <div className="text-center py-1">
-            <p className="py-1 my-1 text-muted">No Brand is Created!</p>
-          </div>}
+          ))}
           {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
             setPage(newPage);
             setLimit(newLimit + 1);

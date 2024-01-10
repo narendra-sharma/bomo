@@ -2,7 +2,22 @@ import { GET_REQUEST_LIST } from "./requestTypes";
 
 
 const initialState = {
-  draftrequests: []
+  draftrequests: [],
+  totaldrafts:0,
+  requestTypes:[
+    {type: 'logo', color: 'purple'},
+    {type: 'short ad', color: 'green'},
+    {type: 'web animation', color: 'pink'},
+    {type: 'icon', color: 'lightgreen'},
+    {type: 'typography', color: 'orange'},
+    {type: 'brand element', color: 'blue'},
+    {type: 'intro', color: 'Violet'},
+    {type: 'outro', color: 'brown'},
+    {type: 'transition', color: 'red'},
+    {type: 'UI animation', color: 'teal'},
+    {type: 'loop', color: 'orange'},
+    {type: 'custom', color: 'black'}
+  ]
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -11,6 +26,7 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         draftrequests: action.payload.data,
+        totaldrafts: action.payload.request_length,
       };
     default:
       return state;
