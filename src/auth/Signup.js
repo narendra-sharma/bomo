@@ -183,7 +183,7 @@ const Signup = (props) => {
                 </div>
                 {userrole === 'Designer' ? (
                   <>
-                    <button type="submit" className="submit-btn signup-btn">Create my Account</button>
+                    <button type="submit" className="submit-btn signup-btn">Create my account</button>
                   </>
                 ) : userrole === 'customer_admin' ? (
                   <>
@@ -191,7 +191,7 @@ const Signup = (props) => {
                     <p>You can activate your <span className="color-white">subscription</span> and choose your monthly plan later in the dashboard.</p>
                     <br />
                     <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
-                      {isLoading ? 'Signing up...' : 'Signup'}
+                      {isLoading ? 'Signing up...' : 'Sign up'}
                     </button>
                   </>
                 ) : (
@@ -203,7 +203,7 @@ const Signup = (props) => {
               
             </div>
           </div>
-          <p class="already-register">Already Registered? <Link to='/login' className="login-redirect">Login</Link></p>
+          <p class="already-register">Already registered? <Link to='/login' className="login-redirect">login</Link></p>
         </div>
       </div>
     </>

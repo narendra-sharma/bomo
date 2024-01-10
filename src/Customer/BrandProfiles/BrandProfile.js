@@ -105,8 +105,8 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
               </table>
             </div>
           )) : <div className="text-center py-1">
-            <p className="py-1 my-1 text-muted">No Brand is Created!</p>
-          </div>}
+          <p className="py-1 my-1 text-muted">No Brand is Created!</p>
+        </div>}
           {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
             setPage(newPage);
             setLimit(newLimit + 1);
