@@ -83,6 +83,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
                     <td  className="col-lg-3 col-12 mb-3 mb-md-0">
+                    <span className="update-buttons">
                       {edit?.id===brand?._id ?<>
                         <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
                           Update
@@ -92,14 +93,16 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
                         Preview {brand?.brandname.split(' ')[0]}
                       </button>}
-                    </td>
-                    <td>
+                      </span>
+                      <span className="edit">
+                    
                       {edit?.id===brand?._id ?
                         <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
                         :
                         <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
                       }
-                    </td>
+                      </span>
+                     </td>
                   </tr>
                 </tbody>
               </table>
