@@ -5,6 +5,7 @@ import { forgot_password_reset } from "../reduxdata/User/userActions";
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import logoImage from '../images/bomo-light-green.svg';
+import darkLogo from '../images/bomo-dark-green.svg';
 
 const Forgotpassword = (props) => {
   const { isLoading,forgot_password_reset } = props;
@@ -60,7 +61,7 @@ const Forgotpassword = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               <h1 className="font-reckless">Forgot Password</h1>
               <div class="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={userrole === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>

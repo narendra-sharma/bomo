@@ -175,7 +175,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       <h2>Payment</h2>
       <form className="form" onSubmit={handleSubmit}>
       <div className="pt-4 pb-4 do-payment">
-        <div className="row align-items-center ms-lg-auto px-lg-5 px-2">
+        <div className="row align-items-center ms-lg-auto px-md-4 px-lg-4 px-2">
           <div className="col-md-7">
               <div className="row">
                 <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
@@ -185,13 +185,13 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
           <div className="col-md-1"></div>
           <div className="col-md-4">
             <div className="d-flex align-items-center justify-content-between">
-              <p className="mb-0">Subscription of {pieces} pieces per month</p><span className="subscription-total">${prize + save}</span>
+              <p className="mb-0">Subscription of {pieces} pieces per month</p><span className="subscription-total">$ {prize + save}</span>
             </div>
             {(save > 0) && <div className="d-flex align-items-center justify-content-between mt-2">
-              <p className="mb-0">{((save/(prize+save))*100).toFixed(0)}% saving vs the basic plan</p><span className="light-green"><del>${save}</del></span>
+              <p className="mb-0">{((save/(prize+save))*100).toFixed(0)}% saving vs the basic plan</p><span className="light-green"><del>$ {save}</del></span>
             </div>}
             <div className="d-flex align-items-center justify-content-between mt-5">
-              <p className="mb-0">Total</p><span className="subscription-total grand-total">${prize}</span>
+              <p className="mb-0">Total</p><span className="subscription-total grand-total">$ {prize}</span>
             </div>
             <div className="hr-line mt-3 mb-4"></div>
             <div className="d-flex align-items-center justify-content-end">

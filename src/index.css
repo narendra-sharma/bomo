@@ -623,6 +623,7 @@ table.feedback-queue tr:first-child td{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  color: #56873F;
 }
 .increament-content{
   width:200px
@@ -638,12 +639,13 @@ table.feedback-queue tr:first-child td{
   font-weight: 500;
   color: var(--dark-green);
   font-family: var(--secondary-font);
+  letter-spacing: -0.92px;
 }
 .subscription-data .savings.saving-bg-color{
   background-color: var(--light-green);
   color: var(--dark-green);
   font-weight: 500;
-  border: none;
+  border-color: transparent;
 }
 .subscription-data .savings.saving-bg-color u{
   font-weight: 900;
@@ -1110,7 +1112,7 @@ ul.designer-list li{
   font-size: 14px;
   line-height: 20px;
 }
-.brand-table tr td:first-child{
+/* .brand-table tr td:first-child{
   width: 84px;
 } 
 
@@ -1118,11 +1120,11 @@ ul.designer-list li{
   width: 157px;
 } 
 .brand-table tr td:nth-child(3){
-  width: 265px;
+  width: 259px;
 } 
 .brand-table tr td:nth-child(4) {
   width: 250px;
-}
+} */
 .add-brand-profile{
   border: solid 1px #000;
   padding: 30px 25px;
@@ -1174,8 +1176,10 @@ ul.designer-list li{
   padding: 5px 35px;
   border-radius: 30px;
   font-weight: 700;
-  margin-left: 10px;
   letter-spacing: -0.48px
+}
+.brand-table button.new-request{
+  background: #E1E1E1;
 }
 /* .modal .add-brand-profile button.add-btn{
   margin-left: 10px;
