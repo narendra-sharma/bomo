@@ -10,7 +10,7 @@ const PaymentSuccess = (props) => {
       <Modal.Body>
         <div className="px-4 py-4">
           <div className="d-flex align-items-center justify-content-end mb-3">
-            <img src={pay_success} />
+            <img src={pay_success} onClick={()=>handleClose()}/>
           </div>
           <h5 className="mb-0 fw-bold text-dark">{user?.name},</h5>
           <h6 className="mb-5 text-dark">you have succesfully subscribed for {user?.subscription?.quantity} pieces.</h6>

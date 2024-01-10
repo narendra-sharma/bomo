@@ -3,6 +3,7 @@ import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
 const initialState = {
   allRequest: [],
   totaldrafts:0,
+  draftrequests:[],
   requestTypes:[
     {type: 'logo', color: 'purple'},
     {type: 'short ad', color: 'green'},
