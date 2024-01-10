@@ -98,7 +98,7 @@ const SubscriptionSteps = (props) => {
               </>
             }
           </p>
-          <div className="p-4 row px-2 px-md-4">
+          <div className="py-3 row px-2 px-md-4">
             <div className="subscription-data mb-3 row no-gutters align-items-center w-secUpTo0">
               <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
                 <span className="increament-content position-relative">
@@ -116,8 +116,8 @@ const SubscriptionSteps = (props) => {
               </div>
             </div>
 
-            <div className="setting-subscription-total text-center mb-2">
-              <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span className="light-green">${prize}</span>
+            <div className="setting-subscription-total text-center mb-1">
+              <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span className="light-green">$ {prize}</span>
             </div>
             {user?.plan_id && <p className="text-secondary text-center">Before ${total}</p>}
           </div>

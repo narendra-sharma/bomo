@@ -70,19 +70,20 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">
             <h3>Brand Profile</h3>
           </div>
-          {(brands.length > 0) ? brands.map((brand) => (
+          {(brands.length > 0) && brands.map((brand) => (
             <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'':'bg-white'}`}>
               <table className="table table-borderless mb-0">
                 <tbody>
                   <tr>
-                    <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
-                    <td><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
-                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
-                    <td>
+                    <td className="col-lg-1 col-12 mb-3 mb-md-0"><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
+                    <td className="col-lg-2 col-12 mb-3 mb-md-0"><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
+                    <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0"><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
+                    <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0">
                       <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
-                    <td>
+                    <td  className="col-lg-3 col-12 mb-3 mb-md-0">
+                    <span className="update-buttons">
                       {edit?.id===brand?._id ?<>
                         <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
                           Update
@@ -92,21 +93,21 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
                         Preview {brand?.brandname.split(' ')[0]}
                       </button>}
-                    </td>
-                    <td>
+                      </span>
+                      <span className="edit">
+                    
                       {edit?.id===brand?._id ?
                         <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
                         :
                         <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
                       }
-                    </td>
+                      </span>
+                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          )) : <div className="text-center py-1">
-            <p className="py-1 my-1 text-muted">No Brand is Created!</p>
-          </div>}
+          ))}
           {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
             setPage(newPage);
             setLimit(newLimit + 1);

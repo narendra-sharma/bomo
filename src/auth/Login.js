@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { login } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
 import logoImage from '../images/bomo-light-green.svg';
+import darkLogo from '../images/bomo-dark-green.svg';
 const Login = (props) => {
   const { isLoading,login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
@@ -48,10 +49,10 @@ const Login = (props) => {
     switch (name) {
       case 'email':
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setEmailerror(value === '' ? 'Email is Required*' : !emailRegex.test(value) ? 'Email is Invalid' : null);
+        setEmailerror(value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null);
         break;
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required*' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
+        setPassworderror(value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
         break;
       default:
         break;
@@ -75,7 +76,10 @@ const Login = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               <h2>Login</h2>
               <div className="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">
+              
+                <img src={checkusertype === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" />
+              </Link></div>
               </div>
             </div>
             <div>
@@ -84,7 +88,7 @@ const Login = (props) => {
                 <div className="form-group">
                   <label>
                     Email<span className="text-danger">*</span></label>
-                  <input type="email" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate/>
+                  <input type="text" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate/>
                   {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 
@@ -113,14 +117,12 @@ const Login = (props) => {
               {checkusertype === 'SuperAdmin' ? (
                 <p></p>
               ) : checkusertype === 'Designer' ? (
-                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
+                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
               ) : checkusertype === 'customer_admin' ? (
-                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Signup</Link></p>
+                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
               ) : (
                 <p></p>
               )}
-            
-       
         </div>
       </div>
     </>

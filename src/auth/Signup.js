@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
 import logoImage from '../images/bomo-light-green.svg';
+import darkLogo from '../images/bomo-dark-green.svg';
 const Signup = (props) => {
   const { isLoading, signup } = props;
 
@@ -137,7 +138,7 @@ const Signup = (props) => {
                 <h2>Usertype not found</h2>
               )}
               <div className="login-date fw-bold">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={userrole === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>
@@ -182,7 +183,7 @@ const Signup = (props) => {
                 </div>
                 {userrole === 'Designer' ? (
                   <>
-                    <button type="submit" className="submit-btn signup-btn">Create my Account</button>
+                    <button type="submit" className="submit-btn signup-btn">Create my account</button>
                   </>
                 ) : userrole === 'customer_admin' ? (
                   <>
@@ -190,7 +191,7 @@ const Signup = (props) => {
                     <p>You can activate your <span className="color-white">subscription</span> and choose your monthly plan later in the dashboard.</p>
                     <br />
                     <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
-                      {isLoading ? 'Signing up...' : 'Signup'}
+                      {isLoading ? 'Signing up...' : 'Sign up'}
                     </button>
                   </>
                 ) : (
@@ -202,7 +203,7 @@ const Signup = (props) => {
               
             </div>
           </div>
-          <p class="already-register">Already Registered? <Link to='/login' className="login-redirect">Login</Link></p>
+          <p class="already-register">Already registered? <Link to='/login' className="login-redirect">login</Link></p>
         </div>
       </div>
     </>

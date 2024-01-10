@@ -209,7 +209,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} disabled={isTagsInputDisabled || (!brand?.id && newbrand.tags.length >= 5)} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
