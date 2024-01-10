@@ -75,14 +75,14 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
               <table className="table table-borderless mb-0">
                 <tbody>
                   <tr>
-                    <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
-                    <td><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
-                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
-                    <td>
+                    <td className="col-lg-1 col-12 mb-3 mb-md-0"><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
+                    <td className="col-lg-2 col-12 mb-3 mb-md-0"><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
+                    <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0"><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
+                    <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0">
                       <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
-                    <td>
+                    <td  className="col-lg-3 col-12 mb-3 mb-md-0">
                       {edit?.id===brand?._id ?<>
                         <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
                           Update

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../reduxdata/rootAction";
 import { format } from 'date-fns';
 import logoImage from '../images/bomo-light-green.svg';
+import darkLogo from '../images/bomo-dark-green.svg';
 const Signup = (props) => {
   const { isLoading, signup } = props;
 
@@ -137,7 +138,7 @@ const Signup = (props) => {
                 <h2>Usertype not found</h2>
               )}
               <div className="login-date fw-bold">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={logoImage} alt="Bomo logo" /></Link></div>
+              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={userrole === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" /></Link></div>
               </div>
             </div>
             <div>
