@@ -20,9 +20,10 @@ const DraftRequests = ({ draftrequests, getrequestlist, user, total, requestType
   };
 
   const findColorByType = (type) => {
-    const foundtype = requestTypes.find((t) => t.type === type);
+    const lowerCaseType = type.toLowerCase();
+    const foundtype = requestTypes.find((t) => t.type.toLowerCase() === lowerCaseType);
     return foundtype ? foundtype.color : '';
-  }
+  };
 
   useEffect(() => {
     getrequestlist(dispatch, usertoken, page, limit);
