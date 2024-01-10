@@ -82,7 +82,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 borderRadius: 25,
                               }}
                             ></div>
-                            <p className="mb-0 user-email  ms-1 ms-lg-2">
+                            <p className="mb-0 user-email  ms-1">
                               <b>Name</b>
                               <p
                                 className="d-block"
@@ -94,7 +94,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           </div>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             <b>Role</b>
                             {updateRolepopUps[index] ? (
                               <select
@@ -127,20 +127,20 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             <b>Email</b>
                             <span className="d-block">{item?.email}</span>
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             <b>Password</b>
                             <span className="d-block">*******</span>
                           </p>
                         </td>
 
                         <td className="text-end">
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             {!updateRolepopUps[index] ? (
                               <button
                                 className=" text-decoration-none text-dark cursor-pointer"
@@ -165,7 +165,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </td>
 
                         <td className="text-end">
-                          <p className="mb-0 user-email  ms-1 ms-lg-2">
+                          <p className="mb-0 user-email  ms-1">
                             <button
                               className=" text-decoration-none text-dark"
                               onClick={() => {
