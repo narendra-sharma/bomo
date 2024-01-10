@@ -110,7 +110,7 @@ const SubscriptionSteps = (props) => {
               <div className="col-md-4 g-0">
                 {!user?.plan_id && <>
                   <div className="savings saving-bg-color rounded py-1 g-0 mb-1">Order up to <u>{pieces}</u> items in one bulk request, or split them as needed</div>
-                  <div className="savings rounded py-1 g-0 mb-1">Unlimited Revisions. <u>{(pieces/firstUpTo).toFixed(0)}</u> at a time with your current Plan</div>
+                  <div className="savings rounded py-1 g-0 mb-1">Unlimited Revisions. <u>{Math.ceil(pieces/firstUpTo)}</u> at a time with your current Plan</div>
                 </>}
                 {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving <u>${save}</u></div>}
               </div>

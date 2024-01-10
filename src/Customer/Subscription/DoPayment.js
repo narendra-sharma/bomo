@@ -8,8 +8,8 @@ import { useDispatch } from "react-redux";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.address?user?.address?.name:user?.name,
-    surname:user?.address?user?.address?.surname:'',
+    name:user?.address?user?.address?.name:(user?.name && (user?.name.split(' ').length>0))?user?.name.split(' ')[0]:'',
+    surname:user?.address?user?.address?.surname:(user?.name && (user?.name.split(' ').length>1))?user?.name.split(' ')[1]:'',
     company:user?.address?user?.address?.company:user?.company,
     address:user?.address?user?.address?.address:'',
     city:user?.address?user?.address?.city:'',

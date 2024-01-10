@@ -32,7 +32,7 @@ const Setting = ({ userrole }) => {
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
         
-          {((userrole === 'customer_admin') && user.quantity && isSubscribe) && <div className="mx-md-3 mx-lg-5 mb-4 row">
+          {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <div className="mx-md-3 mx-lg-5 mb-4 row">
             <NewRequestShared />
           </div>}
           <div className="review-main-content mb-5">
