@@ -1,17 +1,17 @@
-import { CREATE_REQUEST_SUCCESS } from "./requestTypes";
+import { GET_REQUEST_LIST } from "./requestTypes";
 
 
 const initialState = {
-  createRequest:false
+  draftrequests: []
 };
 
 const requestReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_REQUEST_SUCCESS:
+    case GET_REQUEST_LIST:
       return {
         ...state,
-        createRequest: !state.createRequest
-      }  
+        draftrequests: action.payload.data,
+      };
     default:
       return state;
   }

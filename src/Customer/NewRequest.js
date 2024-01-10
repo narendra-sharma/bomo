@@ -3,12 +3,15 @@ import { connect, useDispatch } from "react-redux";
 import { newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 
-const NewRequest = ({ brands, user, createRequest }) => {
+const NewRequest = ({ brands, user, isAddEdit }) => {
   const dispatch = useDispatch();
   const now = new Date();
   const currentTime = format(now, 'HH:mm');
   const usertoken = user.token;
   const fileInputRef = useRef(null);
+  const fileTypes = ['Mp4', 'Mov', 'gif'];
+  const sizeUpTo = ['16:9','9:6','1:1','4:5'];
+  const transparencies = ['Yes','No','Does not apply'];
 
   const [formData, setFormData] = useState({
     requestName: "",
@@ -35,6 +38,8 @@ const NewRequest = ({ brands, user, createRequest }) => {
     transparency: '',
     uploadFiles: '',
   });
+  const [isDraftSaved, setDraftSaved] = useState(false);
+  const [isstatusPending,setStatusPending] = useState(false);
 
   const selectrequest = [
     'logo',
@@ -249,18 +254,27 @@ const NewRequest = ({ brands, user, createRequest }) => {
         uploadFiles: formData.uploadFiles,
         status: status
       };
-        await newRequest(newrequest, dispatch, usertoken);
+
+      if(newrequest.status === 'draft') {
+        setDraftSaved(true);
+      }
+
+      if(newrequest.status === 'pending') {
+        setStatusPending(true);
+      }
+      await newRequest(newrequest, dispatch, usertoken);
     }
   };
 
   useEffect(() => {
-    if (createRequest) {
+    if (isAddEdit && (!isDraftSaved || !isstatusPending)) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
       setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
       fileInputRef.current.value = "";
       setClickedIndex(null);
     }
-  }, [createRequest, dispatch]);
+    setDraftSaved(false);
+  }, [isAddEdit, dispatch, isDraftSaved, isstatusPending]);
 
   return (
     <>
@@ -287,9 +301,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
                       <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
                         <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
                           <option value="" disabled>Select</option>
-                          {brands.map((brand) => (
-                            <option key={brand._id} value={brand?._id}>{brand?.brandname}</option>
-                          ))}
+                          {brands.map((brand) => ( <option key={brand._id} value={brand?._id}>{brand?.brandname}</option> ))}
                         </select>
                         {errors.brandProfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandProfile}</p>}
                       </div>
@@ -339,10 +351,8 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
-                            <option value="" disabled>Select</option>
-                            <option value="Mp4">Mp4</option>
-                            <option value="Mov">Mov</option>
-                            <option value="gif">gif</option>
+                            <option value="" disabled></option>
+                            {fileTypes.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
                           </select>
                           {errors.fileType && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.fileType}</p>}
                         </div>
@@ -351,34 +361,14 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
-                            <option value="" disabled>Select</option>
-                            <option value="16:9">16:9</option>
-                            <option value="9:6">9:6</option>
-                            <option value="1:1">1:1</option>
-                            <option value="4:5">4:5</option>
-                            {formData.customsizes.map((customSize, index) => (
-                              <option key={index} value={customSize}>
-                                {customSize}
-                              </option>
-                            ))}
+                            <option value="" disabled></option>
+                           {sizeUpTo.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
+                           {formData.customsizes.map((customSize, index) => ( <option key={index} value={customSize}>{customSize}</option> ))}
                             <option value="Custom">Custom</option>
                           </select>
                           {(formData.size === 'Custom') && <>
-                            <input
-                              type="text"
-                              name="customsize"
-                              className="form-control mt-2"
-                              placeholder="Enter Custom Size"
-                              onChange={handleCustomSizeChange}
-                              value={formData.customsize}
-                            />
-                            <button
-                              type="button"
-                              className="btn btn-primary mt-2"
-                              onClick={handleAddCustomSize}
-                            >
-                              Add Custom Size
-                            </button>
+                            <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" onChange={handleCustomSizeChange} value={formData.customsize} />
+                            <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
                           </>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
                         </div>
@@ -394,10 +384,8 @@ const NewRequest = ({ brands, user, createRequest }) => {
                         <div className="form-group">
                         <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
-                            <option value="" disabled>Select</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                            <option value="Does not apply">Does not apply</option>
+                            <option value="" disabled></option>
+                            {transparencies.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
                           </select>
                           {errors.transparency && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.transparency}</p>}
                         </div>
@@ -414,7 +402,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
 
                 </div>
                 <div className="col-md-12 mt-5 pt-5 text-center status-btn ">
-                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'active')}>Submit</button>
+                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
             </form>
@@ -436,7 +424,7 @@ const NewRequest = ({ brands, user, createRequest }) => {
 const mapStateToProps = (state) => {
   return {
     brands: state.brand.brands,
-    createRequest: state.createrequest.createRequest,
+    isAddEdit: state.brand.isAddEdit,
     user: state.auth.user,
   };
 };
