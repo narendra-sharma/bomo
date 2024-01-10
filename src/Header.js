@@ -20,8 +20,8 @@ const Header = ({ user, userrole }) => {
             <button className="btn py-0 d-lg-none" id="open-sidebar">
               <span className="toggle-btn"></span>
             </button>
-            <div className="mx-md-2 mx-lg-5">
-              <h4 className="mb-0">Cratat <span className="fw-bold">Workspace</span></h4>
+            <div className="mx-lg-5">
+              <h4 className="mb-0">{(userrole === 'customer_admin') ?<>{user?.company} <span className="fw-bold">Workspace</span></>:(userrole === 'Designer') ?'':'Super Admin Panel'} </h4>
             </div>
             <div className="d-flex text-right justify-content-between align-items-center">
               <img src={userImage} alt="Bomo logo" />

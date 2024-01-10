@@ -6,6 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import { get_plans } from "../../reduxdata/rootAction";
+import imageLogo from '../../images/bomo-dark-green.svg';
 const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -17,14 +18,14 @@ const SubscriptionSteps = (props) => {
   const [firstUpTo,setFirstUpTo] = useState(5);
   const [secUpTo,setSecUpTo] =  useState(10);
   const steps = ['Subscription Setup', 'Payment'];
-  const [pieces, setPieces] = useState(1);
+  const [pieces, setPieces] = useState(firstUpTo);
   const [prize, setPrize] = useState(firstPrice);
   const [save, setSave] = useState(0);
   const [step, setStep] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(()=>{
     setUser(props.user);
-    const tpieces = props?.user?.subscription?.quantity || 1;
+    const tpieces = props?.user?.subscription?.quantity || firstUpTo;
     const lpieces=(tpieces > secUpTo) ?tpieces-secUpTo:0;
     const spieces=(lpieces>0)?firstUpTo:((tpieces > firstUpTo) && (tpieces < (secUpTo+1))) ?tpieces-firstUpTo:0;
     const fpieces=(spieces>0)?firstUpTo:(tpieces <= firstUpTo) ?tpieces:0;
@@ -88,7 +89,7 @@ const SubscriptionSteps = (props) => {
           </div>
         </div>
         {step === 0 && <>
-          <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'}  <span className="subscription-heading">{user?.plan_id ? 'Subscription' : 'BOMO'}</span> </h2>
+          <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'} <span className="subscription-heading">{user?.plan_id ? 'Subscription' : <img src={imageLogo} alt="Bomo logo"  />}</span> </h2>
           <p className="sub-heading text-center">
             {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
               : <>
@@ -97,24 +98,26 @@ const SubscriptionSteps = (props) => {
               </>
             }
           </p>
-          <div className="p-4 px-2 px-md-5">
+          <div className="p-4 row px-2 px-md-4">
             <div className="subscription-data mb-3 row no-gutters align-items-center w-secUpTo0">
               <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
-              <span className={`increament  ${(pieces > 1) && 'cursor-pointer'}`} onClick={() => (pieces > 1) && decrease()}>-</span>
-              <span className="subscription-count">{pieces}</span>
-              <span className="increament cursor-pointer g-0" onClick={() => increase()}> +</span>
+                <span className="increament-content position-relative">
+                <span className={`increament plus-increment ${(pieces > firstUpTo) && 'cursor-pointer'}`} onClick={() => (pieces > firstUpTo) && decrease()}>-</span>
+                <span className="subscription-count">{pieces}</span>
+                <span className="increament decrease cursor-pointer g-0" onClick={() => increase()}> +</span>
+                </span>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 g-0">
                 {!user?.plan_id && <>
-                  <div className="savings saving-bg-color rounded py-1 g-0 mb-1">Order up to 25 items in one bulk request, or split them as needed</div>
-                  <div className="savings rounded py-1 g-0 mb-2">Unlimited Revisions. 5 at a time with your current Plan</div>
+                  <div className="savings saving-bg-color rounded py-1 g-0 mb-1">Order up to <u>{pieces}</u> items in one bulk request, or split them as needed</div>
+                  <div className="savings rounded py-1 g-0 mb-1">Unlimited Revisions. <u>{(pieces/firstUpTo).toFixed(0)}</u> at a time with your current Plan</div>
                 </>}
-                {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving ${save}</div>}
+                {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving <u>${save}</u></div>}
               </div>
             </div>
 
-            <div className="subscription-total text-center mb-2">
-              <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span>${prize}</span>
+            <div className="setting-subscription-total text-center mb-2">
+              <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span className="light-green">${prize}</span>
             </div>
             {user?.plan_id && <p className="text-secondary text-center">Before ${total}</p>}
           </div>

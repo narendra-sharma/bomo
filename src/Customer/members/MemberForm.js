@@ -4,7 +4,7 @@ import { connect, useDispatch } from "react-redux";
 import { add_new_member } from "../../reduxdata/members/memberAction";
 import { format } from 'date-fns';
 
-const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
+const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
     name: "",
@@ -20,10 +20,6 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     emailError: "",
     passError: "",
   });
-  const roles = [
-    { id: 1, label: "customer Admin" },
-    { id: 2, label: "Team Member" },
-  ];
 
   const dispatch = useDispatch();
 
@@ -44,30 +40,19 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
   const handleChange = (name, value) => {
     switch (name) {
       case "name":
-        if (value == null || value == "") {
-          setErrors({ ...errors, nameError: "Name is required*" });
-        } else {
-          setErrors({ ...errors, nameError: null });
-        }
+        setErrors({ ...errors, nameError: (value === '' ? 'Name is Required' : null) });
         setformData({ ...formData, name: value });
         break;
       case "email":
-        if (value == null || value == "") {
-          setErrors({ ...errors, emailError: "Email is required*" });
-        } else {
-          setErrors({ ...errors, emailError: null });
-        }
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        setErrors({ ...errors, emailError: (value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null) });
         setformData({ ...formData, email: value });
         break;
       case "role":
         setformData({ ...formData, role: value });
         break;
       case "password":
-        if (value == null || value == "") {
-          setErrors({ ...errors, passError: "Password is required*" });
-        } else {
-          setErrors({ ...errors, passError: null });
-        }
+        setErrors({ ...errors, passError: (value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null) });
         setformData({ ...formData, password: value });
         break;
       case "colour":
@@ -78,157 +63,154 @@ const MemberForm = ({ setShowAddComp, isAddEdit, user }) => {
     }
   };
 
-  // for submitting
   const handleCreate = () => {
     const output = Object.entries(formData).map(([key, value]) => ({
       key,
       value,
     }));
+    let err = false;
     for (let i = output.length - 1; i > -1; i--) {
       if (!output[i].value) {
+        err=true;
         handleChange(output[i].key, output[i].value);
       }
     }
-    let err = false;
-    const errOutput = Object.entries(errors).map(([key, value]) => ({
-      key,
-      value,
-    }));
-    err = errOutput.find((r) => (r.value ? true : false));
+    
     if (err) {
       return false;
     }
-    // api call
     add_new_member(dispatch, formData, user?.token);
-    // setting everything to null
   };
 
   return (
-    <div>
-      <table>
-      <tbody>
-        <tr>
-          <td>
-            <div
-              className="add-new-brand d-flex align-items-center"
-              style={{ cursor: "pointer" }}
-            >
-              <button className="add-btn" onClick={() => setShowAddComp(false)}>
-                -
-              </button>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Name<span className="text-danger">*</span></b>
-                <span className="d-block">
-                  <input
-                    type="text"
-                    className="formcontrol"
-                    name="name"
-                    value={formData?.name}
-                    onChange={(e) => handleChange("name", e.target.value)}
-                  />
-                  {errors.nameError && (
-                    <p className="d-block" style={{ color: "red" }}>
-                      {errors.nameError}
-                    </p>
-                  )}
-                </span>
-              </p>
-            </div>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Role<span className="text-danger">*</span></b>
-            </p>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={(e) => handleChange("role", e.target.value)}
-            >
-              {roles.map((item) => (
-                <option value={item.label} key={item.id}>
-                  {item?.label}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Date added<span className="text-danger">*</span></b>
-              <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
-            </p>
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Email<span className="text-danger">*</span></b>
-            </p>
-            <input
-              type="email"
-              className="formcontrol"
-              name="email"
-              value={formData?.email}
-              onChange={(e) => handleChange("email", e.target.value)}
-            />
-            {errors.emailError && (
-              <p className="d-block" style={{ color: "red" }}>
-                {errors.emailError}
-              </p>
-            )}
-          </td>
-          <td>
-            <p className="mb-0 user-email  ms-1 ms-lg-2">
-              <b>Password<span className="text-danger">*</span></b>
-            </p>
-            <div className="position-relative">
-              <input
-                type={showPass ? "text" : "password"}
-                className="formcontrol"
-                name="password"
-                value={formData.password}
-                onChange={(e) => handleChange("password", e.target.value)}
-              />
-
+    <div className="bg-white member-content rounded">
+      <div className="table-responsive member-table"> 
+        <table>
+        <tbody>
+          <tr>
+            <td>
               <div
-                className="eye-btn"
+                className="d-flex align-items-center"
                 style={{ cursor: "pointer" }}
-                onClick={() => setshowPass((prev) => !prev)}
               >
-                {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
+                <button className="add-btn" onClick={() => setShowAddComp(false)}>
+                  -
+                </button>
+                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                  <b>Name<span className="text-danger">*</span></b>
+                  <span className="d-block">
+                    <input
+                      type="text"
+                      className="formcontrol"
+                      name="name"
+                      value={formData?.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                    />
+                    {errors.nameError && (
+                      <p className="d-block" style={{ color: "red" }}>
+                        {errors.nameError}
+                      </p>
+                    )}
+                  </span>
+                </p>
               </div>
-              {errors.passError && (
-                <p
-                  className="d-block "
-                  style={{ color: "red", position: "relative", bottom: "20px" }}
-                >
-                  {errors.passError}
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Role<span className="text-danger">*</span></b>
+              </p>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={(e) => handleChange("role", e.target.value)}
+              >
+                {roles.map((item) => (
+                  <option value={item.value} key={item.id}>
+                    {item?.label}
+                  </option>
+                ))}
+              </select>
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Date added<span className="text-danger">*</span></b>
+                <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
+              </p>
+            </td>
+            <td>
+              <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <b>Email<span className="text-danger">*</span></b>
+              </p>
+              <input
+                type="email"
+                noValidate
+                className="formcontrol"
+                name="email"
+                value={formData?.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+              />
+              {errors.emailError && (
+                <p className="d-block" style={{ color: "red" }}>
+                  {errors.emailError}
                 </p>
               )}
-            </div>
-          </td>
-          <td>
-            <div className="mt-2">
+            </td>
+            <td>
               <p className="mb-0 user-email  ms-1 ms-lg-2">
-                <b>Color<span className="text-danger">*</span></b>
+                <b>Password<span className="text-danger">*</span></b>
               </p>
-              <input
-                type="color"
-                name="colour"
-                value={formData.colour}
-                onChange={(e) => handleChange("colour", e.target.value)}
-              />
-            </div>
-          </td>
-          <td>
-            <button
-              type="button"
-              className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
-              onClick={handleCreate}
-            >
-              create
-            </button>
-          </td>
-        </tr>
-      </tbody>
-      </table>
+              <div className="position-relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  className="formcontrol"
+                  name="password"
+                  value={formData.password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                />
+
+                <div
+                  className="eye-btn"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setshowPass((prev) => !prev)}
+                >
+                  {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
+                </div>
+                {errors.passError && (
+                  <p
+                    className="d-block "
+                    style={{ color: "red", position: "relative", bottom: "20px" }}
+                  >
+                    {errors.passError}
+                  </p>
+                )}
+              </div>
+            </td>
+            <td>
+              <div className="mt-2">
+                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                  <b>Color<span className="text-danger">*</span></b>
+                </p>
+                <input
+                  type="color"
+                  name="colour"
+                  value={formData.colour}
+                  onChange={(e) => handleChange("colour", e.target.value)}
+                />
+              </div>
+            </td>
+            <td>
+              <button
+                type="button"
+                className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
+                onClick={handleCreate}
+              >
+                create
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
     </div>
   );
 };

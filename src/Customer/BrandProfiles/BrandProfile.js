@@ -7,6 +7,7 @@ import ManageBrand from "./ManageBrand";
 import CustomPagination from "../../Common/CustomPagination";
 import DeleteBrand from "../../Modals/Delete";
 import { format } from "date-fns";
+import NewRequestShared from "../Sahred/NewRequestShared";
 
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
@@ -62,8 +63,11 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
 
   return (
     <>
-      <div className="ml-md-auto pt-5 ms-md-auto rightside-wrapper">
+      <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper brand-profile-section px-60 py-md-2 py-lg-5">
+          <div className="mx-md-3 mx-lg-5 mb-4">
+            <NewRequestShared/>
+          </div>
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">
             <h3>Brand Profile</h3>
           </div>
@@ -75,7 +79,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                   <tr>
                     <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
                     <td><span className="fw-bold">Brand Name</span> <span className="d-block">{brand?.brandname}</span></td>
-                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block">{brand?.brandassests}</span></td>
+                    <td><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
                     <td>
                       <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>

@@ -54,7 +54,7 @@ export const pay_now = async (uToken, token, data, dispatch) => {
 export const edit_billing_info = async (uToken, sid, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscription/update/${sid}`;
+    const url = `${REACT_APP_BOMO_URL}customer/address-update/${sid}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.put(url, data, headers);

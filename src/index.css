@@ -3,7 +3,7 @@
   src: url("./font/Reckless-Medium.otf");
   src: url("./font/Reckless-Medium.ttf");
 }
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap');
 :root {
   --gray: #f2f2ff;
@@ -226,6 +226,9 @@ font-weight: 500;
   font-size: 19px;
   text-transform: uppercase;
   letter-spacing: -0.48px
+}
+.bomo-login-logo img{
+ width:55px
 }
 .login-date {
   font-size: 19px;
@@ -558,13 +561,15 @@ table.feedback-queue tr:first-child td{
   padding: 6px 30px;
   color: #fff;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
+  letter-spacing: -0.36px;
 }
 .status-btn .pause-btn{
   background-color: #000000;
 }
-.status-btn .cancel-btn{
+.status-btn .btn.cancel-btn {
   background-color: #F82626;
+  letter-spacing: -0.36px;
 }
 .review-content .status {
   font-size: 14px;
@@ -584,35 +589,63 @@ table.feedback-queue tr:first-child td{
   font-family: var(--main-font);
   letter-spacing: -3px;
 }
+.subscription-heading img {
+  width: 110px;
+}
 .subscription-data .savings{
   border: solid 1px var(--mid-green) ;
-  color:var(--mid-green);
-  font-weight: 500;
-  font-size: 10px;
+  color:var(--dark-green);
+  font-weight: 700;
+  font-size: 11px;
   letter-spacing: -.48px;
   text-align: center;
+  padding: 0 2px;
 }
 .subscription-data .subscription-count {
   font-size: 80px;
   font-weight: 700;
   margin: 0 50px;
 }
+.increament-content {
+  justify-content: center;
+  display: flex;
+}
 .subscription-data .increament {
   font-size: 25px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.increament-content{
+  width:200px
+}
+.plus-increment{
+  left: 0;
+}
+.decrease{
+  right: 0;
 }
 .subscription-total{
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--dark-green);
+  font-family: var(--secondary-font);
 }
 .subscription-data .savings.saving-bg-color{
   background-color: var(--light-green);
   color: var(--dark-green);
+  font-weight: 700;
+  border: none;
+}
+.subscription-data .savings.saving-bg-color u{
+  font-weight: 900;
 }
 .modify-subscription .update-btn{
   color: var(--dark-green);
   border: solid 1px var(--mid-green);
   font-size: 17px;
+  letter-spacing: -0.36px;
+  padding: 3px;
 }
 .modify-subscription .update-btn:hover{
   background-color: var(--dark-green);
@@ -673,6 +706,7 @@ table.feedback-queue tr:first-child td{
   background: var(--mid-green);
   color: #CDFFB5;
   font-weight: 500;
+  letter-spacing: -0.36px;
 }
 .modify-subscription  .pay-now:hover{
   border: solid 1px var(--mid-green);
@@ -697,12 +731,12 @@ table.feedback-queue tr:first-child td{
   color: var(--dark-green);
   line-height: 20px;
   font-weight: 500;
+  letter-spacing: -0.6px;
 }
 
 .grand-total{
-  font-size: 23px;
-  color:
-  #284719;
+  font-size: 25px;
+  color:#284719;
 }
 .subscription-progress .stepIndicator.active::after {
   background-color: var(--mid-green);
@@ -752,6 +786,9 @@ table.feedback-queue tr:first-child td{
 .transition-bg{
   background: rgba(249, 43, 52, 0.10);
 }
+.member-table tr td{
+  padding: 13px 10px;
+}
 .member-table tr td:nth-child(1)
 {
  width: 230px;
@@ -759,6 +796,10 @@ table.feedback-queue tr:first-child td{
 .member-table tr td:nth-child(2)
 {
  width: 175px;
+}
+.member-table tr td:nth-child(3)
+{
+ width: 135px;
 }
 .member-table tr td:nth-child(4){
  width:230px
@@ -788,6 +829,26 @@ table.feedback-queue tr:first-child td{
  .modal-dialog  button{
   font-weight: 700;
 }
+.modal-body button.btn-primary {
+  background:transparent;
+  border-color: var(--dark-green);
+  color: var(--dark-green);
+  font-weight: 600;
+}
+.modal-body button.btn-primary:hover{
+  background-color: var(--dark-green);
+  color: #fff!important;
+}
+.modal-body button.btn-secondary {
+  background-color: transparent;
+  border-color: #000;
+  color: #000;
+  font-weight: 600;
+}
+.modal-body button.btn-secondary:hover{
+  background-color: #000!important;
+  color: #fff;
+}
 .cancel-popup .modal-content{
   border: solid 5px #F82626;
 }
@@ -810,10 +871,6 @@ table.feedback-queue tr:first-child td{
 .request-type .request-list {
   /* flex: auto; */
   text-align: center;
-}
-.status-btn .btn{
- font-size: 14px;
- letter-spacing: .48px;
 }
 .bg-gray-dark{
   background-color: #D0D0D0;
@@ -839,6 +896,8 @@ table.feedback-queue tr:first-child td{
 .member-table .formcontrol {
   border: none;
   border-bottom: solid 2px #BBBBBB;
+  width: 80%;
+  font-size: 13px;
 }
 select.form-control {
   appearance: auto;
@@ -995,7 +1054,7 @@ ul.designer-list li{
 }
 
 .brand-table{
-  padding: 30px 25px;
+  padding: 20px 25px;
 }
 .brand-table img {
   width: 50px;
@@ -1008,24 +1067,34 @@ ul.designer-list li{
   background-color: #FAF5F5;
   padding: 30px 25px;
 }
-.add-new-brand button.add-btn{
+.add-new-brand button.add-btn , .add-brand-profile button.add-btn{
   border: solid 1px #000;
   width: 50px;
   height: 50px;
-  line-height: 47px;
+  line-height: 51px;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
+  padding: 0;
 } 
+.add-brand-profile button.add-btn{
+  background: #fff;
+  display: flex;
+  line-height: normal;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
 .brand-table table td {
   padding: 10px 3px;
+  vertical-align: middle;
 }
 .brand-table tr td:first-child{
   width: 84px;
 } 
 
 .brand-table tr td:nth-child(2){
-  width: 175px;
+  width: 157px;
 } 
 
 .brand-table tr td:nth-child(3){
@@ -1041,8 +1110,9 @@ ul.designer-list li{
   padding: 0!important;
 }
 .add-brand-profile .input-name input {
-  width: 80%;
+  width: 100%;
   padding: 0;
+  margin-bottom: 0;
 }
 .add-brand-profile .upload-zip button {
   font-size: 12px;
@@ -1053,6 +1123,9 @@ ul.designer-list li{
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
+}
+.add-brand-profile label{
+  font-weight: 700;
 }
 .create-add-btn {
   background-color: #3FCE3C;
@@ -1077,9 +1150,9 @@ ul.designer-list li{
   font-weight: 700;
   margin-left: 10px;
 }
-.modal .add-brand-profile button.add-btn{
+/* .modal .add-brand-profile button.add-btn{
   margin-left: 10px;
-}
+} */
 .modal .add-brand-profile .create-add-btn {
   width: 47%;
   margin-right: 10px;
@@ -1097,6 +1170,8 @@ ul.designer-list li{
 .add-brand-profile img {
   width: 50px;
   border-radius: 50%;
+  height: 50px;
+  object-fit: cover;
 }
 .add-brand-profile p{
  margin: 0;
@@ -1177,6 +1252,47 @@ ul.designer-list li{
   font-size: 12px;
 
 }
+.Toastify__progress-bar--success{
+  background-color: var(--dark-green)!important;
+}
+.Toastify__toast--success svg {
+  fill: var(--dark-green);
+}
+.setting-subscription-total {
+  font-size: 38px;
+}
+.setting-subscription-total  .light-green{
+  font-family: var(--secondary-font);
+}
+.spinner-container .loading-spinner{
+  border-top: 10px solid var(--dark-green);
+}
+.add-member-count{
+  padding: 15px 20px;
+}
+.add-member-count  button.add-btn , .member-content button.add-btn{
+  width: 30px;
+  height: 30px;
+  line-height: 31px;
+  font-size: 15px;
+}
+.member-content button.add-btn{
+  border: solid 1px #000;
+  border-radius: 50%;
+}
+.brand-assets {
+  color: #84A6FD;
+}
+.member-content p , .member-table select{
+  font-size: 13px;
+  line-height: 16px;
+  margin-bottom: 0;
+  letter-spacing: -0.48px;
+}
+.member-content .member-table input:-webkit-autofill, 
+.member-content .member-tablem input:-webkit-autofill:focus {
+  font-size: 13px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -1202,6 +1318,7 @@ ul.designer-list li{
   .main-content-wraaper{
     max-width: 1140px;
   }
+  
 } 
 @media(min-width: 1400px){
   .main-content-wraaper{
@@ -1223,6 +1340,33 @@ ul.designer-list li{
   .signup-form h2, .form-heading h2 {
     font-size: 72px;
     line-height: 75px;
+  }
+}
+
+@media(max-width:1300px){
+  .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .status-btn button {
+    padding: 6px 25px;
+  }
+  .billing-form label , .billing-form input.form-control {
+    font-size: 14px;
+  }
+  .billing-form .px-60 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media(max-width:1200px){
+  .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .status-btn button {
+    padding: 6px 18px;
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 992px){

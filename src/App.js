@@ -15,7 +15,6 @@ import Members from "./Customer/members/Members";
 import Profile from "./Customer/Profile";
 import Setting from "./Setting";
 import AllCustomers from "./SuperAdmin/AllCustomers";
-import AllDesigners from "./SuperAdmin/AllDesigners";
 import AllRequests from "./SuperAdmin/AllRequests";
 import Payments from "./Payments";
 import SiteEdit from "./SuperAdmin/SiteEdit";
@@ -34,6 +33,7 @@ import RequestStatus from "./Customer/RequestStatus";
 import LoadingSpinner from "./LoadingSpinner";
 import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
 import 'react-tagsinput/react-tagsinput.css'
+import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
 
 function App({ user,updated }) {
   const [isAuth, setIsAuth] = useState(false);
