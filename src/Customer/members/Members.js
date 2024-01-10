@@ -64,11 +64,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Members</h3>
             </div>
-            {(member.length>0) && <div className="review-content bg-white rounded mb-3">
+            {(member.length>0) && <div className="review-content rounded mb-3">
               <div className="table-responsive">
                 {member.map((item, index) => (
                     <table
-                      className="table table-borderless member-table mb-0"
+                      className="table table-borderless member-table"
                       key={index}
                     >
                       <tr>

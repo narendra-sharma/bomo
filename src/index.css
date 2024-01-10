@@ -237,7 +237,7 @@ font-weight: 500;
 .designer-signup-form .bomo-login-logo , .designer-signup-form .login-date {
   color: var(--dark-green);
   font-weight: 700;
-  letter-spacing: -0.48px
+   letter-spacing: -0.48px
 }
 .signup-form .bomo-login-logo{
   color: #CDFFB5;
@@ -812,18 +812,22 @@ table.feedback-queue tr:first-child td{
 }
 .member-table tr td:nth-child(1)
 {
- width: 230px;
+ width: 200px;
 }
 .member-table tr td:nth-child(2)
 {
- width: 175px;
+ width: 160px;
 }
 .member-table tr td:nth-child(3)
 {
  width: 135px;
 }
 .member-table tr td:nth-child(4){
- width:230px
+ width:185px
+}
+.user-email.ms-1 button {
+  border: none;
+  background: transparent;
 }
 .logout-popup .modal-dialog {
   display: flex;
@@ -917,8 +921,9 @@ table.feedback-queue tr:first-child td{
 .member-table .formcontrol {
   border: none;
   border-bottom: solid 2px #BBBBBB;
-  width: 80%;
+  width: 90%;
   font-size: 13px;
+  outline: none;
 }
 select.form-control {
   appearance: auto;
@@ -1082,9 +1087,9 @@ ul.designer-list li{
   margin-bottom: 20px;
 }
 .brand-table img {
-  width: 50px;
-  max-width: 50px;
-  height: 50px;
+  width: 48px;
+  max-width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
   border: solid 1px #eee;
@@ -1096,9 +1101,9 @@ ul.designer-list li{
 }
 .add-new-brand button.add-btn , .add-brand-profile button.add-btn{
   border: solid 1px #000;
-  width: 50px;
-  height: 50px;
-  line-height: 51px;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
@@ -1164,29 +1169,76 @@ ul.designer-list li{
   background-color: #3FCE3C;
   padding: 5px 25px;
   color: #000;
-  font-size: 14px;
+  font-size: 13px;
   border: none;
-  margin: 10px 0;
+  margin: 5px 0;
   text-transform: uppercase;
   display: block;
-  width: 85%;
+  width: 72%;
   letter-spacing: -0.48px;
+  border: solid 1px transparent;
 }
+.create-add-btn:hover {
+  background-color: transparent;
+   color: #3FCE3C;
+   border: solid 1px #3FCE3C;
+ }
+ .create-add-btn.delete-btn{
+  background-color:#F92B34;
+  color: #fff;
+  border: solid 1px #F92B34;
+ }
+ .create-add-btn.delete-btn:hover{
+   color: #F92B34;
+   background: transparent;
+ }
 .brand-table button {
   background-color: #F92B34;
   color: #fff;
   font-size: 13px;
   border: none;
-  margin: 10px 0;
+  margin: 5px 0;
   text-transform: uppercase;
   padding: 5px 35px;
   border-radius: 30px;
   font-weight: 700;
-  letter-spacing: -0.48px
+  letter-spacing: -0.48px;
+  width: 100%;
+  border: solid 1px transparent
 }
+.brand-table button:hover {
+  color: #F92B34;
+  background: transparent;
+  border: solid 1px #F92B34;
+}
+.update-buttons .create-add-btn {
+  background-color: #3FCE3C;
+  color: #000;
+  border: solid 1px #3FCE3C;
+}
+.update-buttons .create-add-btn:hover{
+  background-color: transparent;
+  color: #3FCE3C;
+  border: solid 1px #3FCE3C;
+} 
 .brand-table button.new-request{
   background: #E1E1E1;
 }
+.brand-table button.new-request:hover{
+  background-color: #000;
+  color: #E1E1E1!important;
+  border: solid 1px #000;
+}
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.edit-buttons  span.update-buttons {
+  width: 72%;
+}
+
 /* .modal .add-brand-profile button.add-btn{
   margin-left: 10px;
 } */
@@ -1194,10 +1246,6 @@ ul.designer-list li{
   width: 47%;
   margin-right: 10px;
   display: inline-block;
-}
-.create-add-btn.delete-btn{
- background-color:#F92B34 ;
- color: #fff;
 }
 .error-msg {
   font-size: 13px;
@@ -1321,14 +1369,24 @@ ul.designer-list li{
   color: #84A6FD;
 }
 .member-content p , .member-table select{
-  font-size: 13px;
+  font-size: 14px;
   line-height: 16px;
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
 .member-content .member-table input:-webkit-autofill, 
-.member-content .member-tablem input:-webkit-autofill:focus {
-  font-size: 13px;
+.member-content .member-table input:-webkit-autofill:focus {
+  font-size: 14px;
+  outline: none;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+}
+.add-brand-profile input:-webkit-autofill, 
+.add-brand-profile input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--gray-light) inset!important;
+}
+.member-table {
+  background: #fff;
+  border-radius: 5px;
 }
 @media (min-width: 576px){
 .main-content-wraaper{

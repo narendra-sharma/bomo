@@ -83,7 +83,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   };
 
   return (
-    <div className="bg-white member-content rounded">
+    <div className="member-content review-content rounded">
       <div className="table-responsive member-table"> 
         <table>
         <tbody>
@@ -96,7 +96,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 <button className="add-btn" onClick={() => setShowAddComp(false)}>
                   -
                 </button>
-                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <p className="mb-0 user-email">
                   <b>Name<span className="text-danger">*</span></b>
                   <span className="d-block">
                     <input
@@ -116,7 +116,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </div>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email ">
                 <b>Role<span className="text-danger">*</span></b>
               </p>
               <select
@@ -132,13 +132,13 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </select>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email ">
                 <b>Date added<span className="text-danger">*</span></b>
                 <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
               </p>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email ">
                 <b>Email<span className="text-danger">*</span></b>
               </p>
               <input
@@ -156,7 +156,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               )}
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email ">
                 <b>Password<span className="text-danger">*</span></b>
               </p>
               <div className="position-relative">
@@ -187,7 +187,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
             </td>
             <td>
               <div className="mt-2">
-                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                <p className="mb-0 user-email ">
                   <b>Color<span className="text-danger">*</span></b>
                 </p>
                 <input
