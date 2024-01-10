@@ -1,45 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import dropdownImage from '../images/dropdown-img.png';
-import { connect, useDispatch } from "react-redux";
-import { getrequestlist } from "../reduxdata/rootAction";
-import CustomPagination from "../Common/CustomPagination";
+import DraftRequests from "../Customer/Requests/DraftRequests";
 
-const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
-  const dispatch = useDispatch();
-  const usertoken = user.token;
-  const [isHovered, setIsHovered] = useState(null);
-  const total = draftrequests.length;
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(15);
-
-  const handleMouseOver = (requestid) => {
-    setIsHovered(requestid);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovered(null);
-  };
-
-  const typeColors = {
-    'logo': 'purple',
-    'short ad': 'green',
-    'web animation': 'pink',
-    'icon': 'lightgreen',
-    'typography': 'orange',
-    'brand element': 'blue',
-    'intro': 'Violet',
-    'outro': 'brown',
-    'transition': 'red',
-    'ui animation': 'teal',
-    'loop': 'orange',
-    'custom': 'black'
-  };
-
-  useEffect(() => {
-    getrequestlist(dispatch, usertoken, page, limit);
-  }, [dispatch, getrequestlist, usertoken, page, limit]);
+const CustomerHome = () => {
 
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -150,57 +115,11 @@ const CustomerHome = ({ draftrequests, getrequestlist, user }) => {
           <div className="mx-md-5 mx-sm-0 mb-4">
             <h3>Draft</h3>
           </div>
-          <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
-            <div className={draftrequests.length > 0 ? 'bg-gray-light draft-table table-responsive' : ''}>
-              <table className={draftrequests.length > 0 ? 'table mb-0' : ''}>
-                <tbody>
-                  {(draftrequests.length > 0) ? draftrequests.map((request) => (
-                    <tr key={request._id}>
-                      <td>
-                        <p className="short0ad text-center"
-                          style={{
-                            color: isHovered === request._id ? 'white' : typeColors[request.request_type.replace(/_/g, ' ')],
-                            background: isHovered === request._id ? typeColors[request.request_type.replace(/_/g, ' ')] : 'white',
-                            border: `2px solid ${typeColors[request.request_type.replace(/_/g, ' ')]}`,
-                          }}
-                          onMouseEnter={() => handleMouseOver(request._id)}
-                          onMouseLeave={handleMouseOut}>
-                          {request.request_type.replace(/_/g, ' ')}
-                        </p>
-                      </td>
-                      <td><p><span className="fw-bold">Status</span> <span className="d-block">{request.status}</span></p></td>
-                      <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
-                      <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                      <td className="text-center"><p>DIOR</p></td>
-                      <td className="text-center"><p><Link className="text-decoration-none">continue editing</Link></p></td>
-                    </tr>
-                  )) : (
-                    <tr>
-                      <td colSpan="100%" className="text-center py-1 my-1">
-                        <p className="py-1 my-1 text-muted">Draft Request is empty!</p>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-            {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => { setPage(newPage); setLimit(newLimit + 1); }} />}
-          </div>
+          <DraftRequests/>
         </div>
       </div>
     </div>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.auth.user,
-    draftrequests: state.requests.draftrequests,
-  };
-};
-const mapDispatchToProps = () => {
-  return {
-    getrequestlist
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerHome);
+export default CustomerHome;

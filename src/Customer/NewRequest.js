@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 
-const NewRequest = ({ brands, user, isAddEdit }) => {
+const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
   const dispatch = useDispatch();
   const now = new Date();
   const currentTime = format(now, 'HH:mm');
@@ -40,23 +40,6 @@ const NewRequest = ({ brands, user, isAddEdit }) => {
   });
   const [isDraftSaved, setDraftSaved] = useState(false);
   const [isstatusPending,setStatusPending] = useState(false);
-
-  const selectrequest = [
-    'logo',
-    'short ad',
-    'web animation',
-    'icon',
-    'typography',
-    'brand element',
-    'intro',
-    'outro',
-    'transition',
-    'UI animation',
-    'loop',
-    'custom'
-  ];
-  const colors = ['purple', 'green', 'pink', 'lightgreen', 'orange', 'blue', 'Violet', 'brown', 'red', 'teal', 'orange', 'black'];
-
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
   const handleHover = (index) => {
@@ -326,18 +309,18 @@ const NewRequest = ({ brands, user, isAddEdit }) => {
                   <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
                     <div className="form-control py-3">
                       <div className="row request-type">
-                        {selectrequest.map((ele, index) => (
+                        {requestTypes.map((ele, index) => (
                           <div key={index} className="col-xl-3 col-md-4 col-sm-6 col-12 request-list mb-2"
                             onMouseEnter={() => handleHover(index)}
                             onMouseLeave={handleLeave}
                           >
-                            <p className="short0ad logo" onClick={() => handlerequestType(ele,index)}
+                            <p className="short0ad logo" onClick={() => handlerequestType(ele.type,index)}
                               style={{
-                                backgroundColor: clickedIndex === index ? colors[index] : hoveredIndex === index ? colors[index] : 'transparent',
-                                color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : colors[index],
-                                border: `2px solid ${colors[index]}`
+                                backgroundColor: clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
+                                color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : ele.color,
+                                border: `2px solid ${ele.color}`
                               }}>
-                              {ele}
+                              {ele.type}
                             </p>
                           </div>
                         ))}
@@ -426,6 +409,7 @@ const mapStateToProps = (state) => {
     brands: state.brand.brands,
     isAddEdit: state.brand.isAddEdit,
     user: state.auth.user,
+    requestTypes: state.requests.requestTypes,
   };
 };
 export default connect(mapStateToProps)(NewRequest);
