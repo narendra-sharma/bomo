@@ -36,7 +36,6 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
       brandassests: brand.brandassests,
       tags: brand.tags,
     });
-    setIsEdit(true);
   }
   useEffect(() => {
     getbrandlist(dispatch, user.token, page, limit);
@@ -72,9 +71,8 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
             <h3>Brand Profile</h3>
           </div>
           {(brands.length > 0) ? brands.map((brand) => (
-            <div className="table-responsive brand-table bg-white rounded">
-              <table className="table table-borderless mb-0" key={brand?._id}>
-
+            <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'':'bg-white'}`}>
+              <table className="table table-borderless mb-0">
                 <tbody>
                   <tr>
                     <td><img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} /></td>
@@ -84,9 +82,23 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                       <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
-                    <td >
-                      <Link style={{ textDecoration: "none" }} className="text-dark" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
-                      <button onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                    <td>
+                      {edit?.id===brand?._id ?<>
+                        <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
+                          Update
+                        </button>
+                        <button type="button" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                      </>
+                      :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
+                        Preview {brand?.brandname.split(' ')[0]}
+                      </button>}
+                    </td>
+                    <td>
+                      {edit?.id===brand?._id ?
+                        <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
+                        :
+                        <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
+                      }
                     </td>
                   </tr>
                 </tbody>
