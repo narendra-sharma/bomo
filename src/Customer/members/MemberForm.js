@@ -83,7 +83,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   };
 
   return (
-    <div className="bg-white member-content rounded">
+    <div className="member-content review-content rounded">
       <div className="table-responsive member-table"> 
         <table>
         <tbody>
@@ -93,10 +93,10 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 className="d-flex align-items-center"
                 style={{ cursor: "pointer" }}
               >
-                <button className="add-btn" onClick={() => setShowAddComp(false)}>
+               <p className="mb-0"> <button className="add-btn" onClick={() => setShowAddComp(false)}>
                   -
-                </button>
-                <p className="mb-0 user-email  ms-1 ms-lg-2">
+                </button></p>
+                <p className="mb-0 user-email">
                   <b>Name<span className="text-danger">*</span></b>
                   <span className="d-block">
                     <input
@@ -107,7 +107,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                       onChange={(e) => handleChange("name", e.target.value)}
                     />
                     {errors.nameError && (
-                      <p className="d-block" style={{ color: "red" }}>
+                      <p className="d-block error-msg mt-1">
                         {errors.nameError}
                       </p>
                     )}
@@ -116,7 +116,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </div>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email">
                 <b>Role<span className="text-danger">*</span></b>
               </p>
               <select
@@ -132,13 +132,13 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </select>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 date user-email">
                 <b>Date added<span className="text-danger">*</span></b>
                 <span className="d-block">{format(new Date(), 'MM/dd/yyyy')}</span>
               </p>
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email">
                 <b>Email<span className="text-danger">*</span></b>
               </p>
               <input
@@ -150,15 +150,16 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 onChange={(e) => handleChange("email", e.target.value)}
               />
               {errors.emailError && (
-                <p className="d-block" style={{ color: "red" }}>
+                <p className="d-block error-msg mt-1">
                   {errors.emailError}
                 </p>
               )}
             </td>
             <td>
-              <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <p className="mb-0 user-email">
                 <b>Password<span className="text-danger">*</span></b>
               </p>
+              <div className="">
               <div className="position-relative">
                 <input
                   type={showPass ? "text" : "password"}
@@ -175,10 +176,11 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 >
                   {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
                 </div>
+                </div>
                 {errors.passError && (
                   <p
-                    className="d-block "
-                    style={{ color: "red", position: "relative", bottom: "20px" }}
+                    className="d-block error-msg"
+                    
                   >
                     {errors.passError}
                   </p>
@@ -186,8 +188,8 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </div>
             </td>
             <td>
-              <div className="mt-2">
-                <p className="mb-0 user-email  ms-1 ms-lg-2">
+              <div className="">
+                <p className="mb-0 user-email">
                   <b>Color<span className="text-danger">*</span></b>
                 </p>
                 <input
@@ -201,10 +203,10 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
             <td>
               <button
                 type="button"
-                className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 mt-2"
+                className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 "
                 onClick={handleCreate}
               >
-                create
+                CREATE
               </button>
             </td>
           </tr>

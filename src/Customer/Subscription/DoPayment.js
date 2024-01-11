@@ -176,7 +176,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       <form className="form" onSubmit={handleSubmit}>
       <div className="pt-4 pb-4 do-payment">
         <div className="row align-items-center ms-lg-auto px-md-4 px-lg-4 px-2">
-          <div className="col-md-7">
+          <div className="col-md-6">
               <div className="row">
                 <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
                 <BillingInfo card={card} errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>

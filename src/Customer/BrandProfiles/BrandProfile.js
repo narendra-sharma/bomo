@@ -80,28 +80,30 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                     <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0"><span className="fw-bold">Brand Assets</span> <span className="d-block brand-assets">{brand?.brandassests}</span></td>
                     <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0">
                       <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
-                      <span className="fw-bold">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
+                      <span className="fw-bold mt-3 d-block">Tags</span> <span className="d-block">{brand?.tags.join(', ')}</span>
                     </td>
                     <td  className="col-lg-3 col-12 mb-3 mb-md-0">
-                    <span className="update-buttons">
-                      {edit?.id===brand?._id ?<>
-                        <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
-                          Update
-                        </button>
-                        <button type="button" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
-                      </>
-                      :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
-                        Preview {brand?.brandname.split(' ')[0]}
-                      </button>}
-                      </span>
-                      <span className="edit">
-                    
-                      {edit?.id===brand?._id ?
-                        <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
-                        :
-                        <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
-                      }
-                      </span>
+                    <div className="edit-buttons">
+                        <span className="update-buttons">
+                          {edit?.id===brand?._id ?<>
+                            <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
+                              Update
+                            </button>
+                            <button type="button" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                          </>
+                          :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
+                            Preview {brand?.brandname.split(' ')[0]}
+                          </button>}
+                          </span>
+                          <span className="edit">
+                        
+                          {edit?.id===brand?._id ?
+                            <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
+                            :
+                            <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
+                          }
+                          </span>
+                        </div>
                      </td>
                   </tr>
                 </tbody>

@@ -75,7 +75,7 @@ const PaymentCardInfo = ({ stripe, elements }) => {
       <div className="mb-3">
         <h3>Payment info</h3>
       </div>
-      <div className="bg-white billing-form payment-info py-5  rounded">
+      <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
         <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ stripe, elements }) => (
