@@ -69,7 +69,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                 <div className="table-responsive">
                   {member.map((item, index) => (
                     <table
-                      className="table table-borderless member-table mb-0"
+                      className="table table-borderless member-table"
                       key={index}
                     >
                       <tr>
