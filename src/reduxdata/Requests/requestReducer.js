@@ -5,18 +5,18 @@ const initialState = {
   totaldrafts:0,
   draftrequests:[],
   requestTypes:[
-    {type: 'logo', color: 'purple'},
-    {type: 'short ad', color: 'green'},
-    {type: 'web animation', color: 'pink'},
-    {type: 'icon', color: 'lightgreen'},
-    {type: 'typography', color: 'orange'},
-    {type: 'brand element', color: 'blue'},
-    {type: 'intro', color: 'Violet'},
-    {type: 'outro', color: 'brown'},
-    {type: 'transition', color: 'red'},
-    {type: 'UI animation', color: 'teal'},
-    {type: 'loop', color: 'orange'},
-    {type: 'custom', color: 'black'}
+    {type: 'logo', color: '#6D3FF3'},
+    {type: 'short ad', color: '#B185F2'},
+    {type: 'web animation', color: '#EDAFFE'},
+    {type: 'icon', color: '#2DB985'},
+    {type: 'typography', color: '#D6C10B'},
+    {type: 'brand element', color: '#0657EB'},
+    {type: 'intro', color: '#FE58AE'},
+    {type: 'outro', color: '#777034'},
+    {type: 'transition', color: '#F92B34'},
+    {type: 'UI animation', color: '#7C96FE'},
+    {type: 'loop', color: '#FA812A'},
+    {type: 'custom', color: '#000000'}
   ]
 };
 
