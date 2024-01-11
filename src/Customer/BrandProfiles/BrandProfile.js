@@ -15,6 +15,7 @@ const LOGO_URL = REACT_APP_BOMO_URL;
 const BrandProfile = ({ brands, total, user, getbrandlist }) => {
 
   const dispatch = useDispatch();
+  const usertoken = user.token;
   const [handleshow, setHandleshow] = useState(false);
   const newBrand = {
     id: '',
@@ -25,8 +26,6 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
   };
   const [edit, setEdit] = useState(newBrand);
   const [isEdit, setIsEdit] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
 
   const handleShowEditBrand = (brand) => {
     setEdit({
@@ -38,12 +37,11 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
     });
   }
   useEffect(() => {
-    getbrandlist(dispatch, user.token, page, limit);
-  }, [dispatch, getbrandlist, user.token, page, limit]);
+    getbrandlist(dispatch, usertoken);
+  }, [dispatch, getbrandlist, usertoken]);
 
   const [show, setShow] = useState(false);
   const [brandid, setBrandid] = useState(null);
-  const usertoken = user.token;
   const handleDeleteBrand = (brand) => {
     setBrandid(brand?._id);
     setEdit(brand);
@@ -104,14 +102,11 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                       </span>
                      </td>
                   </tr>
-                </tbody>
+                </tbody>  
               </table>
             </div>
           ))}
-          {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
-            setPage(newPage);
-            setLimit(newLimit + 1);
-          }} />}
+          {(total > 0) && <CustomPagination total={total} onPageChange={(page, perPage) =>  getbrandlist(dispatch, usertoken, page, perPage)} />}
           {
             !handleshow ?
               <><div className="add-new-brand"><button className="add-btn" onClick={() => setHandleshow(true)}>+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Brand</span></div></>

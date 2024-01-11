@@ -5,12 +5,12 @@ import {
   catch_errors_handle,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST } from "./requestTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
 import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
-export const getrequestlist = async (dispatch, token, page, limit) => {
+export const get_draft_requestlist = async (dispatch, token, page, limit) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}customerAdmin/request-listing?page=${page}&limit=${limit}`;
@@ -97,7 +97,7 @@ export const newRequest = async (requestdata, dispatch, token) => {
     const res = await axios.post(url, formData, { headers });
     if (res.data && res.data.status) {
       toast.success(res.data.message);
-      getrequestlist(dispatch, token);
+      get_draft_requestlist(dispatch, token);
       dispatch({ type: IS_ADD_EDIT });
       return res.data;
     } else {
@@ -109,3 +109,8 @@ export const newRequest = async (requestdata, dispatch, token) => {
     dispatch(stop_loading());
   }
 };
+
+export const get_edit_request_data = (requestdetails) => {
+    return ({ type: GET_EDIT_REQUEST_DATA, payload: requestdetails });
+};
+

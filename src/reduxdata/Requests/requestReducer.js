@@ -1,4 +1,4 @@
-import { GET_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST } from "./requestTypes";
 import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
 const initialState = {
   allRequest: [],
@@ -17,7 +17,8 @@ const initialState = {
     {type: 'UI animation', color: 'teal'},
     {type: 'loop', color: 'orange'},
     {type: 'custom', color: 'black'}
-  ]
+  ],
+  editrequestData:null
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -33,6 +34,11 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         allRequest: action.payload.data,
       };
+    case GET_EDIT_REQUEST_DATA:
+      return {
+        ...state,
+        editrequestData: action.payload,
+      }
     default:
       return state;
   }
