@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import AcceptRequest from "../Modals/AcceptRequest";
-import { useDispatch } from "react-redux";
-const PendingRequest = ({ allRequest, token }) => {
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import EmptyList from "../../Common/EmptyList";
+import AcceptRequest from "../../Modals/AcceptRequest";
+import { get_admin_pending_requestlist } from "../../reduxdata/rootAction";
+import CustomPagination from "../../Common/CustomPagination";
+import { format } from "date-fns";
+const PendingRequest = ({user, allRequest, total,search }) => {
   const [showAcceptModal, setshowAcceptModal] = useState([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    get_admin_pending_requestlist(dispatch, user?.token,1,10,search);
+  }, [dispatch,search]);
   return (
     <div className="row mb-4">
       <h3 className="mb-3">Pending Requests</h3>
       <div className="col-md-12">
         <div className="col-md-12">
           <div className="review-content py-3 px-4 rounded mt-4">
-            {allRequest &&
+            {(allRequest.length>0) ?
               allRequest.map((item, index) => {
                 return (
                   <div className="table-responsive" key={index}>
@@ -22,16 +29,16 @@ const PendingRequest = ({ allRequest, token }) => {
                           </td>
                           <td>
                             <p>
-                              <span className="fw-bold">Cratat</span>{" "}
+                              <span className="fw-bold">{item?.user_id?.company}</span>{" "}
                               <span className="d-block">
-                                {item?.user_id?.company}
+                                {item?.brand_profile?.brandname}
                               </span>{" "}
                             </p>
                           </td>
                           <td>
                             <p>
                               <span className="fw-bold">Status</span>{" "}
-                              <span className="d-block">{item?.status}</span>
+                              <span className="d-block text-capitalize">{item?.status}</span>
                             </p>
                           </td>
 
@@ -41,7 +48,7 @@ const PendingRequest = ({ allRequest, token }) => {
                               <span className="d-block">
                                 {!item?.delivery_date
                                   ? "No Date"
-                                  : item?.delivery_date}
+                                  : format(new Date(item?.delivery_date), 'dd/MM/yyyy')}
                               </span>
                             </p>
                           </td>
@@ -49,7 +56,7 @@ const PendingRequest = ({ allRequest, token }) => {
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">
-                                {item?.request_name}
+                                {item?.user_id?.name}
                               </span>
                             </p>
                           </td>
@@ -60,13 +67,13 @@ const PendingRequest = ({ allRequest, token }) => {
                             >
                               Accept Request
                             </button>
-                            {showAcceptModal == item?._id && (
+                            {showAcceptModal === item?._id && (
                               <AcceptRequest
                                 heading={item?.request_name}
                                 showAcceptModal={showAcceptModal}
                                 setshowAcceptModal={setshowAcceptModal}
                                 id={item?._id}
-                                token={token}
+                                token={user?.token}
                               />
                             )}
                           </td>
@@ -75,12 +82,27 @@ const PendingRequest = ({ allRequest, token }) => {
                     </table>
                   </div>
                 );
-              })}
+              })
+              : <EmptyList name="Pending Request"/>}
+              {total > 0 && (
+                <CustomPagination
+                  total={total}
+                  onPageChange={(newPage, newLimit) => {
+                    get_admin_pending_requestlist(dispatch, user?.token, newPage, newLimit, search);
+                  }}
+                />
+              )}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default PendingRequest;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    allRequest: state.requests.pendingRequests,
+    total: state.requests.pendingTotal,
+  };
+};
+export default connect(mapStateToProps)(PendingRequest);

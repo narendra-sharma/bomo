@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import SearchInput from "../Common/SearchInput";
-import { Link } from "react-router-dom";
-import PendingRequest from "../Common/PendingRequest";
 import { useDispatch, connect } from "react-redux";
-import { get_admin_requestlist } from "../reduxdata/Requests/requestActions";
-const AllRequests = ({ user, allRequest }) => {
+import PendingRequest from "../Customer/Requests/PendingRequest";
+const AllRequests = ({ user }) => {
   const dispatch = useDispatch();
-  const handleSearch = (value) => {};
-
-  useEffect(() => {
-    get_admin_requestlist(dispatch, user.token);
-  }, [dispatch]);
+  const [search, setSearch] = useState(null)
+  
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper admin-payments px-60 py-md-2 py-lg-3">
           <h3 className="fw-bold mb-3">All Request</h3>
           <SearchInput
-            placeholder="Browse Payment..."
-            handleSearch={handleSearch}
+            placeholder="Browse Request..."
+            handleSearch={(val)=>setSearch(val)}
           />
           <div className="mt-5 review-main-content">
             <div className="row mb-4">
@@ -129,7 +124,7 @@ const AllRequests = ({ user, allRequest }) => {
               </div>
             </div>
 
-            <PendingRequest token={user?.token} allRequest={allRequest} />
+            <PendingRequest search={search}/>
 
             <div className="row mb-4">
               <h3 className="mb-3">Active Requests</h3>
@@ -248,7 +243,6 @@ const AllRequests = ({ user, allRequest }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    allRequest: state.requests.allRequest,
   };
 };
 export default connect(mapStateToProps)(AllRequests);

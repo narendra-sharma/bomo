@@ -2,13 +2,11 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { change_request_status } from "../reduxdata/Requests/requestActions";
 import { useDispatch } from "react-redux";
-function AcceptRequest(props) {
+const AcceptRequest=(props)=> {
   const { heading, showAcceptModal, setshowAcceptModal, id, token } = props;
   const dispatch = useDispatch();
-  console.log("id", id, "token", token);
-
   const handleStatusUpdate = () => {
-    change_request_status(dispatch, token, id, "accepted");
+    change_request_status(dispatch, token, id, "active");
     setshowAcceptModal(false);
   };
 

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { get_all_users } from "../../reduxdata/rootAction";
 import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
+import EmptyList from "../../Common/EmptyList";
 
 const AllDesignerList = ({ active, user, users, total, search }) => {
   const dispatch = useDispatch();
@@ -32,9 +33,7 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
         </tbody>
       </table>
     </div>)
-      : <div className="w-100 text-center py-2">
-        <p className="py-2 my-2 text-muted">Designers List is empty!</p>
-      </div>}
+      : <EmptyList name="Designers" />}
 
     <div className="review-content add-member px-4 py-2 rounded mb-3">
       {total > 0 && (

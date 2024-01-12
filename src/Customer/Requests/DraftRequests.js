@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import { get_draft_requestlist, get_edit_request_data } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
+import EmptyList from "../../Common/EmptyList";
 
 const DraftRequests = ({ draftrequests,  user, total }) => {
   const dispatch = useDispatch();
@@ -35,9 +36,7 @@ const DraftRequests = ({ draftrequests,  user, total }) => {
                 </tbody>
               </table>
             </div> : (
-              <div className="text-center py-1 my-1">
-                <p className="py-1 my-1 text-muted">Draft Request is empty!</p>
-              </div>
+              <EmptyList name="Draft Request" />
             )}
             {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => { setPage(newPage); setLimit(newLimit); }} />}
           </div>

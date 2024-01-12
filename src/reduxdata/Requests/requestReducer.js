@@ -1,7 +1,7 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST } from "./requestTypes";
-import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST } from "./requestTypes";
 const initialState = {
-  allRequest: [],
+  pendingRequests: [],
+  pendingTotal:0,
   totaldrafts:0,
   draftrequests:[],
   requestTypes:[
@@ -29,10 +29,11 @@ const requestReducer = (state = initialState, action) => {
         draftrequests: action.payload.data,
         totaldrafts: action.payload.request_length,
       };
-    case GET_ADMIN_REQUEST_LIST:
+    case GET_ADMIN_PENDING_REQUEST_LIST:
       return {
         ...state,
-        allRequest: action.payload.data,
+        pendingRequests: action.payload?.data,
+        pendingTotal: action.payload?.total || 0,
       };
     case GET_EDIT_REQUEST_DATA:
       return {
