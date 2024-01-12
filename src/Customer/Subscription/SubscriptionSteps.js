@@ -75,7 +75,7 @@ const SubscriptionSteps = (props) => {
           type: PAY_NOW
         })
         window.location.reload();
-      },6000);
+      },3000);
     }
   }, [props.isPay,dispatch])
   return (
@@ -94,7 +94,7 @@ const SubscriptionSteps = (props) => {
             {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
               : <>
                 Choose the number of Pieces you want to create monthly.
-                <br />Need more? You can modify it next month
+                <br/>Need more? You can modify it next month
               </>
             }
           </p>

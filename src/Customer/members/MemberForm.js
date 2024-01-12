@@ -16,9 +16,9 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   const [formData, setformData] = useState(initialFormData);
   const [showPass, setshowPass] = useState(false);
   const [errors, setErrors] = useState({
-    nameError: "",
-    emailError: "",
-    passError: "",
+    name: "",
+    email: "",
+    password: "",
   });
 
   const dispatch = useDispatch();
@@ -35,48 +35,35 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
       setShowAddComp();
     }
   }, [isAddEdit, dispatch]);
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
-  // for setting text
-  const handleChange = (name, value) => {
-    switch (name) {
-      case "name":
-        setErrors({ ...errors, nameError: (value === '' ? 'Name is Required' : null) });
-        setformData({ ...formData, name: value });
-        break;
-      case "email":
-        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setErrors({ ...errors, emailError: (value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null) });
-        setformData({ ...formData, email: value });
-        break;
-      case "role":
-        setformData({ ...formData, role: value });
-        break;
-      case "password":
-        setErrors({ ...errors, passError: (value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null) });
-        setformData({ ...formData, password: value });
-        break;
-      case "colour":
-        setformData({ ...formData, colour: value });
-        break;
-      default:
-        break;
+  const handleChange = (label, value) => {
+    setformData((prev) => ({...prev,[label]:value}));
+    if(!value && (label!=='colour') && (label!=='role') ){
+      setErrors((prevErrors) => ({ ...prevErrors,[label]:'required'}))
+    }else if(((label==='email') && (!emailRegex.test(value)))  || ((label==='password') && (value.length < 5))){
+      setErrors((prevErrors) => ({ ...prevErrors,[label]:(label==='email')?'invalid':'minLength'}))
+    }else{
+      setErrors((prevErrors) => ({ ...prevErrors,[label]:''}))
     }
   };
 
-  const handleCreate = () => {
-    const output = Object.entries(formData).map(([key, value]) => ({
-      key,
-      value,
-    }));
-    let err = false;
-    for (let i = output.length - 1; i > -1; i--) {
-      if (!output[i].value) {
+  const checkAllErrors=()=>{
+    let err=false;
+    let output = Object.entries(formData)
+    output.forEach(([key, value]) =>{
+      if(!value && (key!=='colour') && (key!=='role') ){
         err=true;
-        handleChange(output[i].key, output[i].value);
+        setErrors((prevErrors) => ({ ...prevErrors,[key]:'required'}))
+      }else if(((key==='email') && (!emailRegex.test(value)))  || ((key==='password') && (value.length < 5))){
+        err=true;
+        setErrors((prevErrors) => ({ ...prevErrors,[key]:(key==='email')?'invalid':'minLength'}))
       }
-    }
-    
-    if (err) {
+    });
+    return err
+  }
+  const handleCreate = () => {
+    if (checkAllErrors()) {
       return false;
     }
     add_new_member(dispatch, formData, user?.token);
@@ -106,9 +93,9 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                       value={formData?.name}
                       onChange={(e) => handleChange("name", e.target.value)}
                     />
-                    {errors.nameError && (
+                    {errors.name && (
                       <p className="d-block error-msg mt-1">
-                        {errors.nameError}
+                        Name is required
                       </p>
                     )}
                   </span>
@@ -149,9 +136,9 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 value={formData?.email}
                 onChange={(e) => handleChange("email", e.target.value)}
               />
-              {errors.emailError && (
+              {errors.email && (
                 <p className="d-block error-msg mt-1">
-                  {errors.emailError}
+                  {errors.email==='required'?'Email is required':'Email is invalid'}
                 </p>
               )}
             </td>
@@ -177,12 +164,12 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                   {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
                 </div>
                 </div>
-                {errors.passError && (
+                {errors.password && (
                   <p
                     className="d-block error-msg"
                     
                   >
-                    {errors.passError}
+                    {errors.password==='required'?'Password is required':'Password length should be more than 5 characters'}
                   </p>
                 )}
               </div>

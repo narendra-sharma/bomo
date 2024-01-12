@@ -19,16 +19,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
   // show hide create members
   const [showAddComp, setShowAddComp] = useState(false);
   const [selectedRole, setselectedRole] = useState("");
-  const [updateRolepopUps, setUpdateRolepopUps] = useState(
-    Array(member.length).fill(false)
-  );
+  const [updateRolepopUps, setUpdateRolepopUps] = useState(-1);
 
   const [showDeleteModals, setShowDeleteModals] = useState(
     Array(member.length).fill(false)
   );
-
-  const [deletedFlag, setdeletedFlag] = useState(false);
-
   const dispatch = useDispatch();
 
   // getting list of the user
@@ -40,7 +35,6 @@ const Members = ({ user, member, total, isAddEdit }) => {
   const handleDeleteConfirm = (id) => {
     delete_existing_user(id, dispatch, user?.token);
     setShowDeleteModals([]);
-    setdeletedFlag((prev) => !prev);  
   };
 
   // handling change of a value
@@ -51,7 +45,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
   // updating a user
   const updateUserRole = (id) => {
     add_new_member(dispatch, null, user?.token, id, selectedRole);
-    setUpdateRolepopUps([]);
+    setUpdateRolepopUps(-1);
   };
   return (
     <>
@@ -68,7 +62,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               <div className="table-responsive">
                 {member.map((item, index) => (
                     <table
-                      className="table table-borderless member-table"
+                      className={`table table-borderless member-table ${(updateRolepopUps===index)?'border border-dark':''}`}
                       key={index}
                     >
                       <tr>
@@ -96,7 +90,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         <td>
                           <p className="mb-0 user-email">
                             <b>Role</b>
-                            {updateRolepopUps[index] ? (
+                            {(updateRolepopUps===index) ? (
                               <select
                                 className="d-block"
                                 defaultValue={item?.role}
@@ -139,22 +133,18 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           </p>
                         </td>
 
-                        <td className="text-end update-btn">
+                        <td className="text-center update-btn">
                          
-                            {!updateRolepopUps[index] ? (
+                            {(updateRolepopUps!==index) ? (
                               <button
-                                className=" text-decoration-none text-dark cursor-pointer"
-                                onClick={() => {
-                                  const updatedPopUps = [...updateRolepopUps];
-                                  updatedPopUps[index] = !updatedPopUps[index];
-                                  setUpdateRolepopUps(updatedPopUps);
-                                }}
+                                className="text-decoration-none text-dark cursor-pointer"
+                                onClick={() =>{setShowAddComp(false);setUpdateRolepopUps(index)}}
                                 style={{
                                   border: "none",
                                   backgroundColor: "#fff",
                                 }}
                               >
-                                edit
+                                +edit
                               </button>
                             ) : (
                               <button onClick={() => updateUserRole(item?._id)}>
@@ -164,7 +154,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           
                         </td>
 
-                        <td className="text-center update-btn">
+                        {(updateRolepopUps===index) && <td className="text-center update-btn">
                           
                             <button
                               className=" text-decoration-none text-dark"
@@ -181,7 +171,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               delete
                             </button>
                           
-                        </td>
+                        </td>}
                         {showDeleteModals[index] && (
                           <DeleteBrand
                             heading="Member"
@@ -211,7 +201,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand add-member-count" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
+              <div className="add-new-brand add-member-count" onClick={() =>{setShowAddComp(true);setUpdateRolepopUps(-1);}}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}
