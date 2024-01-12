@@ -4,7 +4,7 @@ import axios from "axios";
 import { start_loading, stop_loading,catch_errors_handle } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
-export const getbrandlist = async (dispatch, token, page = 1, limit = 10) => {
+export const getbrandlist = async (dispatch, token, page=1, limit=10) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}brand-profile/list?page=${page}&limit=${limit}`;

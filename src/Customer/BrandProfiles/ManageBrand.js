@@ -32,11 +32,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
     switch (name) {
       case 'logo':
+        const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
         const logoFile = files[0];
         if (!logoFile) {
           setErrors({ ...errors, logo: 'Upload Logo' });
-        } else if (!logoFile.type || !logoFile.type.startsWith('image/')) {
-          setErrors({ ...errors, logo: 'Please upload a valid image file' });
+        } else if (!allowedFileTypes.includes(logoFile.type)) {
+          setErrors({ ...errors, logo: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         } else {
           setErrors({ ...errors, logo: '' });
           setNewBrand({
@@ -96,20 +97,20 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
     zipfileinputRef.current.click();
   }
 
-  const [isTagsInputDisabled, setIsTagsInputDisabled] = useState(false);
   const handleTagsChange = (tags) => {
     if (tags.length === 0) {
       setErrors({ ...errors, tags: 'Tags are required' });
     } else if (tags.length > 5) {
       setErrors({ ...errors, tags: 'You can add up to 5 tags' });
-      setIsTagsInputDisabled(true);
+      setTimeout(()=>{
+      setErrors({ ...errors, tags: '' });
+      },3000)
     } else {
       setErrors({ ...errors, tags: '' });
-      setIsTagsInputDisabled(false);
     }
     setNewBrand({
       ...newbrand,
-      tags: tags,
+      tags: tags.length > 5 ? tags.slice(0, 5) : tags,
     });
   };
 
@@ -211,7 +212,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
-            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} disabled={isTagsInputDisabled || (!brand?.id && newbrand.tags.length >= 5)} />
+            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>

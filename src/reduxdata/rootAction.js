@@ -24,7 +24,7 @@ import {
   deleteBrand,
   change_add_edit,
 } from "./Brand/brandActions";
-import { newRequest,getrequestlist } from "./Requests/requestActions";
+import { newRequest,get_draft_requestlist, get_edit_request_data } from "./Requests/requestActions";
 import {
   get_all_members,
   add_new_member,
@@ -53,7 +53,8 @@ export {
   change_add_edit,
   catch_errors_handle,
   newRequest,
-  getrequestlist,
+  get_draft_requestlist,
+  get_edit_request_data,
   get_all_members,
   add_new_member,
   delete_existing_user,

@@ -1,31 +1,39 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { newRequest } from "../reduxdata/rootAction";
+import { get_edit_request_data, newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
+import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
 
-const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
+const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, requestData }) => {
+  console.log(requestData);
   const dispatch = useDispatch();
   const now = new Date();
   const currentTime = format(now, 'HH:mm');
   const usertoken = user.token;
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
-  const sizeUpTo = ['16:9','9:6','1:1','4:5'];
-  const transparencies = ['Yes','No','Does not apply'];
+  const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
+  const transparencies = ['Yes', 'No', 'Does not apply'];
+
+  useEffect(() => {
+      return (() => {
+        dispatch(get_edit_request_data(null));
+      })
+  });
 
   const [formData, setFormData] = useState({
-    requestName: "",
-    brandProfile: "",
-    requestype: "",
-    description: "",
-    fileType: "",
-    size: "",
+    requestName: requestData ? requestData?.request_name : '',
+    brandProfile: requestData ? requestData?.brand_profile : '',
+    requestype: requestData ? requestData?.request_type : '',
+    description: requestData ? requestData?.description : '',
+    fileType: requestData ? requestData?.file_type : '',
+    size: requestData ? requestData?.size : '',
     customsize: "",
     customsizes: [],
-    references: "",
-    transparency: "",
-    uploadFiles: "",
+    references: requestData ? requestData?.references : '',
+    transparency: requestData ? requestData?.transparency : '',
+    uploadFiles: requestData ? requestData?.file : '',
   });
 
   const [errors, setErrors] = useState({
@@ -40,7 +48,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
     uploadFiles: '',
   });
   const [isDraftSaved, setDraftSaved] = useState(false);
-  const [isstatusPending,setStatusPending] = useState(false);
+  const [isstatusPending, setStatusPending] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
   const handleHover = (index) => {
@@ -182,7 +190,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
     }
   };
 
-  const handlerequestType = (ele,index) => {
+  const handlerequestType = (ele, index) => {
     const formatedEle = ele.toLowerCase().replace(/\s+/g, '_');
 
     if (formatedEle === '') {
@@ -239,11 +247,11 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
         status: status
       };
 
-      if(newrequest.status === 'draft') {
+      if (newrequest.status === 'draft') {
         setDraftSaved(true);
       }
 
-      if(newrequest.status === 'pending') {
+      if (newrequest.status === 'pending') {
         setStatusPending(true);
       }
       await newRequest(newrequest, dispatch, usertoken);
@@ -251,14 +259,15 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
   };
 
   useEffect(() => {
-    if (isAddEdit && (!isDraftSaved || !isstatusPending)) {
+    getbrandlist(dispatch, usertoken);
+    if ((isAddEdit && !requestData) && (!isDraftSaved || !isstatusPending)) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
       setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
       fileInputRef.current.value = "";
       setClickedIndex(null);
     }
     setDraftSaved(false);
-  }, [isAddEdit, dispatch, isDraftSaved, isstatusPending]);
+  }, [isAddEdit, dispatch,usertoken, isDraftSaved, requestData, isstatusPending, getbrandlist]);
 
   return (
     <>
@@ -285,7 +294,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                       <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger">*</span></label>
                         <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
                           <option value="" disabled>Select</option>
-                          {brands.map((brand) => ( <option key={brand._id} value={brand?._id}>{brand?.brandname}</option> ))}
+                          {brands.map((brand) => (<option key={brand._id} value={brand?._id}>{brand?.brandname}</option>))}
                         </select>
                         {errors.brandProfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandProfile}</p>}
                       </div>
@@ -314,7 +323,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                             onMouseEnter={() => handleHover(index)}
                             onMouseLeave={handleLeave}
                           >
-                            <p className="short0ad logo" onClick={() => handlerequestType(ele.type,index)}
+                            <p className="short0ad logo" onClick={() => handlerequestType(ele.type, index)}
                               style={{
                                 backgroundColor: clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
                                 color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : ele.color,
@@ -335,7 +344,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                         <label htmlFor="File Type" className="ms-3 mb-2">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
                             <option value="" disabled></option>
-                            {fileTypes.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
+                            {fileTypes.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.fileType && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.fileType}</p>}
                         </div>
@@ -345,8 +354,8 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                         <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
                             <option value="" disabled></option>
-                           {sizeUpTo.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
-                           {formData.customsizes.map((customSize, index) => ( <option key={index} value={customSize}>{customSize}</option> ))}
+                            {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
+                            {formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
                             <option value="Custom">Custom</option>
                           </select>
                           {(formData.size === 'Custom') && <>
@@ -368,7 +377,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes }) => {
                         <label htmlFor="Transparency"  className="ms-3 mb-2">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
                             <option value="" disabled></option>
-                            {transparencies.map((option,index) => ( <option key={index} value={option}>{option}</option> ))} 
+                            {transparencies.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.transparency && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.transparency}</p>}
                         </div>
@@ -414,6 +423,12 @@ const mapStateToProps = (state) => {
     isAddEdit: state.brand.isAddEdit,
     user: state.auth.user,
     requestTypes: state.requests.requestTypes,
+    requestData: state.requests.editrequestData,
   };
 };
-export default connect(mapStateToProps)(NewRequest);
+const mapDispatchToProps = () => {
+  return {
+    getbrandlist,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NewRequest);
