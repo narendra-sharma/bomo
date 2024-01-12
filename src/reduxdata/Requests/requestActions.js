@@ -5,9 +5,8 @@ import {
   catch_errors_handle,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST } from "./requestTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
-import { GET_ADMIN_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -32,10 +31,10 @@ export const get_draft_requestlist = async (dispatch, token, page, limit) => {
   }
 };
 
-export const get_admin_requestlist = async (dispatch, token, page, limit) => {
+export const get_admin_pending_requestlist = async (dispatch, token, page=1, limit=10,search) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}${search?'&search='+search:''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -43,7 +42,7 @@ export const get_admin_requestlist = async (dispatch, token, page, limit) => {
     };
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
-      dispatch({ type: GET_ADMIN_REQUEST_LIST, payload: res.data });
+      dispatch({ type: GET_ADMIN_PENDING_REQUEST_LIST, payload: res.data });
     } else {
       toast.error(res.data?.message);
     }
@@ -57,16 +56,18 @@ export const get_admin_requestlist = async (dispatch, token, page, limit) => {
 export const change_request_status = async (dispatch, token, id, status) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/request-action?request_id=${id}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/request-action`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url, { status: status }, HEADERS);
+    const res = await axios.put(url, { status: status,request_id:id }, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_admin_requestlist(dispatch, token);
+      get_admin_pending_requestlist(dispatch, token);
+    }else {
+      toast.error(res.data?.message);
     }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));

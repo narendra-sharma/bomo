@@ -35,7 +35,6 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     vatNumber:''
   });
   const handleCardElementChange = (event,label) => {
-    console.log(event,label);
     switch(label){
       case 'cardNumber':
         if(event.empty){

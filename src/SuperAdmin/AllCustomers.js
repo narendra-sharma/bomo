@@ -6,6 +6,7 @@ import { get_all_users } from "../reduxdata/rootAction";
 import CustomPagination from "../Common/CustomPagination";
 import { format } from "date-fns";
 import ViewAsCustomer from "../Modals/ViewAsCustomer";
+import EmptyList from "../Common/EmptyList";
 
 const AllCustomers = ({ user, users, total }) => {
   const dispatch = useDispatch();
@@ -45,9 +46,7 @@ const AllCustomers = ({ user, users, total }) => {
                   </tbody>
                 </table>
               </div>)
-              : <div className="w-100 text-center py-2">
-                <p className="py-2 my-2 text-muted">Customers List is empty!</p>
-              </div>}
+              : <EmptyList name="Customers" />}
               <div className="review-content add-member px-4 py-2 rounded mb-3">
                 {total > 0 && (
                   <CustomPagination

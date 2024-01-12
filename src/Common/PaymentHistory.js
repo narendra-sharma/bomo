@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { CSVLink } from "react-csv";
 import CustomPagination from "./CustomPagination";
 import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
+import EmptyList from "./EmptyList";
 const PaymentHistory = ({user,userrole,data,total}) => {
   const csvLinkRef = useRef();
   const dispatch=useDispatch();
@@ -48,11 +49,7 @@ const PaymentHistory = ({user,userrole,data,total}) => {
               <td>${(item.amount/100)} </td>
               <td className="text-end"><a href={item?.invoice_link} className="btn btn-outline-dark rounded-pill px-4 py-1">Invoice</a></td>
             </tr>)
-              : <tr>
-                <td colSpan="100%" className="text-center py-5">
-                  <p className="py-5 my-5 text-muted">Payment History is empty!</p>
-                </td>
-              </tr>}
+              : <EmptyList name="Payment History" isTable/>}
           </tbody>
         </table>
         {total > 0 && <CustomPagination total={total} onPageChange={(page, perPage) => get_payment_history(dispatch,user?.token,page, perPage)} />}
