@@ -5,8 +5,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
 const {REACT_APP_STRIPE_PUBLIC_KEY}=process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
-const PaymentCardInfo = ({ stripe, elements }) => {
-  const [loading, setLoading] = useState(false);
+const PaymentCardInfo = () => {
+  const [cardFeilds,setCardFeilds]=useState({
+    cardNumber:true,
+    cardExpiry:true,
+    cardCvc:true,
+  });
   const [errors, setErrors] = useState({
     cardNumber: '',
     cardExpiry: '',
@@ -45,12 +49,30 @@ const PaymentCardInfo = ({ stripe, elements }) => {
         break;
     }
   };
+  const checkAllErrors=()=>{
+    let err=false;
+    let output = Object.entries(cardFeilds)
+    output.forEach(([key, value]) =>{
+      if(value){
+        err=true;
+        setErrors((prevErrors) => (
+          { ...prevErrors,
+            [key]:key==='cardNumber'?(prevErrors.cardNumber?prevErrors.cardNumber:'Card Number is required')
+            :key==='cardExpiry'?(prevErrors.cardExpiry?prevErrors.cardExpiry:'Card Expiry is required')
+            :(prevErrors.cardCvc?prevErrors.cardCvc:'Card CVC is required')
+          }
+        ))
+      }else{
+        setCardFeilds((prevErrors) => ({ ...prevErrors,[key]:false}))
+      }
+    });
+    return err
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) {
+    if (!stripe || !elements || checkAllErrors()) {
       return;
     }
-    setLoading(true);
     const cardElement = elements.getElement(CardNumberElement);
     const { error, token } = await stripe.createToken(cardElement);
     if (error) {

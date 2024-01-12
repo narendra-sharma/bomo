@@ -60,7 +60,6 @@ export const add_new_member = async (dispatch, userData, token, id, role) => {
       change_add_edit(dispatch);
     } else {
       toast.error(res.data.message);
-      console.log("Inside else");
     }
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch));

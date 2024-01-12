@@ -17,6 +17,11 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     country:user?.address?user?.address?.country:'',
     vatNumber:user?.address?user?.address?.vatNumber:''
   });
+  const [cardFeilds,setCardFeilds]=useState({
+    cardNumber:true,
+    cardExpiry:true,
+    cardCvc:true,
+  });
   const [errors, setErrors] = useState({
     cardNumber:'',
     cardExpiry:'',
@@ -30,100 +35,79 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     vatNumber:''
   });
   const handleCardElementChange = (event,label) => {
+    console.log(event,label);
     switch(label){
       case 'cardNumber':
         if(event.empty){
           setErrors({...errors,cardNumber:'Card Number is required'})
+          setCardFeilds({...cardFeilds,cardNumber:true})
         }else if(event.error){
           setErrors({...errors,cardNumber:event.error.message})
+          setCardFeilds({...cardFeilds,cardNumber:true})
         }else{
           setErrors({...errors,cardNumber:''})
+          setCardFeilds({...cardFeilds,cardNumber:false})
         }
         break;
       case 'cardExpiry':
         if(event.empty){
           setErrors({...errors,cardExpiry:'Card Expiry is required'})
+          setCardFeilds({...cardFeilds,cardExpiry:true})
         }else if(event.error){
           setErrors({...errors,cardExpiry:event.error.message})
+          setCardFeilds({...cardFeilds,cardExpiry:true})
         }else{
           setErrors({...errors,cardExpiry:''})
+          setCardFeilds({...cardFeilds,cardExpiry:false})
         }
         break;
       case 'cardCvc':
         if(event.empty){
           setErrors({...errors,cardCvc:'Card CVC is required'})
+          setCardFeilds({...cardFeilds,cardCvc:true})
         }else if(event.error){
           setErrors({...errors,cardCvc:event.error.message})
+          setCardFeilds({...cardFeilds,cardCvc:true})
         }else{
           setErrors({...errors,cardCvc:''})
+          setCardFeilds({...cardFeilds,cardCvc:false})
         }
-        break;
-      case 'name':
-        if(!event){
-          setErrors({...errors,name:{type:'required'}})
-        }else{
-          setErrors({...errors,name:''})
-        }
-        setCard({...card,name:event});
-        break;
-      case 'surname':
-        setCard({...card,surname:event});
-        break;
-      case 'company':
-        if(!event){
-          setErrors({...errors,company:{type:'required'}})
-        }else{
-          setErrors({...errors,company:''})
-        }
-        setCard({...card,company:event});
-        break;
-      case 'address':
-        if(!event){
-          setErrors({...errors,address:{type:'required'}})
-        }else{
-          setErrors({...errors,address:''})
-        }
-        setCard({...card,address:event});
-        break;
-      case 'city':
-        if(!event){
-          setErrors({...errors,city:{type:'required'}})
-        }else{
-          setErrors({...errors,city:''})
-        } 
-        setCard({...card,city:event});  
-        break;
-      case 'postalCode':
-        if(!event){
-          setErrors({...errors,postalCode:{type:'required'}})
-        }else{
-          setErrors({...errors,postalCode:''})
-        }
-        setCard({...card,postalCode:event});
-        break;
-      case 'country':
-        if(!event){
-          setErrors({...errors,country:{type:'required'}})
-        }else{
-          setErrors({...errors,country:''})
-        }
-        setCard({...card,country:event});
-        break;
-      case 'vatNumber':
-        if(!event){
-          setErrors({...errors,vatNumber:{type:'required'}})
-        }else{
-          setErrors({...errors,vatNumber:''})
-        } 
-        setCard({...card,vatNumber:event});  
         break;
       default:
+        setCard((prev) => ({...prev,[label]:event}));
+        setErrors((prev) => ({...prev,[label]:(!event && (label!=='surname'))?{type:'required'}:''}))
         break;      
     }
   };
+  const checkAllErrors=()=>{
+    let err=false;
+    let output = Object.entries(card)
+    output.forEach(([key, value]) =>{
+      if(!value && (key!=='surname')){
+        err=true;
+        setErrors((prevErrors) => ({ ...prevErrors,[key]:{type:'required'}}))
+      }
+    });
+    output = Object.entries(cardFeilds)
+    output.forEach(([key, value]) =>{
+      if(value){
+        err=true;
+        setErrors((prevErrors) => (
+          { ...prevErrors,
+            [key]:key==='cardNumber'?(prevErrors.cardNumber?prevErrors.cardNumber:'Card Number is required')
+            :key==='cardExpiry'?(prevErrors.cardExpiry?prevErrors.cardExpiry:'Card Expiry is required')
+            :(prevErrors.cardCvc?prevErrors.cardCvc:'Card CVC is required')
+          }
+        ))
+      }else{
+        setCardFeilds((prevErrors) => ({ ...prevErrors,[key]:false}))
+      }
+    });
+    return err;
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) {
+    if (!stripe || !elements || checkAllErrors()) {
       return;
     }
     const cardElement = elements.getElement(CardNumberElement);
@@ -149,17 +133,6 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
         toast.error(error.message);
       }
     } else {
-      const output = Object.entries(card).map(([key, value]) => ({key,value}));
-      let err=false;
-      for(let i=output.length-1;i>-1;i--){
-        if(!output[i].value && (output.key!=='surname')){
-          err=true;
-          await handleCardElementChange(output[i].value,output[i].key);
-        }
-      };
-      if(err){
-        return false;
-      }
       const data={
         user_id:user._id,
         email:user.email,

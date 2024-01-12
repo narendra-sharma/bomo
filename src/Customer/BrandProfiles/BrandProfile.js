@@ -12,7 +12,7 @@ import NewRequestShared from "../Sahred/NewRequestShared";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
-const BrandProfile = ({ brands, total, user, getbrandlist }) => {
+const BrandProfile = ({ brands, total, user }) => {
 
   const dispatch = useDispatch();
   const usertoken = user.token;
@@ -69,7 +69,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
             <h3>Brand Profile</h3>
           </div>
           {(brands.length > 0) && brands.map((brand) => (
-            <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'':'bg-white'}`}>
+            <div  key={brand?._id} className={`table-responsive brand-table rounded ${edit?.id===brand?._id?'border border-dark':'bg-white'}`}>
               <table className="table table-borderless mb-0">
                 <tbody>
                   <tr>
@@ -83,22 +83,19 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
                     <td  className="col-lg-3 col-12 mb-3 mb-md-0">
                     <div className="edit-buttons">
                         <span className="update-buttons">
-                          {edit?.id===brand?._id ?<>
+                          {edit?.id===brand?._id &&<>
                             <button type="button" className="create-add-btn rounded-pill fw-bold"  onClick={()=>setIsEdit(true)}>
                               Update
                             </button>
                             <button type="button" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
-                          </>
-                          :<button className="new-request rounded-pill px-4 py-2 fw-bold text-decoration-none text-dark" onClick={() => { handleShowEditBrand(brand) }}>
-                            Preview {brand?.brandname.split(' ')[0]}
-                          </button>}
+                          </>}
                           </span>
                           <span className="edit">
                         
                           {edit?.id===brand?._id ?
                             <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(newBrand) }}>- exit edit</Link>
                             :
-                            <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand) }}>+ edit</Link>
+                            <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand);setHandleshow(false); }}>+ edit</Link>
                           }
                           </span>
                         </div>
@@ -111,7 +108,7 @@ const BrandProfile = ({ brands, total, user, getbrandlist }) => {
           {(total > 0) && <CustomPagination total={total} onPageChange={(page, perPage) =>  getbrandlist(dispatch, usertoken, page, perPage)} />}
           {
             !handleshow ?
-              <><div className="add-new-brand"><button className="add-btn" onClick={() => setHandleshow(true)}>+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Brand</span></div></>
+              <><div className="add-new-brand"><button className="add-btn" onClick={() =>{ setHandleshow(true);setEdit(newBrand);}}>+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Brand</span></div></>
               : <>
                 <ManageBrand checkedit={isEdit} brand={edit} close={() => closeBrand()} />
               </>
@@ -132,9 +129,4 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
   };
 };
-const mapDispatchToProps = () => {
-  return {
-    getbrandlist
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(BrandProfile);
+export default connect(mapStateToProps)(BrandProfile);
