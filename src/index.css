@@ -46,6 +46,9 @@ font-family: var(--pubilc-sans-font);
 .light-green{
   color:var(--mid-green)
 }
+.extra-dark-green{
+  color:#012801;
+}
 .display-inline{
   display: inline;
 }
@@ -354,7 +357,7 @@ nav {
   font-size: 14px;
 }
 .rightside-wrapper{
-  width: calc(100% - 150px);
+  width: calc(100% - 138px);
 }
 .main-content-wraaper{
   color: #000;
@@ -581,6 +584,9 @@ table.feedback-queue tr:first-child td{
 }
 .status-btn .pause-btn{
   background-color: #000000;
+}
+.status-btn .pause-btn:hover{
+  border-color: #000;
 }
 .status-btn .btn.cancel-btn {
   background-color: #F82626;
@@ -1332,10 +1338,10 @@ ul.designer-list li{
   color: #838383;
 }
 /* customer popup */
-.view-customer-popup .modal-dialog{
+.view-as-customer-popup .modal-dialog{
   max-width:1200px;
 }
-.view-customer-popup .modal-content{
+.view-as-customer-popup .modal-content{
   background-color: #f2f2f2;
 }
 .view-customer-content .active-request-section {
@@ -1352,7 +1358,16 @@ ul.designer-list li{
 }
 .view-customer-content .status-btn .btn {
   font-size: 12px;
-
+}
+.view-customer-content .start-date{
+  margin-top: -17px;
+  font-size: 13px;
+}
+.admin-payments tr td:nth-child(2) {
+  width: 90px;
+}
+.customer-subscription .review-content {
+  padding: 28px 30px !important;
 }
 .Toastify__progress-bar--success{
   background-color: var(--dark-green)!important;
@@ -1492,6 +1507,42 @@ span.filename i{
   position: relative;
   left: -2%;
 }
+.designer-active-request .review-delivery a{
+ padding: 4px 20px;
+ background-color: #3FCE3C;
+ letter-spacing: -0.7px;
+ font-size: 14px;
+}
+.designer-active-request .table>:not(caption)>*>*{
+  background-color: #ECF7EE;
+}
+.designer-active-request .status::before {
+  left: 0;
+  width:5px;
+  height: 5px;
+}
+.designer-active-request .review-content td p {
+  font-size: 14px;
+  line-height:normal;
+  letter-spacing: -0.48px;
+}
+.review-content .short0ad.short-bg{
+  background-color:#B185F2;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 15px;
+}
+.poll-request-section p {
+  font-size: 12px;
+  line-height: 14px;
+}
+.poll-request-section p.short0ad.dor{
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 7px;
+  line-height: 20px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -1539,7 +1590,7 @@ span.filename i{
     padding-right: 40px;
   }
   .status-btn button {
-    padding: 6px 25px;
+    padding: 6px 20px;
   }
   .billing-form label , .billing-form input.form-control {
     font-size: 14px;
@@ -1555,6 +1606,9 @@ span.filename i{
   .modify-subscription-saving .savings {
     width: 85%;
   }
+  .view-as-customer-popup .modal-dialog{
+    max-width:1100px;
+  }
 }
 @media(max-width:1200px){
   .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
@@ -1568,6 +1622,17 @@ span.filename i{
   .add-brand-profile , .brand-table{
     padding: 30px 25px;
   }
+  .view-as-customer-popup .modal-dialog{
+    max-width: 75%;
+  }
+  .view-customer-content .active-request-section, 
+  .view-customer-content .active-request-section:last-child {
+    flex: 0 0 49%;
+  }
+  .view-customer-content .customer-details, 
+  .view-customer-content .customer-subscription{
+    flex: 0 0 100%;
+}
 }
 @media(max-width:1024px){
   .form-inner {
@@ -1577,6 +1642,23 @@ span.filename i{
     font-size: 72px;
     line-height: 75px;
   }
+  .view-customer-content .customer-details , .view-customer-content .customer-subscription{
+    flex: 0 0 100%;
+  }
+  .customer-details .review-main-content {
+    display: block!important;
+
+  }
+  .customer-details .review-main-content div{
+    padding-bottom: 10px!important;
+  }
+  .view-customer-content .active-request-section, 
+  .view-customer-content .active-request-section:last-child {
+    flex: 0 0 100%;
+  }
+  .view-customer-content .active-request-section, .view-customer-content .active-request-section:last-child {
+    flex: 0 0 49%;
+}
 }
 @media screen and (max-width: 992px){
   .signup-content{
@@ -1691,8 +1773,8 @@ span.filename i{
   .view-customer-content .customer-subscription{
     flex: 0 0 100%;
   }
-  .view-customer-popup .modal-dialog{
-    max-width: 100%;
+  .view-as-customer-popup .modal-dialog{
+    max-width: 90%;
   }    
   .brand-table ,  .brand-table table td{
     padding: 10px 10px;

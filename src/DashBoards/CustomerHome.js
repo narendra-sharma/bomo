@@ -13,7 +13,7 @@ const CustomerHome = () => {
           <NewRequestShared />
         </div>
         <div className="review-main-content mb-5">
-          <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Ready to Review</h3></div>
+          <div className="mx-md-5 mx-sm-0 mb-4"><h3>Ready to Review</h3></div>
           <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
             <div className="table-responsive">
               <table className="table table-borderless">

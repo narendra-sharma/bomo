@@ -145,7 +145,7 @@ const ViewAsCustomer = ({ view,show,handleClose }) => {
                                 <div class="monthly-revenue-price text-center py-4">
                                     <h2 class="text-muted mb-0">10</h2>
                                 </div>
-                                <p>Started 17 August 2022</p>
+                                <p className="mb-0 start-date">Started 17 August 2022</p>
                             </div>
                         </div>
                         <div class="active-request-section d-flex flex-column rounded mb-4">
