@@ -5,20 +5,20 @@ const initialState = {
   totaldrafts:0,
   draftrequests:[],
   requestTypes:[
-    {type: 'logo', color: 'purple'},
-    {type: 'short ad', color: 'green'},
-    {type: 'web animation', color: 'pink'},
-    {type: 'icon', color: 'lightgreen'},
-    {type: 'typography', color: 'orange'},
-    {type: 'brand element', color: 'blue'},
-    {type: 'intro', color: 'Violet'},
-    {type: 'outro', color: 'brown'},
-    {type: 'transition', color: 'red'},
-    {type: 'UI animation', color: 'teal'},
-    {type: 'loop', color: 'orange'},
-    {type: 'custom', color: 'black'}
+    {type: 'logo', color: 'purple',value:'logo'},
+    {type: 'short ad', color: 'green',value:'short_ad'},
+    {type: 'web animation', color: 'pink',value:'web_animation'},
+    {type: 'icon', color: 'lightgreen',value:'icon'},
+    {type: 'typography', color: 'orange',value:'typography'},
+    {type: 'brand element', color: 'blue',value:'brand_element'},
+    {type: 'intro', color: 'Violet',value:'intro'},
+    {type: 'outro', color: 'brown',value:'outro'},
+    {type: 'transition', color: 'red',value:'transition'},
+    {type: 'UI animation', color: 'teal',value:'ui_animation'},
+    {type: 'loop', color: 'orange',value:'loop'},
+    {type: 'custom', color: 'black',value:'custom'}
   ],
-  editrequestData:null
+  editrequestData:null,
 };
 
 const requestReducer = (state = initialState, action) => {
