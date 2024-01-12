@@ -9,10 +9,10 @@ import {
 } from "../../reduxdata/members/memberAction";
 import { useDispatch, connect } from "react-redux";
 import NewRequestShared from "../Sahred/NewRequestShared";
-import { format } from "date-fns";
+import { format } from 'date-fns';
 const roles = [
   { id: 1, label: "Customer Admin", value: "customer_admin" },
-  { id: 2, label: "Team Member", value: "team_member" },
+  { id: 2, label: "Team Member",value: "team_member" },
 ];
 
 const Members = ({ user, member, total, isAddEdit }) => {
@@ -40,7 +40,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
   const handleDeleteConfirm = (id) => {
     delete_existing_user(id, dispatch, user?.token);
     setShowDeleteModals([]);
-    setdeletedFlag((prev) => !prev);
+    setdeletedFlag((prev) => !prev);  
   };
 
   // handling change of a value
@@ -58,18 +58,17 @@ const Members = ({ user, member, total, isAddEdit }) => {
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
           <div className="mx-md-3 mx-lg-5 mb-4">
-            <NewRequestShared />
+            <NewRequestShared/>
           </div>
           <div className="review-main-content mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Members</h3>
             </div>
-            {member.length > 0 && (
-              <div className="review-content bg-white rounded mb-3">
-                <div className="table-responsive">
-                  {member.map((item, index) => (
+            {(member.length>0) && <div className="review-content rounded mb-3">
+              <div className="table-responsive">
+                {member.map((item, index) => (
                     <table
-                      className="table table-borderless member-table mb-0"
+                      className="table table-borderless member-table"
                       key={index}
                     >
                       <tr>
@@ -83,7 +82,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 borderRadius: 25,
                               }}
                             ></div>
-                            <p className="mb-0 user-email  ms-1">
+                            <p className="mb-0 user-email">
                               <b>Name</b>
                               <p
                                 className="d-block"
@@ -95,7 +94,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           </div>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1">
+                          <p className="mb-0 user-email">
                             <b>Role</b>
                             {updateRolepopUps[index] ? (
                               <select
@@ -103,27 +102,19 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 defaultValue={item?.role}
                                 onChange={(e) => handleChange(e)}
                               >
-                                <option value="" disabled>
-                                  Select
-                                </option>
                                 {roles.map((roleItem) => (
-                                  <option
-                                    key={roleItem.id}
-                                    value={roleItem.value}
-                                  >
+                                  <option key={roleItem.id} value={roleItem.value}>
                                     {roleItem.label}
                                   </option>
                                 ))}
                               </select>
                             ) : (
-                              <span className="d-block text-capitalize">
-                                {item?.role.replace("_", " ")}
-                              </span>
+                              <span className="d-block text-capitalize">{item?.role.replace('_',' ')}</span>
                             )}
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1">
+                          <p className="mb-0 user-email">
                             <b>Date added</b>
                             <p
                               className="d-block"
@@ -131,25 +122,25 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 width: "90px",
                               }}
                             >
-                              {format(new Date(item?.createdAt), "MM/dd/yyyy")}
+                              {format(new Date(item?.createdAt), 'MM/dd/yyyy')}
                             </p>
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1">
+                          <p className="mb-0 user-email">
                             <b>Email</b>
                             <span className="d-block">{item?.email}</span>
                           </p>
                         </td>
                         <td>
-                          <p className="mb-0 user-email  ms-1">
+                          <p className="mb-0 user-email">
                             <b>Password</b>
                             <span className="d-block">*******</span>
                           </p>
                         </td>
 
-                        <td className="text-end">
-                          <p className="mb-0 user-email  ms-1">
+                        <td className="text-end update-btn">
+                         
                             {!updateRolepopUps[index] ? (
                               <button
                                 className=" text-decoration-none text-dark cursor-pointer"
@@ -170,11 +161,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 update
                               </button>
                             )}
-                          </p>
+                          
                         </td>
 
-                        <td className="text-end">
-                          <p className="mb-0 user-email  ms-1">
+                        <td className="text-center update-btn">
+                          
                             <button
                               className=" text-decoration-none text-dark"
                               onClick={() => {
@@ -189,7 +180,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                             >
                               delete
                             </button>
-                          </p>
+                          
                         </td>
                         {showDeleteModals[index] && (
                           <DeleteBrand
@@ -207,9 +198,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       </tr>
                     </table>
                   ))}
-                </div>
               </div>
-            )}
+            </div>}
             <div className="review-content add-member px-4 py-2 rounded mb-3">
               {total > 0 && (
                 <CustomPagination
@@ -221,15 +211,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div
-                className="add-new-brand add-member-count"
-                onClick={() => setShowAddComp((prev) => !prev)}
-              >
-                <button className="add-btn">+</button>{" "}
-                <span className="ms-4 ps-2">
-                  <span className="fw-bold">Add</span> New Memeber
-                </span>
-              </div>
+              <div className="add-new-brand add-member-count" onClick={() => setShowAddComp((prev) => !prev)}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}

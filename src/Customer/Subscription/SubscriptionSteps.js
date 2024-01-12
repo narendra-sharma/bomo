@@ -98,8 +98,8 @@ const SubscriptionSteps = (props) => {
               </>
             }
           </p>
-          <div className="py-3 row px-2 px-md-4">
-            <div className="subscription-data mb-3 row no-gutters align-items-center w-secUpTo0">
+          <div className="py-3 px-2 px-md-4">
+            <div className="subscription-data mb-0 row align-items-center w-secUpTo0">
               <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
                 <span className="increament-content position-relative">
                 <span className={`increament plus-increment ${(pieces > firstUpTo) && 'cursor-pointer'}`} onClick={() => (pieces > firstUpTo) && decrease()}>-</span>
@@ -107,22 +107,22 @@ const SubscriptionSteps = (props) => {
                 <span className="increament decrease cursor-pointer g-0" onClick={() => increase()}> +</span>
                 </span>
               </div>
-              <div className="col-md-4 g-0">
+              <div className={user?.plan_id?'col-md-2 modify-subscription-saving g-0':'col-md-4 g-0'}>
                 {!user?.plan_id && <>
                   <div className="savings saving-bg-color rounded py-1 g-0 mb-1">Order up to <u>{pieces}</u> items in one bulk request, or split them as needed</div>
                   <div className="savings rounded py-1 g-0 mb-1">Unlimited Revisions. <u>{Math.ceil(pieces/firstUpTo)}</u> at a time with your current Plan</div>
                 </>}
-                {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving <u>${save}</u></div>}
+                {(save > 0) && <div className="savings rounded mt-2 mt-md-0 py-1 g-0">You are saving <u className={user?.plan_id?'text-decoration-none':''}>${save}</u></div>}
               </div>
             </div>
 
-            <div className="setting-subscription-total text-center mb-1">
-              <span className="dark-green "> <strong>{user?.plan_id?'New total':'Total'} </strong></span><span className="light-green">$ {prize}</span>
+            <div className={user?.plan_id?'modify-subscription-total setting-subscription-total text-center mb-1' : 'setting-subscription-total text-center mb-1'}>
+              <span className="dark-green "> <span className={user?.plan_id?'fw-medium':'fw-bold'}>{user?.plan_id?'New total':'Total'} </span> </span><span className="light-green">$ {prize}</span>
             </div>
-            {user?.plan_id && <p className="text-secondary text-center">Before ${total}</p>}
+            {user?.plan_id && <p className="text-mute text-center">Before $ <span className="font-public">{total}</span></p>}
           </div>
           <div className="mb-5 text-center">
-            <button type="button" className="btn update-btn rounded-pill px-5 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
+            <button type="button" className="btn update-btn rounded-pill px-4 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
           </div>
           <p className="text-center">Subscriptions are billed monthly at the start of the period.</p>
         </>}

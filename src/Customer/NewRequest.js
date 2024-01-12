@@ -3,8 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { get_edit_request_data, newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
-// import { useLocation } from "react-router-dom";
-// import { get_edit_request_data } from "../reduxdata/rootAction";
+import plusImage from '../images/plus-img.png';
 
 const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, requestData }) => {
   console.log(requestData);
@@ -272,28 +271,28 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
 
   return (
     <>
-      <div className="ml-md-auto pt-4 ms-md-auto rightside-wrapper">
-        <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          <div className="review-main-content text-center mb-4">
-            <h3>New Request</h3>
-            <p className="text-secondary">{format(now, 'EEEE dd MMM, yyyy')}<span className="d-block">{user?.address?.city}, {currentTime}</span>  </p>
+      <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
+        <div className="main-content-wraaper px-60 py-md-2 py-lg-5 new-request-section">
+          <div className="review-main-content text-center mb-4 ">
+            <h2>New Request</h2>
+            <p className="text-mute">{format(now, 'EEEE dd MMM, yyyy')}<span className="d-block">{user?.address?.city}, {currentTime}</span>  </p>
           </div>
           <div className="mt-5 new-request-form">
             <form>
               <div className="row">
-                <div className="col-md-7">
+                <div className="col-lg-7 col-md-12">
                   <div className="row">
                     <div className="col-md-5">
                       <div className="form-group">
-                        <label htmlFor="Request Name">Request Name <span className="text-danger">*</span></label>
+                        <label htmlFor="Request Name" className="ms-3 mb-2">Request Name <span className="text-danger">*</span></label>
                         <input type="text" name="requestName" value={formData.requestName} className="form-control" onChange={handleInputChange} />
                         {errors.requestName && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.requestName}</p>}
                       </div>
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
-                        <label htmlFor="Brand Profile">Brand Profile<span className="text-danger">*</span></label>
-                        <select type="select" name="brandProfile" defaultValue={requestData?._id ? requestData?.request_name : ''} onChange={handleInputChange} className="form-control">
+                      <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger">*</span></label>
+                        <select type="select" name="brandProfile" value={formData.brandProfile} onChange={handleInputChange} className="form-control">
                           <option value="" disabled>Select</option>
                           {brands.map((brand) => (<option key={brand._id} value={brand?._id}>{brand?.brandname}</option>))}
                         </select>
@@ -302,9 +301,8 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                     </div>
                     <div className="col-md-12">
                       <div className="form-group">
-                        <label htmlFor="Description">Description<span className="text-danger">*</span></label>
-                        <textarea name="description" className="form-control w-100" placeholder="
-                                            Describe the Brief for this piece. Include as much info as possible.
+                      <label htmlFor="Description" className="ms-3 mb-2">Description<span className="text-danger">*</span></label>
+                        <textarea name="description" className="form-control w-100" placeholder="Describe the Brief for this piece. Include as much info as possible.
                                             Tone and Style
                                             Target Audience
                                             Goal of the Piece
@@ -315,13 +313,13 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                     </div>
                   </div>
                 </div>
-                <div className="col-md-5 review-content">
+                <div className="col-lg-5 col-md-12 review-content">
                   <div className="mb-4">
-                    <label htmlFor="Request Type">Request Type<span className="text-danger">*</span></label>
-                    <div className="form-control py-3">
-                      <div className="row request-type">
+                  <label htmlFor="Request Type" className="ms-3 mb-2">Request Type<span className="text-danger">*</span></label>
+                    <div className="bg-white border-dark rounded border py-3">
+                      <div className="request-type">
                         {requestTypes.map((ele, index) => (
-                          <div key={index} className="col-xl-3 col-md-4 col-sm-6 col-12 request-list mb-2"
+                          <div key={index} className="request-list"
                             onMouseEnter={() => handleHover(index)}
                             onMouseLeave={handleLeave}
                           >
@@ -329,7 +327,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                               style={{
                                 backgroundColor: clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
                                 color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : ele.color,
-                                border: `2px solid ${ele.color}`
+                                border: `1px solid ${ele.color}`
                               }}>
                               {ele.type}
                             </p>
@@ -343,7 +341,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label htmlFor="File Type">File Type<span className="text-danger">*</span></label>
+                        <label htmlFor="File Type" className="ms-3 mb-2">File Type<span className="text-danger">*</span></label>
                           <select name="fileType" type="select" className="form-control" onChange={handleInputChange} value={formData.fileType}>
                             <option value="" disabled></option>
                             {fileTypes.map((option, index) => (<option key={index} value={option}>{option}</option>))}
@@ -353,7 +351,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label htmlFor="Size Up to 2">(Size Up to 2)<span className="text-danger">*</span></label>
+                        <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <select name="size" value={formData.size} type="select" className="form-control" onChange={handleInputChange}>
                             <option value="" disabled></option>
                             {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
@@ -369,14 +367,14 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label htmlFor="References">References<span className="text-danger">*</span></label>
+                        <label htmlFor="References" className="ms-3 mb-2">References<span className="text-danger">*</span></label>
                           <input type="text" name="references" value={formData.references} className="form-control" onChange={handleInputChange} />
                           {errors.references && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.references}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label htmlFor="Transparency">Transparency<span className="text-danger">*</span></label>
+                        <label htmlFor="Transparency"  className="ms-3 mb-2">Transparency<span className="text-danger">*</span></label>
                           <select name="transparency" type="select" className="form-control" onChange={handleInputChange} value={formData.transparency}>
                             <option value="" disabled></option>
                             {transparencies.map((option, index) => (<option key={index} value={option}>{option}</option>))}
@@ -389,13 +387,16 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                   </div>
                 </div>
                 <div className="col-md-12 review-content">
-                  <label htmlFor="Upload Files">Upload Files<span className="text-danger">*</span></label>
-                  <input name="uploadFiles" type="file" className="form-control" onChange={handleInputChange} ref={fileInputRef} />
+                <label htmlFor="Upload Files"  className="ms-3 mb-2">Upload Files<span className="text-danger">*</span></label>
+                   <label class="uploadFile">
+                   <span class="filename"><img src={plusImage} /></span>
+                    <input name="uploadFiles" type="file" className="inputfile form-control" onChange={handleInputChange} ref={fileInputRef} />
+                 </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
-                  <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. <br />You can create {user?.quantity} more pieces. Subscription renews on Nov 17</p>
+                  <p className="mt-3">You have created <b>{user?.subscription?.quantity-user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br/> Subscription renews on Nov 17</p>
 
                 </div>
-                <div className="col-md-12 mt-5 pt-5 text-center status-btn ">
+                <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
                   <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
@@ -403,13 +404,14 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
           </div>
 
         </div>
+      </div>
+      <div className="ml-md-auto ms-md-auto rightside-wrapper">
         <div className="bg-gray-dark py-5">
-          <div className="d-flex justify-content-center align-items-center">
-            <p className="text-dark"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
-            <button type="btn" className="py-1 px-4  border bg-white ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button>              </div>
+            <div className="d-flex justify-content-center align-items-center">
+              <p className="text-dark"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
+              <button type="btn" className="py-1 px-4 border feedback-request ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button> </div>
 
-        </div>
-
+          </div>
       </div>
     </>
   )

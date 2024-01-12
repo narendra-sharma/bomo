@@ -56,8 +56,8 @@ h1, h2 , h3, h4, h5, h6 , p{
   margin: 0;
 }
 .px-60{
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .color-white{
   color: #fff;
@@ -255,7 +255,7 @@ color: var(--dark-green);
   transform: translateY(50%);
   cursor: pointer;
 }
-.form-inner label .text-danger {
+.form-inner label .text-danger ,  .new-request-form form label .text-danger {
   top: -0.5em;
   left: 2px;
   font-size: .75em;
@@ -364,6 +364,11 @@ nav {
   font-weight: 700;
   font-size: 23px;
   line-height: 23px;
+}
+.review-main-content h2{
+  font-weight: 700;
+  font-size: 30px;
+  line-height: normal
 }
 .request-date p {
   font-size: 13px;
@@ -581,6 +586,11 @@ table.feedback-queue tr:first-child td{
   background-color: #F82626;
   letter-spacing: -0.36px;
 }
+.status-btn .btn.cancel-btn:hover{
+  background-color: transparent;
+  color: #F82626;
+  border-color: #F82626!important;
+}
 .review-content .status {
   font-size: 14px;
 }
@@ -593,11 +603,12 @@ table.feedback-queue tr:first-child td{
   font-weight: 500;
   font-family: var(--secondary-font);
   text-align: center;
+  letter-spacing: -1.52px;
 }
 .modify-subscription .subscription-heading{
   font-weight: 700;
   font-family: var(--main-font);
-  letter-spacing: -3px;
+  letter-spacing: -1.52px;
 }
 .subscription-heading img {
   width: 110px;
@@ -658,6 +669,7 @@ table.feedback-queue tr:first-child td{
   font-size: 17px;
   letter-spacing: -0.36px;
   padding: 3px;
+  width: 22%;
 }
 .modify-subscription .update-btn:hover{
   background-color: var(--dark-green);
@@ -808,22 +820,22 @@ table.feedback-queue tr:first-child td{
   background: rgba(249, 43, 52, 0.10);
 }
 .member-table tr td{
-  padding: 13px 10px;
+  padding: 13px 15px;
 }
 .member-table tr td:nth-child(1)
 {
- width: 230px;
+  width: 180px;
 }
 .member-table tr td:nth-child(2)
 {
- width: 175px;
+  width: 160px;
 }
 .member-table tr td:nth-child(3)
 {
  width: 135px;
 }
 .member-table tr td:nth-child(4){
- width:230px
+  width:176px
 }
 .logout-popup .modal-dialog {
   display: flex;
@@ -883,11 +895,15 @@ table.feedback-queue tr:first-child td{
 .suceess-popup .modal-content{
   border: solid 1px #000;
 }
-.new-request-form textarea.form-control {
-  min-height: 220px;
-}
 .new-request-form .form-control{
   border: solid 1px #000;
+  padding: 5px 15px!important;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.new-request-form textarea.form-control {
+  min-height: 220px;
+  padding: 20px 15px!important;
 }
 .request-type .request-list {
   /* flex: auto; */
@@ -917,8 +933,9 @@ table.feedback-queue tr:first-child td{
 .member-table .formcontrol {
   border: none;
   border-bottom: solid 2px #BBBBBB;
-  width: 80%;
+  width: 90%;
   font-size: 13px;
+  outline: none;
 }
 select.form-control {
   appearance: auto;
@@ -1078,13 +1095,13 @@ ul.designer-list li{
   color: #F92B34;
 }
 .brand-table{
-  padding: 20px 25px;
+  padding: 20px 35px;
   margin-bottom: 20px;
 }
 .brand-table img {
-  width: 50px;
-  max-width: 50px;
-  height: 50px;
+  width: 48px;
+  max-width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
   border: solid 1px #eee;
@@ -1096,9 +1113,9 @@ ul.designer-list li{
 }
 .add-new-brand button.add-btn , .add-brand-profile button.add-btn{
   border: solid 1px #000;
-  width: 50px;
-  height: 50px;
-  line-height: 51px;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
@@ -1113,7 +1130,7 @@ ul.designer-list li{
   align-items: center;
 }
 .brand-table table td {
-  padding: 10px 3px;
+  padding: 3px 5px;
   vertical-align: middle;
   font-size: 14px;
   line-height: 20px;
@@ -1133,7 +1150,7 @@ ul.designer-list li{
 } */
 .add-brand-profile{
   border: solid 1px #000;
-  padding: 30px 25px;
+  padding: 30px 35px;
 }
 .add-brand-profile .input-name{
   background: transparent!important;
@@ -1164,28 +1181,79 @@ ul.designer-list li{
   background-color: #3FCE3C;
   padding: 5px 25px;
   color: #000;
-  font-size: 14px;
+  font-size: 13px;
   border: none;
-  margin: 10px 0;
+  margin: 5px 0;
   text-transform: uppercase;
   display: block;
-  width: 85%;
+  width: 72%;
   letter-spacing: -0.48px;
+  border: solid 1px transparent;
 }
+.create-add-btn:hover {
+  background-color: transparent;
+   color: #3FCE3C;
+   border: solid 1px #3FCE3C;
+ }
+ .create-add-btn.delete-btn{
+  background-color:#F92B34;
+  color: #fff;
+  border: solid 1px #F92B34;
+ }
+ .create-add-btn.delete-btn:hover{
+   color: #F92B34;
+   background: transparent;
+ }
+
 .brand-table button {
   background-color: #F92B34;
   color: #fff;
   font-size: 13px;
   border: none;
-  margin: 10px 0;
+  margin: 5px 0;
   text-transform: uppercase;
   padding: 5px 35px;
   border-radius: 30px;
   font-weight: 700;
-  letter-spacing: -0.48px
+  letter-spacing: -0.48px;
+  width: 100%;
+  border: solid 1px transparent
+}
+.brand-table button:hover {
+  color: #F92B34;
+  background: transparent;
+  border: solid 1px #F92B34;
+}
+.update-buttons .create-add-btn {
+  background-color: #3FCE3C;
+  color: #000;
+  border: solid 1px #3FCE3C;
+}
+.update-buttons .create-add-btn:hover{
+  background-color: transparent;
+  color: #3FCE3C;
+  border: solid 1px #3FCE3C;
+} 
+.brand-table button.new-request{
+  background: #E1E1E1;
+}
+.brand-table button.new-request:hover{
+  background-color: #000;
+  color: #E1E1E1!important;
+  border: solid 1px #000;
+}
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.edit-buttons  span.update-buttons {
+  width: 70%;
 }
 .brand-table button.new-request{
   background: #E1E1E1;
+  letter-spacing: -0.56px;
 }
 /* .modal .add-brand-profile button.add-btn{
   margin-left: 10px;
@@ -1195,10 +1263,7 @@ ul.designer-list li{
   margin-right: 10px;
   display: inline-block;
 }
-.create-add-btn.delete-btn{
- background-color:#F92B34 ;
- color: #fff;
-}
+
 .error-msg {
   font-size: 13px;
   font-weight: 700;
@@ -1254,8 +1319,8 @@ ul.designer-list li{
   padding-right: 12px;
 }
 .ml-md-auto.py-4.ms-md-auto.rightside-wrapper{
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .subscription-status .ACTIVE{
   color: #000;
@@ -1298,6 +1363,9 @@ ul.designer-list li{
 .setting-subscription-total {
   font-size: 38px;
 }
+.modify-subscription-total{
+  font-size: 26px;
+}
 .setting-subscription-total  .light-green{
   font-family: var(--secondary-font);
 }
@@ -1329,6 +1397,100 @@ ul.designer-list li{
 .member-content .member-table input:-webkit-autofill, 
 .member-content .member-tablem input:-webkit-autofill:focus {
   font-size: 13px;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset!important;
+}
+.add-brand-profile input:-webkit-autofill, 
+.add-brand-profile input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--gray-light) inset!important;
+}
+.member-table {
+  background: #fff;
+  border-radius: 5px;
+}
+.member-table tr td button{
+background-color: #D9D9D9;
+}
+.member-table .d-flex {
+  gap: 20px;
+}
+p.user-email.date span {
+  line-height: 22px;
+}
+.member-table .update-btn button{
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+.new-request-section .review-main-content p{
+  letter-spacing: -0.18px;
+  line-height: 21px;
+  font-size: 14px;
+}
+.new-request-form label {
+  font-size: 14px;
+ letter-spacing: normal;
+}
+.new-request-form textarea.form-control::placeholder {
+  color: #adadad;
+  font-weight: 400;
+}
+.new-request-section .review-content .short0ad{
+  padding: 4px 3px;
+}
+.new-request-section .request-type {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.new-request-section .request-type .request-list {
+  flex: 0 0 21%;
+}
+.new-request-section .status-btn .pause-btn {
+  font-size: 16px;
+  font-weight: 700;
+}
+.uploadFile {
+  width: 100%;
+  background-color: white;
+  border: 0.5px solid #000;
+  border-radius: 5px;
+  color: grey;
+  font-size: 16px;
+  line-height: 23px;
+  overflow: hidden;
+  padding: 13px 10px 12px 10px;
+  position: relative;
+  resize: none;
+  text-align: center;
+}
+.uploadFile [type="file"] {
+    cursor: pointer !important;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+    top: 0px;
+    z-index: 1;
+  
+}
+span.filename i{
+  font-size: 25px;
+  color: #000;
+}
+.modify-subscription-saving .savings {
+  color: var(--mid-green);
+  font-weight: 500;
+  width: 70%;
+}
+.modify-subscription-saving {
+  position: relative;
+  left: -2%;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
@@ -1370,15 +1532,6 @@ ul.designer-list li{
     height: auto
   }
 }
-@media(max-width:1024px){
-  .form-inner {
-    width: 500px;
-  }
-  .signup-form h2, .form-heading h2 {
-    font-size: 72px;
-    line-height: 75px;
-  }
-}
 
 @media(max-width:1300px){
   .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
@@ -1395,6 +1548,13 @@ ul.designer-list li{
     padding-left: 30px;
     padding-right: 30px;
   }
+  .new-request-section .review-content .short0ad {
+    padding: 4px 2px;
+    font-size: 11px;
+  }
+  .modify-subscription-saving .savings {
+    width: 85%;
+  }
 }
 @media(max-width:1200px){
   .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
@@ -1404,6 +1564,18 @@ ul.designer-list li{
   .status-btn button {
     padding: 6px 18px;
     font-size: 12px;
+  }
+  .add-brand-profile , .brand-table{
+    padding: 30px 25px;
+  }
+}
+@media(max-width:1024px){
+  .form-inner {
+    width: 500px;
+  }
+  .signup-form h2, .form-heading h2 {
+    font-size: 72px;
+    line-height: 75px;
   }
 }
 @media screen and (max-width: 992px){
@@ -1449,6 +1621,9 @@ ul.designer-list li{
   }
   .designer-signup-form {
     padding: 40px 0;
+  }
+  .modify-subscription .update-btn{
+    width: 100%;
   }
   .px-60 , .ml-md-auto.py-4.ms-md-auto.rightside-wrapper{
     padding-left: 10px;
@@ -1525,6 +1700,14 @@ ul.designer-list li{
   .brand-table button{
     margin-left: 0;
   } 
+  .new-request-section .review-content .short0ad {
+    font-size: 10px;
+  }
+  .modify-subscription-saving {
+    position: relative;
+    left: 30px;
+    margin-bottom: 20px;
+  }
 }
 
 .cursor-pointer{

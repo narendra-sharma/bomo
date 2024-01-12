@@ -215,7 +215,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <button className="create-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
               {brand?.id ? 'Update' : 'Create'}
             </button>
