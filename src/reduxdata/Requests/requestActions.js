@@ -3,10 +3,10 @@ import {
   start_loading,
   stop_loading,
   catch_errors_handle,
+  change_add_edit,
 } from "../rootAction";
 import { toast } from "react-toastify";
 import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST } from "./requestTypes";
-import { IS_ADD_EDIT } from "../Brand/brandTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -104,7 +104,7 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
       toast.success(`Request ${requestdata?.request_id ? 'updated' : 'created'} Successfully`);
       navigate('/');
       get_draft_requestlist(dispatch, token); 
-      dispatch({ type: IS_ADD_EDIT });
+      change_add_edit(dispatch);
       return res.data;
     } else {
       toast.error(res.data.message);

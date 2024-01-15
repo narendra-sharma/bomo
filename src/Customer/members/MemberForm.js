@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { connect, useDispatch } from "react-redux";
 import { add_new_member } from "../../reduxdata/members/memberAction";
 import { format } from 'date-fns';
+import { change_add_edit } from "../../reduxdata/rootAction";
 
 const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   // initial form data
@@ -33,6 +34,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
         colour: "#111111",
       });
       setShowAddComp();
+      change_add_edit(dispatch);
     }
   }, [isAddEdit, dispatch]);
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
