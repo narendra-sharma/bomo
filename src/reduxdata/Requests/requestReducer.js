@@ -1,4 +1,4 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST} from "./requestTypes";
 const initialState = {
   pendingRequests: [],
   pendingTotal:0,
@@ -19,6 +19,7 @@ const initialState = {
     {type: 'custom', color: 'black',value:'custom'}
   ],
   editrequestData:null,
+  isEditRequest: false
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -39,7 +40,7 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         editrequestData: action.payload,
-      }
+      };
     default:
       return state;
   }

@@ -5,6 +5,7 @@ import AcceptRequest from "../../Modals/AcceptRequest";
 import { get_admin_pending_requestlist } from "../../reduxdata/rootAction";
 import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
+import ColorCode from "../../Common/ColorCode";
 const PendingRequest = ({user, allRequest, total,search }) => {
   const [showAcceptModal, setshowAcceptModal] = useState([]);
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                       <tbody>
                         <tr>
                           <td className="text-center">
-                            <p className="short0ad">{item?.request_type}</p>{" "}
+                           <ColorCode request={item} />
                           </td>
                           <td>
                             <p>

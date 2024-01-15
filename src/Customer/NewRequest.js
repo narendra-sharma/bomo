@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { get_edit_request_data, newRequest } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
-const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, requestData }) => {
+const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const now = new Date();
@@ -21,30 +21,31 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
   const [imagePreview, setImagePreview] = useState(null);
 
   const [formData, setFormData] = useState({
-    requestName: requestData ? requestData?.request_name : '',
-    brandProfile: requestData ? requestData?.brand_profile : '',
-    requestype: requestData ? requestData?.request_type : '',
-    description: requestData ? requestData?.description : '',
-    fileType: requestData ? requestData?.file_type : '',
-    size: requestData ? requestData?.size : '',
+    requestName: '',
+    brandProfile:'',
+    requestype: '',
+    description:'',
+    fileType: '',
+    size:'',
     customsize: "",
     customsizes: [],
-    references: requestData ? requestData?.references : '',
-    transparency: requestData ? requestData?.transparency : '',
-    uploadFiles: requestData ? requestData?.file : '',
+    references:'',
+    transparency:'',
+    uploadFiles:'',
   });
 
   const [errors, setErrors] = useState({
     requestName: '',
     brandProfile: '',
     requestype: '',
-    description: '',
+    description: '', 
     fileType: '',
     size: '',
     references: '',
     transparency: '',
     uploadFiles: '',
   });
+  const [selectedRequestType, setSelectedRequestType] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
   const handleHover = (index) => {
@@ -59,67 +60,37 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
 
     switch (name) {
       case 'requestName':
-        if (value === '') {
-          setErrors({ ...errors, requestName: 'Request Name is Required' })
-        } else {
-          setErrors({ ...errors, requestName: null });
-        }
-        setFormData({ ...formData, requestName: value,
-        });
+        setErrors({ ...errors, requestName: value === '' ? 'Request Name is Required' : null});
+        setFormData({ ...formData, requestName: value,});
         break;
 
       case 'description':
-        if (value === '') {
-          setErrors({ ...errors, description: 'Description is Required' })
-        } else {
-          setErrors({ ...errors, description: '' });
-        }
-        setFormData({ ...formData, description: value,
-        })
+        setErrors({ ...errors, description: value === '' ? 'Description is Required' : null});
+        setFormData({ ...formData, description: value,})
         break;
 
       case 'references':
-        if (value === '') {
-          setErrors({ ...errors, references: 'Reference is Required' })
-        } else {
-          setErrors({ ...errors, references: '' });
-        }
+        setErrors({ ...errors, references: value === '' ? 'Reference is Required' : null});
         setFormData({ ...formData, references:value })
         break;
 
       case 'size':
-        if (value === '') {
-          setErrors({ ...errors, size: 'Please Select your size' });
-        } else {
-          setErrors({ ...errors, size: '' });
-        }
+        setErrors({ ...errors, size: value === '' ? 'Please Select your size' : null});
         setFormData({ ...formData, size:value })
         break;
 
       case 'brandProfile':
-        if (value === '') {
-          setErrors({ ...errors, brandProfile: 'BrandProfile is Required' })
-        } else {
-          setErrors({ ...errors, brandProfile: '' });
-        }
+        setErrors({ ...errors, brandProfile: value === '' ? 'BrandProfile is Required' : null});
         setFormData({...formData, brandProfile:value,});
         break;
 
       case 'transparency':
-        if (value === '') {
-          setErrors({ ...errors, transparency: 'transparency is Required' })
-        } else {
-          setErrors({ ...errors, transparency: '' });
-        }
+        setErrors({ ...errors, transparency: value === '' ? 'transparency is Required' : null});
         setFormData({ ...formData, transparency: value, });
         break;
 
       case 'fileType':
-        if (value === '') {
-          setErrors({ ...errors, fileType: 'fileType is Required' })
-        } else {
-          setErrors({ ...errors, fileType: '' });
-        }
+        setErrors({ ...errors, fileType: value === '' ? 'fileType is Required' : null});
         setFormData({ ...formData, fileType: value, });
         break;
 
@@ -137,11 +108,11 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
         setFormData({ ...formData, uploadFiles: Fileupload,
         });
         setImagePreview(URL.createObjectURL(Fileupload));
-        console.log(imagePreview);
         break;
 
       default:
         setFormData({ ...formData, [name]: value, });
+        setErrors({ ...errors, [name]: '' });
         break;
     }
   };
@@ -166,7 +137,6 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
   };
 
   const handlerequestType = (ele, index) => {
-
     if (ele === '') {
       setErrors({ ...errors, requestype: 'Select your Request Type' })
     } else {
@@ -177,36 +147,42 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
       ...prevFormData,
       requestype: isSelectedType ? requestData?.request_type : ele,
     }));
+    setSelectedRequestType(ele);
     setClickedIndex(index);
+  };
+
+  const validateForm = () => {
+    let valid = true;
+  
+    const fieldsToValidate = [
+      { name: 'requestName', validation: (value) => value === '' ? 'Request Name is Required' : '' },
+      { name: 'brandProfile', validation: (value) => value === '' ? 'Brand Profile is Required' : '' },
+      { name: 'requestype', validation: (value) => value === '' ? 'Select your Request Type' : '' },
+      { name: 'description', validation: (value) => value === '' ? 'Description is Required' : '' },
+      { name: 'fileType', validation: (value) => value === '' ? 'Select your filetype' : '' },
+      { name: 'size', validation: (value) => value === '' ? 'Select your size' : '' },
+      { name: 'references', validation: (value) => value === '' ? 'Reference is Required' : '' },
+      { name: 'uploadFiles', validation: (value) => value === '' ? 'Upload your file' : '' },
+      { name: 'transparency', validation: (value) => value === '' ? 'Transparency is Required' : '' },
+    ];
+  
+    fieldsToValidate.forEach(({ name, validation }) => {
+      const value = formData[name];
+      const error = validation(value);
+      if (error) {
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+        valid = false;
+      }
+    });
+  
+    return valid;
   };
 
   const handleSubmit = async (e, status) => {
     e.preventDefault();
+    const isValid = validateForm();
 
-    let valid = true;
-
-    const fieldsToValidate = [
-      { name: 'requestName', validation: (value) => !value ? 'Request Name is Required' : '' },
-      { name: 'brandProfile', validation: (value) => !value ? 'Brand Profile is Required' : '' },
-      { name: 'requestype', validation: (value) => !value ? 'Select your Request Type' : '' },
-      { name: 'description', validation: (value) => !value ? 'Description is Required' : '' },
-      { name: 'fileType', validation: (value) => !value ? 'Select your filetype' : '' },
-      { name: 'size', validation: (value) => !value ? 'Select your size' : '' },
-      { name: 'references', validation: (value) => !value ? 'Reference is Required' : '' },
-      { name: 'uploadFiles', validation: (value) => !value ? 'Upload your file' : '' },
-      { name: 'transparency', validation: (value) => !value ? 'Transparency is Required' : '' },
-    ];
-
-    fieldsToValidate.forEach(({ name, validation }) => {
-      const value = formData[name];
-      const error = validation(value);
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-      if (error) {
-        valid = false;
-      }
-    });
-
-    if (valid && ((Object.values(errors).every((error) => !error)) || requestData)) {
+    if (isValid) {
 
       let newrequest = {
         requestName: formData.requestName,
@@ -229,25 +205,38 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
   };
 
   useEffect(() => {
-    return (() => {
-      dispatch(get_edit_request_data(null));
-    })
-  });
-  useEffect(() => {
-    getbrandlist(dispatch, usertoken);
-  },[]);
-  useEffect(() => {
     if(requestData){
       setImagePreview(LOGO_URL + requestData?.file);
       setClickedIndex(requestTypes.findIndex(r=>r.value===requestData?.request_type));
+      setFormData(prev=>{return ({...prev,
+        requestName: requestData?.request_name,
+        brandProfile: requestData?.brand_profile,
+        requestype: requestData?.request_type,
+        description: requestData?.description,
+        fileType: requestData?.file_type,
+        size: requestData?.size,
+        customsize: "",
+        customsizes: [],
+        references: requestData?.references,
+        transparency: requestData?.transparency,
+        uploadFiles: requestData?.file,
+      })})
     }
-  },[requestData,requestTypes]);
+  },[requestData]);
+  useEffect(() => {
+    getbrandlist(dispatch, usertoken);
+    return () =>{
+      dispatch(get_edit_request_data(null))
+    }
+  },[]);
+  
   useEffect(() => {
     if (isAddEdit) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
-      setErrors({ requestName: "", brandProfile: "", description: "", fileType: "", size: "", references: "", transparency: "", uploadFiles: "" });
+      setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null });
       setImagePreview(null);
       setClickedIndex(null);
+      change_add_edit(dispatch);
     }
   }, [isAddEdit]);
 
@@ -267,16 +256,16 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                     <div className="col-md-5">
                       <div className="form-group">
                         <label htmlFor="Request Name" className="ms-3 mb-2">Request Name <span className="text-danger">*</span></label>
-                        <input type="text" name="requestName" defaultValue={formData.requestName} className="form-control" onChange={handleInputChange} />
+                        <input type="text" name="requestName" className="form-control" defaultValue={formData?.requestName} onChange={handleInputChange} />
                         {errors.requestName && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.requestName}</p>}
                       </div>
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
                         <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger">*</span></label>
-                        <select type="select" name="brandProfile" defaultValue={formData.brandProfile} onChange={handleInputChange} className="form-control">
+                        <select type="select" name="brandProfile" className="form-control" value={formData?.brandProfile} onChange={handleInputChange} >
                           <option value="" disabled>Select</option>
-                          {brands.map((brand) => (<option key={brand._id} value={brand?._id}>{brand?.brandname}</option>))}
+                          {brands.map((brand) => (<option key={brand._id} value={brand?._id} >{brand?.brandname}</option>))}
                         </select>
                         {errors.brandProfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandProfile}</p>}
                       </div>
@@ -289,7 +278,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                                             Target Audience
                                             Goal of the Piece
                                             Display Platform
-                                            Duration" onChange={handleInputChange} defaultValue={formData.description}  ></textarea>
+                                            Duration" defaultValue={formData?.description} onChange={handleInputChange} ></textarea>
                         {errors.description && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.description}</p>}
                       </div>
                     </div>
@@ -307,8 +296,8 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                           >
                             <p className="short0ad logo" onClick={() => handlerequestType(ele.value, index)}
                               style={{
-                                backgroundColor: requestData?.request_type === ele.type ? ele.color : clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
-                                color: clickedIndex === index ? 'white' : hoveredIndex === index ? 'white' : ele.color,
+                                backgroundColor: selectedRequestType === ele.type && !clickedIndex ? ele.color : clickedIndex === index ? ele.color : hoveredIndex === index ? ele.color : 'transparent',
+                                color: clickedIndex === index || hoveredIndex === index ? 'white' : ele.color,
                                 border: `1px solid ${ele.color}`
                               }}>
                               {ele.type}
@@ -324,8 +313,8 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="File Type" className="ms-3 mb-2">File Type<span className="text-danger">*</span></label>
-                          <select name="fileType" type="select" className="form-control" onChange={handleInputChange} defaultValue={formData.fileType}>
-                            <option value="" disabled></option>
+                          <select name="fileType" type="select" className="form-control" value={formData?.fileType} onChange={handleInputChange} >
+                            <option value="" disabled>Select</option>
                             {fileTypes.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.fileType && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.fileType}</p>}
@@ -334,14 +323,14 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <select name="size" defaultValue={formData.size} type="select" className="form-control" onChange={handleInputChange}>
-                            <option value="" disabled></option>
+                          <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
+                            <option value="" disabled>Select</option>
                             {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                             {formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
                             <option value="Custom">Custom</option>
                           </select>
                           {(formData.size === 'Custom') && <>
-                            <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" onChange={handleCustomSizeChange} value={formData.customsize} />
+                            <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
                           </>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
@@ -350,21 +339,20 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="References" className="ms-3 mb-2">References<span className="text-danger">*</span></label>
-                          <input type="text" name="references" defaultValue={formData.references} className="form-control" onChange={handleInputChange} />
+                          <input type="text" name="references" className="form-control" defaultValue={formData?.references} onChange={handleInputChange} />
                           {errors.references && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.references}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Transparency" className="ms-3 mb-2">Transparency<span className="text-danger">*</span></label>
-                          <select name="transparency" type="select" className="form-control" onChange={handleInputChange} defaultValue={formData.transparency}>
-                            <option value="" disabled></option>
+                          <select name="transparency" type="select" className="form-control" value={formData?.transparency} onChange={handleInputChange} >
+                            <option value="" disabled>Select</option>
                             {transparencies.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                           </select>
                           {errors.transparency && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.transparency}</p>}
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -373,7 +361,7 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
                   {imagePreview && <div className="d-flex align-item-center justify-content-center mb-4"><img src={imagePreview} alt="Preview" height="300" /></div>}
                   <label class="uploadFile">
                     <span class="filename"><img src={plusImage} alt=""/></span>
-                    <input name="uploadFiles" type="file" className="inputfile form-control" onChange={handleInputChange} ref={fileInputRef} />
+                    <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} />
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on Nov 17</p>
@@ -403,15 +391,10 @@ const NewRequest = ({ brands, user, isAddEdit, requestTypes, getbrandlist, reque
 const mapStateToProps = (state) => {
   return {
     brands: state.brand.brands,
-    isAddEdit: state.brand.isAddEdit,
     user: state.auth.user,
     requestTypes: state.requests.requestTypes,
     requestData: state.requests.editrequestData,
+    isAddEdit: state.brand.isAddEdit,
   };
 };
-const mapDispatchToProps = () => {
-  return {
-    getbrandlist,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(NewRequest);
+export default connect(mapStateToProps)(NewRequest);
