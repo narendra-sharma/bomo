@@ -806,6 +806,20 @@ table.feedback-queue tr:first-child td{
 .past-request-section table tr td{
   padding: 13px 5px;
 }
+.designer-past-request  .review-content tr td:nth-child(2), 
+.designer-past-request  .review-content tr td:nth-child(3) , 
+.designer-past-request.past-request-section table tr td:nth-child(4){
+  width:110px;
+}
+.designer-past-request  .review-content tr td:first-child{
+  width:140px;
+}
+.designer-past-request.past-request-section table tr td:nth-child(5){
+  width:150px
+}
+.designer-past-request.past-request-section table tr td:last-child{
+  width:200px
+}
 .past-request-section .review-content .short0ad {
   width: 100px;
   padding: 4px 8px;
@@ -1026,7 +1040,7 @@ select.form-control {
   color: #838383;
 }
 .feedback-request {
- background-color: #f2f2f2;
+ background-color: #f2f2f2!important;
 }
 .form-row i {
   position: absolute;
@@ -1281,8 +1295,9 @@ ul.designer-list li{
   height: 50px;
   object-fit: cover;
 }
-.add-brand-profile p{
- margin: 0;
+.add-brand-profile p {
+  margin: 0;
+  font-size: 14px;
 }
 .designer-table p{
   margin-bottom: 0;
@@ -1293,6 +1308,9 @@ ul.designer-list li{
 .review-content table tr td button{
   font-size: 13px;
   color: #000;
+}
+.designer-past-request  .review-content tr td button{
+  font-size: 14px;
 }
 .color-light-blue{
   color: #7C96FE;
@@ -1507,11 +1525,48 @@ span.filename i{
   position: relative;
   left: -2%;
 }
-.designer-active-request .review-delivery a{
+button.deliver-now-btn{
  padding: 4px 20px;
  background-color: #3FCE3C;
  letter-spacing: -0.7px;
  font-size: 14px;
+}
+.designer-header button.deliver-now-btn{
+  padding: 0px 25px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+}
+.designer-header a {
+  color: #012801;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 15px;
+  border-bottom: solid 1px #012801;
+}
+nav p.user-email {
+  font-size: 14px;
+}
+.header-request-btn button {
+  font-size: 13px;
+  padding: 3px 17px;
+}
+.request-count {
+  position: absolute;
+  right: 3px;
+  top: -14px;
+}
+.counter-digit {
+  background-color:#F92B34;
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  text-align: center;
+  line-height: 18px;
+  font-size: 11px;
 }
 .designer-active-request .table>:not(caption)>*>*{
   background-color: #ECF7EE;
@@ -1542,6 +1597,21 @@ span.filename i{
   padding: 0;
   font-size: 7px;
   line-height: 20px;
+}
+.modal-content .add-brand-profile .add-btn{
+  margin-top: 10px;
+}
+.deadline-date.status.deliver-now-btn {
+  background-color: #012801;
+  letter-spacing: -0.7px;
+  padding: 0px 25px 0 23px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3FCE3C;
+  border-radius: 30px;
+}
+.designer-active-request .status.deliver-now-btn::before{
+left: 12px;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
@@ -1592,7 +1662,7 @@ span.filename i{
   .status-btn button {
     padding: 6px 20px;
   }
-  .billing-form label , .billing-form input.form-control {
+  .billing-form label , .billing-form input.form-control , .billing-form  select{
     font-size: 14px;
   }
   .billing-form .px-60 {

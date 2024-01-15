@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import poolImage from "../images/pool-request-img.png";
+import { Button } from "react-bootstrap";
 const DesignerHome = () => {
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -23,7 +24,9 @@ const DesignerHome = () => {
                                         <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                                         <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                                         <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                        <td className="text-end ps-0"> <span className="review-delivery"><Link className="rounded-pill text-decoration-none">DELEVERY NOW</Link></span></td>
+                                        <td className="text-end ps-0">
+                                         <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">DELIVERY NOW</Button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -44,7 +47,9 @@ const DesignerHome = () => {
                                         <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
                                         <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                                         <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                        <td className="text-end ps-0"> <span className="review-delivery"><Link className="rounded-pill text-decoration-none">DELEVERY NOW</Link></span></td>
+                                        <td className="text-end ps-0">
+                                         <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">DELIVERY NOW</Button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
