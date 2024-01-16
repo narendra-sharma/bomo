@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Country } from 'country-state-city';
-import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
-const { REACT_APP_GOOGLE_API_KEY} = process.env;
+import AutocompleteInput from "./AutocompleteInput";
 const BillingInfo = ({ card, errors, handleCardElementChange }) => {
   const {name,company,address,city,postalCode,country,vatNumber}=errors;
   const [countries, setCountries] = useState([])
@@ -9,20 +8,6 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
     const cArr = Country.getAllCountries();
     setCountries(cArr);
   }, []);
-  const inputRef = useRef();
-  const handlePlaceChanged = () => { 
-    const [ place ] = inputRef.current.getPlaces();
-    if(place) {
-      handleCardElementChange(place.formatted_address, 'address')
-      let p=place.formatted_address.split(',');
-      if(p.length>1){
-        handleCardElementChange(p[1].trim(), 'city');
-        let pst=p[2].trim();
-        pst=pst.split(' ');
-        handleCardElementChange(pst[1].trim(), 'postalCode')
-      }
-    }
-  }
   return (
     <>
       <div className="col-md-6">
@@ -58,22 +43,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Address<span className="text-danger">*</span></label>
-          <LoadScript googleMapsApiKey={REACT_APP_GOOGLE_API_KEY} libraries={["places"]}>
-            <StandaloneSearchBox
-              onLoad={ref => inputRef.current = ref}
-              onPlacesChanged={() => handlePlaceChanged()}
-            >
-              <div className="mb-0">
-                <input
-                  defaultValue={card?.address}
-                  type="text"
-                  className="form-control"
-                  id="address"
-                  onChange={(e) => handleCardElementChange(e.target.value, 'address')}
-                />
-              </div>
-            </StandaloneSearchBox>
-          </LoadScript>
+          <AutocompleteInput address={card?.address} handleCardElementChange={(value,label) => handleCardElementChange(value, label)}/>
           {address &&
             address.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
