@@ -6,7 +6,7 @@ import {
   change_add_edit,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -52,6 +52,73 @@ export const get_admin_pending_requestlist = async (dispatch, token, page=1, lim
     dispatch(stop_loading);
   }
 };
+
+export const get_admin_assign_requestlist = async (dispatch, token, page=1, limit=10) => {
+  dispatch(start_loading);
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_ADMIN_ASSIGN_REQUEST_LIST, payload: res.data });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+};
+
+export const get_designer_pool_requestlist = async (dispatch, token) => {
+  dispatch(start_loading);
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/pool-request`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_POLL_REQUEST_LIST, payload: res.data });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+};
+
+export const poll_request_apply = async (requestdata, dispatch, token) => {
+  dispatch(start_loading);
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/designer-action?request_id=${requestdata}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.put(url, HEADERS);
+    if (res.data && res.data.status) {
+      toast.success(res.data?.msg);
+      get_designer_pool_requestlist(dispatch,token);
+    } else {
+      toast.error(res.data?.msg);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+}
 
 export const change_request_status = async (dispatch, token, id, status) => {
   dispatch(start_loading);

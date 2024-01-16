@@ -9,7 +9,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   // initial form data
   const initialFormData = {
     name: "",
-    role: "customer_admin",
+    role: "",
     email: "",
     password: "",
     colour: "#111111",
@@ -20,6 +20,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
     name: "",
     email: "",
     password: "",
+    role: ""
   });
 
   const dispatch = useDispatch();
@@ -45,6 +46,8 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
       setErrors((prevErrors) => ({ ...prevErrors,[label]:'required'}))
     }else if(((label==='email') && (!emailRegex.test(value)))  || ((label==='password') && (value.length < 5))){
       setErrors((prevErrors) => ({ ...prevErrors,[label]:(label==='email')?'invalid':'minLength'}))
+    }else if (!value && (label === "role")) {
+      setErrors((prevErrors) => ({ ...prevErrors, [label]: "required" }));
     }else{
       setErrors((prevErrors) => ({ ...prevErrors,[label]:''}))
     }
@@ -62,6 +65,10 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
         setErrors((prevErrors) => ({ ...prevErrors,[key]:(key==='email')?'invalid':'minLength'}))
       }
     });
+    if (!formData.role) {
+      err = true;
+      setErrors((prevErrors) => ({ ...prevErrors, role: 'required' }));
+    }
     return err
   }
   const handleCreate = () => {
@@ -110,15 +117,24 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </p>
               <select
                 name="role"
-                value={formData.role}
+                defaultValue='Select'
                 onChange={(e) => handleChange("role", e.target.value)}
               >
-                {roles.map((item) => (
-                  <option value={item.value} key={item.id}>
+                <option disabled>Select</option>
+                {roles.map((item,index) => (
+                  <option value={item?.label} key={index}>
                     {item?.label}
                   </option>
                 ))}
               </select>
+              {errors.role && (
+                  <p
+                    className="d-block error-msg"
+                    
+                  >
+                    {errors.role==='required'?'Role is required':''}
+                  </p>
+                )}
             </td>
             <td>
               <p className="mb-0 date user-email">

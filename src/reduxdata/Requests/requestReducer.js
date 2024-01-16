@@ -1,9 +1,12 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST} from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST} from "./requestTypes";
 const initialState = {
   pendingRequests: [],
   pendingTotal:0,
   totaldrafts:0,
   draftrequests:[],
+  pollrequests:[],
+  assignrequests:[],
+  totalassigns:0,
   requestTypes:[
     {type: 'logo', color: 'purple',value:'logo'},
     {type: 'short ad', color: 'green',value:'short_ad'},
@@ -41,6 +44,17 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         editrequestData: action.payload,
       };
+    case GET_POLL_REQUEST_LIST:
+      return {
+        ...state,
+        pollrequests: action.payload.data,
+      };
+    case GET_ADMIN_ASSIGN_REQUEST_LIST:
+      return {
+        ...state,
+        assignrequests: action.payload?.data,
+        totalassigns: action.payload?.total,
+      }
     default:
       return state;
   }
