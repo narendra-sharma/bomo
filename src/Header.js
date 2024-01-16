@@ -55,7 +55,7 @@ const Header = ({ user, userrole }) => {
               <img src={userImage} alt="Bomo logo" />
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
-                <span className="d-block">{(userrole === 'customer_admin') ? 'Customer' : userrole}</span>
+                <span className="d-block">{(userrole === 'customer_admin') ?(cuser?.parent ?'Admin': 'Customer') : userrole}</span>
                 </p>
                 {(userrole !== 'Designer') ? <div></div>:<>
                    <div className="header-request-btn position-relative">

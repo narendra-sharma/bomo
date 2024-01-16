@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Forgotpassword from "./auth/Forgotpassword";
 import Changepassword from "./auth/Changepassword";
 import Updatepassword from "./Modals/Updatepassword";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import EditProfile from "./Modals/EditProfile";
 import NewRequest from "./Customer/NewRequest";
 import RequestStatus from "./Customer/RequestStatus";
@@ -34,9 +34,12 @@ import LoadingSpinner from "./LoadingSpinner";
 import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
 import 'react-tagsinput/react-tagsinput.css'
 import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
+import CalculatorShared from "./CalculatorShared";
+import { get_user_subscription } from "./reduxdata/rootAction";
 
-function App({ user,updated }) {
+function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
+  const dispatch=useDispatch();
   useEffect(() => {
     $(document).ready(() => {
       $("#open-sidebar").click(() => {
@@ -65,6 +68,9 @@ function App({ user,updated }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
+    // if(user){
+    //   get_user_subscription(user,dispatch);
+    // }
   }, [user]);
   useEffect(() => {
     const handleEndConcert = () => {
@@ -84,6 +90,7 @@ function App({ user,updated }) {
       { path: "/signup", element: <Signup /> },
       { path: "/forgot-password", element: <Forgotpassword /> },
       { path: "/reset-password", element: <Changepassword /> },
+      { path: "/calculator", element: <CalculatorShared /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);
   const AfterLoginCustomerRoutes = () =>
@@ -123,7 +130,6 @@ function App({ user,updated }) {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    updated: state.auth.updated,
   };
 };
 

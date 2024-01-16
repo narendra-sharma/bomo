@@ -181,7 +181,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             <div>
               {(brand?.id && !imagePreview) ? <img src={`${LOGO_URL}${logopath}`} alt="" />
                 : (brand?.id && imagePreview) ? <img src={imagePreview} alt="Preview" /> : ''}
-              <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} />
+              <input type="file" className="d-none" name="logo" onChange={handleChange} ref={fileinputRef} accept="image/*" />
               <button className="add-btn bg-white" onClick={handleUploadButtonClick}>
                 {(!brand?.id && imagePreview) ? (
                   <img src={imagePreview} alt="Preview" />

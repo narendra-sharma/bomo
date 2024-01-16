@@ -11,7 +11,7 @@ import { useDispatch, connect } from "react-redux";
 import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from 'date-fns';
 const roles = [
-  { id: 1, label: "Customer Admin", value: "customer_admin" },
+  { id: 1, label: "Admin", value: "customer_admin" },
   { id: 2, label: "Team Member",value: "team_member" },
 ];
 

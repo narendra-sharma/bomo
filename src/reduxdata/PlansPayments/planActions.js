@@ -110,6 +110,24 @@ export const pause_subscription = async (user, dispatch) => {
     dispatch(stop_loading());
   }
 };
+export const get_user_subscription = async (user, dispatch) => {
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_BOMO_URL}stripe/subscription/list`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = user?.token;
+    const res = await axios.get(url, headers);
+    if (res.data && res.data.status) {
+      set_update_user({...user,...res.data.user});
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
 export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
   try {
     dispatch(start_loading());
@@ -133,9 +151,11 @@ export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
 };
 export const isSubscription = async (user) => {
   const now = new Date().getTime();
-  let isExpired = false;
+  let isExpired = true;
   const expiry = user?.next_billing_date?new Date(user?.next_billing_date).getTime():'';
-  if (expiry && (now <= expiry)) {
+  if(!expiry){
+    isExpired = false;
+  }else if (expiry && (now <= expiry)) {
     isExpired = true;
   }
   return isExpired;
