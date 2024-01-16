@@ -6,16 +6,16 @@ import ColorCode from "../../Common/ColorCode";
 
 const PollRequests = ({ user, pollrequests }) => {
     const dispatch = useDispatch();
-    const usertoken = user.token;
 
-    const handleApply = async (requestdata) => {
+    const handleApplyRequest = (requestdata) => {
         let applyrequest =  requestdata._id;
-        await poll_request_apply(applyrequest, dispatch, usertoken)
+        poll_request_apply(applyrequest, dispatch, user?.token);
+        console.log(user?.token);
     };
 
     useEffect(() => {
-        get_designer_pool_requestlist(dispatch, usertoken);
-    }, [dispatch, usertoken]);
+        get_designer_pool_requestlist(dispatch, user?.token);
+    }, [dispatch, user?.token]);
 
     return (
         <>
@@ -57,7 +57,7 @@ const PollRequests = ({ user, pollrequests }) => {
                             </div>
                             <div className="col-md-5 col-lg-4">
                                 <div className="status-btn">
-                                    <button className="btn pause-btn rounded-pill py-1 w-100" onClick={() => handleApply(request)}>Apply</button>
+                                    <button className="btn pause-btn rounded-pill py-1 w-100" onClick={() => handleApplyRequest(request)}>Apply</button>
                                 </div>
                             </div>
                         </div>

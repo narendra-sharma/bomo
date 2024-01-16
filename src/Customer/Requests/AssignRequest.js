@@ -15,7 +15,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
 
     return (
         <>
-            {assignrequests.length > 0 ? assignrequests.map((request) => (
+            {totalassigns > 0 ? assignrequests.map((request) => (
                 <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section">
                     <div className="row">
                         <div className="col-lg-12">
@@ -44,8 +44,8 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                             </td>
                                             <td>
                                                 <p>
-                                                    <span className="fw-bold">Cratat</span>{" "}
-                                                    <span className="d-block">Dior</span>
+                                                    <span className="fw-bold">{request.request_name}</span>{" "}
+                                                    <span className="d-block">{request?.status}</span>
                                                 </p>
                                             </td>
                                             <td>

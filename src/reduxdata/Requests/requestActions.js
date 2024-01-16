@@ -56,7 +56,7 @@ export const get_admin_pending_requestlist = async (dispatch, token, page=1, lim
 export const get_admin_assign_requestlist = async (dispatch, token, page=1, limit=10) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/accepted-request-listing?page=${page}&limit=${limit}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -98,6 +98,7 @@ export const get_designer_pool_requestlist = async (dispatch, token) => {
 };
 
 export const poll_request_apply = async (requestdata, dispatch, token) => {
+  console.log(token);
   dispatch(start_loading);
   try {
     const url = `${REACT_APP_BOMO_URL}designer/designer-action?request_id=${requestdata}`;
@@ -106,7 +107,7 @@ export const poll_request_apply = async (requestdata, dispatch, token) => {
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url, HEADERS);
+    const res = await axios.put(url,{}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.msg);
       get_designer_pool_requestlist(dispatch,token);
@@ -118,7 +119,7 @@ export const poll_request_apply = async (requestdata, dispatch, token) => {
   } finally {
     dispatch(stop_loading);
   }
-}
+};
 
 export const change_request_status = async (dispatch, token, id, status) => {
   dispatch(start_loading);
