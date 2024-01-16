@@ -153,7 +153,7 @@ export const isSubscription = async (user) => {
   const now = new Date().getTime();
   let isExpired = true;
   const expiry = user?.next_billing_date?new Date(user?.next_billing_date).getTime():'';
-  if(!expiry){
+  if(!expiry || (expiry && (now > expiry))){
     isExpired = false;
   }else if (expiry && (now <= expiry)) {
     isExpired = true;

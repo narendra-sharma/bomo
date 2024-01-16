@@ -25,6 +25,9 @@ html body {
   background-color: var(--gray-light)!important;
   letter-spacing: -0.52px;
 }
+html body.calculator-page{
+  background-color: transparent!important;
+}
 img{
   max-width: 100%;
 }
@@ -847,16 +850,12 @@ table.feedback-queue tr:first-child td{
 {
   width: 180px;
 }
-.member-table tr td:nth-child(2)
-{
-  width: 160px;
-}
 .member-table tr td:nth-child(3)
 {
- width: 135px;
+ width: 110px;
 }
 .member-table tr td:nth-child(4){
-  width:176px
+  width:180px
 }
 .logout-popup .modal-dialog {
   display: flex;
@@ -1438,6 +1437,10 @@ ul.designer-list li{
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
+.member-table select{
+  line-height: 233px;
+}
+
 .member-content .member-table input:-webkit-autofill, 
 .member-content .member-tablem input:-webkit-autofill:focus {
   font-size: 13px;
@@ -1666,6 +1669,18 @@ nav p.user-email {
   font-size: 12px;
   background-color: var(--gray-dark-color);
   padding:5px 10px
+}
+.calculator-page .container.bg-transparent.calculator-screen {
+  color: #cdffb5!important;
+}
+.calculator-page .container.bg-transparent.calculator-screen .dark-green , 
+.container.bg-transparent.calculator-screen .light-green ,
+.calculator-page .container.bg-transparent.calculator-screen .subscription-data .increament , 
+.calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings{
+  color: #cdffb5;
+}
+.calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings.saving-bg-color {
+  color: #284719;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
