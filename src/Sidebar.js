@@ -74,6 +74,9 @@ const Sidebar = () => {
   }, [userrole, isSubscribe]);
 
   const [show, setShow] = useState(false);
+  const getSubscribe=(item)=>{
+    return (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to!=='/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
+  }
   return (
     <div>
       <div
@@ -89,7 +92,10 @@ const Sidebar = () => {
             <img src={bomoLogo} alt="Bomo logo" />
           </div>
           <div className="list-group pt-5">
-              {items.map(item => <Link to={`${(((userrole === 'customer_admin') && (!isSubscribe))? '#':item.to)}`} key={item.name} className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${((userrole === 'customer_admin') && !isSubscribe)?'disable':''}`}>
+              {items.map(item => <Link 
+              to={`${(getSubscribe(item)? '#':item.to)}`} 
+              key={item.name} 
+              className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${getSubscribe(item)?'disable':''}`}>
               <span className="ml-2">{item.name}</span>
             </Link>)}
           </div>

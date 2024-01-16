@@ -9,11 +9,8 @@ import CustomPagination from "../../Common/CustomPagination";
 
 const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
-
     useEffect(() => {
-        if (user?.token) {
-            get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
-        }
+        get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
     }, [dispatch]);
 
     return (

@@ -5,8 +5,6 @@ import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
-import { get_plans } from "../../reduxdata/rootAction";
-import imageLogo from '../../images/bomo-dark-green.svg';
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
 const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
