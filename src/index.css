@@ -25,6 +25,9 @@ html body {
   background-color: var(--gray-light)!important;
   letter-spacing: -0.52px;
 }
+html body.calculator-page{
+  background-color: transparent!important;
+}
 img{
   max-width: 100%;
 }
