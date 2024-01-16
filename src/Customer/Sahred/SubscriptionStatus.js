@@ -11,7 +11,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
   const [isSubscribe,setIsSubscribe]=useState(false);
     const getSubscription=async()=>{
       await isSubscription(user).then(r=>{
-         setIsSubscribe(r);
+        setIsSubscribe(r);
       });
     }
     useEffect(()=>{
