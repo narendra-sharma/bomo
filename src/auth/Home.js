@@ -26,7 +26,6 @@ const Bomohome = () => {
               })
             }
         </div>
-        <iframe src="https://bomo.visionvivante.com/calculator" style={{height:'80vh',width:'100vw'}}/>
       </div>
     </>
   );

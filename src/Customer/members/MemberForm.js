@@ -117,10 +117,9 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </p>
               <select
                 name="role"
-                defaultValue='Select'
                 onChange={(e) => handleChange("role", e.target.value)}
               >
-                <option disabled>Select</option>
+                <option value="" disabled selected>Select</option>
                 {roles.map((item,index) => (
                   <option value={item?.label} key={index}>
                     {item?.label}

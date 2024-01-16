@@ -24,7 +24,7 @@ const CancelSubscription = (props) => {
       <Modal.Body closeButton>
         <div className="px-4 py-4">
         <h5 className="mb-0 text-dark fw-bold">{user?.name},</h5>
-          <p>do you really want to pause the subscription?</p>
+          <p>do you really want to cancel the subscription?</p>
           <p>
             If you do, you will lose access to the platform and all previous requests. cription ends in <strong>{getDifferece()} days</strong>.
            </p>
