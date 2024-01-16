@@ -170,7 +170,6 @@ const ActiveRequests = ({ isLoading }) => {
                 </div>
             </div>
             
-            
         </>
     )
 }

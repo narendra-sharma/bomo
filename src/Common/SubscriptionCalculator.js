@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { get_plans } from "../reduxdata/rootAction";
 import imageLogo from '../images/bomo-dark-green.svg';
+import logoImage from '../images/bomo-light-green.svg';
 const SubscriptionSteps = (props) => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(props.user);
@@ -65,8 +66,8 @@ const SubscriptionSteps = (props) => {
         }
     }
     return (
-        <div className={props.isSubscribe?'':'bg-transparent'}>
-            <div className="container">
+        <div className={props.isSubscribe?'':'container bg-transparent calculator-screen'}>
+
             <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'} <span className="subscription-heading">{user?.plan_id ? 'Subscription' : <img src={imageLogo} alt="Bomo logo" />}</span> </h2>
             <p className="sub-heading text-center">
                 {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
@@ -76,7 +77,7 @@ const SubscriptionSteps = (props) => {
                     </>
                 }
             </p>
-            </div>
+           
             <div className="py-3 px-2 px-md-4">
                 <div className="subscription-data mb-0 row align-items-center w-secUpTo0">
                     <div className=" offset-md-4 col-md-4 d-flex justify-content-center align-items-center">
