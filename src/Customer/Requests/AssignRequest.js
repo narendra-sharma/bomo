@@ -7,14 +7,14 @@ import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 import CustomPagination from "../../Common/CustomPagination";
 
-const AssignRequest = ({ user, assignrequests, totalassigns }) => {
+const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
-    const usertoken = user.token;
-    console.log(assignrequests);
 
     useEffect(() => {
-        get_admin_assign_requestlist(dispatch, usertoken, 1, 10);
-    }, [dispatch, usertoken]);
+        if (user?.token) {
+            get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
+        }
+    }, [dispatch]);
 
     return (
         <>
@@ -248,7 +248,7 @@ const AssignRequest = ({ user, assignrequests, totalassigns }) => {
                 <CustomPagination
                     total={totalassigns}
                     onPageChange={(newPage, newLimit) => {
-                        get_admin_assign_requestlist(dispatch, usertoken, newPage, newLimit);
+                        get_admin_assign_requestlist(dispatch, user?.token, newPage, newLimit);
                     }}
                 />
             )}
