@@ -1674,14 +1674,13 @@ nav p.user-email {
   color: #cdffb5!important;
 }
 .calculator-page .container.bg-transparent.calculator-screen .dark-green , 
-.container.bg-transparent.calculator-screen .light-green {
-  color: #cdffb5;
-}
-.calculator-page .container.bg-transparent.calculator-screen .subscription-data .increament{
-  color: #cdffb5;
-}
+.container.bg-transparent.calculator-screen .light-green ,
+.calculator-page .container.bg-transparent.calculator-screen .subscription-data .increament , 
 .calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings{
   color: #cdffb5;
+}
+.calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings.saving-bg-color {
+  color: #284719;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
