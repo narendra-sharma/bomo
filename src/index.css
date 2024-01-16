@@ -8,6 +8,7 @@
 :root {
   --gray: #f2f2ff;
   --gray-light:#f2f2f2;
+  --gray-dark-color:#f5f5f5;
   --main-font:'Roboto Flex', sans-serif;
   --secondary-font:'Recless Medium';
   --pubilc-sans-font:'Public Sans', sans-serif;
@@ -370,7 +371,7 @@ nav {
 }
 .review-main-content h2{
   font-weight: 700;
-  font-size: 30px;
+  font-size: 26px;
   line-height: normal
 }
 .request-date p {
@@ -1097,7 +1098,7 @@ ul.designer-list li{
   margin-right: 2px;
 }
 .admin-payments .form-control {
-  background: #F5F5F5;
+  background: var(--gray-dark-color);
   border-radius: 30px;
   border-color: #D2CECE;
   border-right: none;
@@ -1106,7 +1107,7 @@ ul.designer-list li{
 .admin-payments .input-group-text{
   border-radius: 0 30px 30px 0;
   border-color: #D2CECE;
-  background-color: #F5F5F5;
+  background-color: var(--gray-dark-color);
 }
 .MuiTablePagination-root p {
   margin-bottom: 0;
@@ -1130,16 +1131,21 @@ ul.designer-list li{
 .add-new-brand{
   background-color: #FAF5F5;
   padding: 30px 25px;
+  display: flex;
+  align-items: center;
 }
 .add-new-brand button.add-btn , .add-brand-profile button.add-btn{
   border: solid 1px #000;
   width: 48px;
   height: 48px;
-  line-height: 48px;
+  line-height: normal;
   font-size: 20px;
   background: #D9D9D9;
   border-radius: 50%;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 } 
 .add-brand-profile button.add-btn{
   background: #fff;
@@ -1170,7 +1176,7 @@ ul.designer-list li{
 } */
 .add-brand-profile{
   border: solid 1px #000;
-  padding: 30px 35px;
+  padding: 30px 30px;
 }
 .add-brand-profile .input-name{
   background: transparent!important;
@@ -1297,6 +1303,8 @@ ul.designer-list li{
 }
 .add-brand-profile p {
   margin: 0;
+}
+.modal .add-brand-profile p {
   font-size: 14px;
 }
 .designer-table p{
@@ -1411,8 +1419,11 @@ ul.designer-list li{
 .add-member-count  button.add-btn , .member-content button.add-btn{
   width: 30px;
   height: 30px;
-  line-height: 31px;
+  line-height: normal;
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .member-content button.add-btn{
   border: solid 1px #000;
@@ -1498,18 +1509,18 @@ p.user-email.date span {
   text-align: center;
 }
 .uploadFile [type="file"] {
-    cursor: pointer !important;
-    display: block;
-    font-size: 999px;
-    filter: alpha(opacity=0);
-    min-height: 100%;
-    min-width: 100%;
-    opacity: 0;
-    position: absolute;
-    right: 0px;
-    text-align: right;
-    top: 0px;
-    z-index: 1;
+  cursor: pointer !important;
+  display: block;
+  font-size: 999px;
+  filter: alpha(opacity=0);
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  top: 0px;
+  z-index: 1;
   
 }
 span.filename i{
@@ -1526,10 +1537,17 @@ span.filename i{
   left: -2%;
 }
 button.deliver-now-btn{
- padding: 4px 20px;
+ padding: 4px 15px;
  background-color: #3FCE3C;
  letter-spacing: -0.7px;
  font-size: 14px;
+ border:solid 1px #3FCE3C;
+ transition: .3s ease-in-out;
+}
+button.deliver-now-btn:hover{
+  background-color: transparent;
+  border:solid 1px #000;
+  color: #000;
 }
 .designer-header button.deliver-now-btn{
   padding: 0px 25px;
@@ -1571,6 +1589,20 @@ nav p.user-email {
 .designer-active-request .table>:not(caption)>*>*{
   background-color: #ECF7EE;
 }
+.designer-active-request .table-responsive{
+  border: solid 1px #ECF7EE;
+  transition: .3s ease-in-out;
+}
+.designer-active-request .table-responsive:hover {
+  border: solid 1px #3FCE3C;
+  transition: .3s ease-in-out;
+}
+.designer-active-request .table-responsive:hover button.deliver-now-btn{
+  padding: 4px 20px;
+  background: transparent;
+  border: solid 1px #3FCE3C;
+  transition: .3s ease-in-out;
+}
 .designer-active-request .status::before {
   left: 0;
   width:5px;
@@ -1611,7 +1643,29 @@ nav p.user-email {
   border-radius: 30px;
 }
 .designer-active-request .status.deliver-now-btn::before{
-left: 12px;
+ left: 12px;
+}
+.delivery-arrow i {
+  background: #fff;
+  border: solid 1px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #000;
+}
+.project-assets-btn{
+  background-color: var(--gray-dark-color);
+  font-size: 15px;
+}
+.brand-assets-btn{
+  color: #838383;
+  font-weight: 600;
+  font-size: 12px;
+  background-color: var(--gray-dark-color);
+  padding:5px 10px
 }
 @media (min-width: 576px){
 .main-content-wraaper{
@@ -1728,7 +1782,7 @@ left: 12px;
   }
   .view-customer-content .active-request-section, .view-customer-content .active-request-section:last-child {
     flex: 0 0 49%;
-}
+  }
 }
 @media screen and (max-width: 992px){
   .signup-content{
