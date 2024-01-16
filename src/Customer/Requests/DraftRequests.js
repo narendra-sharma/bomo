@@ -8,13 +8,12 @@ import EmptyList from "../../Common/EmptyList";
 
 const DraftRequests = ({ draftrequests,  user, total }) => {
   const dispatch = useDispatch();
-  const usertoken = user.token;
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   
   useEffect(() => {
-    get_draft_requestlist(dispatch, usertoken, page, limit);
-  }, [dispatch, usertoken, page, limit]);
+    get_draft_requestlist(dispatch, user?.token, page, limit);
+  }, [dispatch, user?.token, page, limit]);
     return (
         <>
          <div className="review-content bg-white px-4 px-md-5 py-5 rounded">

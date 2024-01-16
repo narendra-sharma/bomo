@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SuperAdminHome from "./DashBoards/SuperAdminHome";
 import DesignerHome from "./DashBoards/DesignerHome";
@@ -8,6 +8,7 @@ import designImage from "./images/nine-sixteen.png";
 import designImage2 from "./images/sixteen-nine.png";
 import designImage3 from "./images/sixteen-nine2.png";
 import AssignRequest from "./Customer/Requests/AssignRequest";
+import SearchInput from "./Common/SearchInput";
 
 const Home = () => {
   const userrole = useSelector((state) => state.auth.role || "");
@@ -194,7 +195,7 @@ const Home = () => {
                     <small>2 Action Needed</small>
                   </div>
                 </div>
-                <AssignRequest/>
+                <AssignRequest />
               </div>
               <div className="mb-5">
                 <div className=" d-flex align-items-center mb-3">
