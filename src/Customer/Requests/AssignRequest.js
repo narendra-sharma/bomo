@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { get_admin_assign_requestlist } from "../../reduxdata/rootAction";
@@ -9,9 +9,61 @@ import CustomPagination from "../../Common/CustomPagination";
 
 const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
+    const [topDesigners, setTopDesigners] = useState({});
+    const [primaryDesigners, setPrimaryDesigners] = useState([]);
+    const [backupDesigners, setBackupDesigners] = useState([]);
+
+    const handleDesignerClick = useCallback((item,requestId) => {
+        setPrimaryDesigners((prevPrimaryDesigners) => {
+            const currentPrimaryDesigners = prevPrimaryDesigners[requestId] || [];
+            if (currentPrimaryDesigners.length < 3 && !currentPrimaryDesigners.some(designer => designer._id === item._id)) {
+                const newPrimaryDesigners = [...currentPrimaryDesigners,item];
+                return {
+                    ...prevPrimaryDesigners,
+                    [requestId]: newPrimaryDesigners,
+                }
+            }
+            return prevPrimaryDesigners;
+        });
+
+        setBackupDesigners((prevBackupDesigners) => {
+            const currentBackupDesigners = prevBackupDesigners[requestId] || [];
+            if (currentBackupDesigners.length > 3 && currentBackupDesigners.length <= 6 && !currentBackupDesigners.some(designer => designer._id === item._id)) {
+                const newBackupDesigners = [...currentBackupDesigners,item];
+                return {
+                    ...prevBackupDesigners,
+                    [requestId]: newBackupDesigners,
+                };
+            }
+            return prevBackupDesigners;
+        });
+
+        setTopDesigners((prevTopDesigners) => {
+            const currentTopDesigners = prevTopDesigners[requestId] || [];
+            if (currentTopDesigners.length < 6 && !currentTopDesigners.some(designer => designer._id === item._id)) {
+                const newTopDesigners = [...currentTopDesigners, item];
+                return {
+                    ...prevTopDesigners,
+                    [requestId]: newTopDesigners,
+                };
+            }
+            return prevTopDesigners;
+        });
+    }, []);
+    console.log(backupDesigners);
+
+    const handleAssign = (request) => {
+        const requestData = {
+            request_id: request._id,
+            primary_designer: [topDesigners],
+            backup_designer: [backupDesigners]
+        }
+        console.log("RequestData", requestData);
+    }
+
     useEffect(() => {
-        get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
-    }, [dispatch]);
+        get_admin_assign_requestlist(dispatch, user?.token, 1, 5);
+    }, [dispatch, user?.token]);
 
     return (
         <>
@@ -65,176 +117,37 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                             </div>
                         </div>
                         <div className="col-lg-2">
-                            <p className="text-center mb-1">Top 10 Talent</p>
+                            <p className="text-center mb-1">Top 6 Talent</p>
                             <ul className="talented-designer  rounded list-unstyled">
-                                <li className="mb-1">
+                                {(topDesigners[request._id] || []).map((item) =>
+                                (<li className="mb-1" key={item._id}>
                                     <Link className="text-decoration-none text-dark fw-bold">
                                         <p>
                                             <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Designerito
+                                            {item.name}
                                         </p>
                                     </Link>
                                 </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Joosieteee
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Reservetest
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
+                                ))}
                             </ul>
                         </div>
                         <div className="col-lg-5 g-0">
                             <ul className="talented-designer designer-list rounded list-unstyled">
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Designerito
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Joosieteee
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Reservetest
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
-                                <li className="mb-1">
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            Motiongeud
-                                        </p>
-                                    </Link>
-                                </li>
+                                {request.designer_list.map((item) => (
+                                    <li className="mb-1">
+                                        <Link className="text-decoration-none text-dark fw-bold"
+                                            onClick={() => handleDesignerClick(item,request._id)}>
+                                            <p>
+                                                <i className="fa-solid fa-circle-minus"></i>{" "}
+                                                {item.name}
+                                            </p>
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div className="col-lg-1 align-self-center">
-                            <button className="btn btn-sm btn-outline-dark rounded-pill">
+                            <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssign(request)}>
                                 Assign
                             </button>
                         </div>

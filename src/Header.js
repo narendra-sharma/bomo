@@ -25,7 +25,7 @@ const Header = ({ user, userrole }) => {
             {(userrole !== 'Designer') ?<div className="mx-md-5">
               <h4 className="mb-0">
                 {(userrole === 'customer_admin') ?<>{user?.company}
-                 <span className="fw-bold">Workspace</span></>:(userrole === 'Designer') ?'':'Super Admin Panel'
+                 <span className="fw-bold"> Workspace</span></>:(userrole === 'Designer') ?'':'Super Admin Panel'
                  } 
               </h4>
             </div>
