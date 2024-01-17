@@ -66,9 +66,9 @@ const SubscriptionSteps = (props) => {
         }
     }
     return (
-        <div className={props.isSubscribe?'':'container bg-transparent calculator-screen'}>
+        <div className={props.isSubscribe?'':'container bg-transparent calculator-screen pt-4'}>
             <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'} <span className="subscription-heading">{user?.plan_id ? 'Subscription' : <img src={imageLogo} alt="Bomo logo" />}</span> </h2>
-            <p className="sub-heading text-center">
+            <p className="sub-heading text-center  mt-3">
                 {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
                     : <>
                         Choose the number of Pieces you want to create monthly.
