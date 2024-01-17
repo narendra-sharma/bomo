@@ -62,10 +62,10 @@ const Members = ({ user, member, total, isAddEdit }) => {
               <div className="table-responsive">
                 {member.map((item, index) => (
                     <table
-                      className={`table table-borderless member-table ${(updateRolepopUps===index)?'border border-dark':''}`}
+                      className={`table table-borderless member-table  ${(updateRolepopUps===index)?'border border-dark':''}`}
                       key={index}
                     >
-                      <tr>
+                      <tr className="members">
                         <td>
                           <div className="d-flex  align-items-center">
                             <div

@@ -10,7 +10,7 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
   const role = 'designer';
   return (<div className="review-content mb-4">
     <div className="d-flex align-items-center mb-3">
-      <h3 className="mb-0">{total>0 && <span className="bg-white p-2 mr-2">{total}</span>}Designers</h3>
+      <h3 className="mb-0 counter-number d-flex align-items-center ">{total>0 && <span className="bg-white rounded-circle  mr-2">{total}</span>}Designers</h3>
       <p className="mb-0 ms-2">{active ? 'Active this month' : 'Haven’t been active this month'}</p>
     </div>
 
