@@ -361,7 +361,7 @@ nav {
   font-size: 14px;
 }
 .rightside-wrapper{
-  width: calc(100% - 138px);
+  width: calc(100% - 150px);
 }
 .main-content-wraaper{
   color: #000;
@@ -390,7 +390,7 @@ nav {
 }
 .review-content .short0ad {
   border: solid 1px #B185F2;
-  padding: 4px 15px;
+  padding: 4px 10px;
   border-radius: 20px;
   color:#B185F2;
   font-weight: 600;
@@ -447,7 +447,7 @@ nav {
   }
   .review-content table  td{
   vertical-align: middle;
-  padding: 13px 10px;
+  padding: 13px 9px;
   }
 .review-content .draft-table table  td{
     padding: 13px 20px;
@@ -845,10 +845,21 @@ table.feedback-queue tr:first-child td{
 }
 .member-table tr td{
   padding: 13px 15px;
+  vertical-align: top;
+}
+td.vertical-middle {
+  vertical-align: middle!important;
+}
+.member-table tr td.update-btn , .member-table tr.members td  {
+  vertical-align: middle;
 }
 .member-table tr td:nth-child(1)
 {
   width: 180px;
+}
+.member-table tr td:nth-child(2)
+{
+ width: 125px;
 }
 .member-table tr td:nth-child(3)
 {
@@ -956,6 +967,7 @@ table.feedback-queue tr:first-child td{
   width: 90%;
   font-size: 13px;
   outline: none;
+  height: 22px;
 }
 select.form-control {
   appearance: auto;
@@ -1384,9 +1396,19 @@ ul.designer-list li{
 .view-customer-content .status-btn .btn {
   font-size: 12px;
 }
+.view-customer-content.view-design-content .active-request-section:last-child{
+  flex: 0 0 20%;
+}
 .view-customer-content .start-date{
   margin-top: -17px;
   font-size: 13px;
+}
+.view-customer-content p {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+.reel-data.review-content {
+  row-gap: 10px;
 }
 .admin-payments tr td:nth-child(2) {
   width: 90px;
@@ -1438,7 +1460,8 @@ ul.designer-list li{
   letter-spacing: -0.48px;
 }
 .member-table select{
-  line-height: 233px;
+  height: 20px;
+  margin-top: 4px;
 }
 
 .member-content .member-table input:-webkit-autofill, 
@@ -1460,8 +1483,8 @@ background-color: #D9D9D9;
 .member-table .d-flex {
   gap: 20px;
 }
-p.user-email.date span {
-  line-height: 22px;
+p.user-email.date span.d-block {
+  line-height: 25px;
 }
 .member-table .update-btn button{
   background-color: transparent;
@@ -1682,6 +1705,14 @@ nav p.user-email {
 .calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings.saving-bg-color {
   color: #284719;
 }
+h3.counter-number span {
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -1795,8 +1826,10 @@ nav p.user-email {
   .view-customer-content .active-request-section:last-child {
     flex: 0 0 100%;
   }
-  .view-customer-content .active-request-section, .view-customer-content .active-request-section:last-child {
-    flex: 0 0 49%;
+  .view-customer-content .active-request-section, 
+  .view-customer-content .active-request-section:last-child ,
+   .view-customer-content.view-design-content .active-request-section:last-child {
+    flex: 0 0 50%;
   }
 }
 @media screen and (max-width: 992px){
@@ -1909,7 +1942,7 @@ nav p.user-email {
   .view-customer-content .active-request-section, 
   .view-customer-content .active-request-section:last-child ,
   .view-customer-content .customer-details ,
-  .view-customer-content .customer-subscription{
+  .view-customer-content .customer-subscription , .view-customer-content.view-design-content .active-request-section:last-child{
     flex: 0 0 100%;
   }
   .view-as-customer-popup .modal-dialog{

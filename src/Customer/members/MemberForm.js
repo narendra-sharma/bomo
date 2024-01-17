@@ -92,23 +92,23 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                <p className="mb-0"> <button className="add-btn" onClick={() => setShowAddComp(false)}>
                   -
                 </button></p>
-                <p className="mb-0 user-email">
-                  <b>Name<span className="text-danger">*</span></b>
-                  <span className="d-block">
-                    <input
-                      type="text"
-                      className="formcontrol"
-                      name="name"
-                      value={formData?.name}
-                      onChange={(e) => handleChange("name", e.target.value)}
-                    />
-                    {errors.name && (
-                      <p className="d-block error-msg mt-1">
-                        Name is required
-                      </p>
-                    )}
-                  </span>
-                </p>
+                <div>
+                  <p className="mb-0 user-email">
+                    <b>Name<span className="text-danger">*</span></b>
+                  </p>
+                      <input
+                        type="text"
+                        className="formcontrol"
+                        name="name"
+                        value={formData?.name}
+                        onChange={(e) => handleChange("name", e.target.value)}
+                      />
+                      {errors.name && (
+                        <p className="d-block error-msg mt-1">
+                          Name is required
+                        </p>
+                      )}
+                      </div>
               </div>
             </td>
             <td>
@@ -128,7 +128,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </select>
               {errors.role && (
                   <p
-                    className="d-block error-msg"
+                    className="d-block error-msg mt-1"
                     
                   >
                     {errors.role==='required'?'Role is required':''}
@@ -183,7 +183,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 </div>
                 {errors.password && (
                   <p
-                    className="d-block error-msg"
+                    className="d-block error-msg mt-1"
                     
                   >
                     {errors.password==='required'?'Password is required':'Password length should be more than 5 characters'}
@@ -204,7 +204,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 />
               </div>
             </td>
-            <td>
+            <td className="vertical-middle">
               <button
                 type="button"
                 className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 "
