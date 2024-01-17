@@ -52,8 +52,8 @@ const requestReducer = (state = initialState, action) => {
     case GET_ADMIN_ASSIGN_REQUEST_LIST:
       return {
         ...state,
-        assignrequests: action.payload?.data,
-        totalassigns: action.payload?.total,
+        assignrequests: action.payload.data,
+        totalassigns: action.payload.total,
       }
     default:
       return state;
