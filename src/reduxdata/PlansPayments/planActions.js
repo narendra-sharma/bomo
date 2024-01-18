@@ -13,7 +13,7 @@ const HEADERS = {
 }
 export const get_plans = async (dispatch) => {
   try {
-    dispatch(start_loading());
+    // dispatch(start_loading());
     const url = `${REACT_APP_BOMO_URL}plans/list`;
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
@@ -27,7 +27,7 @@ export const get_plans = async (dispatch) => {
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch))
   } finally {
-    dispatch(stop_loading());
+    // dispatch(stop_loading());
   }
 };
 export const pay_now = async (uToken, token, data, dispatch) => {
