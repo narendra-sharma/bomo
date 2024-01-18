@@ -1705,6 +1705,18 @@ nav p.user-email {
 .calculator-page .container.bg-transparent.calculator-screen .subscription-data .savings.saving-bg-color {
   color: #284719;
 }
+.calculator-page .container.bg-transparent.calculator-screen h2{
+  font-family: var(--secondary-font);
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -1.52px;
+}
+.calculator-page .container.bg-transparent.calculator-screen .sub-heading{
+  font-size: 17px;
+    font-weight: 400;
+    letter-spacing: -.6px;
+    line-height: 20px;
+}
 h3.counter-number span {
   font-size: 15px;
   width: 30px;
