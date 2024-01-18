@@ -1712,10 +1712,11 @@ nav p.user-email {
   letter-spacing: -1.52px;
 }
 .calculator-page .container.bg-transparent.calculator-screen .sub-heading{
+  font-family: var(--secondary-font);
   font-size: 17px;
-    font-weight: 400;
-    letter-spacing: -.6px;
-    line-height: 20px;
+  font-weight: 400;
+  letter-spacing: -.6px;
+  line-height: 20px;
 }
 h3.counter-number span {
   font-size: 15px;
