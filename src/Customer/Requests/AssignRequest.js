@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { get_admin_assign_requestlist } from "../../reduxdata/rootAction";
+import { assign_admin_request, get_admin_assign_requestlist } from "../../reduxdata/rootAction";
 import EmptyList from "../../Common/EmptyList";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
@@ -9,66 +9,62 @@ import CustomPagination from "../../Common/CustomPagination";
 
 const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
-    const [topDesigners, setTopDesigners] = useState({});
-    const [primaryDesigners, setPrimaryDesigners] = useState([]);
-    const [backupDesigners, setBackupDesigners] = useState([]);
+    const [assignData, setAssignData] = useState([]);
 
-    const handleDesignerClick = useCallback((item,requestId) => {
-        setPrimaryDesigners((prevPrimaryDesigners) => {
-            const currentPrimaryDesigners = prevPrimaryDesigners[requestId] || [];
-            if (currentPrimaryDesigners.length < 3 && !currentPrimaryDesigners.some(designer => designer._id === item._id)) {
-                const newPrimaryDesigners = [...currentPrimaryDesigners,item];
-                return {
-                    ...prevPrimaryDesigners,
-                    [requestId]: newPrimaryDesigners,
+    const handleDesignerClick = (designer, requestId) => {
+        if (assignData.find(request => request._id === requestId)) {
+            const updatedAssignData = assignData.map(request => {
+                if (request._id === requestId) {
+                    if (!request.top_designers) {
+                        request.top_designers = [];
+                    }
+
+                    const isDesignerinToplist = request.top_designers.some(d => d._id === designer._id);
+                    if (isDesignerinToplist) {
+                        request.top_designers = request.top_designers.filter(d => d._id !== designer._id);
+                    } else if (
+                        request.top_designers.length < 6 &&
+                        !request.primary_designer.some(d => d._id === designer._id) &&
+                        !request.backup_designer.some(d => d._id === designer._id)
+                    ) {
+                        if (request.primary_designer.length < 3) {
+                            request.primary_designer.push([...new Set([...request.primary_designer, designer._id])]);
+                        } else if (request.primary_designer.length >= 3 && request.primary_designer.length < 6) {
+                            request.backup_designer.push([...new Set([...request.backup_designer, designer._id])]);
+                        }
+                        request.top_designers = [...new Set([...request.top_designers, designer])];
+                    }
                 }
-            }
-            return prevPrimaryDesigners;
-        });
-
-        setBackupDesigners((prevBackupDesigners) => {
-            const currentBackupDesigners = prevBackupDesigners[requestId] || [];
-            if (currentBackupDesigners.length > 3 && currentBackupDesigners.length <= 6 && !currentBackupDesigners.some(designer => designer._id === item._id)) {
-                const newBackupDesigners = [...currentBackupDesigners,item];
-                return {
-                    ...prevBackupDesigners,
-                    [requestId]: newBackupDesigners,
-                };
-            }
-            return prevBackupDesigners;
-        });
-
-        setTopDesigners((prevTopDesigners) => {
-            const currentTopDesigners = prevTopDesigners[requestId] || [];
-            if (currentTopDesigners.length < 6 && !currentTopDesigners.some(designer => designer._id === item._id)) {
-                const newTopDesigners = [...currentTopDesigners, item];
-                return {
-                    ...prevTopDesigners,
-                    [requestId]: newTopDesigners,
-                };
-            }
-            return prevTopDesigners;
-        });
-    }, []);
-    console.log(backupDesigners);
-
-    const handleAssign = (request) => {
-        const requestData = {
-            request_id: request._id,
-            primary_designer: [topDesigners],
-            backup_designer: [backupDesigners]
+                return request;
+            });
+            setAssignData(updatedAssignData);
         }
-        console.log("RequestData", requestData);
-    }
+    };
+
+    const handleAssignrequest = (requestdetail) => {
+        const PrimaryDesigners = [...new Set([...requestdetail.primary_designer.flat(Infinity)])];
+        const BackupDesigners = [...new Set([...requestdetail.backup_designer.flat(Infinity)])];
+
+        const assignRequestData = {
+            request_id: requestdetail._id,
+            primary_designer: PrimaryDesigners,
+            backup_designer: BackupDesigners
+        }
+        assign_admin_request(assignRequestData, dispatch, user?.token);
+    };
 
     useEffect(() => {
         get_admin_assign_requestlist(dispatch, user?.token, 1, 5);
-    }, [dispatch, user?.token]);
+    }, [dispatch]);
+
+    useEffect(() => {
+        setAssignData(assignrequests);
+    }, [assignrequests]);
 
     return (
         <>
-            {totalassigns > 0 ? assignrequests.map((request) => (
-                <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section">
+            {totalassigns > 0 ? assignData?.map((request, index) => (
+                <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section" key={index}>
                     <div className="row">
                         <div className="col-lg-12">
                             <small className="text-muted fw-bold">
@@ -96,7 +92,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                             </td>
                                             <td>
                                                 <p>
-                                                    <span className="fw-bold">{request.request_name}</span>{" "}
+                                                    <span className="fw-bold">{request?.request_name}</span>{" "}
                                                     <span className="d-block">{request?.status}</span>
                                                 </p>
                                             </td>
@@ -119,12 +115,12 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                         <div className="col-lg-2">
                             <p className="text-center mb-1">Top 6 Talent</p>
                             <ul className="talented-designer  rounded list-unstyled">
-                                {(topDesigners[request._id] || []).map((item) =>
+                                {request?.top_designers?.map((item) =>
                                 (<li className="mb-1" key={item._id}>
                                     <Link className="text-decoration-none text-dark fw-bold">
                                         <p>
-                                            <i className="fa-solid fa-circle-minus"></i>{" "}
-                                            {item.name}
+                                            <i className="fa-solid fa-check-circle text-success" onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
+                                            {item?.name}
                                         </p>
                                     </Link>
                                 </li>
@@ -135,11 +131,11 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                             <ul className="talented-designer designer-list rounded list-unstyled">
                                 {request.designer_list.map((item) => (
                                     <li className="mb-1">
-                                        <Link className="text-decoration-none text-dark fw-bold"
-                                            onClick={() => handleDesignerClick(item,request._id)}>
+                                        <Link className="text-decoration-none text-dark fw-bold">
                                             <p>
-                                                <i className="fa-solid fa-circle-minus"></i>{" "}
-                                                {item.name}
+                                                <i className={request?.top_designers?.some(d => d._id === item._id) ? "fa-solid fa-check-circle text-success" : "fa-solid fa-circle-minus"}
+                                                    onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
+                                                {item?.name}
                                             </p>
                                         </Link>
                                     </li>
@@ -147,7 +143,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                             </ul>
                         </div>
                         <div className="col-lg-1 align-self-center">
-                            <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssign(request)}>
+                            <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request)}>
                                 Assign
                             </button>
                         </div>

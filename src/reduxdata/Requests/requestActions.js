@@ -100,22 +100,24 @@ export const get_designer_pool_requestlist = async (dispatch, token) => {
 export const assign_admin_request = async (requestdata, dispatch, token) => {
   dispatch(start_loading);
   try {
-    const formData = new FormData();
-    formData.append("request_id", requestdata.request_id);
-    formData.append("primary_designer", requestdata.primary_designer);
-    formData.append("backup_designer", requestdata.backup_designer);
     const url = `${REACT_APP_BOMO_URL}superAdmin/assign-designer`;
     const HEADERS = {
       headers: {
-        "x-access-token": token,
+        "Content-Type": "application/json",
+        "x-access-token": token,  
       },
     };
-    const res = await axios.put(url,formData,HEADERS);
+    const requestDataToSend = {
+      request_id: requestdata.request_id,
+      primary_designer: requestdata.primary_designer,
+      backup_designer: requestdata.backup_designer,
+    };
+    const res = await axios.put(url,JSON.stringify(requestDataToSend),HEADERS);
     if (res.data && res.data.status) {
-      toast.success(res.data?.msg);
+      toast.success(res.data?.message);
       get_admin_assign_requestlist(dispatch,token);
     } else {
-      toast.error(res.data?.msg);
+      toast.error(res.data?.message);
     }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
