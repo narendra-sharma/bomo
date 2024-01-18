@@ -10,7 +10,6 @@ const PollRequests = ({ user, pollrequests }) => {
     const handleApplyRequest = (requestdata) => {
         let applyrequest =  requestdata._id;
         poll_request_apply(applyrequest, dispatch, user?.token);
-        console.log(user?.token);
     };
 
     useEffect(() => {
@@ -19,11 +18,11 @@ const PollRequests = ({ user, pollrequests }) => {
 
     return (
         <>
-            {pollrequests.map((request) => (
+            {pollrequests?.map((request) => (
                 <div className="col-md-6 col-lg-4 col-12">
                     <div className="bg-white px-2 px-md-3 py-3 rounded">
                         <div className="d-flex justify-content-between">
-                            <h6 className="fw-bold">{request.request_name}</h6>
+                            <h6 className="fw-bold">{request?.request_name}</h6>
                             <p className="text-end"><span className="fw-bold">Expected Delivery</span>
                                 <span className="d-block">Mon 10 - 9:00</span>
                             </p>
