@@ -10,6 +10,8 @@ import SubscriptionSteps from "./Customer/Subscription/SubscriptionSteps";
 import { delete_account, isSubscription } from "./reduxdata/rootAction";
 import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 import Delete from "./Modals/Delete";
+import reelImage from "./images/reel-image.png"; 
+
 
 const Setting = ({ userrole }) => {
   const user=JSON.parse(localStorage.getItem('userDetails'));
@@ -35,7 +37,7 @@ const Setting = ({ userrole }) => {
           {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <div className="mx-md-3 mx-lg-5 mb-4 row">
             <NewRequestShared />
           </div>}
-          <div className="review-main-content mb-5">
+          <div className="review-main-content">
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Settings</h3>
             </div>
@@ -95,7 +97,7 @@ const Setting = ({ userrole }) => {
           </div>}
           </div>
           {((userrole === 'customer_admin') && user?.plan_id )? <div className="review-main-content">
-            <div className="row">
+            <div className="row review-main-content">
               <div className="col-lg-6 col-md-6 d-flex flex-column">
                 <BillingForm user={user} />
               </div>
@@ -106,7 +108,48 @@ const Setting = ({ userrole }) => {
           </div>
             : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
           }
-
+           {(userrole !== 'Designer') ? <div></div>:<>
+          
+              <div className="row review-main-content g-0 bg-white px-4 px-md-3 py-4 align-items-center rounded">
+                  <div className="col-md-7 col-lg-7">
+                    <p className="fw-bold">REEL</p>
+                    <img src={reelImage} />
+                  </div>
+                  <div className="col-md-5 col-lg-5">
+                    <div className="row reel-data review-content">
+                      <div className="col-md-3 col-lg-3">
+                        <p className="text-dark fw-bold">Bio</p>
+                      </div>
+                      <div className="col-md-9 col-lg-9">
+                        <p className="text-mute">Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, turpis nibh etiam per hendrerit nisi mauris duis, nisl lacus massa consequat porttitor fringilla convallis</p>
+                      </div>
+                      <div className="col-md-3 col-lg-3">
+                        <p className="text-dark">Website</p>
+                        </div>
+                      <div className="col-md-9 col-lg-9">
+                        <p className=""><Link className="text-decoration-none">Lorem ipsum</Link> </p>
+                      </div>
+                      <div className="col-md-3 col-lg-3">
+                        <p className="text-dark">Instagram</p>
+                        </div>
+                      <div className="col-md-9 col-lg-9">
+                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                      </div>
+                      <div className="col-md-3 col-lg-3">
+                        <p className="text-dark">Behance</p>
+                        </div>
+                      <div className="col-md-9 col-lg-9">
+                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-md-7">
+                <BillingForm user={user} />
+                </div>
+              </div>
+                </>}
           {((userrole === 'Designer') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1" onClick={() => setShow(true)}>Delete account</button>
           </div>}
