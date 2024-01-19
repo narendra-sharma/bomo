@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 import SubscriptionStatus from "../Customer/Sahred/SubscriptionStatus";
 import { useDispatch, connect } from "react-redux";
 import { get_single_data } from "../reduxdata/members/memberAction";
-import moment from "moment";
+import { format } from "date-fns";
 const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
   const customerId = view?._id;
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
     if (customerId) get_single_data(dispatch, customerId, token);
   }, [customerId]);
 
-  const getFormatedDate = (date) => {
-    if (date) return moment(date).format("DD MMMM YYYY");
+  const getFormattedDate = (date) => {
+    if (date) return format(new Date(date), "dd MMMM yyyy");
   };
 
   return (
@@ -39,7 +39,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
                 <div className="text-right">
                   <p className="fw-bold mb-0">
                     Subscription renews{" "}
-                    {getFormatedDate(singleUserData?.subscription_renew_date)}
+                    {getFormattedDate(singleUserData?.subscription_renew_date)}
                   </p>
                 </div>
               </div>
@@ -204,7 +204,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
                 </div>
                 <p className="mb-0 start-date">
                   Started{" "}
-                  {getFormatedDate(singleUserData?.month_subscribe_date)}
+                  {getFormattedDate(singleUserData?.month_subscribe_date)}
                 </p>
               </div>
             </div>
