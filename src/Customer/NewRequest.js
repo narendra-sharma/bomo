@@ -44,6 +44,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
     references: '',
     transparency: '',
     uploadFiles: '',
+    customerror: ''
   });
   const [selectedRequestType, setSelectedRequestType] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -54,7 +55,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   const handleLeave = () => {
     setHoveredIndex(null);
   };
-
+ 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -76,7 +77,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
       case 'size':
         setErrors({ ...errors, size: value === '' ? 'Please Select your size' : null});
-        setFormData({ ...formData, size:value })
+        setFormData({ ...formData, size:value });
         break;
 
       case 'brandProfile':
@@ -119,6 +120,12 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
   const handleCustomSizeChange = (e) => {
     const { name, value } = e.target;
+    const ratioRegex = /^\d+:\d*$/;
+    if(!ratioRegex.test(value)){
+      setErrors({ ...errors, customerror: 'Please enter a valid size ratio' });
+    } else {
+      setErrors({ ...errors, customerror: null });
+    }
     setFormData({
       ...formData,
       [name]: value,
@@ -127,7 +134,8 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
   const handleAddCustomSize = () => {
     const { customsize, customsizes } = formData;
-    if (customsize.trim() !== "" && !customsizes.includes(customsize)) {
+    const ratioRegex = /^\d+:\d*$/;
+    if (customsize.trim() !== "" && (!customsizes.includes(customsize) && !sizeUpTo.includes(customsize)) && ratioRegex.test(customsize)) {
       setFormData({
         ...formData,
         customsizes: [...customsizes, customsize],
@@ -223,6 +231,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
       })})
     }
   },[requestData]);
+
   useEffect(() => {
     getbrandlist(dispatch, usertoken);
     return () =>{
@@ -233,7 +242,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   useEffect(() => {
     if (isAddEdit) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
-      setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null });
+      setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
       setImagePreview(null);
       setClickedIndex(null);
       change_add_edit(dispatch);
@@ -323,15 +332,17 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
-                            <option value="" disabled>Select</option>
-                            {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
-                            {formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
-                            <option value="Custom">Custom</option>
-                          </select>
+                            <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
+                              <option value="" disabled>Select</option>
+                              {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
+                              {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
+                              {formData.customsizes && formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
+                              <option value="Custom">Custom</option>
+                            </select>
                           {(formData.size === 'Custom') && <>
                             <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
+                            {errors.customerror && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.customerror}</p>}
                           </>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
                         </div>

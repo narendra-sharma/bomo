@@ -1,11 +1,12 @@
-import { GET_PROFILE_SUCCESS, LOG_OUT, SET_USER_TYPE, UPDATE_PASSWORD_SUCCESS, USER_UPDATE, } from "./userTypes";
+import { GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_PASSWORD_SUCCESS, USER_UPDATE, } from "./userTypes";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('userDetails')),
   role: JSON.parse(localStorage.getItem('USERTYPE')),
   updated:false,
   token:null,
-  profile:null
+  profile:null,
+  singledesignerdata:null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -35,6 +36,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload
+      }
+    case GET_SINGLE_DESIGNER_DETAILS:
+      return {
+        ...state,
+        singledesignerdata: action.payload
       }
     default:
       return state;

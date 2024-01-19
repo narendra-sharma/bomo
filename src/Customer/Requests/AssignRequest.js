@@ -6,10 +6,13 @@ import EmptyList from "../../Common/EmptyList";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 import CustomPagination from "../../Common/CustomPagination";
+import ViewAsDesigner from "../../Modals/ViewAsDesigner";
 
 const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
     const [assignData, setAssignData] = useState([]);
+    const [view, setView] = useState(null);
+    const [show, setShow] = useState(false);
 
     const handleDesignerClick = (designer, requestId) => {
         if (assignData.find(request => request._id === requestId)) {
@@ -118,7 +121,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 {request?.top_designers?.map((item) =>
                                 (<li className="mb-1" key={item._id}>
                                     <Link className="text-decoration-none text-dark fw-bold">
-                                        <p>
+                                        <p onClick={() => { setView(item); setShow(true); }}>
                                             <i className="fa-solid fa-check-circle text-success" onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
                                             {item?.name}
                                         </p>
@@ -132,9 +135,12 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 {request.designer_list.map((item) => (
                                     <li className="mb-1">
                                         <Link className="text-decoration-none text-dark fw-bold">
-                                            <p>
+                                            <p onClick={() => { setView(item); setShow(true); }}>
                                                 <i className={request?.top_designers?.some(d => d._id === item._id) ? "fa-solid fa-check-circle text-success" : "fa-solid fa-circle-minus"}
-                                                    onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        handleDesignerClick(item, request._id)}}></i>{" "}
                                                 {item?.name}
                                             </p>
                                         </Link>
@@ -142,11 +148,11 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 ))}
                             </ul>
                         </div>
-                        <div className="col-lg-1 align-self-center">
+                        {request?.top_designers?.length > 0 ? <div className="col-lg-1 align-self-center">
                             <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request)}>
                                 Assign
                             </button>
-                        </div>
+                        </div> : ""}
                     </div>
                 </div>
             )) : <EmptyList name="Assign Request" />}
@@ -158,6 +164,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     }}
                 />
             )}
+             <ViewAsDesigner view={view} show={show} handleClose={()=>{setShow(false);setView(null);}} />
         </>
     )
 };
