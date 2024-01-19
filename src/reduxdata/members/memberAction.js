@@ -2,7 +2,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
-import { MEMBERS_LIST, USERS_LIST } from "./mmebersTypes";
+import { MEMBERS_LIST, USERS_LIST, SINGLE_USER_DATA } from "./mmebersTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
 import { catch_errors_handle } from "../rootAction";
 
@@ -33,7 +33,7 @@ export const get_all_members = async (
       toast.error(res?.data?.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading);
   }
@@ -62,7 +62,7 @@ export const add_new_member = async (dispatch, userData, token, id, role) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -91,7 +91,7 @@ export const delete_existing_user = async (id, dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading);
   }
@@ -117,19 +117,48 @@ export const get_all_users = async (
   };
   try {
     const res = await axios.get(
-      `${REACT_APP_BOMO_URL}superAdmin/${(user_type==='designer' && active)?'active_designer_listing':(user_type==='designer' && !active)?'inactive_designer_listing':'customer_listing'}?page=${page}&limit=${limit}${search?'&search='+search:''}`,
+      `${REACT_APP_BOMO_URL}superAdmin/${
+        user_type === "designer" && active
+          ? "active_designer_listing"
+          : user_type === "designer" && !active
+          ? "inactive_designer_listing"
+          : "customer_listing"
+      }?page=${page}&limit=${limit}${search ? "&search=" + search : ""}`,
       HEADERS
     );
     if (res?.data?.status) {
       // store the data
-      res.data.role=user_type;
-      res.data.active=active;
+      res.data.role = user_type;
+      res.data.active = active;
       dispatch({ type: USERS_LIST, payload: res?.data });
     } else {
       toast.error(res?.data?.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+};
+
+export const get_single_data = async (dispatch, customerId, token) => {
+  dispatch(start_loading);
+  try {
+    const res = await axios.get(
+      `${REACT_APP_BOMO_URL}superAdmin/single_customer_detail?id=${customerId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "x-access-token": token,
+        },
+      }
+    );
+    console.log(res?.data);
+    if (res?.data?.status) {
+      dispatch({ type: SINGLE_USER_DATA, payload: res?.data });
+    }
+  } catch (error) {
   } finally {
     dispatch(stop_loading);
   }
