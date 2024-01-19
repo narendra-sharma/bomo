@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { get_all_users } from "../../reduxdata/rootAction";
 import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
 import EmptyList from "../../Common/EmptyList";
+import ViewAsDesigner from "../../Modals/ViewAsDesigner";
 
 const AllDesignerList = ({ active, user, users, total, search }) => {
   const dispatch = useDispatch();
   const role = 'designer';
-  return (<div className="review-content mb-4">
+  const [view, setView] = useState(null);
+  const [show, setShow] = useState(false);
+  return (
+  <div className="review-content mb-4">
     <div className="d-flex align-items-center mb-3">
-      <h3 className="mb-0 counter-number d-flex align-items-center ">{total>0 && <span className="bg-white rounded-circle  mr-2">{total}</span>}Designers</h3>
+      <h3 className="mb-0 counter-number d-flex align-items-center ">{total > 0 && <span className="bg-white rounded-circle  mr-2">{total}</span>}Designers</h3>
       <p className="mb-0 ms-2">{active ? 'Active this month' : 'Haven’t been active this month'}</p>
     </div>
 
-    {(users.length > 0) ? users.map(item=><div key={item?._id} className="table-responsive designer-table bg-white rounded p-3 mb-3">
+    {(users.length > 0) ? users.map(item => <div key={item?._id} className="table-responsive designer-table bg-white rounded p-3 mb-3">
       <table className="table table-borderless mb-0">
         <tbody>
           <tr>
             <td>
               <p>
-                <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark">View as designer</button>
+                <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => { setView(item); setShow(true); }}>View as designer</button>
               </p>
             </td>
             <td><p className="fw-bold">{item?.name}</p></td>
@@ -45,6 +49,8 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
         />
       )}
     </div>
+
+    <ViewAsDesigner view={view} show={show} handleClose={()=>{setShow(false);setView(null);}} />
   </div>
   )
 }

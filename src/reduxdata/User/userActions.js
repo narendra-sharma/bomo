@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
+import { GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -238,3 +238,27 @@ export const delete_account = async (token, navigate, dispatch) => {
     dispatch(stop_loading());
   }
 };
+
+export const get_single_designer_details = async (dispatch, userId, token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/single_designer_detail?id=${userId}`;
+    const HEADERS = {
+      headers:{
+        "x-access-token": token
+      }
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_SINGLE_DESIGNER_DETAILS, payload: res.data });
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+
