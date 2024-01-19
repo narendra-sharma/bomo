@@ -38,7 +38,7 @@ export const pay_now = async (uToken, token, data, dispatch) => {
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, data, headers);
     if (res.data && res.data.status) {
-      set_update_user({...res.data.user,token:uToken});
+      get_user_subscription({...res.data.user,token:uToken},dispatch);
       dispatch({
         type: PAY_NOW,
       })
@@ -60,7 +60,7 @@ export const edit_billing_info = async (uToken, sid, data, dispatch) => {
     const res = await axios.put(url, data, headers);
     if (res.data && res.data.status) {
       toast.success('Successfully edit billing information.');
-      set_update_user({...res.data.user,token:uToken});
+      get_user_subscription({...res.data.user,token:uToken},dispatch);
     } else {
       toast.error(res.data.message);
     }
@@ -79,7 +79,7 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     const res = await axios.post(url, {}, headers);
     if (res.data && res.data.status) {
       toast.success('Successfully cancel subscription.');
-      set_update_user({...res.data.user,token:uToken});
+      get_user_subscription({...res.data.user,token:uToken},dispatch);
       window.location.reload();
     } else {
       toast.error(res.data.message);
@@ -99,8 +99,7 @@ export const pause_subscription = async (user, dispatch) => {
     const res = await axios.post(url, {pause:user?.subscription?.status==='paused'?false:true}, headers);
     if (res.data && res.data.status) {
       toast.success('Successfully pause subscription.');
-      set_update_user({...res.data.user,token:user?.token});
-      window.location.reload();
+      get_user_subscription({...res.data.user,token:user?.token},dispatch);
     } else {
       toast.error(res.data.message);
     }
@@ -118,7 +117,7 @@ export const get_user_subscription = async (user, dispatch) => {
     headers.headers['x-access-token'] = user?.token;
     const res = await axios.get(url, headers);
     if (res.data && res.data.status) {
-      set_update_user({...user,...res.data.user});
+      dispatch(set_update_user({...user,...res.data.data}));
     } else {
       toast.error(res.data.message);
     }

@@ -179,13 +179,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
               <label htmlFor="Upload Logo" className="d-none">Logo<span className="text-danger">*</span></label>
             <div>
-              {(brand?.id && !imagePreview) ? <img src={`${LOGO_URL}${logopath}`} alt="" />
-                : (brand?.id && imagePreview) ? <img src={imagePreview} alt="Preview" /> : ''}
               <input type="file" className="d-none" name="logo" accept="image/*" onChange={handleChange} ref={fileinputRef} />
-              <button className="add-btn bg-white" onClick={handleUploadButtonClick}>
-                {(!brand?.id && imagePreview) ? (
+               <button className={`${brand?.id?'brand-add-btn ':''} add-btn bg-white`} onClick={handleUploadButtonClick}>
+                {(imagePreview) ? (
                   <img src={imagePreview} alt="Preview" />
-                ) : ('+')}
+                ) :(brand?.id && <img src={`${LOGO_URL}${logopath}`} alt="" />)}
+                 {brand?.id?<span>Edit</span>: !imagePreview &&  ('+')}
               </button>
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
