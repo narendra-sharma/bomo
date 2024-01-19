@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Forgotpassword from "./auth/Forgotpassword";
 import Changepassword from "./auth/Changepassword";
 import Updatepassword from "./Modals/Updatepassword";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import EditProfile from "./Modals/EditProfile";
 import NewRequest from "./Customer/NewRequest";
 import RequestStatus from "./Customer/RequestStatus";
@@ -35,11 +35,9 @@ import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
 import 'react-tagsinput/react-tagsinput.css'
 import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
 import CalculatorShared from "./CalculatorShared";
-import { get_user_subscription } from "./reduxdata/rootAction";
 
 function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
-  const dispatch=useDispatch();
   useEffect(() => {
     $(document).ready(() => {
       $("#open-sidebar").click(() => {
@@ -68,9 +66,6 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    // if(user){
-    //   get_user_subscription(user,dispatch);
-    // }
   }, [user]);
   useEffect(() => {
     const handleEndConcert = () => {

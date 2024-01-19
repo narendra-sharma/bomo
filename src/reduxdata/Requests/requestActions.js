@@ -4,6 +4,7 @@ import {
   stop_loading,
   catch_errors_handle,
   change_add_edit,
+  get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
 import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST } from "./requestTypes";
@@ -197,10 +198,11 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
     };
     const res = requestdata?.request_id ? await axios.put(url, formData, { headers }) : await axios.post(url, formData, { headers });
     if (res.data && res.data.status) {
-      toast.success(`Request ${requestdata?.request_id ? 'updated' : 'created'} Successfully`);
-      navigate('/');
+      get_user_subscription({token:token},dispatch);
       get_draft_requestlist(dispatch, token); 
       change_add_edit(dispatch);
+      toast.success(`Request ${requestdata?.request_id ? 'updated' : 'created'} Successfully`);
+      navigate('/');
       return res.data;
     } else {
       toast.error(res.data.message);

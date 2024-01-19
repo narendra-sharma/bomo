@@ -2014,3 +2014,17 @@ button.accordion-button.collapsed  .late-request-section {
 .cursor-pointer{
   cursor: pointer;
 }
+
+.brand-add-btn{
+  position: relative;
+  overflow: hidden;
+}
+.brand-add-btn span{
+  position: absolute;
+  font-size: small;
+  color: #3FCE3C;
+  bottom: 0px;
+  border-top: 1px solid;
+  width: 100%;
+  background: #ffffff;
+}

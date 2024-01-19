@@ -89,9 +89,17 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 className="d-flex align-items-center"
                 style={{ cursor: "pointer" }}
               >
-               <p className="mb-0"> <button className="add-btn" onClick={() => setShowAddComp(false)}>
-                  -
-                </button></p>
+                <div>
+                  <p className="mb-0 user-email">
+                    <b>Color<span className="text-danger">*</span></b>
+                  </p>
+                  <input
+                    type="color"
+                    name="colour"
+                    value={formData.colour}
+                    onChange={(e) => handleChange("colour", e.target.value)}
+                  />
+                </div>
                 <div>
                   <p className="mb-0 user-email">
                     <b>Name<span className="text-danger">*</span></b>
@@ -191,19 +199,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 )}
               </div>
             </td>
-            <td>
-              <div className="">
-                <p className="mb-0 user-email">
-                  <b>Color<span className="text-danger">*</span></b>
-                </p>
-                <input
-                  type="color"
-                  name="colour"
-                  value={formData.colour}
-                  onChange={(e) => handleChange("colour", e.target.value)}
-                />
-              </div>
-            </td>
+            
             <td className="vertical-middle">
               <button
                 type="button"
@@ -211,6 +207,9 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 onClick={handleCreate}
               >
                 CREATE
+              </button>
+              <button className="create-add-btn delete-btn rounded-pill fw-bold px-4" type="button" onClick={() => setShowAddComp(false)}>
+                Close
               </button>
             </td>
           </tr>
