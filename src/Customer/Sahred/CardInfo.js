@@ -18,6 +18,7 @@ const CARD_ELEMENT_OPTIONS = {
 };
 const CardInfo = ({ errors, handleCardElementChange }) => {
   const { cardNumber, cardExpiry, cardCvc } = errors;
+  
   return (
     <>
       <div className="col-md-12">
