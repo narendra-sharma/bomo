@@ -86,7 +86,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
           <tr>
             <td>
               <div
-                className="d-flex align-items-center"
+                className="d-flex"
                 style={{ cursor: "pointer" }}
               >
                 <div>
@@ -97,7 +97,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                     type="color"
                     name="colour"
                     value={formData.colour}
-                    onChange={(e) => handleChange("colour", e.target.value)}
+                    onChange={(e) => handleChange("colour", e.target.value) } id="color1" 
                   />
                 </div>
                 <div>
@@ -201,16 +201,18 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
             </td>
             
             <td className="vertical-middle">
-              <button
-                type="button"
-                className="bg-mid-gray fw-bold border rounded-pill px-4 py-1 "
-                onClick={handleCreate}
-              >
-                CREATE
-              </button>
-              <button className="create-add-btn delete-btn rounded-pill fw-bold px-4" type="button" onClick={() => setShowAddComp(false)}>
-                Close
-              </button>
+              <div className="d-flex">
+                <button
+                  type="button"
+                  className="bg-mid-gray fw-bold border rounded-pill px-3 py-1 "
+                  onClick={handleCreate}
+                >
+                  CREATE
+                </button>
+                <button className="create-add-btn delete-btn rounded-pill fw-bold px-3 m-0" type="button" onClick={() => setShowAddComp(false)}>
+                  Close
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>

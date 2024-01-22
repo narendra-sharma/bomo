@@ -80,7 +80,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               <b>Name</b>
                               <p
                                 className="d-block"
-                                style={{ maxWidth: "60px" }}
+                               
                               >
                                 {item?.name}
                               </p>
