@@ -3,8 +3,9 @@ import designImage from "../images/nine-sixteen.png";
 import designImage2 from "../images/sixteen-nine.png";
 import designImage3 from "../images/sixteen-nine2.png";
 import AssignRequest from "../Customer/Requests/AssignRequest";
+import { connect } from "react-redux";
 
-const SuperAdminHome = () => {
+const SuperAdminHome = ({totalassigns}) => {
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
@@ -177,7 +178,7 @@ const SuperAdminHome = () => {
                         <div className=" d-flex align-items-center mb-3">
                             <h3 className="mb-0 mx-2 mx-md-4">Assign Request</h3>
                             <div className="action-need ms-3 bg-white text-dark rounded-pill px-3 py-1">
-                                <small>2 Action Needed</small>
+                                <small>{totalassigns} Action Needed</small>
                             </div>
                         </div>
                         <AssignRequest />
@@ -413,4 +414,9 @@ const SuperAdminHome = () => {
     )
 }
 
-export default SuperAdminHome;
+const mapStateToProps = (state) => {
+    return {
+        totalassigns: state.requests.totalassigns,
+    };
+};
+export default connect(mapStateToProps)(SuperAdminHome);
