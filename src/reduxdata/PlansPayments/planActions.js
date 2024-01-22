@@ -80,7 +80,6 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     if (res.data && res.data.status) {
       toast.success('Successfully cancel subscription.');
       get_user_subscription({...res.data.user,token:uToken},dispatch);
-      window.location.reload();
     } else {
       toast.error(res.data.message);
     }
