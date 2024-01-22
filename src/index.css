@@ -847,7 +847,7 @@ table.feedback-queue tr:first-child td{
   background: rgba(249, 43, 52, 0.10);
 }
 .member-table tr td{
-  padding: 13px 15px;
+  padding: 13px 10px;
   vertical-align: top;
 }
 td.vertical-middle {
@@ -858,18 +858,39 @@ td.vertical-middle {
 }
 .member-table tr td:nth-child(1)
 {
-  width: 180px;
+  width: 190px;
 }
 .member-table tr td:nth-child(2)
 {
- width: 125px;
+ width: 120px;
 }
 .member-table tr td:nth-child(3)
 {
- width: 110px;
+ width: 105px;
 }
 .member-table tr td:nth-child(4){
-  width:180px
+  width:200px
+}
+.member-table .members p  {
+  padding: 0;
+}
+#color1 {
+  -webkit-appearance: none;
+  padding: 0;
+  border: none;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+}
+#color1::-webkit-color-swatch {
+  border: none;
+  border-radius: 30px;
+  padding: 0;
+}
+#color1::-webkit-color-swatch-wrapper {
+  border: none;
+  border-radius: 30px;
+  padding: 0;
 }
 .logout-popup .modal-dialog {
   display: flex;
