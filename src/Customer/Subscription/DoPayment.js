@@ -160,18 +160,27 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
         }
       } else{
         token=token;
+        const data={
+          user_id:user._id,
+          email:user.email,
+          quantity:pieces,
+          cardToken:token?.id,
+          ...card
+        };
+        console.log(data);
+        pay_now(user.token,(token),data,dispatch);
       }
       return error?false:true;
+    }else{
+      const data={
+        user_id:user._id,
+        email:user.email,
+        quantity:pieces,
+        cardToken:'',
+        ...card
+      };
+      pay_now(user.token,{},data,dispatch);
     }
-    const data={
-      user_id:user._id,
-      email:user.email,
-      quantity:pieces,
-      cardToken:isDefault?'':token?.id,
-      ...card
-    };
-    console.log(data);
-    pay_now(user.token,(isDefault?{}:token),data,dispatch);
   };
   return (
     <>

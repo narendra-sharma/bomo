@@ -148,7 +148,6 @@ export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
   }
 };
 export const get_customer_card=async(cid,dispatch)=>{
-  console.log(REACT_APP_STRIPE_SECRET_KEY,cid);
   try {
     dispatch(start_loading());
     const url = `${REACT_APP_STRIPE_API}customers/${cid}/cards`;
@@ -157,7 +156,6 @@ export const get_customer_card=async(cid,dispatch)=>{
         'Authorization': `Bearer ${REACT_APP_STRIPE_SECRET_KEY}`,
       },
     });
-    console.log(res);
     if (res.data) {
       dispatch({
         type: CUSTOMER_CARD,
