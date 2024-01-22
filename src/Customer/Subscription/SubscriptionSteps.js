@@ -6,6 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
+import { get_customer_card } from "../../reduxdata/PlansPayments/planActions";
 const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -35,6 +36,11 @@ const SubscriptionSteps = (props) => {
       },3000);
     }
   }, [props.isPay,dispatch])
+  useEffect(()=>{
+    if(user?.subscription?.customer_id){
+      get_customer_card(user?.subscription?.customer_id,dispatch);
+    }
+  },[]);
   return (
     <>
       <div className="review-main-content modify-subscription  bg-white py-5 px-3 rounded">
@@ -55,7 +61,7 @@ const SubscriptionSteps = (props) => {
         {step === 1 && <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ stripe, elements }) => (
-              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} />
+              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} cards={props.cards}/>
             )}
           </ElementsConsumer>
         </Elements>}
@@ -69,7 +75,8 @@ const mapStateToProps = (state) => {
   return {
     isPay: state.plan.isPay,
     user: state.auth.user,
-    plans: state.plan.plans
+    plans: state.plan.plans,
+    cards: state.plan.cards
   };
 };
 export default connect(mapStateToProps)(SubscriptionSteps);

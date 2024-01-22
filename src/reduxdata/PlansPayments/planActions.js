@@ -1,10 +1,10 @@
 import axios from "axios";
-import { GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
+import { CUSTOMER_CARD, GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading, catch_errors_handle } from "../rootAction";
 import { set_update_user } from "../User/userActions";
 
-const { REACT_APP_BOMO_URL } = process.env;
+const { REACT_APP_BOMO_URL,REACT_APP_STRIPE_API,REACT_APP_STRIPE_SECRET_KEY } = process.env;
 const HEADERS = {
   headers: {
     "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const get_plans = async (dispatch) => {
 export const pay_now = async (uToken, token, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscribe/${token.id}`;
+    const url = `${REACT_APP_BOMO_URL}stripe/subscribe${token?.id?'/'+token?.id:''}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, data, headers);
@@ -147,6 +147,31 @@ export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
     dispatch(stop_loading());
   }
 };
+export const get_customer_card=async(cid,dispatch)=>{
+  console.log(REACT_APP_STRIPE_SECRET_KEY,cid);
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_STRIPE_API}customers/${cid}/cards`;
+    const res = await axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${REACT_APP_STRIPE_SECRET_KEY}`,
+      },
+    });
+    console.log(res);
+    if (res.data) {
+      dispatch({
+        type: CUSTOMER_CARD,
+        payload: res.data.data
+      })
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+}
 export const isSubscription = async (user) => {
   const now = new Date().getTime();
   let isExpired = true;

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { CardNumberElement } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from "react";
+import { CardNumberElement, useStripe } from '@stripe/react-stripe-js';
 import BillingInfo from "../Sahred/BillingInfo";
 import { toast } from "react-toastify";
 import CardInfo from "../Sahred/CardInfo";
 import { pay_now } from "../../reduxdata/PlansPayments/planActions";
 import { useDispatch } from "react-redux";
-const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
+import visa from '../../images/visa.png';
+const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
   const dispatch=useDispatch();
+  const [cardDetails, setCardDetails] = useState(null);
+  const [isDefault, setIsDefault] = useState(false);
   const [card, setCard] = useState({
     name:user?.address?user?.address?.name:(user?.name && (user?.name.split(' ').length>0))?user?.name.split(' ')[0]:'',
     surname:user?.address?user?.address?.surname:(user?.name && (user?.name.split(' ').length>1))?user?.name.split(' ')[1]:'',
@@ -34,6 +37,28 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     country:'',
     vatNumber:''
   });
+  
+  useEffect(()=>{
+    if(cards.length>0){
+      setCardDetails(cards[0]);
+      setIsDefault(true);
+    }
+  },[cards])
+  useEffect(()=>{
+    if(isDefault){
+      setCardFeilds({
+        cardNumber:false,
+        cardExpiry:false,
+        cardCvc:false,
+      })
+    }else{
+      setCardFeilds({
+        cardNumber:true,
+        cardExpiry:true,
+        cardCvc:true,
+      })
+    }
+  },[isDefault])
   const handleCardElementChange = (event,label) => {
     switch(label){
       case 'cardNumber':
@@ -109,38 +134,44 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
     if (!stripe || !elements || checkAllErrors()) {
       return;
     }
-    const cardElement = elements.getElement(CardNumberElement);
-    const { error, token } = await stripe.createToken(cardElement, {
-      name: card.name,
-      address_line1: card.address,
-      address_line2: card.address,
-      address_city: card.city,
-      address_zip: card.postalCode,
-      address_country: card.country,
-    });
-    if (error) {
-      let err={
-        error:{message:error.message}
+    const token={};
+    if(!isDefault){
+      const cardElement = elements.getElement(CardNumberElement);
+      const { error, token } = await stripe.createToken(cardElement, {
+        name: card.name,
+        address_line1: card.address,
+        address_line2: card.address,
+        address_city: card.city,
+        address_zip: card.postalCode,
+        address_country: card.country,
+      });
+      if (error) {
+        let err={
+          error:{message:error.message}
+        }
+        if(error?.code.includes('number')){
+          handleCardElementChange(err,'cardNumber')
+        }else if(error?.code.includes('expiry')){
+          handleCardElementChange(err,'cardExpiry')
+        }else if(error?.code.includes('cvc')){
+          handleCardElementChange(err,'cardCvc')
+        }else{
+          toast.error(error.message);
+        }
+      } else{
+        token=token;
       }
-      if(error?.code.includes('number')){
-        handleCardElementChange(err,'cardNumber')
-      }else if(error?.code.includes('expiry')){
-        handleCardElementChange(err,'cardExpiry')
-      }else if(error?.code.includes('cvc')){
-        handleCardElementChange(err,'cardCvc')
-      }else{
-        toast.error(error.message);
-      }
-    } else {
-      const data={
-        user_id:user._id,
-        email:user.email,
-        quantity:pieces,
-        cardToken:token.id,
-        ...card
-      };
-      pay_now(user.token,token,data,dispatch);
+      return error?false:true;
     }
+    const data={
+      user_id:user._id,
+      email:user.email,
+      quantity:pieces,
+      cardToken:isDefault?'':token?.id,
+      ...card
+    };
+    console.log(data);
+    pay_now(user.token,(isDefault?{}:token),data,dispatch);
   };
   return (
     <>
@@ -149,8 +180,25 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save }) => {
       <div className="pt-4 pb-4 do-payment">
         <div className="row align-items-center ms-lg-auto px-md-4 px-lg-4 px-2">
           <div className="col-md-6">
+             {cardDetails && (
+                  <div className="row d-flex align-items-center border pt-2 mb-2 mx-1">
+                    <div className="col-2">
+                      <input type="checkbox" checked={isDefault} onChange={()=>setIsDefault(!isDefault)}/>
+                    </div>
+                    <div className="col-2">
+                       <img src={visa} />
+                    </div>
+                    <div className="col-8">
+                      <p><b>{cardDetails.brand} {cardDetails.last4}</b></p>
+                      <p>Expiry: {cardDetails.exp_month}/{cardDetails.exp_year}</p>
+                    </div> 
+                  </div>
+                )}
+                {isDefault && <div className="row d-flex align-items-center justtify-content-end mx-1 mb-2">
+                  <button type="button" onClick={()=>setIsDefault(!isDefault)}>Add New Card</button>
+                </div>}
               <div className="row">
-                <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
+                {!isDefault && <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>}
                 <BillingInfo card={card} errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>
               </div>
           </div>

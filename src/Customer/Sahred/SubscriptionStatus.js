@@ -35,10 +35,10 @@ const SubscriptionStatus = ({user,isSetting}) => {
             <Status/>
           </p>}
         </div>
-        {isSubscribe &&<div className={`col-lg-6  ${isSetting && 'text-end'}`}>
+        {isSubscribe && (user?.subscription?.status !=='inactive') && <div className={`col-lg-6  ${isSetting && 'text-end'}`}>
           <div className="status-btn d-flex justify-content-end">
             <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>{user?.subscription?.status==='paused'?'RESUME':'PAUSE'} </button>
-            {user?.subscription?.status !=='inactive' && <button className="btn border rounded-pill cancel-btn" onClick={()=>setCancel(true)}>CANCEL</button>}
+            <button className="btn border rounded-pill cancel-btn" onClick={()=>setCancel(true)}>CANCEL</button>
           </div>
         </div>}
       </div>

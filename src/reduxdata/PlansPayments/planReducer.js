@@ -1,4 +1,4 @@
-import { GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
+import { CUSTOMER_CARD, GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 
 const initialState = {
     plans: [],
@@ -6,7 +6,8 @@ const initialState = {
     payments:[],
     cpayments:[],
     dpayments:[],
-    total:0
+    total:0,
+    cards:[]
   };
   
   const planReducer = (state = initialState, action) => {
@@ -24,7 +25,12 @@ const initialState = {
           ...state,
           payments:action.payload?.data,
           total:action.payload?.total
-        }   
+        }  
+      case CUSTOMER_CARD:
+      return {
+        ...state,
+        cards:action.payload
+      }   
       default:
         return state;
     }

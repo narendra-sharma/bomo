@@ -17,7 +17,8 @@ import {
   isSubscription,
   cancel_subscription,
   pause_subscription,
-  get_user_subscription
+  get_user_subscription,
+  get_customer_card
 } from "./PlansPayments/planActions";
 import {
   addBrand,
