@@ -71,7 +71,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     <div className="row">
                         <div className="col-lg-12">
                             <small className="text-muted fw-bold">
-                                2 requests left{" "}
+                                {totalassigns} requests left{" "}
                             </small>
                         </div>
                         <div className="col-lg-5 g-0">

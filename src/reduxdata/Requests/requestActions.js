@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -173,6 +173,50 @@ export const change_request_status = async (dispatch, token, id, status) => {
   }
 };
 
+export const desginer_accept_assignrequest = async (dispatch,token,request_id,email,designer_id) => {
+  dispatch(start_loading);
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/accept-request?request_id=${request_id}&email=${email}&designer_id=${designer_id}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.put(url,{},HEADERS);
+    if (res.data && res.data.status) {
+      toast.success(res.data?.message);
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+};
+
+export const get_designer_assigned_requestlist = async (dispatch, token) => {
+  dispatch(start_loading);
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/assign-request`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_DESIGNER_ASSIGNED_REQUEST_LIST, payload: res.data });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading);
+  }
+};
+
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {
@@ -217,4 +261,6 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
 export const get_edit_request_data = (requestdetails) => {
     return ({ type: GET_EDIT_REQUEST_DATA, payload: requestdetails });
 };
+
+
 

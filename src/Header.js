@@ -3,9 +3,14 @@ import { connect } from "react-redux";
 import userImage from './images/user-img.png';
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import RequestJobs from "./Modals/RequestJobs";
 
 const Header = ({ user, userrole }) => {
   const [cuser, setCuser] = useState(user);
+  const [show, setShow] = useState(null);
+  const handleClose = () => {
+      setShow(false);
+  }
 
   let local = localStorage.getItem('userDetails');
   local = local ? JSON.parse(local) : null;
@@ -59,7 +64,7 @@ const Header = ({ user, userrole }) => {
                 </p>
                 {(userrole !== 'Designer') ? <div></div>:<>
                    <div className="header-request-btn position-relative">
-                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2">Request </Button>
+                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => setShow(true)}>Request </Button>
                    <div className="request-count"><span className="counter-digit">2</span></div>
                    </div>
                 </>}
@@ -68,6 +73,7 @@ const Header = ({ user, userrole }) => {
           </div>
         </div>
       </nav>
+      <RequestJobs show={show} handleClose={handleClose} />
     </div>
   );
 };
