@@ -18,7 +18,7 @@ const Subscription = ({ user }) => {
   }, []);
   const getDifferece = () => {
     const now = new Date();
-    const nextBillingDate = new Date(user?.next_billing_date);
+    const nextBillingDate = new Date(user?.subscription?.next_billing_date);
     const timeDifference = nextBillingDate.getTime() - now.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
     return daysDifference;
