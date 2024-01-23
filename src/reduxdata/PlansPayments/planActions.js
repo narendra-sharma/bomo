@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { start_loading, stop_loading, catch_errors_handle } from "../rootAction";
 import { set_update_user } from "../User/userActions";
 
-const { REACT_APP_BOMO_URL,REACT_APP_STRIPE_API,REACT_APP_STRIPE_SECRET_KEY } = process.env;
+const { REACT_APP_BOMO_URL } = process.env;
 const HEADERS = {
   headers: {
     "Content-Type": "application/json",
