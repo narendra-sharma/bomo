@@ -39,8 +39,8 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
   });
   
   useEffect(()=>{
-    if(cards.length>0){
-      setCardDetails(cards[0]);
+    if(cards){
+      setCardDetails(cards);
       setIsDefault(true);
     }
   },[cards])
@@ -134,7 +134,6 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
     if (!stripe || !elements || checkAllErrors()) {
       return;
     }
-    const token={};
     if(!isDefault){
       const cardElement = elements.getElement(CardNumberElement);
       const { error, token } = await stripe.createToken(cardElement, {
@@ -159,7 +158,6 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
           toast.error(error.message);
         }
       } else{
-        token=token;
         const data={
           user_id:user._id,
           email:user.email,
@@ -167,8 +165,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
           cardToken:token?.id,
           ...card
         };
-        console.log(data);
-        pay_now(user.token,(token),data,dispatch);
+        pay_now(user?.token,(token),data,dispatch);
       }
       return error?false:true;
     }else{
@@ -176,10 +173,9 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
         user_id:user._id,
         email:user.email,
         quantity:pieces,
-        cardToken:'',
         ...card
       };
-      pay_now(user.token,{},data,dispatch);
+      pay_now(user?.token,{},data,dispatch);
     }
   };
   return (

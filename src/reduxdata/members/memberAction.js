@@ -154,7 +154,6 @@ export const get_single_data = async (dispatch, customerId, token) => {
         },
       }
     );
-    console.log(res?.data);
     if (res?.data?.status) {
       dispatch({ type: SINGLE_USER_DATA, payload: res?.data });
     }

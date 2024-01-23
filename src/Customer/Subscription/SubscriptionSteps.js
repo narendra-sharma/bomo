@@ -38,7 +38,7 @@ const SubscriptionSteps = (props) => {
   }, [props.isPay,dispatch])
   useEffect(()=>{
     if(user?.subscription?.customer_id){
-      get_customer_card(user?.subscription?.customer_id,dispatch);
+      get_customer_card(user?.token,dispatch);
     }
   },[]);
   return (
