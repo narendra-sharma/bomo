@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -182,9 +182,10 @@ export const desginer_accept_assignrequest = async (dispatch,token,request_id,em
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url,{},HEADERS);
+    const res = await axios.put(url,{}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
+      get_designer_assigned_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }
@@ -198,7 +199,7 @@ export const desginer_accept_assignrequest = async (dispatch,token,request_id,em
 export const get_designer_assigned_requestlist = async (dispatch, token) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}designer/assign-request`;
+    const url = `${REACT_APP_BOMO_URL}designer/request-acceptance-list`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -214,6 +215,26 @@ export const get_designer_assigned_requestlist = async (dispatch, token) => {
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading);
+  }
+};
+
+export const get_designer_active_requestslist = async (dispatch, token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/active-request`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      }
+    };
+    const res = await axios.get(url,HEADERS);
+    if(res.data && res.data.status) {
+      dispatch({ type: GET_DESIGNER_ACTIVE_REQUEST_LIST, payload: res.data });
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
   }
 };
 
