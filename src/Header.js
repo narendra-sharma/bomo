@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import RequestJobs from "./Modals/RequestJobs";
 
-const Header = ({ user, userrole }) => {
+const Header = ({ user, userrole, designerassignedrequests }) => {
   const [cuser, setCuser] = useState(user);
   const [show, setShow] = useState(null);
+  const openList = () => {
+    if (designerassignedrequests && designerassignedrequests.length > 0) {
+      setShow(true);
+    }
+  }
   const handleClose = () => {
       setShow(false);
   }
@@ -64,8 +69,8 @@ const Header = ({ user, userrole }) => {
                 </p>
                 {(userrole !== 'Designer') ? <div></div>:<>
                    <div className="header-request-btn position-relative">
-                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => setShow(true)}>Request </Button>
-                   <div className="request-count"><span className="counter-digit">2</span></div>
+                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => {openList()}}>Request </Button>
+                   <div className="request-count"><span className="counter-digit">{designerassignedrequests?.length}</span></div>
                    </div>
                 </>}
                 
@@ -73,7 +78,7 @@ const Header = ({ user, userrole }) => {
           </div>
         </div>
       </nav>
-      <RequestJobs show={show} handleClose={handleClose} />
+     {show && <RequestJobs show={show} handleClose={handleClose} />}
     </div>
   );
 };
@@ -82,6 +87,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userrole: state.auth.role,
+    designerassignedrequests: state.requests.designerassignedrequests,
   };
 };
 

@@ -1,94 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { connect, useDispatch } from "react-redux";
+import { desginer_accept_assignrequest, get_designer_assigned_requestlist } from "../reduxdata/rootAction";
+import EmptyList from "../Common/EmptyList";
+import ColorCode from "../Common/ColorCode";
+import { format } from "date-fns";
 
-const RequestJobs = ({ show, handleClose }) => {
+const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
+    const dispatch = useDispatch();
+    const [assignedRequest, setAssignedRequest] = useState([]);
+
+    useEffect(() => {
+        get_designer_assigned_requestlist(dispatch, user?.token);
+    }, [dispatch]);
+
+    useEffect(() => {
+        setAssignedRequest(designerassignedrequests);
+    }, [designerassignedrequests]);
+
+    const handleacceptRequest = (requestdetail) => {
+      const request_id = requestdetail._id;
+      
+      desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id);
+      console.log(requestdetail);
+    };
+
     return (
         <Modal show={show} onHide={handleClose} size="lg">
             <Modal.Body>
                 <div className="col-12">
-                    <div className="designer-active-request bg-white px-2 px-md-4 py-5 rounded">
+                    <div className="designer-active-request bg-white px-5 px-md-4 py-5 rounded">
                         <div className="mb-4">
                             <div className="ms-4 mb-3">
                                 <h5>Requests For Acceptance</h5>
                             </div>
-                            <div className="table-responsive rounded mt-4">
-                                <table className="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td><p>DIOR</p></td>
-                                            <td className="text-center"><p className="short0ad bg-white">short ad</p></td>
-                                            <td><p><span className="fw-bold">Intro SS23 campaign</span></p></td>
-                                            <td><p><span className="fw-bold">Status</span> <span className="d-block">Draft</span></p></td>
-                                            <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">Monday 17/03</span></p></td>
-                                            <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                            <td className="text-end ps-0">
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Accept</Button>
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Decline</Button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="table-responsive rounded">
-                                <table className="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td><p>DIOR</p></td>
-                                            <td className="text-center"><p className="short0ad bg-white">short ad</p></td>
-                                            <td><p><span className="fw-bold">Intro SS23 campaign</span></p></td>
-                                            <td><p><span className="fw-bold">Status</span> <span className="d-block">Draft</span></p></td>
-                                            <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">Monday 17/03</span></p></td>
-                                            <td><p><span className="fw-bold">Price</span> <span className="d-block">$300</span></p></td>
-                                            <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                            <td><p><span className="fw-bold">Size</span> <span className="d-block">16:9</span></p></td>
-                                            <td className="text-end ps-0">
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Accept</Button>
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Decline</Button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="table-responsive rounded">
-                                <table className="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td><p>DIOR</p></td>
-                                            <td className="text-center"><p className="short0ad bg-white">short ad</p></td>
-                                            <td><p><span className="fw-bold">Intro SS23 campaign</span></p></td>
-                                            <td><p><span className="fw-bold">Status</span> <span className="d-block">Draft</span></p></td>
-                                            <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">Monday 17/03</span></p></td>
-                                            <td><p><span className="fw-bold">Price</span> <span className="d-block">$300</span></p></td>
-                                            <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                            <td><p><span className="fw-bold">Size</span> <span className="d-block">16:9</span></p></td>
-                                            <td className="text-end ps-0">
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Accept</Button>
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Decline</Button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="table-responsive rounded">
-                                <table className="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td><p>DIOR</p></td>
-                                            <td className="text-center"><p className="short0ad bg-white">short ad</p></td>
-                                            <td><p><span className="fw-bold">Intro SS23 campaign</span></p></td>
-                                            <td><p><span className="fw-bold">Status</span> <span className="d-block">Draft</span></p></td>
-                                            <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">Monday 17/03</span></p></td>
-                                            <td><p><span className="fw-bold">Price</span> <span className="d-block">$300</span></p></td>
-                                            <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
-                                            <td><p><span className="fw-bold">Size</span> <span className="d-block">16:9</span></p></td>
-                                            <td className="text-end ps-0">
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Accept</Button>
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">Decline</Button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            {assignedRequest?.length > 0 ? assignedRequest?.map((request, index) => (
+                                <div className="table-responsive rounded mt-4">
+                                    <table className="table table-borderless mb-0" key={index}>
+                                        <tbody>
+                                            <tr>
+                                                <td><p>{request?.request_name}</p></td>
+                                                <td className="text-center"><ColorCode request={request} /></td>
+                                                <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'pending' : ''}</span></p></td>
+                                                <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span></p></td>
+                                                <td><p><span className="fw-bold">Size</span> <span className="d-block">{request?.size}</span></p></td>
+                                                <td className="text-end ps-0">
+                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request)}>Accept</Button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )) : <EmptyList name="Acceptance Request" />}
                         </div>
                     </div>
                 </div>
@@ -102,5 +65,11 @@ const RequestJobs = ({ show, handleClose }) => {
     )
 }
 
-export default RequestJobs;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+        designerassignedrequests: state.requests.designerassignedrequests,
+    };
+};
+export default connect(mapStateToProps)(RequestJobs);
 
