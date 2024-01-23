@@ -28,20 +28,20 @@ const CancelSubscription = (props) => {
           <p>
             If you do, you will lose access to the platform and all previous requests. cription ends in <strong>{getDifferece()} days</strong>.
            </p>
-           <p>
+           {user?.subscription?.status!=='paused'&&<p>
             Do you mean to pause instead? This will prevent all your previous requests to be deleted.
-          </p>
+          </p>}
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="danger" className="w-100 rounded-pill" onClick={cancel}>
                 I want to cancel
               </Button>
             </div>
-            <div className="col-md-6">
+            {user?.subscription?.status!=='paused'&&<div className="col-md-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={paused}>
                 Pause
               </Button>
-            </div>
+            </div>}
           </div>
         </div>
       </Modal.Body>

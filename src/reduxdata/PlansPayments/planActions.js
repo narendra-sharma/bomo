@@ -33,7 +33,7 @@ export const get_plans = async (dispatch) => {
 export const pay_now = async (uToken, token, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscribe${token?.id?'/'+token?.id:''}`;
+    const url = `${REACT_APP_BOMO_URL}stripe/subscribe/${token?.id?+token?.id:'default'}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, data, headers);
@@ -147,16 +147,14 @@ export const get_payment_history = async (dispatch,uToken,page=1,limit=10) => {
     dispatch(stop_loading());
   }
 };
-export const get_customer_card=async(cid,dispatch)=>{
+export const get_customer_card=async(token,dispatch)=>{
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_STRIPE_API}customers/${cid}/cards`;
-    const res = await axios.get(url, {
-      headers: {
-        'Authorization': `Bearer ${REACT_APP_STRIPE_SECRET_KEY}`,
-      },
-    });
-    if (res.data) {
+    const url = `${REACT_APP_BOMO_URL}stripe/getMyCards`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = token;
+    const res = await axios.get(url, headers);
+    if (res.data && res.data.status) {
       dispatch({
         type: CUSTOMER_CARD,
         payload: res.data.data

@@ -14,12 +14,12 @@ const PauseSubscription = (props) => {
       <Modal.Body>
         <div className="px-4 py-4">
           <h5 className="mb-0">{user?.name},</h5>
-          <p>do you really want to pause the subscription?</p>
-          <p>
+          <p>do you really want to {user?.subscription?.status!=='paused'?'pause':'resume'} the subscription?</p>
+          {user?.subscription?.status!=='paused'&& <p>
             You will be charged $125 for each inactive month.
             <br />
             This will grant you forever access to all devices.
-          </p>
+          </p>}
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={pause}>

@@ -7,7 +7,7 @@ const initialState = {
     cpayments:[],
     dpayments:[],
     total:0,
-    cards:[]
+    cards:null
   };
   
   const planReducer = (state = initialState, action) => {
