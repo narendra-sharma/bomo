@@ -43,7 +43,7 @@ const BillingForm = ({user}) => {
     if (checkAllErrors()) {
       return;
     }
-    edit_billing_info(user?.token,user?.address?._id,card,dispatch);
+    edit_billing_info(user?.role,user?.token,user?.address?._id,card,dispatch);
   };
   return (
     <>

@@ -51,10 +51,10 @@ export const pay_now = async (uToken, token, data, dispatch) => {
     dispatch(stop_loading());
   }
 };
-export const edit_billing_info = async (uToken, sid, data, dispatch) => {
+export const edit_billing_info = async (role,uToken, sid, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}customer/address-update/${sid}`;
+    const url = `${REACT_APP_BOMO_URL}${role === 'customer_admin' ? `customer/address-update/${sid}` : `designer/editAddress` }`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.put(url, data, headers);

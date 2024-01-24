@@ -1,14 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import poolImage from "../../images/pool-request-img.png"
 import { connect, useDispatch } from "react-redux";
 import { get_designer_pool_requestlist, poll_request_apply } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
+import RequestBrief from "../../Modals/RequestBrief";
 
 const PollRequests = ({ user, pollrequests }) => {
     const dispatch = useDispatch();
+    const [isvisible, setIsvisible] = useState(false);
+    const [istoggle,setIstoggle] = useState(false);
+    const toogleVisibility = () => {
+        if (window.scrollY > 300) {
+            setIsvisible(true);
+        } else {
+            setIsvisible(false);
+        }
+    };
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
+    };
+    const handleClose = () => {
+        setIstoggle(false);
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', toogleVisibility);
+        return () => {
+            window.removeEventListener('scroll', toogleVisibility);
+        }
+    }, []);
 
     const handleApplyRequest = (requestdata) => {
-        let applyrequest =  requestdata._id;
+        let applyrequest = requestdata._id;
         poll_request_apply(applyrequest, dispatch, user?.token);
     };
 
@@ -33,7 +59,7 @@ const PollRequests = ({ user, pollrequests }) => {
                                     <ColorCode request={request} />
                                     <p className="short0ad dor rounded-pill">DOR</p>
                                 </div>
-                                <div><p>+ Show full Brief</p></div>
+                                <div><p onClick={() => setIstoggle(true)}>+ Show full Brief</p></div>
                             </div>
                         </div>
                         <div className="row my-3">
@@ -64,6 +90,13 @@ const PollRequests = ({ user, pollrequests }) => {
                     </div>
                 </div>
             ))}
+                <div className="d-flex justify-content-center align-items-center">
+                    <div className="status-btn">
+                        <button className="btn pause-btn rounded-pill mt-4 py-1 w-100" onClick={scrollToTop}>
+                            Go to the Top
+                        </button> </div>
+                </div>
+            <RequestBrief show={istoggle} handleClose={handleClose} />
         </>
     )
 };

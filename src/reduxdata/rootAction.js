@@ -36,7 +36,8 @@ import { newRequest,
   get_admin_assign_requestlist,
   assign_admin_request,
   get_designer_assigned_requestlist,
-  desginer_accept_assignrequest } from "./Requests/requestActions";
+  desginer_accept_assignrequest,
+  get_designer_active_requestslist } from "./Requests/requestActions";
 import {
   get_all_members,
   add_new_member,
@@ -80,5 +81,6 @@ export {
   get_user_subscription,
   assign_admin_request,
   get_designer_assigned_requestlist,
-  desginer_accept_assignrequest
+  desginer_accept_assignrequest,
+  get_designer_active_requestslist
 };
