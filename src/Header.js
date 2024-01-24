@@ -7,11 +7,9 @@ import RequestJobs from "./Modals/RequestJobs";
 
 const Header = ({ user, userrole, designerassignedrequests }) => {
   const [cuser, setCuser] = useState(user);
-  const [show, setShow] = useState(null);
+  const [show, setShow] = useState(false);
   const openList = () => {
-    if (designerassignedrequests && designerassignedrequests.length > 0) {
       setShow(true);
-    }
   }
   const handleClose = () => {
       setShow(false);

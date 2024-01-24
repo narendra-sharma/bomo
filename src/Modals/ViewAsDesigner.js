@@ -27,7 +27,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </p>
                         </div>
                     </div>
-                    <div className="row justify-content-center">
+                    <div className="row mx-auto">
                         <div className="active-request-section d-flex flex-column rounded mb-4">
                             <div className="bg-white p-2 rounded">
                                 <p className="fw-bold">Active Requests</p>

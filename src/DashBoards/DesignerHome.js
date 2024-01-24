@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import poolImage from "../images/pool-request-img.png";
 import { Button } from "react-bootstrap";
 import PollRequests from "../Customer/Requests/PollRequests";
 import RequestJobs from "../Modals/RequestJobs";
-const DesignerHome = () => {
+import { connect, useDispatch } from "react-redux";
+import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import ColorCode from "../Common/ColorCode";
+import { format } from "date-fns";
+const DesignerHome = ({user, activerequest}) => {
+    const dispatch = useDispatch();
+    const [activerequests,setActiverequests] = useState([]);
+
+    useEffect(()=> {
+        get_designer_active_requestslist(dispatch,user?.token);
+    },[dispatch]);
+
+    useEffect(()=> {
+        setActiverequests(activerequest)
+    },[activerequest])
+
     const [showList, setShowList] = useState(true);
     const handleClose = () => {
         setShowList(false);
     };
 
-    const [requestData, setRequestData] = useState([
-        { id: 1, acceptanceTime: '2024-01-23T19:00:00Z' },
-        { id: 2, acceptanceTime: '2024-01-23T15:00:00Z' },
-    ]);
-
     const calculateTimeRemaining = (acceptanceTime, duration) => {
         const currentTime = new Date().getTime();
         const deadline = new Date(acceptanceTime).getTime() + duration;
         const timeRemaining = deadline - currentTime;
-    
-        return timeRemaining > 0 ? timeRemaining : 'deadline is passed!';
+        return timeRemaining > 0 ? timeRemaining : null;
     };
 
     const formatTime = (timeRemaining) => {
@@ -32,16 +39,20 @@ const DesignerHome = () => {
 
     useEffect(() => {
         const updateTimers = () => {
-            setRequestData((prevData) =>
-                prevData.map((request) => ({
-                    ...request,
-                    timeRemaining20Hrs: calculateTimeRemaining(request.acceptanceTime, 20 * 60 * 60 * 1000 ),
-                }))
+            setActiverequests((prevData) =>
+                prevData.map((request) => {
+                    const utcDate = new Date(request.designer_accept_date.split('.')[0]);
+                    const localDate = new Date(utcDate.toLocaleString());
+                       return {
+                        ...request,
+                        timeRemaining20Hrs: calculateTimeRemaining(localDate, 20 * 60 * 60 * 1000),
+                       }
+                })
             );
         };
         const timerId = setInterval(updateTimers, 1000);
         return () => clearInterval(timerId);
-    }, [requestData]);
+    }, []);
 
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -49,7 +60,7 @@ const DesignerHome = () => {
                 <div className="review-main-content review-content ">
                     <div className="mx-md-5 mx-sm-0 mb-4"><h3 >My Active Requests</h3></div>
                     <div className="designer-active-request bg-white px-2 px-md-4 py-5 rounded">
-                        {requestData.map((request) => (
+                        {activerequests.map((request) => (
                             <div className="mb-4">
                                 <div className="ms-4 mb-3">
                                     <span className="deadline-date status position-relative ps-3">Deadline in <span className="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
@@ -58,11 +69,11 @@ const DesignerHome = () => {
                                     <table className="table table-borderless mb-0">
                                         <tbody>
                                             <tr>
-                                                <td className="text-center"><p className="short0ad bg-white">short ad</p></td>
-                                                <td><p>DIOR</p></td>
-                                                <td><p><span className="fw-bold">Intro SS23 campaign</span></p></td>
-                                                <td><p><span className="fw-bold">Status</span> <span className="d-block">Draft</span></p></td>
-                                                <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
+                                                <td className="text-center"><ColorCode request={request} /></td>
+                                                <td><p >{request?.brand_profile?.brandname}</p></td>
+                                                <td><p><span className="fw-bold">{request?.request_name}</span></p></td>
+                                                <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                                                <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
                                                 <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
                                                 <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
@@ -93,4 +104,11 @@ const DesignerHome = () => {
     )
 }
 
-export default DesignerHome;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+        activerequest: state.requests.activerequest,
+    };
+};
+
+export default connect(mapStateToProps)(DesignerHome);
