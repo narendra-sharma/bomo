@@ -21,12 +21,25 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                     <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">01:12:33</span></span>
                                 </div>
                             </div>
-                            <div className="col-md-12">
+                            <div className="col-md-6">
                                 <div className="d-flex align-items-center mb-3">
-                                    <ColorCode request={data} />
-                                    <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
-                                    <p className="brand-assets-btn rounded bg-white" >Brand Assets</p>
+                                    <p className="short0ad rounded-pill">short</p>
+                                    <p class="short0ad dor rounded-pill">DOR</p>
+                                    <p className="brand-assets-btn rounded bg-white request-poll-active" >Brand Assets</p>
                                 </div>
+                            </div>
+                            <div className="col-md-6 delivery-date-content">
+                                <div class="text-end mb-3">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div><span class="fw-bold"> Delivery Date</span>
+                                           <span class="d-block">Mon 10 - 9:00</span>
+                                        </div>
+                                        <div><h5 class="fw-bold mb-0">$125</h5></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
                                 <div className="mb-3 position-relative">
                                    <img src={reelImage} alt="reel image" width="100%"/>
                                    <div className="project-btn"> 
