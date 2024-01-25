@@ -1370,7 +1370,7 @@ ul.designer-list li{
 .late-request table tr td button , .review-content.late-request .short0ad{
   border-color:#fff ;
 }
-.active-request-status{
+.active-request-status {
   color: #3FCE3C;
 }
 .text-mute {
@@ -1717,6 +1717,9 @@ nav p.user-email {
   background-color: var(--gray-dark-color);
   padding:5px 10px
 }
+.brand-assets-btn.request-poll-active{
+ color:#3FCE3C;
+}
 .calculator-page .container.bg-transparent.calculator-screen {
   color: #cdffb5!important;
 }
@@ -1783,6 +1786,7 @@ button.accordion-button.collapsed  .late-request-section {
 }
 .designer-request-poll .modal-body , .designer-request-poll .table>:not(caption)>*>* {
   background: #ECF7EE;
+  border-radius: 5px;
 }
 .designer-request-poll .review-content th p , 
 .designer-request-poll .review-content tr td{
@@ -1797,6 +1801,16 @@ button.accordion-button.collapsed  .late-request-section {
   position: absolute;
   right: 1%;
   bottom: 10%;
+}
+.delivery-date-content span{
+  color: #012801;
+  line-height: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.delivery-date-content h5{
+  color: #012801;
+  font-size: 25px;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
