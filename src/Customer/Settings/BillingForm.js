@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BillingInfo from "../Sahred/BillingInfo";
 import { edit_billing_info } from "../../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
 const BillingForm = ({user}) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
-    name:user?.address?user?.address?.name:(user?.name && (user?.name.split(' ').length>0))?user?.name.split(' ')[0]:'',
-    surname:user?.address?user?.address?.surname:(user?.name && (user?.name.split(' ').length>1))?user?.name.split(' ')[1]:'',
-    company:user?.address?user?.address?.company:user?.company,
-    address:user?.address?user?.address?.address:'',
-    city:user?.address?user?.address?.city:'',
-    postalCode:user?.address?user?.address?.postalCode:'',
-    country:user?.address?user?.address?.country:'',
-    vatNumber:user?.address?user?.address?.vatNumber:''
+    name:'',
+    surname:'',
+    company:'',
+    address:'',
+    city:'',
+    postalCode:'',
+    country:'',
+    vatNumber:''
   });
   const [errors, setErrors] = useState({
     name: '',
@@ -23,7 +23,22 @@ const BillingForm = ({user}) => {
     country: '',
     vatNumber: ''
   });
+  useEffect(()=>{
+    if(user?.address){
+      setCard({
+        name:user?.address?user?.address?.name:(user?.name && (user?.name.split(' ').length>0))?user?.name.split(' ')[0]:'',
+        surname:user?.address?user?.address?.surname:(user?.name && (user?.name.split(' ').length>1))?user?.name.split(' ')[1]:'',
+        company:user?.address?user?.address?.company:user?.company,
+        address:user?.address?user?.address?.address:'',
+        city:user?.address?user?.address?.city:'',
+        postalCode:user?.address?user?.address?.postalCode:'',
+        country:user?.address?user?.address?.country:'',
+        vatNumber:user?.address?user?.address?.vatNumber:''
+      })
+    }
+  },[user?.address])
   const handleCardElementChange = (event, label) => {
+    console.log(event,label);
     setCard((prev) => ({...prev,[label]:event}));
     setErrors((prev) => ({...prev,[label]:(!event && (label!=='surname'))?{type:'required'}:''}))
   };
