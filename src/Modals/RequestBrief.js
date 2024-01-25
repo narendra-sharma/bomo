@@ -2,9 +2,15 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png"; 
 import ColorCode from "../Common/ColorCode";
+import { useNavigate } from "react-router-dom";
 
 
 const RequestBrief = ({ show, handleClose, data }) => {
+    const navigate = useNavigate();
+
+    const handleDeliever = () => {
+        navigate('/deleiver-request');
+    };
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
@@ -23,8 +29,8 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-6">
                                 <div className="d-flex align-items-center mb-3">
-                                    <p className="short0ad rounded-pill">short</p>
-                                    <p class="short0ad dor rounded-pill">DOR</p>
+                                    <ColorCode request={data}/>
+                                    <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
                                     <p className="brand-assets-btn rounded bg-white request-poll-active" >Brand Assets</p>
                                 </div>
                             </div>
@@ -72,7 +78,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                     </table>
                                 </div>
                                 <div className="mt-4">
-                                <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2">DELIVERY NOW</button>
+                                <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2" onClick={handleDeliever}>DELIVERY NOW</button>
                                 </div>
                             </div>
                         </div>
