@@ -1781,6 +1781,23 @@ button.accordion-button.collapsed  .late-request-section {
 .accordion-header p {
   font-size: 16px;
 }
+.designer-request-poll .modal-body , .designer-request-poll .table>:not(caption)>*>* {
+  background: #ECF7EE;
+}
+.designer-request-poll .review-content th p , 
+.designer-request-poll .review-content tr td{
+  padding: 0;
+}
+.designer-request-poll .review-content table p{
+  font-size: 14px;
+  color: #012801;
+  padding: 0;
+}
+.project-btn {
+  position: absolute;
+  right: 1%;
+  bottom: 10%;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;

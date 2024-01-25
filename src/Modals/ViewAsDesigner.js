@@ -15,7 +15,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
         }
     },[view]);
     return (
-        <Modal show={show} onHide={handleClose} className="view-as-customer-popup">
+        <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
             <Modal.Body>
                 <div className="view-customer-content px-60">
                     <div className="row mb-3">
