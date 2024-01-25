@@ -7,10 +7,22 @@ import { get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import RequestBrief from "../Modals/RequestBrief";
 const DesignerHome = ({user, activerequest}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests,setActiverequests] = useState([]);
+    const [istoggle,setIstoggle] = useState(false);
+    const [selectedData,setSelectedData]=useState([]);
+    const handleToogleOpen = () => {
+        setIstoggle(true);
+    }
+    const handleTogleClose = () => {
+        setIstoggle(false);
+    }
+    const handleData = (request) => {
+        setSelectedData(request);
+    }
 
     useEffect(()=> {
         get_designer_active_requestslist(dispatch,user?.token);
@@ -58,7 +70,7 @@ const DesignerHome = ({user, activerequest}) => {
 
     const handleDeliever = () => {
         navigate('/deleiver-request');
-    }
+    };
 
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -81,7 +93,7 @@ const DesignerHome = ({user, activerequest}) => {
                                                 <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
                                                 <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                                <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
+                                                <td className="text-end"><p><span className="extra-dark-green" onClick={() => {handleToogleOpen();handleData(request);}}>+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
                                                     <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={handleDeliever}>DELIVERY NOW</Button>
                                                 </td>
@@ -106,6 +118,7 @@ const DesignerHome = ({user, activerequest}) => {
                 </div>
             </div>
             <RequestJobs show={showList} handleClose={handleClose} />
+            <RequestBrief data={selectedData} show={istoggle} handleClose={handleTogleClose} />
         </div>
     )
 }

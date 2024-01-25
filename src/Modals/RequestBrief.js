@@ -1,9 +1,10 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png"; 
+import ColorCode from "../Common/ColorCode";
 
 
-const RequestBrief = ({ show, handleClose }) => {
+const RequestBrief = ({ show, handleClose, data }) => {
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
@@ -12,7 +13,7 @@ const RequestBrief = ({ show, handleClose }) => {
                         <div className="row align-items-center">
                             <div className="col-md-7 col-12">
                                 <div className="mb-4">
-                                    <h2 className="h3 fw-bold">Intro SS23 campaign</h2>
+                                    <h2 className="h3 fw-bold">{data?.request_name}</h2>
                                 </div>
                             </div>
                             <div className="col-md-5 col-12">
@@ -22,8 +23,8 @@ const RequestBrief = ({ show, handleClose }) => {
                             </div>
                             <div className="col-md-12">
                                 <div className="d-flex align-items-center mb-3">
-                                    <p className="short0ad rounded-pill">short</p>
-                                    <p class="short0ad dor rounded-pill">DOR</p>
+                                    <ColorCode request={data} />
+                                    <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
                                     <p className="brand-assets-btn rounded bg-white" >Brand Assets</p>
                                 </div>
                                 <div className="mb-3 position-relative">
@@ -46,14 +47,13 @@ const RequestBrief = ({ show, handleClose }) => {
                                             <tr>
                                                 <td>
                                                     <p>
-                                                        Who is your target audience?
-                                                        <span className="d-block">  What do you want to achieve with this animation?</span>
-                                                        <span className="d-block">Where is this going to appear?</span></p>
+                                                        <span className="d-block">{data?.description}</span>
+                                                    </p>
                                                 </td>
-                                                <td><p><span className="fw-bold d-block">-</span> </p></td>
-                                                <td><p><span className="fw-bold d-block">9:16</span>1:1</p></td>
-                                                <td><p><span className="fw-bold d-block">.mp4</span></p> </td>
-                                                <td><p>NO</p></td>
+                                                <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
+                                                <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
+                                                <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
+                                                <td><p>{data?.transparency}</p></td>
                                             </tr>
                                         </tbody>
                                     </table>
