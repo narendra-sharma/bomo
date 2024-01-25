@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import dropdownImage from '../images/dropdown-img.png';
 import DraftRequests from "../Customer/Requests/DraftRequests";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
+import { connect, useDispatch } from "react-redux";
+import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import ColorCode from "../Common/ColorCode";
 
-const CustomerHome = () => {
+const CustomerHome = ({ activerequest, user }) => {
+  const dispatch = useDispatch();
+  const [activerequests, setActiverequests] = useState([]);
+  useEffect(() => {
+    get_designer_active_requestslist(dispatch, user?.token);
+  }, [dispatch]);
+
+  useEffect(() => {
+    setActiverequests(activerequest);
+  }, [activerequest])
+  console.log(activerequests);
 
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -41,27 +54,21 @@ const CustomerHome = () => {
 
               <div className="review-content bg-white px-3 py-5 rounded">
                 <div className="table-responsive">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr>
-                        <td className="text-center"><p className="short0ad">short ad</p></td>
-                        <td>
-                          <p>DIOR</p>
-                        </td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                        <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                        <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                      </tr>
-                      <tr>
-                        <td className="text-center"><p className="short0ad web-animation">Web animation</p></td>
-                        <td><p>DIOR</p></td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                        <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                        <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
+                  {activerequests.map((request) => (
+                    <table className="table table-borderless">
+                      <tbody>
+                        <tr>
+                          <td className="text-center"><ColorCode request={request} /></td>
+                          <td>
+                            <p>{request?.request_name}</p>
+                          </td>
+                          <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                          <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
+                          <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ))}
                 </div>
               </div>
             </div>
@@ -115,11 +122,18 @@ const CustomerHome = () => {
           <div className="mx-md-5 mx-sm-0 mb-4">
             <h3>Draft</h3>
           </div>
-          <DraftRequests/>
+          <DraftRequests />
         </div>
       </div>
     </div>
   )
 }
 
-export default CustomerHome;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    activerequest: state.requests.activerequest,
+  };
+};
+
+export default connect(mapStateToProps)(CustomerHome);

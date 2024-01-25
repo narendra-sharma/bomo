@@ -8,7 +8,8 @@ import {
   profile_update,
   catch_errors_handle,
   delete_account,
-  get_single_designer_details
+  get_single_designer_details,
+  edit_designer_info
 } from "./User/userActions";
 import {
   get_plans,
@@ -52,6 +53,7 @@ export {
   logout,
   set_user_type,
   get_single_designer_details,
+  edit_designer_info,
   get_plans,
   profile_update,
   update_password,

@@ -4,10 +4,32 @@ import LoadingSpinner from "../LoadingSpinner";
 import { get_designer_active_requestslist } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import ColorCode from "../Common/ColorCode";
+import { useNavigate } from "react-router-dom";
 
 const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [activerequests, setActiverequests] = useState([]);
+    const [isvisible, setIsvisible] = useState(false);
+    const toogleVisibility = () => {
+        if (window.scrollY > 300) {
+            setIsvisible(true);
+        } else {
+            setIsvisible(false);
+        }
+    };
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', toogleVisibility);
+        return () => {
+            window.removeEventListener('scroll', toogleVisibility);
+        }
+    }, []);
 
     useEffect(() => {
         get_designer_active_requestslist(dispatch, user?.token);
@@ -47,6 +69,10 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         const timerId = setInterval(updateTimers, 1000);
         return () => clearInterval(timerId);
     }, []);
+
+    const handleDeliever = () => {
+        navigate('/deleiver-request');
+    }
 
     return (
         <>{isLoading && <LoadingSpinner />}
@@ -123,7 +149,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                                         <div className="col-md-8 ">
                                             <div className="text-end">
-                                                <button type="button" class="rounded-pill deliver-now-btn ms-2 btn btn-unset w-100 fw-bold text-uppercase">Deliver</button>
+                                                <button type="button" class="rounded-pill deliver-now-btn ms-2 btn btn-unset w-100 fw-bold text-uppercase" onClick={handleDeliever}>Deliver</button>
                                             </div>
 
                                         </div>
@@ -136,7 +162,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                         <div className="mt-5 text-center">
                             <p>No more active Requests. See what’s new and apply</p>
-                            <button className="btn btn-white mt-2 rounded-pill ">Browse <span className="fw-bold">the poll</span></button>
+                            <button className="btn btn-white mt-2 rounded-pill " onClick={scrollToTop}>Browse <span className="fw-bold">the poll</span></button>
                         </div>
                     </div>
                 </div>

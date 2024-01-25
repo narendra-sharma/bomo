@@ -6,8 +6,10 @@ import { connect, useDispatch } from "react-redux";
 import { get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 const DesignerHome = ({user, activerequest}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [activerequests,setActiverequests] = useState([]);
 
     useEffect(()=> {
@@ -54,6 +56,10 @@ const DesignerHome = ({user, activerequest}) => {
         return () => clearInterval(timerId);
     }, []);
 
+    const handleDeliever = () => {
+        navigate('/deleiver-request');
+    }
+
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
@@ -74,10 +80,10 @@ const DesignerHome = ({user, activerequest}) => {
                                                 <td><p><span className="fw-bold">{request?.request_name}</span></p></td>
                                                 <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
-                                                <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                                                <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                                                 <td className="text-end"><p><span className="extra-dark-green">+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
-                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold">DELIVERY NOW</Button>
+                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={handleDeliever}>DELIVERY NOW</Button>
                                                 </td>
                                             </tr>
                                         </tbody>

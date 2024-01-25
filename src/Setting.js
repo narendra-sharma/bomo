@@ -10,13 +10,15 @@ import SubscriptionSteps from "./Customer/Subscription/SubscriptionSteps";
 import { delete_account, isSubscription } from "./reduxdata/rootAction";
 import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 import Delete from "./Modals/Delete";
-import reelImage from "./images/reel-image.png"; 
+import reelImage from "./images/reel-image.png";
+import EditDesignerBio from "./Modals/EditDesignerBio";
 
 
-const Setting = ({ userrole }) => {
-  const user=JSON.parse(localStorage.getItem('userDetails'));
+const Setting = ({ userrole,userbio }) => {
+  const user = JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
+  const [showBio,setShowBio] = useState(false);
   const [isSubscribe, setIsSubscribe] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ const Setting = ({ userrole }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-        
+
           {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <div className="mx-md-3 mx-lg-5 mb-4 row">
             <NewRequestShared />
           </div>}
@@ -47,7 +49,7 @@ const Setting = ({ userrole }) => {
             </div>}
           </div>
           <div className="mb-5">
-            {((userrole === 'Designer') || (userrole === 'customer_admin'))?<div className="row">
+            {((userrole === 'Designer') || (userrole === 'customer_admin')) ? <div className="row">
               <div className={(userrole === 'customer_admin') ? 'col-lg-4' : 'col-lg-6'}>
                 <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                   <div className="d-flex text-right justify-content-between align-items-center">
@@ -77,26 +79,26 @@ const Setting = ({ userrole }) => {
               {(userrole === 'customer_admin') && <div className="col-lg-5">
                 <SubscriptionStatus user={user} isSetting={true} />
               </div>}
-            </div>:
-            <div className="row">
-            <div className='col-lg-12'>
-              <div className="review-main-content bg-white px-4 py-4 d-flex align-items-center justify-content-between align-items-center rounded">
-                <div className="d-flex text-right justify-content-between align-items-center">
-                  <p className="mb-0 user-email mx-1 mx-lg-2">
-                    <b className="d-md-block">Email</b>
-                    <span className="d-block">{user?.email}</span>
-                  </p>
-                  <p className="mb-0 user-email mx-1 mx-lg-2">
-                    <b className="d-md-block">Password</b>
-                    <span className="d-block">*********</span>
-                  </p>
-                </div>  
-                <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
-              </div>
-            </div>
-          </div>}
+            </div> :
+              <div className="row">
+                <div className='col-lg-12'>
+                  <div className="review-main-content bg-white px-4 py-4 d-flex align-items-center justify-content-between align-items-center rounded">
+                    <div className="d-flex text-right justify-content-between align-items-center">
+                      <p className="mb-0 user-email mx-1 mx-lg-2">
+                        <b className="d-md-block">Email</b>
+                        <span className="d-block">{user?.email}</span>
+                      </p>
+                      <p className="mb-0 user-email mx-1 mx-lg-2">
+                        <b className="d-md-block">Password</b>
+                        <span className="d-block">*********</span>
+                      </p>
+                    </div>
+                    <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
+                  </div>
+                </div>
+              </div>}
           </div>
-          {((userrole === 'customer_admin') && user?.plan_id )? <div className="review-main-content">
+          {((userrole === 'customer_admin') && user?.plan_id) ? <div className="review-main-content">
             <div className="row review-main-content">
               <div className="col-lg-6 col-md-6 d-flex flex-column">
                 <BillingForm user={user} />
@@ -108,62 +110,67 @@ const Setting = ({ userrole }) => {
           </div>
             : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
           }
-           {(userrole !== 'Designer') ? <div></div>:<>
-          
-              <div className="row review-main-content g-0 bg-white px-4 px-md-3 py-4 align-items-center rounded">
-                  <div className="col-md-7 col-lg-7">
-                    <p className="fw-bold">REEL</p>
-                    <img src={reelImage} />
-                  </div>
-                  <div className="col-md-5 col-lg-5">
-                    <div className="row reel-data review-content">
-                      <div className="col-md-3 col-lg-3">
-                        <p className="text-dark fw-bold">Bio</p>
-                      </div>
-                      <div className="col-md-9 col-lg-9">
-                        <p className="text-mute">Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, turpis nibh etiam per hendrerit nisi mauris duis, nisl lacus massa consequat porttitor fringilla convallis</p>
-                      </div>
-                      <div className="col-md-3 col-lg-3">
-                        <p className="text-dark">Website</p>
-                        </div>
-                      <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum</Link> </p>
-                      </div>
-                      <div className="col-md-3 col-lg-3">
-                        <p className="text-dark">Instagram</p>
-                        </div>
-                      <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
-                      </div>
-                      <div className="col-md-3 col-lg-3">
-                        <p className="text-dark">Behance</p>
-                        </div>
-                      <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
-                      </div>
-                    </div>
-                  </div>
+          {(userrole !== 'Designer') ? <div></div> : <>
+
+            <div className="row review-main-content g-0 bg-white px-4 px-md-3 py-4 align-items-center rounded">
+              <div className="text-end">
+                <Link onClick={() => setShowBio(true)} className="border-0 bg-transparent mx-3 text-muted text-decoration-none">edit</Link>
               </div>
-              <div className="row mt-3">
-                <div className="col-md-7">
-                <BillingForm user={user} />
+              <div className="col-md-7 col-lg-7">
+                <p className="fw-bold">REEL</p>
+                <img src={reelImage} />
+              </div>
+              <div className="col-md-5 col-lg-5">
+                <div className="row reel-data review-content">
+                  <div className="col-md-3 col-lg-3">
+                    <p className="text-dark fw-bold">Bio</p>
+                  </div>
+                  <div className="col-md-9 col-lg-9">
+                    <p className="text-mute">{userbio?.bio}</p>
+                  </div>
+                  <div className="col-md-3 col-lg-3">
+                    <p className="text-dark">Website</p>
+                  </div>
+                  <div className="col-md-9 col-lg-9">
+                    <p className=""><Link className="text-decoration-none">{userbio?.website}</Link> </p>
+                  </div>
+                  <div className="col-md-3 col-lg-3">
+                    <p className="text-dark">Instagram</p>
+                  </div>
+                  <div className="col-md-9 col-lg-9">
+                    <p className=""><Link className="text-decoration-none">{userbio?.instagram} </Link></p>
+                  </div>
+                  <div className="col-md-3 col-lg-3">
+                    <p className="text-dark">Behance</p>
+                  </div>
+                  <div className="col-md-9 col-lg-9">
+                    <p className=""><Link className="text-decoration-none">{userbio?.behance}</Link></p>
+                  </div>
                 </div>
               </div>
-                </>}
+            </div>
+            <div className="row mt-3">
+              <div className="col-md-7">
+                <BillingForm user={user} />
+              </div>
+            </div>
+          </>}
           {((userrole === 'Designer') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1" onClick={() => setShow(true)}>Delete account</button>
           </div>}
-          </div>
         </div>
-        <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
-        <EditProfile show={showchangeProfile} handleClose={() => setShowchangeProfile(false)} />
-        <Delete heading='Account' name={''} show={show} handleClose={() => setShow(false)} DeleteBrand={() => delete_account(user?.token, navigate, dispatch)} />
+      </div>
+      <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
+      <EditProfile show={showchangeProfile} handleClose={() => setShowchangeProfile(false)} />
+      <Delete heading='Account' name={''} show={show} handleClose={() => setShow(false)} DeleteBrand={() => delete_account(user?.token, navigate, dispatch)} />
+      <EditDesignerBio data={userbio} show={showBio} handleClose={() => setShowBio(false)} />
     </>
   )
 }
 const mapStateToProps = (state) => {
   return {
     userrole: state.auth.role,
+    userbio: state.auth.userbio,
   };
 };
 export default connect(mapStateToProps)(Setting);

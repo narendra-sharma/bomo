@@ -1,12 +1,13 @@
-import { GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_PASSWORD_SUCCESS, USER_UPDATE, } from "./userTypes";
+import { BIO_UPDATE, GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_DESIGNER_INFO, UPDATE_PASSWORD_SUCCESS, USER_UPDATE, } from "./userTypes";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('userDetails')),
   role: JSON.parse(localStorage.getItem('USERTYPE')),
+  userbio: JSON.parse(localStorage.getItem('userBio')),
   updated:false,
   token:null,
   profile:null,
-  singledesignerdata:null
+  singledesignerdata:null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -41,6 +42,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         singledesignerdata: action.payload
+      }
+    case BIO_UPDATE:
+      return {
+        ...state,
+        userbio: action.payload
       }
     default:
       return state;
