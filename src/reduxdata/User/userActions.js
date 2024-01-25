@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
+import { BIO_UPDATE, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -260,5 +260,42 @@ export const get_single_designer_details = async (dispatch, userId, token) => {
     dispatch(stop_loading());
   }
 };
+
+export const update_user_bio = (user) => {
+  localStorage.setItem("userBio", JSON.stringify(user));
+  return {
+    type: BIO_UPDATE,
+    payload: user,
+  };
+};
+
+export const edit_designer_info = async (dispatch, token, infodata) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/editDetails`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,  
+      },
+    };
+    const designerdata = {
+      bio: infodata.bio,
+      website: infodata.website,
+      instagram: infodata.instagram,
+      behance: infodata.behance
+    };
+    const res = await axios.put(url,JSON.stringify(designerdata),HEADERS);
+    if (res.data && res.data.status){
+      toast.success(res.data?.message);
+      dispatch(update_user_bio({...res.data.data,token:token}));
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
 
 

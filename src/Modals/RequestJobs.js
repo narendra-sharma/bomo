@@ -22,7 +22,6 @@ const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
       const request_id = requestdetail._id;
       
       desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id);
-      console.log(requestdetail);
     };
 
     return (
