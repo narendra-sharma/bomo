@@ -84,5 +84,6 @@ export {
   assign_admin_request,
   get_designer_assigned_requestlist,
   desginer_accept_assignrequest,
-  get_designer_active_requestslist
+  get_designer_active_requestslist,
+  get_customer_card
 };
