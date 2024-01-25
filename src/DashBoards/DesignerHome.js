@@ -41,8 +41,8 @@ const DesignerHome = ({user, activerequest}) => {
         const updateTimers = () => {
             setActiverequests((prevData) =>
                 prevData.map((request) => {
-                    const utcDate = new Date(request.designer_accept_date.split('.')[0]);
-                    const localDate = new Date(utcDate.toLocaleString());
+                    const utcDate = new Date(request.designer_accept_date);
+                    const localDate =  new Date(utcDate.toLocaleString());
                        return {
                         ...request,
                         timeRemaining20Hrs: calculateTimeRemaining(localDate, 20 * 60 * 60 * 1000),
