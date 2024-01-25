@@ -16,8 +16,7 @@ const CustomerHome = ({ activerequest, user }) => {
 
   useEffect(() => {
     setActiverequests(activerequest);
-  }, [activerequest])
-  console.log(activerequests);
+  }, [activerequest]);
 
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">

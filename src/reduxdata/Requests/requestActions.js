@@ -238,6 +238,34 @@ export const get_designer_active_requestslist = async (dispatch, token) => {
   }
 };
 
+export const designer_deliever_request = async (dispatch,token,data) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}request/upload-design`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      }
+    };
+    const deliverdata = {
+      request_id: data?.request_id,
+      landscape: data?.landscape,
+      portrait: data?.portrait,
+      zip: data?.zip
+    }
+    const res = await axios.put(url,deliverdata,HEADERS);
+    if(res.data && res.data.status) {
+      toast.success(res.data?.message);
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {
