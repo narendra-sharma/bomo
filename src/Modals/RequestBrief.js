@@ -11,6 +11,12 @@ const RequestBrief = ({ show, handleClose, data }) => {
     const handleDeliever = () => {
         navigate('/deleiver-request');
     };
+    const formatTime = (timeRemaining) => {
+        const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
+        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    };
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
@@ -24,7 +30,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-5 col-12">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">01:12:33</span></span>
+                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(data?.timeRemaining20Hrs)}</span></span>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -47,7 +53,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-12">
                                 <div className="mb-3 position-relative">
-                                   <img src={reelImage} alt="reel image" width="100%"/>
+                                   <img src={reelImage} alt="reel imag" width="100%"/>
                                    <div className="project-btn"> 
                                    
                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center">Project Assets</div>

@@ -7,14 +7,14 @@ import EditProfile from "./Modals/EditProfile";
 import SubscriptionStatus from "./Customer/Sahred/SubscriptionStatus";
 import BillingForm from "./Customer/Settings/BillingForm";
 import SubscriptionSteps from "./Customer/Subscription/SubscriptionSteps";
-import { delete_account, isSubscription } from "./reduxdata/rootAction";
+import { delete_account, get_user_profile_details, isSubscription } from "./reduxdata/rootAction";
 import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 import Delete from "./Modals/Delete";
 import reelImage from "./images/reel-image.png";
 import EditDesignerBio from "./Modals/EditDesignerBio";
 
 
-const Setting = ({ userrole,userbio }) => {
+const Setting = ({ userrole,profiledetails}) => {
   const user = JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
@@ -31,6 +31,11 @@ const Setting = ({ userrole,userbio }) => {
     getSubscription();
   }, []);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    get_user_profile_details(user?.token,dispatch);
+  },[]);
+  
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -126,25 +131,25 @@ const Setting = ({ userrole,userbio }) => {
                     <p className="text-dark fw-bold">Bio</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className="text-mute">{userbio?.bio}</p>
+                    <p className="text-mute">{profiledetails?.bio}</p>
                   </div>
                   <div className="col-md-3 col-lg-3">
                     <p className="text-dark">Website</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{userbio?.website}</Link> </p>
+                    <p className=""><Link className="text-decoration-none">{profiledetails?.website}</Link> </p>
                   </div>
                   <div className="col-md-3 col-lg-3">
                     <p className="text-dark">Instagram</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{userbio?.instagram} </Link></p>
+                    <p className=""><Link className="text-decoration-none">{profiledetails?.instagram} </Link></p>
                   </div>
                   <div className="col-md-3 col-lg-3">
                     <p className="text-dark">Behance</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{userbio?.behance}</Link></p>
+                    <p className=""><Link className="text-decoration-none">{profiledetails?.behance}</Link></p>
                   </div>
                 </div>
               </div>
@@ -163,14 +168,14 @@ const Setting = ({ userrole,userbio }) => {
       <Updatepassword show={showchangePassword} handleClose={() => setShowchangePassword(false)} />
       <EditProfile show={showchangeProfile} handleClose={() => setShowchangeProfile(false)} />
       <Delete heading='Account' name={''} show={show} handleClose={() => setShow(false)} DeleteBrand={() => delete_account(user?.token, navigate, dispatch)} />
-      <EditDesignerBio data={userbio} show={showBio} handleClose={() => setShowBio(false)} />
+      <EditDesignerBio data={profiledetails} show={showBio} handleClose={() => setShowBio(false)} />
     </>
   )
 }
 const mapStateToProps = (state) => {
   return {
     userrole: state.auth.role,
-    userbio: state.auth.userbio,
+    profiledetails: state.auth.profiledetails,
   };
 };
 export default connect(mapStateToProps)(Setting);
