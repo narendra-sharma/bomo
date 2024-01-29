@@ -3,11 +3,12 @@ import { Button } from "react-bootstrap";
 import PollRequests from "../Customer/Requests/PollRequests";
 import RequestJobs from "../Modals/RequestJobs";
 import { connect, useDispatch } from "react-redux";
-import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import RequestBrief from "../Modals/RequestBrief";
+import EmptyList from "../Common/EmptyList";
 const DesignerHome = ({user, activerequest}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const DesignerHome = ({user, activerequest}) => {
     const handleToogleOpen = () => {
         setIstoggle(true);
     }
-    const handleTogleClose = () => {
+    const handleToogleClose = () => {
         setIstoggle(false);
     }
     const handleData = (request) => {
@@ -55,7 +56,7 @@ const DesignerHome = ({user, activerequest}) => {
         const updateTimers = () => {
             setActiverequests((prevData) =>
                 prevData.map((request) => {
-                    const utcDate = new Date(request.designer_accept_date);
+                    const utcDate = new Date(request.req_mail_date);
                     const localDate =  new Date(utcDate.toLocaleString());
                        return {
                         ...request,
@@ -68,8 +69,9 @@ const DesignerHome = ({user, activerequest}) => {
         return () => clearInterval(timerId);
     }, []);
 
-    const handleDeliever = () => {
+    const handleDeliever = (requestData) => {
         navigate('/deleiver-request');
+        dispatch(deliever_request_details(requestData));
     };
 
     return (
@@ -78,7 +80,7 @@ const DesignerHome = ({user, activerequest}) => {
                 <div className="review-main-content review-content ">
                     <div className="mx-md-5 mx-sm-0 mb-4"><h3 >My Active Requests</h3></div>
                     <div className="designer-active-request bg-white px-2 px-md-4 py-5 rounded">
-                        {activerequests.map((request) => (
+                        {activerequests.length > 0 ? activerequests.map((request) => (
                             <div className="mb-4">
                                 <div className="ms-4 mb-3">
                                     <span className="deadline-date status position-relative ps-3">Deadline in <span className="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
@@ -95,14 +97,14 @@ const DesignerHome = ({user, activerequest}) => {
                                                 <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                                                 <td className="text-end"><p><span className="extra-dark-green" onClick={() => {handleToogleOpen();handleData(request);}}>+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
-                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={handleDeliever}>DELIVERY NOW</Button>
+                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleDeliever(request)}>DELIVERY NOW</Button>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        ))}
+                        )): <EmptyList name="Active Request" />}
                     </div>
                     <div className="mt-5">
                         <div className="mx-md-5 mx-sm-0 mb-4 d-flex"><h3 >Requests Poll</h3>
@@ -118,7 +120,7 @@ const DesignerHome = ({user, activerequest}) => {
                 </div>
             </div>
             <RequestJobs show={showList} handleClose={handleClose} />
-            <RequestBrief data={selectedData} show={istoggle} handleClose={handleTogleClose} />
+            <RequestBrief data={selectedData} show={istoggle} handleClose={handleToogleClose} />
         </div>
     )
 }

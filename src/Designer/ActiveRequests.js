@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import LoadingSpinner from "../LoadingSpinner";
-import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import ColorCode from "../Common/ColorCode";
 import { useNavigate } from "react-router-dom";
+import EmptyList from "../Common/EmptyList";
 
 const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         setActiverequests(activerequest)
     }, [activerequest]);
 
-     const calculateTimeRemaining = (acceptanceTime, duration) => {
+    const calculateTimeRemaining = (acceptanceTime, duration) => {
         const currentTime = new Date().getTime();
         const deadline = new Date(acceptanceTime).getTime() + duration;
         const timeRemaining = deadline - currentTime;
@@ -57,12 +58,12 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         const updateTimers = () => {
             setActiverequests((prevData) =>
                 prevData.map((request) => {
-                    const utcDate = new Date(request.designer_accept_date);
-                    const localDate =  new Date(utcDate.toLocaleString());
-                       return {
+                    const utcDate = new Date(request.req_mail_date);
+                    const localDate = new Date(utcDate.toLocaleString());
+                    return {
                         ...request,
                         timeRemaining20Hrs: calculateTimeRemaining(localDate, 20 * 60 * 60 * 1000),
-                       }
+                    }
                 })
             );
         };
@@ -70,9 +71,10 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         return () => clearInterval(timerId);
     }, []);
 
-    const handleDeliever = () => {
+    const handleDeliever = (requestdata) => {
         navigate('/deleiver-request');
-    }
+        dispatch(deliever_request_details(requestdata));
+    };
 
     return (
         <>{isLoading && <LoadingSpinner />}
@@ -81,7 +83,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                 <div className="main-content-wraaper cutomer-home-page  px-60 py-md-2 py-lg-5">
                     <div className="review-main-content review-content">
                         <div className="mx-md-5 mx-sm-0 mb-4"><h3 >My Active Requests</h3></div>
-                        {activerequests.map((request) => (
+                        {activerequests.length > 0 ? activerequests.map((request) => (
                             <div className="row align-items-center mb-4">
                                 <div className="col-md-8">
                                     <div className="bg-white px-2 px-md-4 py-5 rounded">
@@ -119,9 +121,10 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                                             <tr>
                                                                 <td>
                                                                     <p><span className="fw-bold d-block">Description</span>
-                                                                        {request?.description} <span className="d-block">
-                                                                            What do you want to achieve with this animation?</span>
-                                                                        <span className="d-block">Where is this going to appear?</span></p>
+                                                                        <span className="d-block">
+                                                                            {request?.description}
+                                                                        </span>
+                                                                    </p>
                                                                 </td>
                                                                 <td><p><span className="fw-bold d-block">Reference</span> {request?.references}</p></td>
                                                                 <td><p><span className="fw-bold d-block">Deliverables</span>{request?.size}<br /></p></td>
@@ -149,16 +152,15 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                                         <div className="col-md-8 ">
                                             <div className="text-end">
-                                                <button type="button" class="rounded-pill deliver-now-btn ms-2 btn btn-unset w-100 fw-bold text-uppercase" onClick={handleDeliever}>Deliver</button>
+                                                <button type="button" class="rounded-pill deliver-now-btn ms-2 btn btn-unset w-100 fw-bold text-uppercase" onClick={() => handleDeliever(request)}>Deliver</button>
                                             </div>
-
                                         </div>
 
                                     </div>
 
                                 </div>
                             </div>
-                        ))}
+                        )): <EmptyList name="Active Request" />}
 
                         <div className="mt-5 text-center">
                             <p>No more active Requests. See what’s new and apply</p>

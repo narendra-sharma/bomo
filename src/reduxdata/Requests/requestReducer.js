@@ -1,4 +1,4 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST} from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA} from "./requestTypes";
 const initialState = {
   pendingRequests: [],
   pendingTotal:0,
@@ -24,7 +24,8 @@ const initialState = {
     {type: 'custom', color: 'black',value:'custom'}
   ],
   editrequestData:null,
-  isEditRequest: false
+  isEditRequest: false,
+  delieverRequestdetails:null
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -67,6 +68,11 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         activerequest: action.payload.data,
       };
+    case DELIEVER_REQUEST_DATA:
+      return {
+        ...state,
+        delieverRequestdetails: action.payload,
+      }
     default:
       return state;
   }

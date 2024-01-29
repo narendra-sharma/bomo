@@ -9,7 +9,8 @@ import {
   catch_errors_handle,
   delete_account,
   get_single_designer_details,
-  edit_designer_info
+  edit_designer_info,
+  get_user_profile_details
 } from "./User/userActions";
 import {
   get_plans,
@@ -38,7 +39,9 @@ import { newRequest,
   assign_admin_request,
   get_designer_assigned_requestlist,
   desginer_accept_assignrequest,
-  get_designer_active_requestslist } from "./Requests/requestActions";
+  get_designer_active_requestslist,
+  deliever_request_details,
+  designer_deliever_request } from "./Requests/requestActions";
 import {
   get_all_members,
   add_new_member,
@@ -54,6 +57,7 @@ export {
   set_user_type,
   get_single_designer_details,
   edit_designer_info,
+  get_user_profile_details,
   get_plans,
   profile_update,
   update_password,
@@ -85,5 +89,7 @@ export {
   get_designer_assigned_requestlist,
   desginer_accept_assignrequest,
   get_designer_active_requestslist,
-  get_customer_card
+  deliever_request_details,
+  get_customer_card,
+  designer_deliever_request
 };

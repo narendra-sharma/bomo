@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -185,7 +185,7 @@ export const desginer_accept_assignrequest = async (dispatch,token,request_id,em
     const res = await axios.put(url,{}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_designer_assigned_requestlist(dispatch, token);
+      dispatch({ type: GET_DESIGNER_ASSIGNED_REQUEST_LIST, payload: res.data });
     } else {
       toast.error(res.data?.message);
     }
@@ -238,24 +238,24 @@ export const get_designer_active_requestslist = async (dispatch, token) => {
   }
 };
 
-export const designer_deliever_request = async (dispatch,token,data) => {
+export const designer_deliever_request = async (dispatch,token,data,navigate) => {
   dispatch(start_loading());
   try {
+    const formData = new FormData();
+    formData.append("request_id", data?.request_id);
+    formData.append("landscape", data?.landscape);
+    formData.append("portrait", data?.portrait);
+    formData.append("zip", data?.zip);
     const url = `${REACT_APP_BOMO_URL}request/upload-design`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       }
     };
-    const deliverdata = {
-      request_id: data?.request_id,
-      landscape: data?.landscape,
-      portrait: data?.portrait,
-      zip: data?.zip
-    }
-    const res = await axios.put(url,deliverdata,HEADERS);
+    const res = await axios.put(url,formData,HEADERS);
     if(res.data && res.data.status) {
       toast.success(res.data?.message);
+      navigate('/');
     } else {
       toast.error(res.data?.message);
     }
@@ -309,6 +309,10 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
 
 export const get_edit_request_data = (requestdetails) => {
     return ({ type: GET_EDIT_REQUEST_DATA, payload: requestdetails });
+};
+
+export const deliever_request_details = (requestdata) => {
+  return ({ type: DELIEVER_REQUEST_DATA, payload: requestdata });
 };
 
 
