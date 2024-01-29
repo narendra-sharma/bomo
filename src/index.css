@@ -31,6 +31,9 @@ html body.calculator-page{
 .light-gray{
   background-color: #FBFBFB;
 }
+.bg-gray{
+  background-color: #f2f2f2
+}
 img{
   max-width: 100%;
 }
@@ -1574,7 +1577,7 @@ p.user-email.date span.d-block {
   
 }
 span.filename i{
-  font-size: 25px;
+  font-size: 16px;
   color: #000;
 }
 .modify-subscription-saving .savings {
@@ -1812,6 +1815,45 @@ button.accordion-button.collapsed  .late-request-section {
   color: #012801;
   font-size: 25px;
 }
+.request-status tr td{
+  padding-top:0;
+}
+.designer-request-status tr td:last-child , .designer-request-status tr th:last-child{
+  padding-right: 0;
+}
+.ready-to-delivery-section h5{
+  font-size: 13px;
+}
+.ready-to-delivery-section .upload-zip-file {
+  width: 72%;
+}
+.upload-nine-mp4 .uploadFile , .upload-zip-file .uploadFile{
+  padding: 30px 10px;
+}
+.upload-zip-file .uploadFile {
+  background: #D2CECE;
+}
+.ready-to-delivery-section  span.filename {
+  background: #CDFFB5;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  line-height: 30px;
+  border-radius: 50%;
+  border: solid 1px #000;
+}
+.ready-to-delivery-section .upload-zip-file  span.filename {
+  background-color: #838383;
+}
+.ready-to-delivery-section  .uplaod-dimension {
+  width: 9px;
+  height:16px;
+  border-radius: 2px;
+}
+.ready-to-delivery-section  .uplaod-dimension.sixteen-nine  {
+  width: 16px;
+  height: 12px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -1901,7 +1943,7 @@ button.accordion-button.collapsed  .late-request-section {
   .view-customer-content .customer-details, 
   .view-customer-content .customer-subscription{
     flex: 0 0 100%;
-}
+  }
 }
 @media(max-width:1024px){
   .form-inner {
@@ -2061,6 +2103,12 @@ button.accordion-button.collapsed  .late-request-section {
     left: 30px;
     margin-bottom: 20px;
   }
+  .ready-to-delivery-section .upload-zip-file {
+    width: 100%;
+  }
+  .designer-header {
+    display: none;
+}
 }
 
 .cursor-pointer{
