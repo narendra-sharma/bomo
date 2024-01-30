@@ -20,10 +20,10 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
   return (
     <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
       <Modal.Body>
-        <div className="view-customer-content px-60">
+        <div className="view-customer-content py-3 px-60">
           <div className="row mb-3">
             <div className="col-md-12 col-12">
-              <p className="text-center">
+              <p className="text-center mb-3">
                 <button
                   className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark"
                   onClick={() => handleClose()}

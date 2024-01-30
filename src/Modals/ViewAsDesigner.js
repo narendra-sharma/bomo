@@ -17,17 +17,17 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
             <Modal.Body>
-                <div className="view-customer-content px-60">
+                <div className="view-customer-content py-4 view-design-content px-60">
                     <div className="row mb-3">
                         <div className="col-md-12 col-12">
-                            <p className="text-center">
+                            <p className="text-center mb-3">
                                 <button className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark" onClick={() => handleClose()}>
                                     view as designer
                                 </button>
                             </p>
                         </div>
                     </div>
-                    <div className="row mx-auto">
+                    <div className="row mx-auto justify-content-center">
                         <div className="active-request-section d-flex flex-column rounded mb-4">
                             <div className="bg-white p-2 rounded">
                                 <p className="fw-bold">Active Requests</p>
@@ -104,25 +104,29 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="customer-details mb-4 col-12">
-                            <div className="review-main-content bg-white px-4 px-md-3 py-4 d-flex justify-content-between align-items-center rounded">
-                                <div className="d-flex text-right justify-content-between align-items-center">
-                                    <img src={userImage} alt="Bomo logo" />
+                        <div className="mb-4 col-12">
+                            <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
+                                <div className="col-md-6">
+                                    <div className="d-flex align-items-center">
+                                        <div className="">
+                                            <img src={userImage} alt="Bomo logo" />
+                                        </div>
+                                        <div className="">
+                                            <p className="mb-0 user-email ms-1 ms-lg-3">
+                                                <b className=" d-md-block">Name</b><span className="d-block">{designerdata?.name}</span></p>
+                                        </div>
+                                        <div className="">
+                                            <p className="mb-0 user-email ms-1 ms-lg-3">
+                                                <b className=" d-md-block">Email</b><span className="d-block">{designerdata?.email}</span></p>
+                                        </div>
+                                        <div className="">
+                                            <p className="mb-0 user-email ms-1 ms-lg-3">
+                                                <b className=" d-md-block">Country</b><span className="d-block">-</span></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="">
-                                    <p className="mb-0 user-email  ms-1 ms-lg-2">
-                                        <b className=" d-md-block">Name</b><span className="d-block">{designerdata?.name}</span></p>
-                                </div>
-                                <div className="">
-                                    <p className="mb-0 user-email  ms-1 ms-lg-2">
-                                        <b className=" d-md-block">Email</b><span className="d-block">{designerdata?.email}</span></p>
-                                </div>
-                                <div className="">
-                                    <p className="mb-0 user-email  ms-1 ms-lg-2">
-                                        <b className=" d-md-block">Country</b><span className="d-block">-</span></p>
-                                </div>
-                                <div className="">
-                                    <p className="mb-0 user-email  ms-1 ms-lg-2">
+                                <div className="col-md-5">
+                                    <p className="mb-0 user-email ms-1 ms-lg-3 text-end">
                                         <b className=" d-md-block">Signup Date</b><span className="d-block">{designerdata?.signup_date ? format(new Date(designerdata?.signup_date), 'dd/MM/yyyy') : 'No Date'}</span></p>
                                 </div>
                             </div>
