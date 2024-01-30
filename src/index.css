@@ -453,7 +453,7 @@ nav {
   }
   .review-content table  td{
   vertical-align: middle;
-  padding: 13px 9px;
+  padding: 13px 8px;
   }
 .review-content .draft-table table  td{
     padding: 13px 20px;
@@ -1962,10 +1962,6 @@ button.accordion-button.collapsed  .late-request-section {
   }
   .customer-details .review-main-content div{
     padding-bottom: 10px!important;
-  }
-  .view-customer-content .active-request-section, 
-  .view-customer-content .active-request-section:last-child {
-    flex: 0 0 100%;
   }
   .view-customer-content .active-request-section, 
   .view-customer-content .active-request-section:last-child ,
