@@ -4,14 +4,15 @@ import dropdownImage from '../images/dropdown-img.png';
 import DraftRequests from "../Customer/Requests/DraftRequests";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import { connect, useDispatch } from "react-redux";
-import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import { get_customeradmin_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
+import { format } from 'date-fns';
 
 const CustomerHome = ({ activerequest, user }) => {
   const dispatch = useDispatch();
   const [activerequests, setActiverequests] = useState([]);
   useEffect(() => {
-    get_designer_active_requestslist(dispatch, user?.token);
+    get_customeradmin_active_requestslist(dispatch, user?.token);
   }, [dispatch]);
 
   useEffect(() => {
@@ -53,17 +54,17 @@ const CustomerHome = ({ activerequest, user }) => {
 
               <div className="review-content bg-white px-3 py-5 rounded">
                 <div className="table-responsive">
-                  {activerequests.map((request) => (
+                  {activerequests?.map((request) => (
                     <table className="table table-borderless">
                       <tbody>
                         <tr>
                           <td className="text-center"><ColorCode request={request} /></td>
                           <td>
-                            <p>{request?.request_name}</p>
+                            <p>{request?.brand_profile?.brandname}</p>
                           </td>
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
-                          <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                          <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                          <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date, 'dd/MM/yyyy'))}</span></p></td>
+                          <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.designer_id?.name}</span></p></td>
                         </tr>
                       </tbody>
                     </table>
@@ -131,7 +132,7 @@ const CustomerHome = ({ activerequest, user }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    activerequest: state.requests.activerequest,
+    activerequest: state.requests.customerActiverequests,
   };
 };
 
