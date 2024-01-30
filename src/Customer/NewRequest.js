@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, newRequest } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
-import { useNavigate } from "react-router-dom";
+import SubmitRequest from "../Modals/SubmitRequest";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
 const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const now = new Date();
   const currentTime = format(now, 'HH:mm');
   const usertoken = user.token;
@@ -46,6 +45,8 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
     uploadFiles: '',
     customerror: ''
   });
+  const [ispop,setIspop] = useState(false);
+  const [newdata,setNewData] = useState(null);
   const [selectedRequestType, setSelectedRequestType] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
@@ -208,7 +209,9 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
       if (requestData) {
         newrequest.request_id = requestData?._id;
       }
-      await newRequest(newrequest, dispatch, usertoken, navigate);
+      setIspop(true);
+      setNewData(newrequest);
+      // await newRequest(newrequest, dispatch, usertoken, navigate);
     }
   };
 
@@ -395,6 +398,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
         </div>
       </div>
+      <SubmitRequest show={ispop} handleClose={() => setIspop(false)} data={newdata} token={user?.token}/>
     </>
   )
 }

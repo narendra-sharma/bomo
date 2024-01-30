@@ -3,13 +3,17 @@ import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png"; 
 import ColorCode from "../Common/ColorCode";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { deliever_request_details } from "../reduxdata/rootAction";
 
 
 const RequestBrief = ({ show, handleClose, data }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleDeliever = () => {
+    const handleDeliever = (requestdata) => {
         navigate('/deleiver-request');
+        dispatch(deliever_request_details(requestdata));
     };
     const formatTime = (timeRemaining) => {
         const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
@@ -84,7 +88,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                     </table>
                                 </div>
                                 <div className="mt-4">
-                                <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2" onClick={handleDeliever}>DELIVERY NOW</button>
+                                <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2" onClick={() => handleDeliever(data)}>DELIVERY NOW</button>
                                 </div>
                             </div>
                         </div>
