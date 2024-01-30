@@ -42,7 +42,8 @@ import { newRequest,
   get_designer_active_requestslist,
   deliever_request_details,
   designer_deliever_request,
-  get_customeradmin_active_requestslist } from "./Requests/requestActions";
+  get_customeradmin_active_requestslist,
+  get_approve_delivery_list } from "./Requests/requestActions";
 import {
   get_all_members,
   add_new_member,
@@ -93,5 +94,6 @@ export {
   deliever_request_details,
   get_customer_card,
   designer_deliever_request,
-  get_customeradmin_active_requestslist
+  get_customeradmin_active_requestslist,
+  get_approve_delivery_list
 };

@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, newRequest } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
+import { useNavigate } from "react-router-dom";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
-const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
+const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const now = new Date();
   const currentTime = format(now, 'HH:mm');
@@ -21,23 +23,23 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
   const [formData, setFormData] = useState({
     requestName: '',
-    brandProfile:'',
+    brandProfile: '',
     requestype: '',
-    description:'',
+    description: '',
     fileType: '',
-    size:'',
+    size: '',
     customsize: "",
     customsizes: [],
-    references:'',
-    transparency:'',
-    uploadFiles:'',
+    references: '',
+    transparency: '',
+    uploadFiles: '',
   });
 
   const [errors, setErrors] = useState({
     requestName: '',
     brandProfile: '',
     requestype: '',
-    description: '', 
+    description: '',
     fileType: '',
     size: '',
     references: '',
@@ -45,8 +47,8 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
     uploadFiles: '',
     customerror: ''
   });
-  const [ispop,setIspop] = useState(false);
-  const [newdata,setNewData] = useState(null);
+  const [ispop, setIspop] = useState(false);
+  const [newdata, setNewData] = useState(null);
   const [selectedRequestType, setSelectedRequestType] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
@@ -56,43 +58,43 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   const handleLeave = () => {
     setHoveredIndex(null);
   };
- 
+
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
 
     switch (name) {
       case 'requestName':
-        setErrors({ ...errors, requestName: value === '' ? 'Request Name is Required' : null});
-        setFormData({ ...formData, requestName: value,});
+        setErrors({ ...errors, requestName: value === '' ? 'Request Name is Required' : null });
+        setFormData({ ...formData, requestName: value, });
         break;
 
       case 'description':
-        setErrors({ ...errors, description: value === '' ? 'Description is Required' : null});
-        setFormData({ ...formData, description: value,})
+        setErrors({ ...errors, description: value === '' ? 'Description is Required' : null });
+        setFormData({ ...formData, description: value, })
         break;
 
       case 'references':
-        setErrors({ ...errors, references: value === '' ? 'Reference is Required' : null});
-        setFormData({ ...formData, references:value })
+        setErrors({ ...errors, references: value === '' ? 'Reference is Required' : null });
+        setFormData({ ...formData, references: value })
         break;
 
       case 'size':
-        setErrors({ ...errors, size: value === '' ? 'Please Select your size' : null});
-        setFormData({ ...formData, size:value });
+        setErrors({ ...errors, size: value === '' ? 'Please Select your size' : null });
+        setFormData({ ...formData, size: value });
         break;
 
       case 'brandProfile':
-        setErrors({ ...errors, brandProfile: value === '' ? 'BrandProfile is Required' : null});
-        setFormData({...formData, brandProfile:value,});
+        setErrors({ ...errors, brandProfile: value === '' ? 'BrandProfile is Required' : null });
+        setFormData({ ...formData, brandProfile: value, });
         break;
 
       case 'transparency':
-        setErrors({ ...errors, transparency: value === '' ? 'transparency is Required' : null});
+        setErrors({ ...errors, transparency: value === '' ? 'transparency is Required' : null });
         setFormData({ ...formData, transparency: value, });
         break;
 
       case 'fileType':
-        setErrors({ ...errors, fileType: value === '' ? 'fileType is Required' : null});
+        setErrors({ ...errors, fileType: value === '' ? 'fileType is Required' : null });
         setFormData({ ...formData, fileType: value, });
         break;
 
@@ -107,7 +109,8 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
           setErrors({ ...errors, uploadFiles: '' });
         }
         fileInputRef.current.click();
-        setFormData({ ...formData, uploadFiles: Fileupload,
+        setFormData({
+          ...formData, uploadFiles: Fileupload,
         });
         setImagePreview(URL.createObjectURL(Fileupload));
         break;
@@ -122,7 +125,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
   const handleCustomSizeChange = (e) => {
     const { name, value } = e.target;
     const ratioRegex = /^\d+:\d*$/;
-    if(!ratioRegex.test(value)){
+    if (!ratioRegex.test(value)) {
       setErrors({ ...errors, customerror: 'Please enter a valid size ratio' });
     } else {
       setErrors({ ...errors, customerror: null });
@@ -162,7 +165,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
   const validateForm = () => {
     let valid = true;
-  
+
     const fieldsToValidate = [
       { name: 'requestName', validation: (value) => value === '' ? 'Request Name is Required' : '' },
       { name: 'brandProfile', validation: (value) => value === '' ? 'Brand Profile is Required' : '' },
@@ -174,7 +177,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
       { name: 'uploadFiles', validation: (value) => value === '' ? 'Upload your file' : '' },
       { name: 'transparency', validation: (value) => value === '' ? 'Transparency is Required' : '' },
     ];
-  
+
     fieldsToValidate.forEach(({ name, validation }) => {
       const value = formData[name];
       const error = validation(value);
@@ -183,11 +186,11 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
         valid = false;
       }
     });
-  
+
     return valid;
   };
 
-  const handleSubmit = async (e, status) => {
+  const handleSubmit = (e, status) => {
     e.preventDefault();
     const isValid = validateForm();
 
@@ -209,39 +212,46 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
       if (requestData) {
         newrequest.request_id = requestData?._id;
       }
-      setIspop(true);
-      setNewData(newrequest);
-      // await newRequest(newrequest, dispatch, usertoken, navigate);
+
+      if (status === 'pending') {
+        setIspop(true);
+        setNewData(newrequest);
+      } else if (status === 'draft') {
+       newRequest(newrequest, dispatch, usertoken, navigate);
+      }
     }
   };
 
   useEffect(() => {
-    if(requestData){
+    if (requestData) {
       setImagePreview(LOGO_URL + requestData?.file);
-      setClickedIndex(requestTypes.findIndex(r=>r.value===requestData?.request_type));
-      setFormData(prev=>{return ({...prev,
-        requestName: requestData?.request_name,
-        brandProfile: requestData?.brand_profile,
-        requestype: requestData?.request_type,
-        description: requestData?.description,
-        fileType: requestData?.file_type,
-        size: requestData?.size,
-        customsize: "",
-        customsizes: [],
-        references: requestData?.references,
-        transparency: requestData?.transparency,
-        uploadFiles: requestData?.file,
-      })})
+      setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
+      setFormData(prev => {
+        return ({
+          ...prev,
+          requestName: requestData?.request_name,
+          brandProfile: requestData?.brand_profile,
+          requestype: requestData?.request_type,
+          description: requestData?.description,
+          fileType: requestData?.file_type,
+          size: requestData?.size,
+          customsize: "",
+          customsizes: [],
+          references: requestData?.references,
+          transparency: requestData?.transparency,
+          uploadFiles: requestData?.file,
+        })
+      })
     }
-  },[requestData]);
+  }, [requestData]);
 
   useEffect(() => {
     getbrandlist(dispatch, usertoken);
-    return () =>{
+    return () => {
       dispatch(get_edit_request_data(null))
     }
-  },[]);
-  
+  }, []);
+
   useEffect(() => {
     if (isAddEdit) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
@@ -257,7 +267,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5 new-request-section">
           <div className="review-main-content text-center mb-4 ">
-            <h2>{requestData ? "Edit" : "New" } Request</h2>
+            <h2>{requestData ? "Edit" : "New"} Request</h2>
             <p className="text-mute">{format(now, 'EEEE dd MMM, yyyy')}<span className="d-block">{user?.address?.city}, {currentTime}</span>  </p>
           </div>
           <div className="mt-5 new-request-form">
@@ -335,13 +345,13 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                            <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
-                              <option value="" disabled>Select</option>
-                              {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
-                              {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
-                              {formData.customsizes && formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
-                              <option value="Custom">Custom</option>
-                            </select>
+                          <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
+                            <option value="" disabled>Select</option>
+                            {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
+                            {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
+                            {formData.customsizes && formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
+                            <option value="Custom">Custom</option>
+                          </select>
                           {(formData.size === 'Custom') && <>
                             <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
@@ -374,7 +384,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
                   <label htmlFor="Upload Files" className="ms-3 mb-2">Upload Files<span className="text-danger">*</span></label>
                   {imagePreview && <div className="d-flex align-item-center justify-content-center mb-4"><img src={imagePreview} alt="Preview" height="300" /></div>}
                   <label class="uploadFile">
-                    <span class="filename"><img src={plusImage} alt=""/></span>
+                    <span class="filename"><img src={plusImage} alt="" /></span>
                     <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} />
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
@@ -398,7 +408,7 @@ const NewRequest = ({ brands, user, requestTypes,requestData,isAddEdit }) => {
 
         </div>
       </div>
-      <SubmitRequest show={ispop} handleClose={() => setIspop(false)} data={newdata} token={user?.token}/>
+      <SubmitRequest show={ispop} handleClose={() => setIspop(false)} data={newdata} userdetail={user} />
     </>
   )
 }

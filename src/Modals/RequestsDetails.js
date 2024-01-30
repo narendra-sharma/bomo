@@ -2,8 +2,16 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
+import { useDispatch, connect } from 'react-redux';
+import { poll_request_apply } from "../reduxdata/rootAction";
 
-const RequestDetails = ({ show, handleClose, data }) => {
+const RequestDetails = ({ show, handleClose, data, user }) => {
+    const dispatch = useDispatch();
+    const handleApplyRequest = (requestdata) => {
+        let applyrequest = requestdata._id;
+        poll_request_apply(applyrequest, dispatch, user?.token);
+        handleClose();
+    };
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
@@ -70,7 +78,7 @@ const RequestDetails = ({ show, handleClose, data }) => {
                             </div>
                             <div className="mt-4">
                                     <div className="status-btn">
-                                        <button className="btn pause-btn rounded-pill py-1 w-100">APPLY</button>
+                                        <button className="btn pause-btn rounded-pill py-1 w-100" onClick={() => handleApplyRequest(data)}>APPLY</button>
                                         <div><h5 class="fw-bold mb-0">$125</h5></div>
                                     </div>
                             </div>
@@ -83,6 +91,12 @@ const RequestDetails = ({ show, handleClose, data }) => {
     )
 };
 
-export default RequestDetails;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+    };
+};
+export default connect(mapStateToProps)(RequestDetails);
+
 
 
