@@ -41,7 +41,7 @@ const PollRequests = ({ user, pollrequests }) => {
     }, [dispatch, user?.token]);
 
     return (
-        <div>
+        <>
                 {pollrequests?.map((request) => (
                     <div className="col-md-6 col-lg-4 col-12">
                         <div className="bg-white px-2 px-md-3 py-3 rounded">
@@ -96,7 +96,7 @@ const PollRequests = ({ user, pollrequests }) => {
                 </div>
             </div>
             <RequestDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} />
-        </div>
+        </>
     )
 };
 

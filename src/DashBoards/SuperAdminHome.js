@@ -4,6 +4,7 @@ import designImage2 from "../images/sixteen-nine.png";
 import designImage3 from "../images/sixteen-nine2.png";
 import AssignRequest from "../Customer/Requests/AssignRequest";
 import { connect } from "react-redux";
+import ApproveDelivery from "../Customer/Requests/ApproveDelivery";
 
 const SuperAdminHome = ({totalassigns}) => {
     return (
@@ -191,86 +192,7 @@ const SuperAdminHome = ({totalassigns}) => {
                             </div>
                         </div>
                         <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
-                            <div className="row">
-                                <div className="col-lg-12">
-                                    <small className="text-muted fw-bold">
-                                        5 requests left{" "}
-                                    </small>
-                                </div>
-                                <div className="col-lg-12">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>12h</p>
-                                                    </td>
-                                                    <td className="text-center">
-                                                        <p className="short0ad typography">
-                                                            typography
-                                                        </p>{" "}
-                                                    </td>
-                                                    <td>
-                                                        <p>
-                                                            <span className="fw-bold">Cratat</span>{" "}
-                                                            <span className="d-block">Dior</span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p>
-                                                            <span className="fw-bold">Delivery</span>{" "}
-                                                            <span className="d-block">17/03/2023</span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p>
-                                                            <span>Expand Request</span>{" "}
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                                            <div className="delivery-status fw-bold">
-                                                                <p>9:16</p>
-                                                            </div>
-                                                            <div className="bar-code">
-                                                                <img src={designImage} alt="Image" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                                            <div className="delivery-status fw-bold">
-                                                                <p>16:9</p>
-                                                            </div>
-                                                            <div className="bar-code">
-                                                                <img src={designImage2} alt="Image" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
-                                                            <div className="delivery-status fw-bold">
-                                                                <p>.aep</p>
-                                                            </div>
-                                                            <div className="bar-code">
-                                                                <img src={designImage3} alt="Image" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="d-flex align-items-center">
-                                                            <button className="btn btn-sm btn-outline-success rounded-pill">
-                                                                Approve Delivery
-                                                            </button>
-                                                            <i className="fa-solid fa-circle-xmark cancel"></i>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                           <ApproveDelivery />
                         </div>
                     </div>
                     <div className="mb-3 review-content">

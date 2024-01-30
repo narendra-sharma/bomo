@@ -35,7 +35,7 @@ const SubscriptionSteps = (props) => {
         get_plans(dispatch);
     }, [])
     useEffect(() => {
-        if (props.plans.length > 0) {
+        if (props.plans?.length > 0) {
             setFirstPrice(props.plans[0]?.unit_amount / 100);
             setSecPrice(props.plans[1]?.unit_amount / 100);
             setThirdPrice(props.plans[2]?.unit_amount / 100);
