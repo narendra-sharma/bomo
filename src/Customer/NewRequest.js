@@ -213,7 +213,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         newrequest.request_id = requestData?._id;
       }
 
-      if (status === 'pending') {
+      if ((status === 'pending') && isValid) {
         setIspop(true);
         setNewData(newrequest);
       } else if (status === 'draft') {

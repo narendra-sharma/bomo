@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import plusImage from '../images/plus-img.png';
 import { connect } from 'react-redux';
 import ColorCode from "../Common/ColorCode";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { designer_deliever_request } from "../reduxdata/rootAction";
+import DeliverNow from "../Modals/DeliverNow";
 const DelieverRequest = ({ requestData, user }) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [formdata, setFormdata] = useState({
         firstFile: '',
         secondFile: '',
@@ -21,6 +17,8 @@ const DelieverRequest = ({ requestData, user }) => {
         secondFile: '',
         zipfile: ''
     });
+    const [show,setShow]=useState(false);
+    const [deliverdetail,setDeliverdetail]=useState();
     const handleInputChange = async (e) => {
         const { name, files } = e.target;
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
@@ -31,7 +29,7 @@ const DelieverRequest = ({ requestData, user }) => {
                     setErrors({ ...errors, firstFile: 'Upload 9:16 .mp4' });
                 } else if (!allowedFileTypes.includes(FirstFile.type)) {
                     setErrors({ ...errors, firstFile: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-                } else {
+                } else if (allowedFileTypes.includes(FirstFile.type)) {
                     setErrors({ ...errors, firstFile: '' });
                     setFormdata({
                         ...formdata,
@@ -47,7 +45,7 @@ const DelieverRequest = ({ requestData, user }) => {
                     setErrors({ ...errors, secondFile: 'Upload 16:9 .mp4' });
                 } else if (!allowedFileTypes.includes(SecondFile.type)) {
                     setErrors({ ...errors, secondFile: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-                } else {
+                } else if (allowedFileTypes.includes(SecondFile.type)) {
                     setErrors({ ...errors, secondFile: '' });
                     setFormdata({
                         ...formdata,
@@ -63,7 +61,7 @@ const DelieverRequest = ({ requestData, user }) => {
                     setErrors({ ...errors, zipfile: 'Upload your .Zip' });
                 } else if (ZipFile.type !== 'application/zip') {
                     setErrors({ ...errors, zipfile: 'Please upload a valid zip file' });
-                } else {
+                } else if (ZipFile.type === 'application/zip') {
                     setErrors({ ...errors, zipfile: '' });
                     setFormdata({
                         ...formdata,
@@ -92,8 +90,9 @@ const DelieverRequest = ({ requestData, user }) => {
                 portrait: formdata?.secondFile,
                 zip: formdata?.zipfile
             };
-            designer_deliever_request(dispatch,user?.token,delieverData,navigate);
-            console.log(delieverData);
+            setDeliverdetail(delieverData);
+            setShow(true);
+            // designer_deliever_request(dispatch,user?.token,delieverData,navigate);
     };
 
     const formatTime = (timeRemaining) => {
@@ -169,7 +168,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                         <div className="upload-nine-mp4">
                                             <div className="d-flex align-item-center justify-content-center mb-4">
                                                 <label class="uploadFile">
-                                                    <span class="filename"><i className="fa fa-plus"></i></span>
+                                                    {!filepreview ? <span class="filename"><i className="fa fa-plus"></i></span> :<i className="fa-solid fa-check-circle text-success"></i>}
                                                     <input name="firstFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.firstFile} onChange={handleInputChange} />
                                                     {errors.firstFile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.firstFile}</p>}
                                                 </label>
@@ -185,7 +184,7 @@ const DelieverRequest = ({ requestData, user }) => {
 
                                             <div className="d-flex align-item-center justify-content-center mb-4">
                                                 <label class="uploadFile">
-                                                    <span class="filename"><i className="fa fa-plus"></i></span>
+                                                    {!secondfilepreview ? <span class="filename"><i className="fa fa-plus"></i></span> :<i className="fa-solid fa-check-circle text-success"></i>}
                                                     <input name="secondFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.secondFile} onChange={handleInputChange} />
                                                     {errors.secondFile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.secondFile}</p>}
                                                 </label>
@@ -201,7 +200,7 @@ const DelieverRequest = ({ requestData, user }) => {
 
                                             <div className="d-flex align-item-center justify-content-center mb-4">
                                                 <label class="uploadFile">
-                                                    <span class="filename"><i className="fa fa-plus"></i></span>
+                                                    {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i></span> :<i className="fa-solid fa-check-circle text-success"></i>}
                                                     <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleInputChange} />
                                                     {errors.zipfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.zipfile}</p>}
                                                 </label>
@@ -219,6 +218,7 @@ const DelieverRequest = ({ requestData, user }) => {
                         </div>
                     </div>
                 </div>
+                <DeliverNow show={show} handleClose={() => setShow(false)} detail={deliverdetail} />
             </div>
         </>
     )

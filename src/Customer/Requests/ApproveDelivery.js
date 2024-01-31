@@ -1,28 +1,46 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
+import { useDispatch, connect } from 'react-redux';
+import { get_approve_delivery_list, superadmin_approve_delivery } from '../../reduxdata/rootAction';
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import designImage3 from "../../images/sixteen-nine2.png";
-import { useEffect } from 'react';
-import { get_approve_delivery_list } from '../../reduxdata/rootAction';
-import { useDispatch, connect } from 'react-redux';
 import ColorCode from '../../Common/ColorCode';
 import { format } from 'date-fns';
-import { useState } from 'react';
 import ExpandRequest from '../../Modals/ExpandRequest';
+import RejectRequest from '../../Modals/RejectRequest';
 
 const ApproveDelivery = ({ user, approvelist }) => {
     const [show,setShow]=useState(false);
+    const [isapprove,setIsapprove]=useState({});
+    const [isreject,setIsreject]=useState(false);
+    const [reqdata,setReqdata]=useState({});
     const dispatch = useDispatch();
-    console.log(approvelist);
+
+    const handleApprove = (e,data,status) => {
+        e.preventDefault();
+        const requestId = data?._id;
+        if((status === 'accepted')&&data){
+            const approvedata = {
+                _id:requestId,
+                deliverystatus:status
+            };
+            setIsapprove((prev) => ({...prev, [requestId]: 'accepted'}));
+            superadmin_approve_delivery(dispatch,user?.token,approvedata);
+        } else if((status === 'rejected')&&data){
+            setIsreject(true);
+            setReqdata(data);
+        }
+    };
+
     useEffect(() => {
         get_approve_delivery_list(user?.token, dispatch);
-    }, [dispatch]);
+    }, [dispatch,user?.token]);
 
     return (
         <div className="row">
             <div className="col-lg-12">
                 <small className="text-muted fw-bold">
-                    5 requests left{" "}
+                    {approvelist?.length} requests left{" "}
                 </small>
             </div>
             <div className="col-lg-12">
@@ -83,16 +101,18 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                                 <p>.aep</p>
                                             </div>
                                             <div className="bar-code">
-                                                <img src={designImage3} alt="Image" />
+                                                <img src={designImage3} alt="Imag" />
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="d-flex align-items-center">
-                                            <button className="btn btn-sm btn-outline-success rounded-pill">
-                                                Approve Delivery
+                                            <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e,request,'accepted')}>
+                                               {isapprove[request?._id] === 'accepted' ? 'Approve' : 'Approve Delivery'}
                                             </button>
-                                            <i className="fa-solid fa-circle-xmark cancel"></i>
+                                            {isapprove[request?._id] === 'accepted' ? 
+                                            <i className="fa-solid fa-check-circle text-success"></i> :
+                                            <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e,request,'rejected')}></i>}
                                         </div>
                                     </td>
                                 </tr>
@@ -102,6 +122,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                 </div>
             </div>
             <ExpandRequest show={show} handleClose={() => setShow(false)} />
+            <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )
 };

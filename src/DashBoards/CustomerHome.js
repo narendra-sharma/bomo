@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import dropdownImage from '../images/dropdown-img.png';
 import DraftRequests from "../Customer/Requests/DraftRequests";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import { connect, useDispatch } from "react-redux";
 import { get_customeradmin_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from 'date-fns';
+import FeedBackRequest from "../Customer/Requests/FeedBackRequest";
 
 const CustomerHome = ({ activerequest, user }) => {
   const dispatch = useDispatch();
@@ -76,44 +76,7 @@ const CustomerHome = ({ activerequest, user }) => {
               <div className="mx-md-5 mx-sm-0 mb-4">
                 <h3 >Feedback Queue</h3>
               </div>
-
-              <div className="review-content bg-white px-3 py-5 rounded">
-                <div className="table-responsive">
-                  <table className="table table-borderless feedback-queue">
-                    <tbody>
-                      <tr>
-                        <td><p className="serial-number">1</p></td>
-                        <td className="text-center"><p className="short0ad transition">transition</p></td>
-                        <td>
-                          <p>DIOR</p>
-                        </td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                        <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                        <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                        <td><img src={dropdownImage} alt="" /></td>
-                      </tr>
-                      <tr>
-                        <td><p className="serial-number">2</p></td>
-                        <td className="text-center"><p className="short0ad brand-element">brand element</p></td>
-                        <td><p>DIOR</p></td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                        <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                        <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                        <td><img src={dropdownImage} alt="" /></td>
-                      </tr>
-                      <tr>
-                        <td><p className="serial-number">3</p></td>
-                        <td className="text-center"><p className="short0ad typography">typography</p></td>
-                        <td><p>DIOR</p></td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">To Review</span></p></td>
-                        <td><p><span className="fw-bold">Delivery</span> <span className="d-block">Monday 17/03</span></p></td>
-                        <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                        <td><img src={dropdownImage} alt="" /></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <FeedBackRequest/>
             </div>
           </div>
 
