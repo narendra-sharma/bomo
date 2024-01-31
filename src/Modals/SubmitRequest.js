@@ -1,36 +1,32 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newRequest } from '../reduxdata/rootAction';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import RequestSuccess from './RequestSuccess';
 
-const SubmitRequest = ({ show, handleClose, data, userdetail }) => {
+const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
+    const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [showSuccess, setShowSuccess] = useState(false);
-    const handleRequest = async () => {
-        await newRequest(data, dispatch, userdetail?.token, navigate);
+    const handleRequest = () => {
+      if(data){
+        newRequest(data, dispatch, userdetail?.token, navigate);
+        handleClose();
         setShowSuccess(true);
+      }
     };
 
     useEffect(() => {
-        let timeoutId;
-    
-        if (showSuccess) {
-          timeoutId = setTimeout(() => {
-            setShowSuccess(false);
-            handleClose();
-          }, 4000);
+        if(showSuccess) {
+            setTimeout(() => {
+                setShowSuccess(false);
+            },4000);
         }
-    
-        return () => {
-          clearTimeout(timeoutId);
-        };
-      }, [showSuccess, handleClose]);
+      }, [showSuccess]);
 
     return (
         <div>
@@ -70,4 +66,9 @@ const SubmitRequest = ({ show, handleClose, data, userdetail }) => {
     )
 };
 
-export default SubmitRequest;
+const mapStateToProps = (state) => {
+    return {
+        issubmit:state.requests.issubmit
+    }
+}
+export default connect(mapStateToProps)(SubmitRequest);

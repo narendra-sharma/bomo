@@ -15,15 +15,6 @@ const DesignerHome = ({user, activerequest}) => {
     const [activerequests,setActiverequests] = useState([]);
     const [istoggle,setIstoggle] = useState(false);
     const [selectedData,setSelectedData]=useState([]);
-    const handleToogleOpen = () => {
-        setIstoggle(true);
-    }
-    const handleToogleClose = () => {
-        setIstoggle(false);
-    }
-    const handleData = (request) => {
-        setSelectedData(request);
-    }
 
     useEffect(()=> {
         get_designer_active_requestslist(dispatch,user?.token);
@@ -31,12 +22,9 @@ const DesignerHome = ({user, activerequest}) => {
 
     useEffect(()=> {
         setActiverequests(activerequest)
-    },[activerequest])
+    },[activerequest]);
 
     const [showList, setShowList] = useState(true);
-    const handleClose = () => {
-        setShowList(false);
-    };
 
     const calculateTimeRemaining = (acceptanceTime, duration) => {
         const currentTime = new Date().getTime();
@@ -80,7 +68,7 @@ const DesignerHome = ({user, activerequest}) => {
                 <div className="review-main-content review-content ">
                     <div className="mx-md-5 mx-sm-0 mb-4"><h3 >My Active Requests</h3></div>
                     <div className="designer-active-request bg-white px-2 px-md-4 py-5 rounded">
-                        {activerequests.length > 0 ? activerequests.map((request) => (
+                        {activerequests?.length > 0 ? activerequests?.map((request) => (
                             <div className="mb-4">
                                 <div className="ms-4 mb-3">
                                     <span className="deadline-date status position-relative ps-3">Deadline in <span className="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
@@ -95,7 +83,7 @@ const DesignerHome = ({user, activerequest}) => {
                                                 <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
                                                 <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                                <td className="text-end"><p><span className="extra-dark-green" onClick={() => {handleToogleOpen();handleData(request);}}>+ show full brief</span> </p></td>
+                                                <td className="text-end"><p><span className="extra-dark-green" onClick={() => {setIstoggle(true); setSelectedData(request);}}>+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
                                                     <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleDeliever(request)}>DELIVERY NOW</Button>
                                                 </td>
@@ -119,8 +107,8 @@ const DesignerHome = ({user, activerequest}) => {
                     </div>
                 </div>
             </div>
-            <RequestJobs show={showList} handleClose={handleClose} />
-            <RequestBrief data={selectedData} show={istoggle} handleClose={handleToogleClose} />
+            <RequestJobs show={showList} handleClose={() =>  setShowList(false)} />
+            <RequestBrief data={selectedData} show={istoggle} handleClose={() => setIstoggle(false)} />
         </div>
     )
 }
