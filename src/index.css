@@ -377,6 +377,7 @@ nav {
   font-weight: 700;
   font-size: 23px;
   line-height: 23px;
+  color: #000;
 }
 .review-main-content h2{
   font-weight: 700;
@@ -1032,10 +1033,10 @@ select.form-control {
   line-height: normal; 
 }
 .download-btn button{
-  background-color:
-  #3FCE3C;
+  background-color:#3FCE3C;
   color: #000;
   border: solid 1px #000;
+  font-size: 14px;
 }
 
 .review-content  table.request-status td , .review-content  table.request-status th{
@@ -1854,6 +1855,103 @@ button.accordion-button.collapsed  .late-request-section {
   width: 16px;
   height: 12px;
 }
+.expand-request .review-content .short0ad {
+  padding: 4px 20px;
+}
+.review-content td p{
+  font-size: 14px;
+}
+.delivery-status button{
+ font-size: 14px;
+}
+.expand-request .delivery-status i {
+  color: #3FCE3C;
+  font-size: 17px;
+  background: #F2F2F2;
+  padding: 7px;
+  border-radius: 50%;
+}
+.expand-request .ready-to-delivery-section span.filename {
+  background: #56873F;
+}
+.expand-request  .ready-to-delivery-section .upload-zip-file span.filename{
+  background-color: #838383;
+}
+.progress_bar {
+  display: flex;
+  margin: 30px 0;
+  user-select: none;
+}
+.progress_bar .step {
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.progress_bar .step p {
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 8px;
+}
+.progress_bar .step .deliver-status{
+  height: 25px;
+  width: 25px;
+  border: 2px solid transparent;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 25px;
+}
+.progress_bar .step .deliver-status.delivery-cancel i{
+ color: #F92B34;
+}
+.progress_bar .step .deliver-status.delivery-check i{
+ color: #3FCE3C;
+}
+.progress_bar .step .deliver-status span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.progress_bar .step .deliver-status:before, .progress_bar .step .deliver-status:after {
+  position: absolute;
+  content: "";
+  bottom: 11px;
+  right: -99px;
+  height: 1px;
+  width: 93px;
+  background: #D2CECE;
+}
+.progress_bar .step:last-child .deliver-status::before, 
+.progress_bar .step:last-child .deliver-status:after{
+  display: none;
+}
+
+.progress_bar .step p{
+ margin-bottom: 0;
+}
+.progress_bar .step p.brief-date{
+  color:#838383;
+  font-size: 10px;
+  line-height: 12px;
+}
+.progress_bar .step p.brief-content{
+  font-size: 12px;
+}
+.progress_bar .step:first-child .deliver-status {
+  width: auto;
+  height: auto;
+}
+.progress_bar .step .deliver-status.delivery-request-count {
+  width: 90%;
+}
+.progress_bar .step .delivery-request-count span {
+  font-size: 12px;
+  width: 100%;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -2104,6 +2202,13 @@ button.accordion-button.collapsed  .late-request-section {
   }
   .designer-header {
     display: none;
+  }
+  .progress_bar {
+    display: flex;
+    overflow-x: scroll;
+  }
+  .progress_bar .step {
+    padding: 0 30px;
 }
 }
 
