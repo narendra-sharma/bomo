@@ -33,7 +33,7 @@ export const get_plans = async (dispatch) => {
 export const pay_now = async (uToken, token, data, dispatch) => {
   try {
     dispatch(start_loading());
-    const url = `${REACT_APP_BOMO_URL}stripe/subscribe/${token?.id?+token?.id:'default'}`;
+    const url = `${REACT_APP_BOMO_URL}stripe/subscribe/${token?.id?token?.id:'default'}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, data, headers);

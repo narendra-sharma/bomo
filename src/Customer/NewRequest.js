@@ -261,7 +261,17 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
       change_add_edit(dispatch);
     }
   }, [isAddEdit]);
-
+  const getNextBillingDate=()=>{
+    let date;
+    if(user && user?.next_billing_date){
+      const nextBillingDate = new Date(user?.next_billing_date);
+      if(user?.subscription.status==='paused'){
+        nextBillingDate.setDate(nextBillingDate.getDate() - 15);
+      }
+      date=nextBillingDate;
+    }
+    return format(new Date(date), 'MMM dd');
+  }
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -388,7 +398,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
                     <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} />
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
-                  <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on Nov 17</p>
+                  <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>
 
                 </div>
                 <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">

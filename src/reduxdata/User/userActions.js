@@ -95,6 +95,11 @@ export const set_user_type = (usertype) => {
 };
 
 export const set_update_user = (user) => {
+  if(user.subscription && user.subscription.length>0){
+    let sub=user.subscription.find(r=>r.type==='primary');
+    console.log(sub);
+    user.subscription=sub;
+  }
   localStorage.setItem("userDetails", JSON.stringify(user));
   return {
     type: USER_UPDATE,

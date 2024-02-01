@@ -23,14 +23,34 @@ const Subscription = ({ user }) => {
     const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
     return daysDifference;
   }
+  const getGraceTime = () => {
+    const now = new Date();
+    const nextBillingDate = new Date(user?.subscription?.next_billing_date);
+    const timeDifference = nextBillingDate.getTime() - now.getTime();
+    const daysDifference = (now===nextBillingDate)?Math.ceil(timeDifference / (1000 * 60 * 60 * 24)):0;
+    return daysDifference;
+  }
+  const getNextBillingDate=()=>{
+    let date;
+    if(user && user?.next_billing_date){
+      const nextBillingDate = new Date(user?.next_billing_date);
+      if(user?.subscription.status==='paused'){
+        nextBillingDate.setDate(nextBillingDate.getDate() - 15);
+      }
+      date=nextBillingDate;
+    }
+    return format(new Date(date), 'MMM dd');
+  }
   return (
     <>
       <div className=" ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          {isSubscribe && <>
+          {(isSubscribe || ((getGraceTime()>0) && user?.quantity)) && <>
             <div className="mx-md-3 mx-lg-5 mb-4 row">
-              <div className="offset-lg-3 col-lg-4 col-md-5">
-                <p className="mb-md-0 mb-3">{user?.subscription.status==='inactive'?'Your subscription will end in ':user?.subscription.status==='paused'? 'Your paused plan auto renews in ':'Your subscription plan auto renews in '} <span className="fw-bold">{getDifferece()} days</span> <span className="d-block">You have <span className="fw-bold">{user?.quantity} requests</span> left until {user && format(new Date(user?.next_billing_date), 'MMM dd')}</span></p></div>
+              <div className="offset-lg-1 col-lg-6 col-md-5">
+              {user?.subscription.status!=='active' && (getGraceTime()>0) &&  <p className="mb-md-0 mb-3">You have still grace period of <span className="fw-bold">{getGraceTime()>15?15:getGraceTime()} days</span> for remaining requests. </p>}
+                <p className="mb-md-0 mb-3">{user?.subscription.status==='inactive'?'Your subscription will end in ':user?.subscription.status==='paused'? 'Your paused plan auto renews in ':'Your subscription plan auto renews in '} <span className="fw-bold">{getDifferece()} days</span> <span className="d-block">You have <span className="fw-bold">{user?.quantity} requests</span> left until {getNextBillingDate()}</span></p>
+              </div>
               <div className="col-md-7 col-lg-5">
                 <NewRequestShared />
               </div>
