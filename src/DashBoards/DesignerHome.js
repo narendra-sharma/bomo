@@ -6,10 +6,11 @@ import { connect, useDispatch } from "react-redux";
 import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RequestBrief from "../Modals/RequestBrief";
 import EmptyList from "../Common/EmptyList";
 const DesignerHome = ({user, activerequest}) => {
+    const {acceptRequest} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests,setActiverequests] = useState([]);
@@ -18,13 +19,18 @@ const DesignerHome = ({user, activerequest}) => {
 
     useEffect(()=> {
         get_designer_active_requestslist(dispatch,user?.token);
-    },[dispatch]);
+    },[dispatch,user?.token]);
 
     useEffect(()=> {
         setActiverequests(activerequest)
     },[activerequest]);
 
-    const [showList, setShowList] = useState(true);
+    const [showList, setShowList] = useState(false);
+    useEffect(()=>{
+        if(acceptRequest===1){
+            setShowList(true);
+        }
+    },[acceptRequest]);
 
     const calculateTimeRemaining = (acceptanceTime, duration) => {
         const currentTime = new Date().getTime();

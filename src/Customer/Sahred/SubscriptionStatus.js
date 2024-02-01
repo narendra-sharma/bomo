@@ -20,7 +20,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
   const Status=()=>{
     return <>
       <b>{isSetting && 'Subscription'} Status</b>
-      <span className={`d-block  ${(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}`}>{(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}</span>
+      <span className={`d-block  ${(isSubscribe)?(user?.subscription[0]?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}`}>{(isSubscribe)?(user?.subscription?.status==='active'?'ACTIVE':'INACTIVE'):(user?.next_billing_date?'EXPIRED':'INACTIVE')}</span>
     </>
   }
   return (
@@ -37,7 +37,7 @@ const SubscriptionStatus = ({user,isSetting}) => {
         </div>
         {isSubscribe && (user?.subscription?.status !=='inactive') && <div className={`col-lg-6  ${isSetting && 'text-end'}`}>
           <div className="status-btn d-flex justify-content-end">
-            <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>{user?.subscription?.status==='paused'?'RESUME':'PAUSE'} </button>
+            <button className="btn border rounded-pill pause-btn" onClick={()=>setPause(true)}>{user?.subscription[0]?.status==='paused'?'RESUME':'PAUSE'} </button>
             <button className="btn border rounded-pill cancel-btn" onClick={()=>setCancel(true)}>CANCEL</button>
           </div>
         </div>}
