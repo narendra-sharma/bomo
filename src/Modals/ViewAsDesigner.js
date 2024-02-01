@@ -9,6 +9,7 @@ import { connect, useDispatch } from "react-redux";
 
 const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
     const dispatch = useDispatch();
+    console.log(designerdata);
     useEffect(()=>{
         if(view?._id){
             get_single_designer_details(dispatch, view._id, user?.token);
@@ -143,25 +144,25 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                                     <p className="text-dark fw-bold">Bio</p>
                                 </div>
                                 <div className="col-md-9 col-lg-9">
-                                    <p className="text-mute">Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, turpis nibh etiam per hendrerit nisi mauris duis, nisl lacus massa consequat porttitor fringilla convallis</p>
+                                    <p className="text-mute">{designerdata?.designer_detail?.bio}</p>
                                 </div>
                                 <div className="col-md-3 col-lg-3">
                                     <p className="text-dark">Website</p>
                                 </div>
                                 <div className="col-md-9 col-lg-9">
-                                    <p className=""><Link className="text-decoration-none">Lorem ipsum</Link> </p>
+                                    <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.website}</Link> </p>
                                 </div>
                                 <div className="col-md-3 col-lg-3">
                                     <p className="text-dark">Instagram</p>
                                 </div>
                                 <div className="col-md-9 col-lg-9">
-                                    <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                                    <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.instagram}</Link></p>
                                 </div>
                                 <div className="col-md-3 col-lg-3">
                                     <p className="text-dark">Behance</p>
                                 </div>
                                 <div className="col-md-9 col-lg-9">
-                                    <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                                    <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.behance}</Link></p>
                                 </div>
                             </div>
                         </div>

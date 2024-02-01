@@ -185,7 +185,7 @@ export const desginer_accept_assignrequest = async (dispatch,token,request_id,em
     const res = await axios.put(url,{}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      dispatch({ type: GET_DESIGNER_ASSIGNED_REQUEST_LIST, payload: res.data });
+      get_designer_assigned_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }

@@ -33,7 +33,7 @@ const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
                             <div className="ms-4 mb-3">
                                 <h5>Requests For Acceptance</h5>
                             </div>
-                            {assignedRequest?.length > 0 ? assignedRequest?.map((request, index) => (
+                            {assignedRequest?.length ? assignedRequest?.map((request, index) => (
                                 <div className="table-responsive rounded mt-4">
                                     <table className="table table-borderless mb-0" key={index}>
                                         <tbody>
