@@ -37,6 +37,7 @@ import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
 import CalculatorShared from "./CalculatorShared";
 import { get_user_subscription } from "./reduxdata/rootAction";
 import DelieverRequest from "./Designer/DelieverRequest";
+import DesignerRequest from "./Customer/Requests/DesignerRequest";
 
 function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
@@ -117,6 +118,7 @@ function App({ user }) {
       { path: "/update-password", element: <Updatepassword /> },
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/deleiver-request", element: <DelieverRequest /> },
+      { path: "/acceptance-request", element: <DesignerRequest /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);
   return (

@@ -19,6 +19,7 @@ const DelieverRequest = ({ requestData, user }) => {
     });
     const [show,setShow]=useState(false);
     const [deliverdetail,setDeliverdetail]=useState();
+    const [data,setData]=useState();
     const handleInputChange = async (e) => {
         const { name, files } = e.target;
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
@@ -92,7 +93,6 @@ const DelieverRequest = ({ requestData, user }) => {
             };
             setDeliverdetail(delieverData);
             setShow(true);
-            // designer_deliever_request(dispatch,user?.token,delieverData,navigate);
     };
 
     const formatTime = (timeRemaining) => {
@@ -208,7 +208,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                         </div>
                                     </div>
                                     <div className="col-md-3">
-                                        <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => handleDeliver(e)}>DELIVERY NOW</button> </div>
+                                        <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => {handleDeliver(e);setData(requestData);}}>DELIVERY NOW</button> </div>
                                     </div>  
 
                                 </div>
@@ -218,7 +218,7 @@ const DelieverRequest = ({ requestData, user }) => {
                         </div>
                     </div>
                 </div>
-                <DeliverNow show={show} handleClose={() => setShow(false)} detail={deliverdetail} />
+                <DeliverNow show={show} handleClose={() => setShow(false)} detail={deliverdetail} currentdata={data}/>
             </div>
         </>
     )
