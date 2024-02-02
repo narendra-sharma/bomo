@@ -1,17 +1,18 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap';
 import pay_success from '../images/pay_success.png';
+import { connect } from 'react-redux';
 
-const DeliverSuccess = ({show,handleClose}) => {
+const DeliverSuccess = ({show,handleClose,data,user}) => {
     return (
-        <Modal show={show}>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Body>
             <div className="px-4 py-4">
                     <div className="d-flex align-items-center justify-content-end mb-3">
                         <img src={pay_success} alt='img not found' />
                     </div>
-                    <h5 className="mb-0 fw-bold text-dark">,you succesfully created</h5>
-                    <h6 className="mb-5 text-dark"></h6>
+                    <h5 className="mb-0 fw-bold text-dark">{user?.name},you succesfully delivered</h5>
+                    <h6 className="mb-5 text-dark">{data?.request_name}</h6>
                     <p className="text-mute">
                         We are reviewing the assests,
                         <br />
@@ -23,4 +24,10 @@ const DeliverSuccess = ({show,handleClose}) => {
     )
 };
 
-export default DeliverSuccess;
+const mapStateToProps = (state) => {
+    return {
+      user: state.auth.user
+    };
+  };
+  
+export default connect(mapStateToProps)(DeliverSuccess);

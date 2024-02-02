@@ -5,6 +5,7 @@ import { connect, useDispatch } from "react-redux";
 
 
 const EditDesignerBio = ({ data, show, handleClose, user }) => {
+    console.log(data);
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         bio: '',
@@ -47,15 +48,15 @@ const EditDesignerBio = ({ data, show, handleClose, user }) => {
     }
 
     useEffect(()=> {
-        if(user){
+        if(data){
             setFormData({
-                bio: user?.bio,
-                website: user?.website,
-                instagram: user?.instagram,
-                behance: user?.behance, 
+                bio: data?.bio,
+                website: data?.website,
+                instagram: data?.instagram,
+                behance: data?.behance, 
             })
         };
-    },[user]);
+    },[data]);
 
     useEffect(() => {
         return () => {

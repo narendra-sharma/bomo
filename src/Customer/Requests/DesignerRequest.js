@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import { connect, useDispatch } from "react-redux";
-import { desginer_accept_assignrequest, get_designer_assigned_requestlist } from "../reduxdata/rootAction";
-import EmptyList from "../Common/EmptyList";
-import ColorCode from "../Common/ColorCode";
-import { format } from "date-fns";
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import EmptyList from '../../Common/EmptyList';
+import ColorCode from '../../Common/ColorCode';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { desginer_accept_assignrequest, get_designer_assigned_requestlist } from '../../reduxdata/rootAction';
+import { connect } from 'react-redux';
+import { format } from 'date-fns';
 
-const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
+const DesignerRequest = ({designerassignedrequests, user}) => {
     const dispatch = useDispatch();
     const [assignedRequest, setAssignedRequest] = useState([]);
 
@@ -25,11 +28,8 @@ const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
       
       desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id);
     };
-
     return (
-        <Modal show={show} onHide={handleClose} size="lg">
-            <Modal.Body>
-                <div className="col-12">
+        <div className="col-12 mt-6">
                     <div className="designer-active-request bg-white px-5 px-md-4 py-5 rounded">
                         <div className="mb-4">
                             <div className="ms-4 mb-3">
@@ -56,13 +56,6 @@ const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
                         </div>
                     </div>
                 </div>
-                <div className="text-end">
-                    <Button variant="secondary" className="rounded-pill px-4" onClick={() => handleClose()}>
-                        Close
-                    </Button>
-                </div>
-            </Modal.Body>
-        </Modal>
     )
 }
 
@@ -72,5 +65,4 @@ const mapStateToProps = (state) => {
         designerassignedrequests: state.requests.designerassignedrequests,
     };
 };
-export default connect(mapStateToProps)(RequestJobs);
-
+export default connect(mapStateToProps)(DesignerRequest);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import PollRequests from "../Customer/Requests/PollRequests";
-import RequestJobs from "../Modals/RequestJobs";
 import { connect, useDispatch } from "react-redux";
 import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
@@ -9,7 +8,7 @@ import { format } from "date-fns";
 import { useNavigate, useParams } from "react-router-dom";
 import RequestBrief from "../Modals/RequestBrief";
 import EmptyList from "../Common/EmptyList";
-const DesignerHome = ({user, activerequest}) => {
+const DesignerHome = ({user, activerequest, pollrequests}) => {
     const {acceptRequest} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,10 +24,9 @@ const DesignerHome = ({user, activerequest}) => {
         setActiverequests(activerequest)
     },[activerequest]);
 
-    const [showList, setShowList] = useState(false);
     useEffect(()=>{
         if(acceptRequest===1){
-            setShowList(true);
+          navigate('/acceptance-request');
         }
     },[acceptRequest]);
 
@@ -102,7 +100,7 @@ const DesignerHome = ({user, activerequest}) => {
                     </div>
                     <div className="mt-5">
                         <div className="mx-md-5 mx-sm-0 mb-4 d-flex"><h3 >Requests Poll</h3>
-                            <span>84 active requests</span>
+                            <span>{pollrequests?.length} requests</span>
                         </div>
 
                         <div className="poll-request-section">
@@ -113,7 +111,6 @@ const DesignerHome = ({user, activerequest}) => {
                     </div>
                 </div>
             </div>
-            <RequestJobs show={showList} handleClose={() =>  setShowList(false)} />
             <RequestBrief data={selectedData} show={istoggle} handleClose={() => setIstoggle(false)} />
         </div>
     )
@@ -123,6 +120,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         activerequest: state.requests.activerequest,
+        pollrequests: state.requests.pollrequests,
     };
 };
 
