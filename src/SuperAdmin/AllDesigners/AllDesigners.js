@@ -18,7 +18,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
-        <div className="main-content-wraaper admin-payments px-60 py-md-2 py-lg-3">
+        <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
           <h3 className="fw-bold mb-3">Designers</h3>
           {/* <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#view-design-popup">view all customer</button> */}
           <SearchInput placeholder="Browse Designers..." handleSearch={(val) => setSearch(val)} />

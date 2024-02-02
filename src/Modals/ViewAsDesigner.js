@@ -30,7 +30,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                     </div>
                     <div className="row mx-auto justify-content-center">
                         <div className="active-request-section d-flex flex-column rounded mb-4">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Active Requests</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.active_requests}</h2>
@@ -38,7 +38,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Total Paid</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">${designerdata?.total_paid}</h2>
@@ -46,7 +46,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Pending to be Paid</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-dark mb-0">${designerdata?.pending_to_be_paid}</h2>
@@ -54,7 +54,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Number of Requests Failed</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.number_of_requests_failed}</h2>
@@ -64,7 +64,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                     </div>
                     <div className="row">
                         <div className="active-request-section d-flex flex-column rounded mb-4 col-md-2">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Number of Applications</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.number_of_applications}</h2>
@@ -72,7 +72,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4 col-md-2">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Number of Assigned Requests</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.number_of_assigned_requests}</h2>
@@ -80,7 +80,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4 col-md-2">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Number of Requests Delievered</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-dark mb-0">{designerdata?.number_of_requests_delivered}</h2>
@@ -88,7 +88,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4 col-md-2">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">% Reviews Requested</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.percentage_reviews_requested}%</h2>
@@ -96,7 +96,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             </div>
                         </div>
                         <div className="active-request-section d-flex flex-column rounded mb-4 col-md-2">
-                            <div className="bg-white p-2 rounded">
+                            <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                                 <p className="fw-bold">Average Req Completion Time</p>
                                 <div className="monthly-revenue-price text-center py-4">
                                     <h2 className="text-muted mb-0">{designerdata?.avg_req_completion_time} hours</h2>

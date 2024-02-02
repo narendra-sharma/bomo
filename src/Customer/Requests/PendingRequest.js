@@ -17,7 +17,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
       <h3 className="mb-3">Pending Requests</h3>
       <div className="col-md-12">
         <div className="col-md-12">
-          <div className="review-content py-3 px-4 rounded mt-4">
+          <div className="review-content pending-request rounded mt-4">
             {(allRequest.length>0) ?
               allRequest.map((item, index) => {
                 return (
@@ -63,7 +63,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                           </td>
                           <td>
                             <button
-                              className="btn btn-success w-full h-25"
+                              className="btn btn-outline-dark w-full h-25 rounded-pill"
                               onClick={() => setshowAcceptModal(item?._id)}
                             >
                               Accept Request
