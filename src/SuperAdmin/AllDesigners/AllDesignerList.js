@@ -17,12 +17,13 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
       <h3 className="mb-0 counter-number d-flex align-items-center ">{total > 0 && <span className="bg-white rounded-circle  mr-2">{total}</span>}Designers</h3>
       <p className="mb-0 ms-2">{active ? 'Active this month' : 'Haven’t been active this month'}</p>
     </div>
-
-    {(users.length > 0) ? users.map(item => <div key={item?._id} className="table-responsive designer-table bg-white rounded p-3 mb-3">
+    <div  className="table-responsive designer-table mb-3">
       <table className="table table-borderless mb-0">
         <tbody>
-          <tr>
-            <td>
+    {(users.length > 0) ? users.map(item => 
+
+          <tr key={item?._id}> 
+            <td >
               <p>
                 <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => { setView(item); setShow(true); }}>View as designer</button>
               </p>
@@ -34,10 +35,11 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
             <td><p><span className="fw-bold">Completed Requests</span> <span className="d-block">44</span></p></td>
             <td><p><span>expand</span></p></td>
           </tr>
-        </tbody>
-      </table>
-    </div>)
+        )
       : <EmptyList name="Designers" />}
+      </tbody>
+      </table>
+    </div>
 
     <div className="review-content add-member px-4 py-2 rounded mb-3">
       {total > 0 && (

@@ -105,7 +105,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
 
           <div className="row justify-content-center">
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Active Request</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -115,7 +115,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Remainig This Period</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -125,7 +125,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Request Booked/Month</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-dark mb-0">
@@ -135,7 +135,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Request in Feedback Queue</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -145,7 +145,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Drafts</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -155,7 +155,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Number of Requests Done</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -165,7 +165,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Number of Requests Finished</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -175,7 +175,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Number of Reviews Requested</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -185,7 +185,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Avg Req Completion Time</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -195,7 +195,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Months Subscribed</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
@@ -209,7 +209,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
               </div>
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
-              <div className="bg-white p-2 rounded">
+              <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
                 <p className="fw-bold">Total paid to Bomo</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">

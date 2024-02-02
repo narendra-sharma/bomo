@@ -34,7 +34,7 @@ const ColorCode = ({ request, requestTypes }) => {
               isHovered === request?._id
                 ? findColorByType(request?.request_type?.replace(/_/g, " "))
                 : "white",
-            border: `2px solid ${findColorByType(
+            border: `1px solid ${findColorByType(
               request?.request_type?.replace(/_/g, " ")
             )}`,
           }}

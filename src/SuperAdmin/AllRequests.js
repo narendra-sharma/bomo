@@ -131,7 +131,7 @@ const AllRequests = ({ user }) => {
                   <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingOne">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        <span className="mb-4 d-block">Active Requests</span>
+                        <span className="mb-4 d-inline-block position-relative">Active Requests</span>
                          <div className="late-request-section">
                         <div className="light-gray py-3 px-4 rounded d-flex mb-3">
                           <p className="request-status fw-bold mb-0">4 Request</p>
@@ -520,7 +520,7 @@ const AllRequests = ({ user }) => {
               <div class="accordion-item mb-5">
                 <h3 class="accordion-header" id="panelsStayOpen-headingTwo">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                  <span className="mb-4 d-block">Ready to Review Request</span>
+                  <span className="mb-4 d-inline-block position-relative">Ready to Review Request</span>
                   </button>
                 </h3>
                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -712,7 +712,7 @@ const AllRequests = ({ user }) => {
                   <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingThree">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                          <span className="mb-4 d-block">Active Requests</span>
+                          <span className="mb-4 d-inline-block position-relative">Active Requests</span>
                             <div className="late-request-section">
                           <div className="light-gray py-3 px-4 rounded d-flex mb-3">
                             <p className="request-status fw-bold mb-0">4 Request</p>

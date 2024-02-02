@@ -20,7 +20,7 @@ const AllCustomers = ({ user, users, total }) => {
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
-        <div className="main-content-wraaper admin-payments px-60 py-md-2 py-lg-3">
+        <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
           <h3 className="fw-bold mb-3">Customers</h3>
           <SearchInput
             placeholder="Browse Customers..."
@@ -28,85 +28,85 @@ const AllCustomers = ({ user, users, total }) => {
           />
           <div className="mt-5 review-main-content">
             <div className="review-content mb-4">
-              {users.length > 0 ? (
-                users.map((item) => (
-                  <div
-                    key={item?._id}
-                    className="table-responsive bg-white rounded p-3 mb-3"
-                  >
-                    <table className="table table-borderless mb-0">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <p>
-                              <button
-                                className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark"
-                                onClick={() => {
-                                  setView(item);
-                                  setShow(true);
-                                }}
-                              >
-                                view all customer
-                              </button>
-                            </p>
-                          </td>
-                          <td>
-                            <p className="fw-bold">{item?.company}</p>
-                          </td>
-                          <td>
-                            <p className="fw-bold color-light-blue">
-                              2 ACTIVE Requests
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span className="fw-bold">Date added</span>{" "}
-                              <span className="d-block">
-                                {item?.createdAt &&
-                                  format(
-                                    new Date(item?.createdAt),
-                                    "dd/MM/yyyy"
-                                  )}
-                              </span>
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span className="fw-bold">Contact </span>{" "}
-                              <span className="d-block">{item?.email}</span>
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span className="fw-bold">Monthly Requests</span>{" "}
-                              <span className="d-block">2</span>
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span className="fw-bold">Total Admins</span>{" "}
-                              <span className="d-block">2</span>
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span className="fw-bold">Members</span>{" "}
-                              <span className="d-block">6</span>
-                            </p>
-                          </td>
-                          <td>
-                            <p>
-                              <span>expand</span>
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                ))
-              ) : (
-                <EmptyList name="Customers" />
-              )}
+            <div className="table-responsive" >
+              <table className="table table-borderless mb-0">
+                  <tbody>
+                    {users.length > 0 ? (
+                      users.map((item) => (
+                      
+                              <tr key={item?._id}>
+                                <td>
+                                  <p>
+                                    <button
+                                      className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark"
+                                      onClick={() => {
+                                        setView(item);
+                                        setShow(true);
+                                      }}
+                                    >
+                                      view all customer
+                                    </button>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p className="fw-bold">{item?.company}</p>
+                                </td>
+                                <td>
+                                  <p className="fw-bold color-light-blue">
+                                    2 ACTIVE Requests
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span className="fw-bold">Date added</span>{" "}
+                                    <span className="d-block">
+                                      {item?.createdAt &&
+                                        format(
+                                          new Date(item?.createdAt),
+                                          "dd/MM/yyyy"
+                                        )}
+                                    </span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span className="fw-bold">Contact </span>{" "}
+                                    <span className="d-block">{item?.email}</span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span className="fw-bold">Monthly Requests</span>{" "}
+                                    <span className="d-block">2</span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span className="fw-bold">Total Admins</span>{" "}
+                                    <span className="d-block">2</span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span className="fw-bold">Members</span>{" "}
+                                    <span className="d-block">6</span>
+                                  </p>
+                                </td>
+                                <td>
+                                  <p>
+                                    <span>expand</span>
+                                  </p>
+                                </td>
+                              </tr>
+                            
+                      ))
+                    ) : (
+                      <EmptyList name="Customers" />
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
               <div className="review-content add-member px-4 py-2 rounded mb-3">
                 {total > 0 && (
                   <CustomPagination
