@@ -19,7 +19,7 @@ const DesignerHome = ({user, activerequest}) => {
 
     useEffect(()=> {
         get_designer_active_requestslist(dispatch,user?.token);
-    },[dispatch,user?.token]);
+    },[]);
 
     useEffect(()=> {
         setActiverequests(activerequest)

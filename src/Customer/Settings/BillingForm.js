@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import BillingInfo from "../Sahred/BillingInfo";
 import { edit_billing_info } from "../../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
+import EditBillData from "../../Modals/EditBillData";
 const BillingForm = ({user}) => {
   const dispatch=useDispatch();
   const [card, setCard] = useState({
@@ -36,7 +37,8 @@ const BillingForm = ({user}) => {
         vatNumber:user?.address?user?.address?.vatNumber:''
       })
     }
-  },[user?.address])
+  },[user?.address]);
+  const[show,setShow]=useState(false);
   const handleCardElementChange = (event, label) => {
     console.log(event,label);
     setCard((prev) => ({...prev,[label]:event}));
@@ -58,7 +60,11 @@ const BillingForm = ({user}) => {
     if (checkAllErrors()) {
       return;
     }
+    setShow(true);
+  };
+  const handleConfirm = () => {
     edit_billing_info(user?.role,user?.token,user?.address?._id,card,dispatch);
+    setShow(false);
   };
   return (
     <>
@@ -77,6 +83,7 @@ const BillingForm = ({user}) => {
           </div>
         </form>
       </div>
+      <EditBillData show={show} handleClose={() => setShow(false)} onConfirm={handleConfirm}/>
     </>
   )
 }

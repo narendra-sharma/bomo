@@ -11,8 +11,10 @@ const RequestJobs = ({ show, handleClose, designerassignedrequests, user }) => {
     const [assignedRequest, setAssignedRequest] = useState([]);
 
     useEffect(() => {
+      if(user?.token){
         get_designer_assigned_requestlist(dispatch, user?.token);
-    }, [dispatch]);
+      };
+    }, [dispatch,user?.token]);
 
     useEffect(() => {
         setAssignedRequest(designerassignedrequests);

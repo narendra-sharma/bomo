@@ -105,14 +105,14 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
         } else if (!allowedFileTypes.includes(Fileupload.type)) {
           setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else {
+        } else if (allowedFileTypes.includes(Fileupload.type)) {
+          fileInputRef.current.click();
+          setFormData({
+            ...formData, uploadFiles: Fileupload,
+          });
+          setImagePreview(URL.createObjectURL(Fileupload));
           setErrors({ ...errors, uploadFiles: '' });
         }
-        fileInputRef.current.click();
-        setFormData({
-          ...formData, uploadFiles: Fileupload,
-        });
-        setImagePreview(URL.createObjectURL(Fileupload));
         break;
 
       default:

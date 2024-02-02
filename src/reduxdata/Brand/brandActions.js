@@ -14,6 +14,7 @@ export const getbrandlist = async (dispatch, token, page=1, limit=10) => {
       }
     }
     const res = await axios.get(url, HEADERS);
+    console.log(res.data);
     if (res.data && res.data.status) {
       dispatch({ type: BRAND_LIST, payload: res.data });
     } else {
@@ -47,7 +48,7 @@ export const uploadZip = async (zipFile, dispatch) => {
   } finally {
     dispatch(stop_loading());
   }
-}
+};
 
 export const addBrand = async (branddata, dispatch, token) => {
   dispatch(start_loading());

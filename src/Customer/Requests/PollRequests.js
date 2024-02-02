@@ -37,8 +37,8 @@ const PollRequests = ({ user, pollrequests }) => {
     };
 
     useEffect(() => {
-        get_designer_pool_requestlist(dispatch, user?.token);
-    }, [dispatch, user?.token]);
+            get_designer_pool_requestlist(dispatch, user?.token);
+    }, []);
 
     return (
         <>
