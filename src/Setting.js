@@ -34,7 +34,7 @@ const Setting = ({ userrole,profiledetails}) => {
 
   useEffect(() => {
     get_user_profile_details(user?.token,dispatch);
-  },[]);
+  },[dispatch,user?.token]);
   
   return (
     <>
@@ -123,7 +123,7 @@ const Setting = ({ userrole,profiledetails}) => {
               </div>
               <div className="col-md-7 col-lg-7">
                 <p className="fw-bold">REEL</p>
-                <img src={reelImage} />
+                <img src={reelImage} alt="imag"/>
               </div>
               <div className="col-md-5 col-lg-5">
                 <div className="row reel-data review-content">

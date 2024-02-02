@@ -18,6 +18,7 @@ export const catch_errors_handle = (error,dispatch) => {
     }
   } else {
     toast.error(error.message);
+    console.log(error);
   }
 };
 
@@ -95,9 +96,8 @@ export const set_user_type = (usertype) => {
 };
 
 export const set_update_user = (user) => {
-  if(user.subscription && user.subscription.length>0){
-    let sub=user.subscription.find(r=>r.type==='primary');
-    console.log(sub);
+  if(user?.subscription && user?.subscription?.length>0){
+    let sub=user?.subscription?.find(r=>r.type==='primary');
     user.subscription=sub;
   }
   localStorage.setItem("userDetails", JSON.stringify(user));
@@ -311,6 +311,7 @@ export const get_user_profile_details = async (token, dispatch) => {
     }
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch));
+    console.log(error);
   } finally {
     dispatch(stop_loading());
   }

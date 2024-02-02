@@ -209,7 +209,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                     </div>
                                     <div className="col-md-3">
                                         <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => handleDeliver(e)}>DELIVERY NOW</button> </div>
-                                    </div>
+                                    </div>  
 
                                 </div>
 

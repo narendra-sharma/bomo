@@ -8,13 +8,14 @@ import ColorCode from "../Common/ColorCode";
 import { format } from 'date-fns';
 import FeedBackRequest from "../Customer/Requests/FeedBackRequest";
 import ReviewRequest from "../Customer/Requests/ReviewRequest";
+import EmptyList from "../Common/EmptyList";
 
 const CustomerHome = ({ activerequest, user }) => {
   const dispatch = useDispatch();
   const [activerequests, setActiverequests] = useState([]);
   useEffect(() => {
     get_customeradmin_active_requestslist(dispatch, user?.token);
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     setActiverequests(activerequest);
@@ -40,7 +41,7 @@ const CustomerHome = ({ activerequest, user }) => {
 
               <div className="review-content bg-white px-3 py-5 rounded">
                 <div className="table-responsive">
-                  {activerequests?.map((request) => (
+                  {activerequests.length>0 ? activerequests?.map((request) => (
                     <table className="table table-borderless">
                       <tbody>
                         <tr>
@@ -54,7 +55,7 @@ const CustomerHome = ({ activerequest, user }) => {
                         </tr>
                       </tbody>
                     </table>
-                  ))}
+                  )): (<EmptyList name="Active Request"/>)}
                 </div>
               </div>
             </div>

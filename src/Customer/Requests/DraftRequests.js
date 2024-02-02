@@ -12,8 +12,8 @@ const DraftRequests = ({ draftrequests,  user, total }) => {
   const [limit, setLimit] = useState(10);
   
   useEffect(() => {
-    get_draft_requestlist(dispatch, user?.token, page, limit);
-  }, [dispatch, user?.token, page, limit]);
+      get_draft_requestlist(dispatch, user?.token, page, limit);
+  }, []);
     return (
         <>
          <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
