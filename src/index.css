@@ -1049,7 +1049,7 @@ select.form-control {
   transition: .2s ease-in-out;
 }
 .new-request{
-  background-color: var(--gray);
+  background-color: var(--gray-light);
   transition: .2s ease-in-out;
 }
 .request-content:hover .new-request{
@@ -1232,11 +1232,13 @@ ul.designer-list li{
   margin-bottom: 0;
 }
 .add-brand-profile .upload-zip button {
-  font-size: 12px;
+  font-size: 13px;
   display: block;
-  border: solid 1px #838383;
+  border: none;
   background: #fff;
-  padding: 2px 30px;
+  padding: 4px 30px;
+  border-radius: 30px;
+  font-weight: 500;
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
@@ -1463,7 +1465,7 @@ ul.designer-list li{
   font-family: var(--secondary-font);
 }
 .spinner-container .loading-spinner{
-  border-top: 10px solid var(--dark-green);
+  border-top: 10px solid #000;
 }
 .add-member-count{
   padding: 15px 20px;

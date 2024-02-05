@@ -49,7 +49,7 @@ const Setting = ({ userrole,profiledetails}) => {
               <h3>Settings</h3>
             </div>
             {((userrole === 'customer_admin') && isSubscribe) && <div className="d-flex justify-content-between align-item-center mb-5 rounded ps-5 px-4 py-4 subscribers">
-              <h5><strong>Subscribed for {user?.subscription?.quantity} pieces /month</strong></h5>
+              <h5 className="mb-0"><strong>Subscribed for {user?.subscription?.quantity} pieces /month</strong></h5>
               <div><Link to="/subscription" className="text-dark text-decoration-none">Modify my Subscription</Link></div>
             </div>}
           </div>
