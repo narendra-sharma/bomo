@@ -8,6 +8,7 @@ import Logout from "./Modals/Logout";
 const Sidebar = () => {
   const userrole = useSelector((state) => state.auth.role || "");
   const user = useSelector((state) => state.auth.user || "");
+  const isPay = useSelector((state) => state.plan.isPay);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,14 +24,14 @@ const Sidebar = () => {
   const getSubscription=async()=>{
     await isSubscription(user).then(r=>{
       if(!r && (userrole === 'customer_admin')){
-        navigate('/setting');
+        navigate('/settings');
       }
       setIsSubscribe(r);
     });
   };
   useEffect(() => {
     getSubscription();
-  }, []);
+  }, [user]);
   useEffect(() => {
     let list = [];
     if (userrole === "customer_admin") {
@@ -69,7 +70,7 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = ((userrole === 'customer_admin') && !isSubscribe)?'/setting':((n - time) < 1500) ? localStorage.getItem('path') : '/';
+    location.pathname = (((userrole === 'customer_admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 1500) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole, isSubscribe]);
 
@@ -102,10 +103,10 @@ const Sidebar = () => {
         </div>
         <div className="list-group">
           <Link
-            to="/setting"
+            to="/settings"
             className={
               "list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center " +
-              (location.pathname === "/setting" && "active")
+              (location.pathname === "/settings" && "active")
             }
           >
             <span className="ml-2">Settings</span>

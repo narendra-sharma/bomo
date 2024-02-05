@@ -265,9 +265,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
     let date;
     if(user && user?.next_billing_date){
       const nextBillingDate = new Date(user?.next_billing_date);
-      if(user?.subscription.status==='paused'){
-        nextBillingDate.setDate(nextBillingDate.getDate() - 15);
-      }
       date=nextBillingDate;
     }
     return format(new Date(date), 'MMM dd');

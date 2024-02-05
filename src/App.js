@@ -107,7 +107,7 @@ function App({ user }) {
       { path: "/subscription", element: <Subscription /> },
       { path: "/members", element: <Members /> },
       { path: "/user-profile", element: <Profile /> },
-      { path: "/setting", element: <Setting /> },
+      { path: "/settings", element: <Setting /> },
       { path: "/all-Customers", element: <AllCustomers /> },
       { path: "/all-Designers", element: <AllDesigners /> },
       { path: "/all-requests", element: <AllRequests /> },

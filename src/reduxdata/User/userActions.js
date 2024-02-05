@@ -184,8 +184,8 @@ export const update_password = async (
       HEADERS
     );
     if (res.data && res.data.status) {
-      toast.success("Successfully Change password!");
-      navigate("/setting");
+      toast.success("Password changed successfully.");
+      navigate("/settings");
     } else {
       toast.error(res.data.message);
     }
@@ -206,7 +206,7 @@ export const profile_update = async (data, token, dispatch) => {
     };
     const res = await axios.post(url, { name: data.name }, HEADERS);
     if (res.data && res.data.status) {
-      toast.success("Successfully Update Profile!");
+      toast.success("Profile updated successfully.");
       dispatch(set_update_user({...res.data.data,token:token}));
     } else {
       toast.error(res.data.message);
