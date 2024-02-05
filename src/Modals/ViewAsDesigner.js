@@ -9,7 +9,6 @@ import { connect, useDispatch } from "react-redux";
 
 const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
     const dispatch = useDispatch();
-    console.log(designerdata);
     useEffect(()=>{
         if(view?._id){
             get_single_designer_details(dispatch, view._id, user?.token);

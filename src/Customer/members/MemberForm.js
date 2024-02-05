@@ -11,7 +11,6 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
     name: "",
     role: "",
     email: "",
-    password: "",
     colour: "#111111",
   };
   const [formData, setformData] = useState(initialFormData);
@@ -19,7 +18,6 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
-    password: "",
     role: ""
   });
 
@@ -31,7 +29,6 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
         name: "",
         role: "",
         email: "",
-        password: "",
         colour: "#111111",
       });
       setShowAddComp();
@@ -44,7 +41,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
     setformData((prev) => ({...prev,[label]:value}));
     if(!value && (label!=='colour') && (label!=='role') ){
       setErrors((prevErrors) => ({ ...prevErrors,[label]:'required'}))
-    }else if(((label==='email') && (!emailRegex.test(value)))  || ((label==='password') && (value.length < 5))){
+    }else if(((label==='email') && (!emailRegex.test(value)))){
       setErrors((prevErrors) => ({ ...prevErrors,[label]:(label==='email')?'invalid':'minLength'}))
     }else if (!value && (label === "role")) {
       setErrors((prevErrors) => ({ ...prevErrors, [label]: "required" }));
@@ -60,7 +57,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
       if(!value && (key!=='colour') && (key!=='role') ){
         err=true;
         setErrors((prevErrors) => ({ ...prevErrors,[key]:'required'}))
-      }else if(((key==='email') && (!emailRegex.test(value)))  || ((key==='password') && (value.length < 5))){
+      }else if(((key==='email') && (!emailRegex.test(value)))){
         err=true;
         setErrors((prevErrors) => ({ ...prevErrors,[key]:(key==='email')?'invalid':'minLength'}))
       }
@@ -166,38 +163,6 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                   {errors.email==='required'?'Email is required':'Email is invalid'}
                 </p>
               )}
-            </td>
-            <td>
-              <p className="mb-0 user-email">
-                <b>Password<span className="text-danger">*</span></b>
-              </p>
-              <div className="">
-              <div className="position-relative">
-                <input
-                  type={showPass ? "text" : "password"}
-                  className="formcontrol"
-                  name="password"
-                  value={formData.password}
-                  onChange={(e) => handleChange("password", e.target.value)}
-                />
-
-                <div
-                  className="eye-btn"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setshowPass((prev) => !prev)}
-                >
-                  {!showPass ? <FaEye color="black" size={20} /> : <FaEyeSlash />}
-                </div>
-                </div>
-                {errors.password && (
-                  <p
-                    className="d-block error-msg mt-1"
-                    
-                  >
-                    {errors.password==='required'?'Password is required':'Password length should be more than 5 characters'}
-                  </p>
-                )}
-              </div>
             </td>
             
             <td className="vertical-middle">

@@ -40,20 +40,20 @@ export const get_all_members = async (
 };
 
 // add a new memeber
-export const add_new_member = async (dispatch, userData, token, id, role) => {
+export const add_new_member = async (dispatch, userData, token, memberdata) => {
   dispatch(start_loading);
   const headers = {
     headers: {
       "x-access-token": token,
     },
   };
-  const url = id
+  const url = memberdata?.id
     ? `${REACT_APP_BOMO_URL}customer/edit`
     : `${REACT_APP_BOMO_URL}customer/add-member`;
   try {
-    const res = !id
+    const res = !memberdata?.id
       ? await axios.post(url, userData, headers)
-      : await axios.post(url, { customer_id: id, role: role }, headers);
+      : await axios.post(url, { customer_id: memberdata?.id, role: memberdata?.role, name:memberdata?.name, colour: memberdata?.colour, email: memberdata?.email }, headers);
     if (res?.data?.status) {
       toast.success(res.data?.message);
       get_all_members(dispatch, token);

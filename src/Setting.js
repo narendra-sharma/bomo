@@ -33,8 +33,10 @@ const Setting = ({ userrole,profiledetails}) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    get_user_profile_details(user?.token,dispatch);
-  },[dispatch,user?.token]);
+    if(userrole === 'Designer'){
+      get_user_profile_details(user?.token,dispatch);
+    }
+  },[userrole, dispatch,user?.token]);
   
   return (
     <>
@@ -115,7 +117,7 @@ const Setting = ({ userrole,profiledetails}) => {
           </div>
             : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
           }
-          {(userrole !== 'Designer') ? <div></div> : <>
+          {(userrole === 'Designer') ? <>
 
             <div className="row review-main-content g-0 bg-white px-4 px-md-3 py-4 align-items-center rounded">
               <div className="text-end">
@@ -159,7 +161,7 @@ const Setting = ({ userrole,profiledetails}) => {
                 <BillingForm user={user} />
               </div>
             </div>
-          </>}
+          </> :<div></div>}
           {((userrole === 'Designer') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1" onClick={() => setShow(true)}>Delete account</button>
           </div>}
