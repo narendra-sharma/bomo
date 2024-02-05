@@ -62,25 +62,30 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
       case 'brandassests':
         const brandAssetsFile = files[0];
+        console.log(brandAssetsFile?.name);
         if (brandAssetsFile === undefined) {
           setErrors({ ...errors, brandassests: 'Upload your zip file' });
-        } else if (brandAssetsFile.type !== 'application/zip') {
-          setErrors({ ...errors, brandassests: 'Please upload a valid zip file' });
         } else {
-          const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
-          setNewzipupload(uploadedZipPath);
+          const fileNameParts = brandAssetsFile.name.split('.');
+          const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+          if (fileExtension !== 'zip') {
+            setErrors({ ...errors, brandassests: 'Please upload a valid zip file' });
+          } else if(fileExtension === 'zip') {
+            const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
+            setNewzipupload(uploadedZipPath);
 
-          setNewBrand({
-            ...newbrand,
-            brandassests: uploadedZipPath,
-          });
-          setZipPreview(uploadedZipPath);
+            setNewBrand({
+              ...newbrand,
+              brandassests: uploadedZipPath,
+            });
+            setZipPreview(uploadedZipPath);
 
-          if (!brand?.id) {
-            setAddzip(brandAssetsFile);
+            if (!brand?.id) {
+              setAddzip(brandAssetsFile);
+            }
+
+            setErrors({ ...errors, brandassests: '' });
           }
-
-          setErrors({ ...errors, brandassests: '' });
         }
         break;
 
@@ -102,9 +107,9 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       setErrors({ ...errors, tags: 'Tags are required' });
     } else if (tags.length > 5) {
       setErrors({ ...errors, tags: 'You can add up to 5 tags' });
-      setTimeout(()=>{
-      setErrors({ ...errors, tags: '' });
-      },3000)
+      setTimeout(() => {
+        setErrors({ ...errors, tags: '' });
+      }, 3000)
     } else {
       setErrors({ ...errors, tags: '' });
     }
@@ -177,14 +182,14 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
       <form class="add-brand-profile">
         <div className="row align-items-center">
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-1 col-12 mb-3 mb-md-0'}>
-              <label htmlFor="Upload Logo" className="d-none">Logo<span className="text-danger">*</span></label>
+            <label htmlFor="Upload Logo" className="d-none">Logo<span className="text-danger">*</span></label>
             <div>
               <input type="file" className="d-none" name="logo" accept="image/*" onChange={handleChange} ref={fileinputRef} />
-               <button className={`${brand?.id?'brand-add-btn ':''} add-btn bg-white`} onClick={handleUploadButtonClick}>
+              <button className={`${brand?.id ? 'brand-add-btn ' : ''} add-btn bg-white`} onClick={handleUploadButtonClick}>
                 {(imagePreview) ? (
                   <img src={imagePreview} alt="Preview" />
-                ) :(brand?.id && <img src={`${LOGO_URL}${logopath}`} alt="" />)}
-                 {brand?.id?<span>Edit</span>: !imagePreview &&  ('+')}
+                ) : (brand?.id && <img src={`${LOGO_URL}${logopath}`} alt="" />)}
+                {brand?.id ? <span>Edit</span> : !imagePreview && ('+')}
               </button>
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
@@ -203,13 +208,13 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
-                Upload your zip.
+                Upload your .zip
               </button>
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
-            <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
+            <label htmlFor="Tags">5 tags describing your Brand<span className="text-danger">*</span></label>
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>

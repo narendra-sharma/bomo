@@ -5,7 +5,6 @@ import { connect, useDispatch } from "react-redux";
 
 
 const EditDesignerBio = ({ data, show, handleClose, user }) => {
-    console.log(data);
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         bio: '',
