@@ -38,7 +38,6 @@ export const pay_now = async (uToken, token, data, dispatch) => {
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, data, headers);
     if (res.data && res.data.status) {
-      get_user_subscription({...res.data.user,token:uToken},dispatch);
       dispatch({
         type: PAY_NOW,
       })
@@ -78,8 +77,8 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     headers.headers['x-access-token'] = uToken;
     const res = await axios.post(url, {}, headers);
     if (res.data && res.data.status) {
-      toast.success('Successfully cancel subscription.');
-      get_user_subscription({...res.data.user,token:uToken},dispatch);
+      toast.success('Subscription cancelled successfully.');
+      get_user_subscription({token:uToken},dispatch);
     } else {
       toast.error(res.data.message);
     }
@@ -97,8 +96,8 @@ export const pause_subscription = async (user, dispatch) => {
     headers.headers['x-access-token'] = user?.token;
     const res = await axios.post(url, {pause:user?.subscription?.status==='paused'?false:true}, headers);
     if (res.data && res.data.status) {
-      toast.success('Successfully pause subscription.');
-      get_user_subscription({...res.data.user,token:user?.token},dispatch);
+      toast.success('Successfully '+(user?.subscription?.status==='paused'?'resumed':'paused')+' subscription.');
+      get_user_subscription({user,token:user?.token},dispatch);
     } else {
       toast.error(res.data.message);
     }
@@ -116,7 +115,7 @@ export const get_user_subscription = async (user, dispatch) => {
     headers.headers['x-access-token'] = user?.token;
     const res = await axios.get(url, headers);
     if (res.data && res.data.status) {
-      dispatch(set_update_user({...user,...res.data.data}));
+      dispatch(set_update_user({...res.data.data,token:user.token}));
     } else {
       toast.error(res.data.message);
     }
@@ -160,7 +159,10 @@ export const get_customer_card=async(token,dispatch)=>{
         payload: res.data.data
       })
     } else {
-      toast.error(res.data.message);
+      dispatch({
+        type: CUSTOMER_CARD,
+        payload: null
+      })
     }
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch))

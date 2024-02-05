@@ -27,9 +27,9 @@ const PaymentHistory = ({user,userrole,data,total}) => {
     <div className="payment-history-section review-main-content p-5 rounderd mt-5">
       <div className={`d-flex ${userrole !== 'Super admin' ? 'justify-content-between' : 'justify-content-end'} align-item-center mb-5`}>
         {userrole !== 'Super admin' && <h5><strong>Payments</strong> History</h5>}
-        <div><button className="btn btn-outline-dark rounded-pill px-4 py-1" onClick={handleButtonClick}>Download Csv</button></div>
+        <div><button className="btn btn-outline-dark rounded-pill px-4 py-1" onClick={handleButtonClick}>Download CSV</button></div>
         <CSVLink className="d-none" data={csvData} ref={csvLinkRef} filename={`payment_history_${format(new Date(), 'MM/dd/yyyy')}.csv`}>
-          Download me
+          Download
         </CSVLink>
       </div>
       <div className="table-responsive">

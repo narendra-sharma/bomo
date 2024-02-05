@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
-import { get_customer_card } from "../../reduxdata/PlansPayments/planActions";
+import { get_customer_card, get_user_subscription } from "../../reduxdata/PlansPayments/planActions";
 const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -32,14 +32,12 @@ const SubscriptionSteps = (props) => {
         dispatch({
           type: PAY_NOW
         })
-        window.location.reload();
+        get_user_subscription({...user},dispatch);
       },3000);
     }
   }, [props.isPay,dispatch])
   useEffect(()=>{
-    if(user?.subscription?.customer_id){
-      get_customer_card(user?.token,dispatch);
-    }
+    get_customer_card(user?.token,dispatch);
   },[]);
   return (
     <>
