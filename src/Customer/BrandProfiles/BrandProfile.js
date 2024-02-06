@@ -172,7 +172,6 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
     };
     addBrand(updatedata, dispatch, usertoken);
     setIsEdit(false);
-    console.log(updatedata);
   };
 
   useEffect(() => {
@@ -247,7 +246,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                           <div className="describing-tags"> <span className="fw-bold d-block">5 tags describing your Brand</span>
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
-                            <TagsInput value={formdata?.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
+                            <TagsInput value={formdata?.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand' }} onChange={handleTagsChange} />
                             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
                           </div>
                           :

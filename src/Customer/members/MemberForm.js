@@ -126,7 +126,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               >
                 <option value="" disabled selected>Select</option>
                 {roles.map((item,index) => (
-                  <option value={item?.label} key={index}>
+                  <option value={item?.value} key={index}>
                     {item?.label}
                   </option>
                 ))}

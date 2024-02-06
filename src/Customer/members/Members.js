@@ -42,13 +42,18 @@ const Members = ({ user, member, total, isAddEdit }) => {
   const [edit, setEdit] = useState(editmember);
 
   const handleEditMember = (detail) => {
-    setEdit({
-      id: detail?._id,
-      name: detail?.name,
-      role: detail?.role,
-      email: detail?.email,
-      colour: detail?.colour
-    });
+    const index = member.findIndex((item) => item._id === detail?._id);
+
+    if (index !== -1) {
+      setEdit({
+        id: detail?._id,
+        name: detail?.name,
+        role: detail?.role,
+        email: detail?.email,
+        colour: detail?.colour
+      });
+      setUpdateRolepopUps(index);
+    }
   };
 
   const [formdata, setFormdata] = useState({
@@ -72,6 +77,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
   // handling change of a value
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name,value,"vale",value);
     switch (name) {
       case 'name':
         setErrors({ ...errors, name: value === '' ? 'Name is Required' : null });
@@ -95,6 +101,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
         break;
 
       default:
+        setFormdata({ ...formdata, [name]: value, });
+        setErrors({ ...errors, [name]: '' });
         break;
     }
   };
@@ -108,19 +116,22 @@ const Members = ({ user, member, total, isAddEdit }) => {
       email: formdata?.email,
       colour: formdata?.colour,
       role: formdata?.role
-    }
+    };
     add_new_member(dispatch, null, user?.token, memberdata);
     setUpdateRolepopUps(-1);
-    console.log(memberdata);
+    setFormdata({name: "",role: "",email: "",colour: ""});
   };
 
   useEffect(() => {
     if (edit) {
-      setFormdata({
-        name: edit?.name,
-        role: edit?.role,
-        email: edit?.email,
-        colour: edit?.colour,
+      setFormdata((prev) => {
+        return ({
+          ...prev,
+          name: edit?.name,
+          role: edit?.role,
+          email: edit?.email,
+          colour: edit?.colour,
+        })
       });
     };
   }, [edit]);
@@ -151,8 +162,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
                             <input
                               type="color"
                               name="colour"
-                              defaultValue={formdata?.colour}
-                              onChange={handleChange} id="color1"
+                              value={formdata?.colour}
+                              onChange={(e) => handleChange(e)} id="color1"
                             /> :
                             <div
                               style={{
@@ -171,7 +182,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 className="formcontrol"
                                 name="name"
                                 defaultValue={formdata?.name}
-                                onChange={handleChange}
+                                onChange={(e) => handleChange(e)}
                               /> :
                               <p className="d-block">
                                 {item?.name}
@@ -186,12 +197,13 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           {(updateRolepopUps === index) ? (
                             <select
                               className="d-block"
-                              defaultValue={formdata?.role}
-                              onChange={handleChange}
+                              name="role"
+                              value={formdata?.role}
+                              onChange={(e) => handleChange(e)}
                             >
-                              {roles.map((roleItem) => (
-                                <option key={roleItem.id} value={roleItem.value}>
-                                  {roleItem.label}
+                              {roles?.map((roleItem) => (
+                                <option key={roleItem?.id} value={roleItem?.value}>
+                                  {roleItem?.label}
                                 </option>
                               ))}
                             </select>
@@ -223,7 +235,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               className="formcontrol"
                               name="email"
                               defaultValue={formdata?.email}
-                              onChange={handleChange}
+                              onChange={(e) => handleChange(e)}
                             /> :
                             <span className="d-block">{item?.email}</span>
                           }
@@ -235,7 +247,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         {(updateRolepopUps !== index) ? (
                           <button
                             className="text-decoration-none text-dark cursor-pointer"
-                            onClick={() => { setShowAddComp(false); setUpdateRolepopUps(index); handleEditMember(item); }}
+                            onClick={() => { setShowAddComp(false); handleEditMember(item); }}
                             style={{
                               border: "none",
                               backgroundColor: "#fff",
@@ -299,7 +311,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true); setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
+              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}

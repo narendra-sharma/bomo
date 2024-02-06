@@ -18,7 +18,6 @@ export const catch_errors_handle = (error,dispatch) => {
     }
   } else {
     toast.error(error.message);
-    console.log(error);
   }
 };
 
@@ -311,7 +310,6 @@ export const get_user_profile_details = async (token, dispatch) => {
     }
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch));
-    console.log(error);
   } finally {
     dispatch(stop_loading());
   }
