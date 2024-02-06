@@ -206,11 +206,11 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
                             <input type="file" className="d-none" name="logo" accept="image/*" onChange={handleChange} ref={fileinputRef} />
-                            <button className='add-btn bg-white' onClick={handleImageUpload}>
+                            <button className='add-btn border-0' onClick={handleImageUpload}>
                               {(imagePreview) ? (
                                 <img src={imagePreview} alt="Preview" />
                               ) : (brand?._id && <img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' />)}
-                              {brand?._id ? <span>Edit</span> : !imagePreview && ('+')}
+                              {brand?._id ? <span className="d-none">Edit</span> : !imagePreview && ('+')}
                             </button>
                           </div> :
                           <img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} />
@@ -231,7 +231,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
                             <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
-                            <button className='add-btn bg-white' onClick={handleUploadZipFileClick}>
+                            <button className='add-btn border-0' onClick={handleUploadZipFileClick}>
                               {(zipPreview) ? (
                                 <span className="d-block brand-assets">{zipPreview?.split('/').pop()}</span>
                               ) : <span className="d-block brand-assets">{brand?.brandassests?.split('/').pop()}</span>}
@@ -239,25 +239,31 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                           </div> : <a href={`${REACT_APP_BOMO_URL}${brand?.brandassests}`} className="text-decoration-none"><span className="d-block brand-assets">{brand?.brandassests?.split('/').pop()}</span></a>
                         }
                       </td>
-                      <td className="col-lg-3 col-12 mb-3 mb-md-0 g-0">
-                        <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
-                        <span className="fw-bold mt-3 d-block">5 tags describing your Brand</span>
+                      <td className="col-lg-4 col-12 mb-3 mb-md-0 g-0">
+                       <div className="d-flex align-items-center brand-tags-section">
+                         <div className="date-created"> 
+                          <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
+                          </div>
+                          <div className="describing-tags"> <span className="fw-bold d-block">5 tags describing your Brand</span>
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
                             <TagsInput value={formdata?.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
                             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
                           </div>
                           :
-                          <span className="d-block">{brand?.tags.join(', ')}</span>}
+                          <span className="d-block">{brand?.tags.join(', ')}</span>}</div>
+                       </div>
+                        
+                       
                       </td>
-                      <td className="col-lg-3 col-12 mb-3 mb-md-0">
+                      <td className="col-lg-2 col-12 mb-3 mb-md-0">
                         <div className="edit-buttons">
                           <span className="update-buttons">
                             {(isEdit && edit?.id === brand?._id) && <>
-                              <button type="submit" className="create-add-btn rounded-pill fw-bold">
+                              <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold">
                                 Update
                               </button>
-                              <button type="button" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
                             </>}
                           </span>
                           <span className="edit">

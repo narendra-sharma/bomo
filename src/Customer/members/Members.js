@@ -137,12 +137,13 @@ const Members = ({ user, member, total, isAddEdit }) => {
               <h3>Members</h3>
             </div>
             {(member.length > 0) && <div className="review-content rounded mb-3">
-              <div className="table-responsive">
+           
                 {member.map((item, index) => (
+                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark' : ''}`}
+                  key={index}>
                   <table
-                    className={`table table-borderless member-table  ${(updateRolepopUps === index) ? 'border border-dark' : ''}`}
-                    key={index}
-                  >
+                    className="table table-borderless mb-0" >
+                  
                     <tr className="members">
                       <td>
                         <div className="d-flex  align-items-center">
@@ -283,8 +284,9 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       )}
                     </tr>
                   </table>
+                  </div>
                 ))}
-              </div>
+              
             </div>}
             <div className="review-content add-member px-4 py-2 rounded mb-3">
               {total > 0 && (
