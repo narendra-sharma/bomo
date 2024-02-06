@@ -41,16 +41,15 @@ const Members = ({ user, member, total, isAddEdit }) => {
   };
   const [edit, setEdit] = useState(editmember);
 
-  const handleEditMember = (detail) => {
-    const index = member.findIndex((item) => item._id === detail?._id);
-
+  const handleEditMember = (index) => {
     if (index !== -1) {
+      const editmember = member[index];
       setEdit({
-        id: detail?._id,
-        name: detail?.name,
-        role: detail?.role,
-        email: detail?.email,
-        colour: detail?.colour
+        id: editmember?._id,
+        name: editmember?.name,
+        role: editmember?.role,
+        email: editmember?.email,
+        colour: editmember?.colour
       });
       setUpdateRolepopUps(index);
     }
@@ -77,7 +76,6 @@ const Members = ({ user, member, total, isAddEdit }) => {
   // handling change of a value
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value,"vale",value);
     switch (name) {
       case 'name':
         setErrors({ ...errors, name: value === '' ? 'Name is Required' : null });
@@ -247,7 +245,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         {(updateRolepopUps !== index) ? (
                           <button
                             className="text-decoration-none text-dark cursor-pointer"
-                            onClick={() => { setShowAddComp(false); handleEditMember(item); }}
+                            onClick={() => { setShowAddComp(false); handleEditMember(index); }}
                             style={{
                               border: "none",
                               backgroundColor: "#fff",

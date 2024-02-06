@@ -14,11 +14,11 @@ import reelImage from "./images/reel-image.png";
 import EditDesignerBio from "./Modals/EditDesignerBio";
 
 
-const Setting = ({ userrole,profiledetails}) => {
+const Setting = ({ userrole, profiledetails }) => {
   const user = JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
-  const [showBio,setShowBio] = useState(false);
+  const [showBio, setShowBio] = useState(false);
   const [isSubscribe, setIsSubscribe] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,11 +33,11 @@ const Setting = ({ userrole,profiledetails}) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if(userrole === 'Designer'){
-      get_user_profile_details(user?.token,dispatch);
+    if (user?.token) {
+      get_user_profile_details(user?.token, dispatch);
     }
-  },[userrole, dispatch,user?.token]);
-  
+  }, [dispatch, user?.token]);
+
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -125,7 +125,7 @@ const Setting = ({ userrole,profiledetails}) => {
               </div>
               <div className="col-md-7 col-lg-7">
                 <p className="fw-bold">REEL</p>
-                <img src={reelImage} alt="imag"/>
+                <img src={reelImage} alt="imag" />
               </div>
               <div className="col-md-5 col-lg-5">
                 <div className="row reel-data review-content">
@@ -161,7 +161,7 @@ const Setting = ({ userrole,profiledetails}) => {
                 <BillingForm user={user} />
               </div>
             </div>
-          </> :<div></div>}
+          </> : <div></div>}
           {((userrole === 'Designer') || ((userrole === 'customer_admin') && user?.plan_id)) && <div className="delete-account status-btn text-end mt-3">
             <button className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1" onClick={() => setShow(true)}>Delete account</button>
           </div>}
