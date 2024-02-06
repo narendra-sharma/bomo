@@ -809,7 +809,8 @@ table.feedback-queue tr:first-child td{
  background-color: transparent;
 }
 .payment-history-section table tr td{
-  color:#606060
+  color:#606060;
+  vertical-align: middle;
 }
 .payment-history-section table tr th{
   padding-bottom: 20px;
