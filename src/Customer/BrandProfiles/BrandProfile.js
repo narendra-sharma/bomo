@@ -212,7 +212,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                               {brand?._id ? <span className="d-none">Edit</span> : !imagePreview && ('+')}
                             </button>
                           </div> :
-                          <img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' style={{ height: '3rem' }} />
+                          <img src={`${LOGO_URL}${brand?.logo}`} alt='img not found' />
                         }
                       </td>
                       <td className="col-lg-2 col-12 mb-3 mb-md-0">
@@ -239,7 +239,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                         }
                       </td>
                       <td className="col-lg-4 col-12 mb-3 mb-md-0 g-0">
-                       <div className="d-flex align-items-center brand-tags-section">
+                       <div className="d-flex  brand-tags-section">
                          <div className="date-created"> 
                           <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                           </div>
@@ -253,7 +253,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                           <span className="d-block">{brand?.tags.join(', ')}</span>}</div>
                        </div>
                       </td>
-                      <td className="col-lg-2 col-12 mb-3 mb-md-0">
+                      <td className="col-lg-2 col-12 mb-3 mb-md-0 vertical-middle">
                         <div className="edit-buttons">
                           <span className="update-buttons">
                             {(isEdit && edit?.id === brand?._id) && <>
