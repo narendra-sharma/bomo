@@ -77,7 +77,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
 
   return (
     <div className="member-content review-content rounded">
-      <div className="table-responsive member-table"> 
+      <div className="table-responsive member-table px-5"> 
         <table>
         <tbody>
           <tr>
@@ -86,7 +86,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 className="d-flex"
                 style={{ cursor: "pointer" }}
               >
-                <div>
+                <div style={{ height: "45px"}}>
                   <p className="mb-0 user-email">
                     <b>Color<span className="text-danger">*</span></b>
                   </p>
