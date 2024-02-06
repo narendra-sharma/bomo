@@ -243,17 +243,15 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                          <div className="date-created"> 
                           <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                           </div>
-                          <div className="describing-tags"> <span className="fw-bold d-block">5 tags describing your Brand</span>
+                          <div className="describing-tags"> <span className="fw-bold d-block">Tags</span>
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
-                            <TagsInput value={formdata?.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand' }} onChange={handleTagsChange} />
+                            <TagsInput className="input-name w-100" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} value={formdata?.tags} onChange={handleTagsChange} />
                             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
                           </div>
                           :
                           <span className="d-block">{brand?.tags.join(', ')}</span>}</div>
                        </div>
-                        
-                       
                       </td>
                       <td className="col-lg-2 col-12 mb-3 mb-md-0">
                         <div className="edit-buttons">
