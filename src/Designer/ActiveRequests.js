@@ -67,7 +67,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                 <div className="main-content-wraaper cutomer-home-page  px-60 py-md-2 py-lg-5">
                     <div className="review-main-content review-content">
                         <div className="mx-md-5 mx-sm-0 mb-4"><h3 >My Active Requests</h3></div>
-                        {activerequests.length > 0 ? activerequests.map((request) => (
+                        {activerequests?.length > 0 ? activerequests?.map((request) => (
                             <div className="row align-items-center mb-4">
                                 <div className="col-md-8">
                                     <div className="bg-white px-2 px-md-4 py-5 rounded">
@@ -83,7 +83,6 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                                     <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
                                                     <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
                                                 </div>
-
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="d-flex align-items-center">
@@ -100,7 +99,6 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                                                 <td><p><span className="fw-bold d-block">Expected Delivery </span>
                                                                     {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</p></td>
                                                                 <td><p><span className="fw-bold d-block">Alpha Background</span></p> No</td>
-
                                                             </tr>
                                                             <tr>
                                                                 <td>
