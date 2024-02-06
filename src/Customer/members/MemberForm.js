@@ -78,15 +78,15 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   return (
     <div className="member-content review-content rounded">
       <div className="table-responsive member-table px-5"> 
-        <table>
+        <table className="table table-borderless mb-0">
         <tbody>
           <tr>
             <td>
               <div
-                className="d-flex"
+                className="row"
                 style={{ cursor: "pointer" }}
               >
-                <div style={{ height: "45px"}}>
+                <div className="col-md-3 col-3" style={{ height: "45px"}}>
                   <p className="mb-0 user-email">
                     <b>Color<span className="text-danger">*</span></b>
                   </p>
@@ -97,7 +97,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                     onChange={(e) => handleChange("colour", e.target.value) } id="color1" 
                   />
                 </div>
-                <div>
+                <div className="col-md-9 col-9" >
                   <p className="mb-0 user-email">
                     <b>Name<span className="text-danger">*</span></b>
                   </p>
@@ -165,8 +165,8 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               )}
             </td>
             
-            <td className="vertical-middle">
-              <div className="d-flex">
+            <td className="vertical-middle member-last-column">
+              <div className="d-flex justify-content-end">
                 <button
                   type="button"
                   className="bg-mid-gray fw-bold border rounded-pill px-3 py-1 "
@@ -174,7 +174,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 >
                   CREATE
                 </button>
-                <button className="create-add-btn delete-btn rounded-pill fw-bold px-3 m-0" type="button" onClick={() => setShowAddComp(false)}>
+                <button className="create-add-btn delete-btn rounded-pill fw-bold px-4 w-auto m-0" type="button" onClick={() => setShowAddComp(false)}>
                   Close
                 </button>
               </div>

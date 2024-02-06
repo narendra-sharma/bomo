@@ -860,21 +860,24 @@ td.vertical-middle {
 .member-table tr td.update-btn , .member-table tr.members td  {
   vertical-align: middle;
 }
-.member-table tr td:nth-child(1)
+.member-table tr.members td:nth-child(1) 
 {
-  width:225px;
+  width:190px;
 }
-.member-table tr td:nth-child(2)
+.member-table tr.members td:nth-child(2)
 {
  width: 155px;
 }
-.member-table tr td:nth-child(3)
+.member-table tr.members td:nth-child(3)
 {
- width: 165px;
+ width: 155px;
 }
-.member-table tr td:nth-child(4){
+.member-table tr.members td:nth-child(4){
   width:250px
 }
+/* .member-table .member-last-column{
+ width:180px
+} */
 .member-table .members p  {
   padding: 0;
 }
@@ -993,7 +996,7 @@ td.vertical-middle {
 .member-table .formcontrol {
   border: none;
   border-bottom: solid 2px #BBBBBB;
-  width: 90%;
+  width: 95%;
   font-size: 13px;
   outline: none;
   height: 22px;
@@ -1159,13 +1162,13 @@ ul.designer-list li{
   color: #F92B34;
 }
 .brand-table{
-  padding: 20px 35px;
+  padding: 20px 30px;
   margin-bottom: 20px;
 }
 .brand-table img {
-  width: 48px;
-  max-width: 48px;
-  height: 48px;
+  width: 40px;
+  max-width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   border: solid 1px #eee;
@@ -1200,21 +1203,25 @@ ul.designer-list li{
 }
 .brand-table table td {
   padding: 3px 5px;
-  vertical-align: middle;
+  vertical-align: top;
   font-size: 14px;
   line-height: 20px;
 }
 .brand-tags-section{
-  gap: 20px;
+  gap: 10px;
 }
 .date-created{
-  flex: 0 0 100px;
+  flex: 0 0 30%;
+}
+.describing-tags {
+  flex: 0 0 70%;
 }
 .input-name .react-tagsinput-input{
   margin-bottom: 0px;
   margin-top: 0;
   padding: 0;
-  width:85%
+  width:100%;
+  font-size: 11px;
 }
 /* .brand-table tr td:first-child{
   width: 84px;
@@ -1331,7 +1338,7 @@ ul.designer-list li{
   justify-content: space-between;
 }
 .edit-buttons span.edit {
-  width: 50px;
+  width: 55px;
 }
 .brand-table button.new-request{
   background: #E1E1E1;

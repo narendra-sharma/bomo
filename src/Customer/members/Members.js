@@ -242,7 +242,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </p>
                       </td>
 
-                      <td className="text-center update-btn">
+                      <td className="text-end update-btn">
 
                         {(updateRolepopUps !== index) ? (
                           <button
@@ -263,7 +263,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
 
                       </td>
 
-                      {(updateRolepopUps === index) && <td className="text-center update-btn">
+                      {(updateRolepopUps === index) && <td className="text-end update-btn">
 
                         <button
                           className=" text-decoration-none text-dark"
