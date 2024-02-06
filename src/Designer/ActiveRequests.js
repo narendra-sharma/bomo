@@ -11,26 +11,10 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests, setActiverequests] = useState([]);
-    const [isvisible, setIsvisible] = useState(false);
-    const toogleVisibility = () => {
-        if (window.scrollY > 300) {
-            setIsvisible(true);
-        } else {
-            setIsvisible(false);
-        }
-    };
+
     const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        })
+       navigate('/');
     };
-    useEffect(() => {
-        window.addEventListener('scroll', toogleVisibility);
-        return () => {
-            window.removeEventListener('scroll', toogleVisibility);
-        }
-    }, []);
 
     useEffect(() => {
         get_designer_active_requestslist(dispatch, user?.token);

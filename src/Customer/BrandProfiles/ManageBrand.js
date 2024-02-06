@@ -62,7 +62,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
 
       case 'brandassests':
         const brandAssetsFile = files[0];
-        console.log(brandAssetsFile?.name);
         if (brandAssetsFile === undefined) {
           setErrors({ ...errors, brandassests: 'Upload your zip file' });
         } else {
@@ -204,18 +203,18 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <div className="upload-zip">
               <label htmlFor="Brand Assests">Brand Assests<span className="text-danger">*</span></label>
-              {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
-              {(addzip) ? <p>{addzip.name}</p> : ''}
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
-                Upload your .zip
+              {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
+              {(addzip) ? <p>{addzip.name}</p> : ''}
+               {!zipPreview && ('Upload your .zip')}
               </button>
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
-            <label htmlFor="Tags">5 tags describing your Brand<span className="text-danger">*</span></label>
-            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: 'Up to 5 tags to describe your Brand' }} onChange={handleTagsChange} />
+            <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
+            <TagsInput value={newbrand.tags} className="input-name w-100" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>

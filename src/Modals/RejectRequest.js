@@ -35,7 +35,6 @@ const RejectRequest = ({ show, handleClose, detail, user }) => {
         };
         superadmin_approve_delivery(dispatch,user?.token,specifyData);
         handleClose();
-        console.log(specifyData);
     };
     useEffect(() => {
         return () => { setFormdata({message:''}); setErrors({ message:null}); };
