@@ -67,10 +67,10 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           setErrors({ ...errors, brandassests: 'Upload your zip file' });
         } else {
           const fileNameParts = brandAssetsFile.name.split('.');
-          const fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
+          const fileExtension = fileNameParts.pop().toLowerCase();
           if (fileExtension !== 'zip') {
             setErrors({ ...errors, brandassests: 'Please upload a valid zip file' });
-          } else if(fileExtension === 'zip') {
+          } else {
             const uploadedZipPath = await uploadZip(brandAssetsFile, dispatch);
             setNewzipupload(uploadedZipPath);
 
