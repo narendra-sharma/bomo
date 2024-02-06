@@ -1210,13 +1210,11 @@ ul.designer-list li{
 .date-created{
   flex: 0 0 100px;
 }
-.describing-tags{
-
-}
 .input-name .react-tagsinput-input{
   margin-bottom: 0px;
   margin-top: 0;
   padding: 0;
+  width:85%
 }
 /* .brand-table tr td:first-child{
   width: 84px;
