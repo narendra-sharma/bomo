@@ -90,7 +90,7 @@ const requestReducer = (state = initialState, action) => {
     case SUBMIT_NOW:
       return {
         ...state,
-        isSubmit: !state.isSubmit
+        isSubmit: action.payload
       };
     case GET_FEEDBACK_QUE:
       return {
