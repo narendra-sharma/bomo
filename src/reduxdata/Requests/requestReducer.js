@@ -1,4 +1,4 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE} from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST} from "./requestTypes";
 const initialState = {
   pendingRequests: [],
   pendingTotal:0,
@@ -28,7 +28,8 @@ const initialState = {
   customerActiverequests:[],
   superadminapprovelist:[],
   issubmit: false,
-  feedbacklists:[]
+  feedbacklists:[],
+  allactiverequests:[]
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -95,7 +96,12 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         feedbacklists: action.payload
-      }
+      };
+    case GET_ALL_ACTIVE_REQUEST_LIST:
+      return {
+        ...state,
+        allactiverequests: action.payload
+      };
     default:
       return state;
   }
