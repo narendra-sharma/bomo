@@ -29,15 +29,17 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
       desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id);
     };
     return (
-        <div className="col-12 mt-6">
+        <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
+           <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
+                <div className="review-main-content review-content">
+                    <div className="ms-4 mb-4">
+                        <h3>Requests For Acceptance</h3>
+                    </div>
                     <div className="designer-active-request bg-white px-5 px-md-4 py-5 rounded">
                         <div className="mb-4">
-                            <div className="ms-4 mb-3">
-                                <h5>Requests For Acceptance</h5>
-                            </div>
                             {assignedRequest?.length ? assignedRequest?.map((request, index) => (
-                                <div className="table-responsive rounded mt-4">
-                                    <table className="table table-borderless mb-0" key={index}>
+                                <div className="table-responsive rounded">
+                                    <table className="table table-borderless" key={index}>
                                         <tbody>
                                             <tr>
                                                 <td><p>{request?.request_name}</p></td>
@@ -56,6 +58,8 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
                         </div>
                     </div>
                 </div>
+            </div>
+         </div>
     )
 }
 
