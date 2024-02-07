@@ -219,7 +219,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                         <span className="fw-bold">Brand Name</span>
                         {(isEdit && edit?.id === brand?._id) ?
                           <div>
-                            <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={formdata?.brandname} onChange={handleChange} />
+                            <input type="text" className="input-name form-control" name="brandname" placeholder="Name" value={formdata?.brandname} onChange={handleChange} />
                             {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
                           </div>
                           : <span className="d-block">{brand?.brandname}</span>

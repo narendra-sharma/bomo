@@ -43,17 +43,17 @@ const ApproveRequest = ({ user, approvelist }) => {
                     {approvelist?.length} requests left{" "}
                 </small>
             </div>
-            <div className="col-lg-6">
-                <div className="table-responsive">
-                    <table className="table table-borderless">
-                        {approvelist?.map((request) => (
+            {approvelist?.map((request) => (
+                <div className="col-lg-6">
+                    <div className="table-responsive">
+                        <table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <td>
                                         <p>12h</p>
                                     </td>
                                     <td className="text-center">
-                                        <ColorCode request={request}/>
+                                        <ColorCode request={request} />
                                     </td>
                                     <td>
                                         <p>
@@ -83,10 +83,10 @@ const ApproveRequest = ({ user, approvelist }) => {
                                     </td>
                                 </tr>
                             </tbody>
-                        ))}
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            ))}
             <ExpandRequest show={show} handleClose={() => setShow(false)} />
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
