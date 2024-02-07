@@ -7,26 +7,34 @@ import { newRequest } from '../reduxdata/rootAction';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import RequestSuccess from './RequestSuccess';
+import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
 const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const handleRequest = () => {
       if(data){
         newRequest(data, dispatch, userdetail?.token, navigate);
+        dispatch({type: SUBMIT_NOW, payload: true });
         handleClose();
-        setShowSuccess(true);
       }
     };
 
     useEffect(() => {
-        if(showSuccess) {
+        let isSubmitvalue = issubmit;
+        if(isSubmitvalue) {
+            setShowSuccess(true);
             setTimeout(() => {
                 setShowSuccess(false);
-            },4000);
+                dispatch({
+                    type: SUBMIT_NOW,
+                    payload: false 
+                  })
+            },3000);
         }
-      }, [showSuccess]);
+      }, [issubmit,dispatch]);
 
     return (
         <div>
@@ -68,7 +76,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
 
 const mapStateToProps = (state) => {
     return {
-        issubmit:state.requests.issubmit
+        issubmit:state.requests.isSubmit
     }
 }
 export default connect(mapStateToProps)(SubmitRequest);

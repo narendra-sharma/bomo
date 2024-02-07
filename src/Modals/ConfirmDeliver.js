@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import designImage5 from "../images/large-nine-sixteen.png";
 
 
-const ConfirmDeliver = ({isshow,viewClose}) => {
+const ConfirmDeliver = ({ isshow, viewClose }) => {
     return (
         <Modal show={isshow} size="xl" onHide={viewClose} className="logout-popup">
         <Modal.Body>
