@@ -179,7 +179,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 type="text"
                                 className="formcontrol"
                                 name="name"
-                                defaultValue={formdata?.name}
+                                value={formdata?.name}
                                 onChange={(e) => handleChange(e)}
                               /> :
                               <p className="d-block">
@@ -232,7 +232,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               noValidate
                               className="formcontrol"
                               name="email"
-                              defaultValue={formdata?.email}
+                              value={formdata?.email}
                               onChange={(e) => handleChange(e)}
                             /> :
                             <span className="d-block">{item?.email}</span>

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import ApproveDelivery from "../Customer/Requests/ApproveDelivery";
 import ApproveRequest from "../Customer/Requests/ApproveRequest";
 
-const SuperAdminHome = ({totalassigns}) => {
+const SuperAdminHome = ({totalassigns,approvelist}) => {
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
@@ -16,7 +16,7 @@ const SuperAdminHome = ({totalassigns}) => {
                         <div className=" d-flex align-items-center mb-3">
                             <h3 className="mb-0 mx-2 mx-md-4">Approve Request</h3>
                             <div className="action-need ms-3 bg-white text-dark rounded-pill px-3 py-1">
-                                <small>12 Action Needed</small>
+                                <small>{approvelist?.length} Action Needed</small>
                             </div>
                         </div>
                         <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
@@ -36,7 +36,7 @@ const SuperAdminHome = ({totalassigns}) => {
                         <div className=" d-flex align-items-center mb-3">
                             <h3 className="mb-0 mx-2 mx-md-4">Approve Delivery</h3>
                             <div className="action-need ms-3 bg-white text-dark rounded-pill px-3 py-1">
-                                <small>5 Action Needed</small>
+                                <small>{approvelist?.length} Action Needed</small>
                             </div>
                         </div>
                         <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
@@ -187,6 +187,7 @@ const SuperAdminHome = ({totalassigns}) => {
 const mapStateToProps = (state) => {
     return {
         totalassigns: state.requests.totalassigns,
+        approvelist: state.requests.superadminapprovelist,
     };
 };
 export default connect(mapStateToProps)(SuperAdminHome);

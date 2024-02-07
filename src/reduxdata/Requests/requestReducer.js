@@ -1,5 +1,6 @@
 import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST} from "./requestTypes";
 const initialState = {
+  isSubmit:false,
   pendingRequests: [],
   pendingTotal:0,
   totaldrafts:0,
@@ -27,7 +28,6 @@ const initialState = {
   delieverRequestdetails:null,
   customerActiverequests:[],
   superadminapprovelist:[],
-  issubmit: false,
   feedbacklists:[],
   allactiverequests:[]
 };
@@ -90,7 +90,7 @@ const requestReducer = (state = initialState, action) => {
     case SUBMIT_NOW:
       return {
         ...state,
-        issubmit: !state.issubmit
+        isSubmit: !state.isSubmit
       };
     case GET_FEEDBACK_QUE:
       return {
