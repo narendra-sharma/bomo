@@ -25,7 +25,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                         </div>
                         <div className="col-md-5 col-12">
                             <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                               <span>applications</span>
+                               <span>{data?.designer_list?.length} applications</span>
                             </div>
                         </div>
                         <div className="col-md-6">

@@ -75,7 +75,7 @@ const PollRequests = ({ user, pollrequests }) => {
                                 <div className="col-md-7 col-lg-8 d-flex align-items-center">
                                     <div className="d-flex justify-content-betwwen">
                                         <p className="text-mute"><span>Selection in</span> <span className="fw-bold">14 days</span></p>
-                                        <p className="text-mute"><span>237 applications</span></p>
+                                        <p className="text-mute"><span>{request?.designer_list?.length} applications</span></p>
                                     </div>
                                 </div>
                                 <div className="col-md-5 col-lg-4">

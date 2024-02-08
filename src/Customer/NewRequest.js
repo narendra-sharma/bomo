@@ -230,7 +230,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         return ({
           ...prev,
           requestName: requestData?.request_name,
-          brandProfile: requestData?.brand_profile,
+          brandProfile: requestData?.brand_profile?._id,
           requestype: requestData?.request_type,
           description: requestData?.description,
           fileType: requestData?.file_type,

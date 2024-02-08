@@ -55,7 +55,7 @@ const CustomerHome = ({ activerequest, user }) => {
                         </tr>
                       </tbody>
                     </table>
-                  )): (<EmptyList name="Active Request"/>)}
+                  )): (<EmptyList name="Active Request" heading="list" />)}
                 </div>
               </div>
             </div>

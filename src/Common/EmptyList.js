@@ -1,6 +1,6 @@
 import React from "react";
 
-const EmptyList = ({ name,isTable }) => {
+const EmptyList = ({ name,isTable,heading }) => {
   return (
     isTable?
         <tr>
@@ -9,7 +9,7 @@ const EmptyList = ({ name,isTable }) => {
             </td>
         </tr>
     :<div className="w-100 text-center py-2">
-        <p className="py-2 my-2 text-muted">{name} List is empty!</p>
+        <p className="py-2 my-2 text-muted">{name} {heading} is empty!</p>
     </div>
   );
 };

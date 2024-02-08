@@ -5,11 +5,12 @@ import { connect, useDispatch } from "react-redux";
 import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import RequestBrief from "../Modals/RequestBrief";
 import EmptyList from "../Common/EmptyList";
 const DesignerHome = ({user, activerequest, pollrequests}) => {
-    const {acceptRequest} = useParams();
+    let [searchAccept] = useSearchParams();
+    const acceptdata = searchAccept.get('acceptRequest');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests,setActiverequests] = useState([]);
@@ -25,10 +26,10 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
     },[activerequest]);
 
     useEffect(()=>{
-        if(acceptRequest===1){
+        if(acceptdata){
           navigate('/acceptance-request');
         }
-    },[acceptRequest]);
+    },[acceptdata]);
 
     const calculateTimeRemaining = (acceptanceTime, duration) => {
         const currentTime = new Date().getTime();
@@ -50,9 +51,10 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
                 prevData.map((request) => {
                     const utcDate = new Date(request.req_mail_date);
                     const localDate =  new Date(utcDate.toLocaleString());
+                    const acceptanceTime = localDate.getTime();
                        return {
                         ...request,
-                        timeRemaining20Hrs: calculateTimeRemaining(localDate, 20 * 60 * 60 * 1000),
+                        timeRemaining20Hrs: calculateTimeRemaining(acceptanceTime, 20 * 60 * 60 * 1000),
                        }
                 })
             );

@@ -66,6 +66,7 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         designerassignedrequests: action.payload.data,
+        totalassigns:action.payload.total
       };
     case GET_DESIGNER_ACTIVE_REQUEST_LIST:
       return {
