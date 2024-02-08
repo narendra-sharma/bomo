@@ -39,10 +39,12 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
     };
 
     const formatTime = (timeRemaining) => {
-        const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
-        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        const seconds = Math.floor(timeRemaining / 1000);
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;  
+    
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
     };
 
     useEffect(() => {
