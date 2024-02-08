@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import userImage from './images/user-img.png';
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-
-const Header = ({ user, userrole, designerassignedrequests }) => {
+import { get_designer_assigned_requestlist } from "./reduxdata/rootAction";
+const Header = ({ user, userrole, totalassigns }) => {
   const [cuser, setCuser] = useState(user);
   const navigate =  useNavigate();
+  const dispatch = useDispatch();
 
   let local = localStorage.getItem('userDetails');
   local = local ? JSON.parse(local) : null;
@@ -14,6 +15,12 @@ const Header = ({ user, userrole, designerassignedrequests }) => {
   useEffect(() => {
     setCuser(local);
   }, [local]);
+
+  useEffect(() => {
+    if(user?.token){
+      get_designer_assigned_requestlist(dispatch, user?.token);
+    };
+  }, [dispatch,user?.token]);
 
   return (
     <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
@@ -61,7 +68,7 @@ const Header = ({ user, userrole, designerassignedrequests }) => {
                 {(userrole !== 'Designer') ? <div></div>:<>
                    <div className="header-request-btn position-relative">
                    <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => {navigate('/acceptance-request')}}>Requests</Button>
-                   <div className="request-count"><span className="counter-digit">{designerassignedrequests?.length}</span></div>
+                   <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>
                    </div>
                 </>}
                 
@@ -77,7 +84,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userrole: state.auth.role,
-    designerassignedrequests: state.requests.designerassignedrequests,
+    totalassigns: state.requests.totalassigns,
   };
 };
 

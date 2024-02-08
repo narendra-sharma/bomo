@@ -409,8 +409,12 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
       get_user_subscription({token:token},dispatch);
       get_draft_requestlist(dispatch, token); 
       change_add_edit(dispatch);
-      toast.success(`Request ${requestdata?.request_id ? 'updated' : 'created'} Successfully`);
+      toast.success(`Request ${requestdata?.request_id ? 'updated' : requestdata?.status === 'draft' ? 'drafted' : 'Created'} Successfully`);
       navigate('/');
+      dispatch({
+        type: SUBMIT_NOW, 
+        payload: true 
+      });
       return res.data;
     } else {
       toast.error(res.data.message);

@@ -81,7 +81,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                             <div className="col-md-5 col-12">
                                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
                                                     <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
-                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
+                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{!request?.req_mail_date ? '00:00:00' : formatTime(request.timeRemaining20Hrs)}</span></span>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">

@@ -16,7 +16,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
     <div className="review-content bg-white px-3 py-5 rounded">
       <div className="table-responsive">
         <table className="table table-borderless feedback-queue">
-          {feedbacklists ? feedbacklists?.updated_feedback_queue?.map((request) => (
+          {feedbacklists?.length >0 ? feedbacklists?.updated_feedback_queue?.map((request) => (
             <tbody>
               <tr>
                 <td><p className="serial-number">{request?.priority}</p></td>
@@ -28,7 +28,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
                   ? "No Date"
                   : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
-                <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                 <td><img src={dropdownImage} alt="" /></td>
               </tr>
             </tbody>

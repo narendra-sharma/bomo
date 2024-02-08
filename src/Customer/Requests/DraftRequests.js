@@ -5,6 +5,7 @@ import { connect, useDispatch } from "react-redux";
 import { get_draft_requestlist, get_edit_request_data } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
 import EmptyList from "../../Common/EmptyList";
+import { format } from "date-fns";
 
 const DraftRequests = ({ draftrequests,  user, total }) => {
   const dispatch = useDispatch();
@@ -25,10 +26,12 @@ const DraftRequests = ({ draftrequests,  user, total }) => {
                       <td className="text-center">
                         <ColorCode request={request} />
                       </td>
-                      <td><p><span className="fw-bold">Status</span> <span className="d-block">{request.status}</span></p></td>
-                      <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
-                      <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
-                      <td className="text-center"><p>DIOR</p></td>
+                      <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'draft' ? 'Draft' : '--'}</span></p></td>
+                      <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
+                            {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}
+                        </span></p></td>
+                      <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
+                      <td className="text-center"><p>{request?.brand_profile?.brandname}</p></td>
                       <td className="text-center"><p><Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>continue editing</Link></p></td>
                     </tr>
                   ))}

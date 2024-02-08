@@ -17,7 +17,6 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
     const handleRequest = () => {
       if(data){
         newRequest(data, dispatch, userdetail?.token, navigate);
-        dispatch({type: SUBMIT_NOW, payload: true });
         handleClose();
       }
     };
