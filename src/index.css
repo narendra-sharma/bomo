@@ -391,7 +391,7 @@ nav {
 }
 .review-content p {
   font-size: 13px;
-  line-height: 16px;
+  line-height: 18px;
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
@@ -907,6 +907,13 @@ td.vertical-middle {
   -ms-flex-align: center;
   align-items: center;
   min-height: calc(100% - (1.75rem * 2));
+}
+.logout-popup p , .logout-popup h5{
+  color: #000;
+}
+.logout-popup h5{
+  font-weight: 600;
+  font-size: 19px;
 }
 .modal-dialog .btn.btn-dark {
   background: #000;

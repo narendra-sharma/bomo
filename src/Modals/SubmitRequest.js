@@ -38,25 +38,25 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} className="logout-popup">
                 <Modal.Body>
                     <div className="px-4 py-4">
-                        <h4 className="mb-0">{data?.requestName}</h4>
-                        <p className="mt-2">All the fields are filled correctly</p>
-                        <p className="mt-2">Is the info provided accurate?</p>
-                        <p className="">All the working files working needed are there ?</p>
-                        <p className="mt-2">Once submitted you can't edit the request</p>
+                        <h5 className="mb-0">{data?.requestName},</h5>
+                        <p >All the fields are filled correctly</p>
+                        <p className="mt-2">Is the info provided accurate?<span className="d-block">
+                        All the working files working needed are there ?</span></p>
+                        <p >Once submitted you can't edit the request</p>
                         <div className="d-flex gap-2 mt-5 pt-4">
-                            <div className="col-md-6">
+                            <div className="col-md-8">
                                 <Button
-                                    variant="success"
+                                    variant="light"
                                     className="w-100 rounded-pill btn-outline-dark"
                                     onClick={() => handleRequest()}
                                 >
                                     SUBMIT
                                 </Button>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-4">
                                 <Button
                                     variant="light"
                                     className="w-100 rounded-pill btn-outline-dark"
