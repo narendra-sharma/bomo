@@ -415,7 +415,6 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
         type: SUBMIT_NOW, 
         payload: true 
       });
-      return res.data;
     } else {
       toast.error(res.data.message);
     }

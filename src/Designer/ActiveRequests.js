@@ -28,14 +28,16 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         const currentTime = new Date().getTime();
         const deadline = new Date(acceptanceTime).getTime() + duration;
         const timeRemaining = deadline - currentTime;
-        return timeRemaining > 0 ? timeRemaining : null;
+        return timeRemaining > 0 ? timeRemaining : 0;
     };
 
     const formatTime = (timeRemaining) => {
-        const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
-        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        const seconds = Math.floor(timeRemaining / 1000);
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+    
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
     };
 
     useEffect(() => {
@@ -81,7 +83,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                             <div className="col-md-5 col-12">
                                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
                                                     <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
-                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{!request?.req_mail_date ? '00:00:00' : formatTime(request.timeRemaining20Hrs)}</span></span>
+                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(request?.timeRemaining20Hrs)}</span></span>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">

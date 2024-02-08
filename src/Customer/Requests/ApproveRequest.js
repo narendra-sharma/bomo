@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import ExpandRequest from '../../Modals/ExpandRequest';
 import RejectRequest from '../../Modals/RejectRequest';
 import ColorCode from '../../Common/ColorCode';
+import EmptyList from '../../Common/EmptyList';
 
 const ApproveRequest = ({ user, approvelist }) => {
     const [show, setShow] = useState(false);
@@ -43,7 +44,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                     {approvelist?.length} requests left{" "}
                 </small>
             </div>
-            {approvelist?.map((request) => (
+            {approvelist?.lenght > 0 ? approvelist?.map((request) => (
                 <div className="col-lg-6">
                     <div className="table-responsive">
                         <table className="table table-borderless">
@@ -86,7 +87,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                         </table>
                     </div>
                 </div>
-            ))}
+            )) : (<EmptyList name="Approve Request" />)}
             <ExpandRequest show={show} handleClose={() => setShow(false)} />
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>

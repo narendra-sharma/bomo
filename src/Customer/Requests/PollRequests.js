@@ -4,12 +4,14 @@ import { connect, useDispatch } from "react-redux";
 import { get_designer_pool_requestlist, poll_request_apply } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
 import RequestDetails from "../../Modals/RequestsDetails";
+import EmptyList from "../../Common/EmptyList";
 
 const PollRequests = ({ user, pollrequests }) => {
     const dispatch = useDispatch();
     const [isvisible, setIsvisible] = useState(false);
     const [toggle, setToggle] = useState(false);
     const [selectedData,setSelectedData]=useState([]);
+
     const toogleVisibility = () => {
         if (window.scrollY > 300) {
             setIsvisible(true);
@@ -37,12 +39,14 @@ const PollRequests = ({ user, pollrequests }) => {
     };
 
     useEffect(() => {
-            get_designer_pool_requestlist(dispatch, user?.token);
-    }, []);
+            if(user?.token){
+                get_designer_pool_requestlist(dispatch, user?.token);
+            }
+    }, [dispatch,user?.token]);
 
     return (
         <>
-                {pollrequests?.map((request) => (
+                {pollrequests?.length > 0 ? pollrequests?.map((request) => (
                     <div className="col-md-6 col-lg-4 col-12">
                         <div className="bg-white px-2 px-md-3 py-3 rounded">
                             <div className="d-flex justify-content-between">
@@ -74,7 +78,7 @@ const PollRequests = ({ user, pollrequests }) => {
                             <div className="row">
                                 <div className="col-md-7 col-lg-8 d-flex align-items-center">
                                     <div className="d-flex justify-content-betwwen">
-                                        <p className="text-mute"><span>Selection in</span> <span className="fw-bold">14 days</span></p>
+                                        <p className="text-mute"><span>Selection in</span> <span className="fw-bold">14h</span></p>
                                         <p className="text-mute"><span>{request?.designer_list?.length} applications</span></p>
                                     </div>
                                 </div>
@@ -87,7 +91,7 @@ const PollRequests = ({ user, pollrequests }) => {
 
                         </div>
                     </div>
-                ))}
+                )): (<EmptyList name="Poll Request" />)}
             <div className="d-flex justify-content-center align-items-center">
                 <div className="status-btn">
                     <button className="btn pause-btn rounded-pill mt-4 py-1 w-100" onClick={scrollToTop}>
