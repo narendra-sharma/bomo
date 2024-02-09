@@ -5,6 +5,8 @@ import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
 import { poll_request_apply } from "../reduxdata/rootAction";
 
+const { REACT_APP_BOMO_URL } = process.env;
+
 const RequestDetails = ({ show, handleClose, data, user }) => {
     const dispatch = useDispatch();
     const handleApplyRequest = (requestdata) => {
@@ -32,7 +34,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
                                 <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
-                                <p className="brand-assets-btn rounded bg-white request-poll-active" >Brand Assets</p>
+                                <p className="brand-assets-btn rounded bg-white request-poll-active" ><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.brandassests}`} >Brand Assets</a></p>
                             </div>
                         </div>
                         <div className="col-md-6 delivery-date-content">
@@ -48,8 +50,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="mb-3 position-relative">
                                 <img src={reelImage} alt="reel imag" width="100%" />
                                 <div className="project-btn">
-
-                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center">Project Assets</div>
+                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`}>Project Assets</a></div>
                                 </div>
                             </div>
                             <div className="table-responsive">

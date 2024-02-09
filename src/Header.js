@@ -17,10 +17,10 @@ const Header = ({ user, userrole, totalassigns }) => {
   }, [local]);
 
   useEffect(() => {
-    if(user?.token){
+    if(user?.role==='designer'){
       get_designer_assigned_requestlist(dispatch, user?.token);
     };
-  }, [dispatch,user?.token]);
+  }, [dispatch,user?.role]);
 
   return (
     <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
