@@ -57,7 +57,7 @@ font-family: var(--pubilc-sans-font);
   color:var(--mid-green)
 }
 .extra-dark-green{
-  color:#012801;
+  color:#012801!important;
 }
 .display-inline{
   display: inline;
@@ -1081,6 +1081,12 @@ select.form-control {
   color: #3FCE3C;
   font-size: 14px;
 }
+.modal .delivery-status-section .delivery-status i{
+  font-size:28px;
+ }
+.modal .delivery-status {
+   font-size: 30px;
+ }
 .delivery-status-section .statusbar-section{
  gap:20px;
 }
@@ -1410,7 +1416,7 @@ ul.designer-list li{
   color: #3FCE3C;
 }
 .text-mute {
-  color: #838383;
+  color: #838383!important;
 }
 .spinner-container {
   position: fixed!important;
@@ -1952,7 +1958,7 @@ button.accordion-button.collapsed  .late-request-section {
   font-size: 23px;
   line-height: 25px;
 }
-.progress_bar .step .deliver-status.delivery-cancel i{
+.progress_bar .step .deliver-status.delivery-cancel i , .delivery-status.delivery-cancel i{
  color: #F92B34;
 }
 .progress_bar .step .deliver-status.delivery-check i{
@@ -2030,6 +2036,36 @@ button.accordion-button.collapsed  .late-request-section {
 .review-btn:hover{
   background-color:#012801 ;
   color: #CDFFB5;
+}
+.completed-status{
+  position: absolute;
+  right: 0;
+}
+.modal .modal-content{
+  border: none;
+}
+.review-submit-popup {
+  width: 50%;
+  border: solid 1px #012801;
+  margin: 0 auto;
+  background: #ECF7EE;
+  border-radius: 5px;
+  color: #012801;
+}
+.review-submit-popup button{
+  color: #012801;
+  border: solid 1px
+  #012801;
+}
+.review-submit-popup button:hover{
+  background-color: #012801;
+  color: #fff;
+}
+.feedback-submit-popup {
+  background-color: #F4F4F4;
+}
+.feedback-submit-popup p{
+  font-size: 15px;
 }
 @media (min-width: 576px){
 .main-content-wraaper{

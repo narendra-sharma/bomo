@@ -20,16 +20,20 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
             <Modal.Body>
                 <div className=" px-5 py-5 px-md-5 review-content ">
                     <div className="row align-items-center">
+                        <div className="col-md-7 col-12 mb-4 designer-active-request">
+                             <span class="deadline-date status position-relative ps-3">Selection in <span class="fw-bold"><span>14 hour</span></span></span>
+                        </div>
+                        <div className="col-md-5 col-12 mb-4">
+                            <div class="d-flex justify-content-end align-items-center designer-active-request ">
+                               <p>{data?.designer_list?.length} applications</p>
+                            </div>
+                        </div>
                         <div className="col-md-7 col-12">
                             <div className="mb-4">
                                 <h2 className="h3 fw-bold">{data?.request_name}</h2>
                             </div>
                         </div>
-                        <div className="col-md-5 col-12">
-                            <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                               <span>{data?.designer_list?.length} applications</span>
-                            </div>
-                        </div>
+                       
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
@@ -39,7 +43,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                         </div>
                         <div className="col-md-6 delivery-date-content">
                             <div class="text-end mb-3">
-                                <div className="d-flex justify-content-between align-items-center">
+                                <div className="d-flex justify-content-end align-items-center">
                                     <div><span class="fw-bold"> Delivery Date</span>
                                         <span class="d-block">Mon 10 - 9:00</span>
                                     </div>
@@ -56,10 +60,10 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="table-responsive">
                                 <table className="table table-borderless mb-0">
                                     <thead>
-                                        <th><p>Description</p></th>
-                                        <th><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                        <th><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                        <th><p><span className="fw-bold d-block">Format</span></p> </th>
+                                        <th style={{width:"240px"}}><p>Description</p></th>
+                                        <th style={{width:"105px"}}><p><span className="fw-bold d-block">Reference</span> </p></th>
+                                        <th style={{width:"100px"}}><p><span className="fw-bold d-block">Deliverables</span></p></th>
+                                        <th style={{width:"100px"}}><p><span className="fw-bold d-block">Format</span></p> </th>
                                         <th><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
                                     </thead>
                                     <tbody>
@@ -77,11 +81,11 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="mt-4">
-                                    <div className="status-btn">
-                                        <button className="btn pause-btn rounded-pill py-1 w-100" onClick={() => handleApplyRequest(data)}>APPLY</button>
-                                        <div><h5 class="fw-bold mb-0">$125</h5></div>
+                            <div className="mt-4 row justify-content-between">
+                                    <div className="col-md-8 status-btn">
+                                        <button className="btn pause-btn rounded py-1 w-100" onClick={() => handleApplyRequest(data)}>APPLY</button>
                                     </div>
+                                    <div className="col-md-4"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
                             </div>
                         </div>
                     </div>
