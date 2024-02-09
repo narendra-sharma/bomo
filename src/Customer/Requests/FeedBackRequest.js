@@ -16,13 +16,13 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
     <div className="review-content bg-white px-3 py-5 rounded">
       <div className="table-responsive">
         <table className="table table-borderless feedback-queue">
-          {feedbacklists?.length >0 ? feedbacklists?.updated_feedback_queue?.map((request) => (
+          {feedbacklists ? feedbacklists?.updated_feedback_queue?.map((request) => (
             <tbody>
               <tr>
                 <td><p className="serial-number">{request?.priority}</p></td>
                 <td className="text-center"><ColorCode request={request} /></td>
                 <td>
-                  <p>DIOR</p>
+                  <p>{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p>
                 </td>
                 <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date

@@ -1,4 +1,3 @@
-// CountdownTimer.js
 import React, { useState, useEffect } from 'react';
 import Countdown from 'react-countdown';
 
@@ -26,7 +25,6 @@ const CountdownTimer = ({ requestDate }) => {
   return (
     <Countdown
       date={Date.now() + countdownTime}
-      intervalDelay={1000}
       renderer={({ hours, minutes, seconds, completed }) => {
         if (completed) {
           return <span>00:00:00</span>;

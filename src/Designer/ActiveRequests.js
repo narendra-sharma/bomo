@@ -27,38 +27,6 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         setActiverequests(activerequest)
     }, [activerequest]);
 
-    const calculateTimeRemaining = (acceptanceTime, duration) => {
-        const currentTime = new Date().getTime();
-        const deadline = new Date(acceptanceTime).getTime() + duration;
-        const timeRemaining = deadline - currentTime;
-        return timeRemaining > 0 ? timeRemaining : 0;
-    };
-
-    const formatTime = (timeRemaining) => {
-        const hours = Math.floor(timeRemaining / (60 * 60 * 1000)).toString().padStart(2, '0');
-        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000)).toString().padStart(2, '0');
-        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000).toString().padStart(2, '0');
-
-        return `${hours}:${minutes}:${seconds}`;
-    };
-
-    useEffect(() => {
-        const updateTimers = () => {
-            setActiverequests((prevData) =>
-                prevData.map((request) => {
-                    const utcDate = new Date(request.req_mail_date);
-                    const localDate = new Date(utcDate.toLocaleString());
-                    return {
-                        ...request,
-                        timeRemaining20Hrs: calculateTimeRemaining(localDate, 20 * 60 * 60 * 1000),
-                    }
-                })
-            );
-        };
-        const timerId = setInterval(updateTimers, 1000);
-        return () => clearInterval(timerId);
-    }, []);
-
     const handleDeliever = (requestdata) => {
         navigate('/deleiver-request');
         dispatch(deliever_request_details(requestdata));
