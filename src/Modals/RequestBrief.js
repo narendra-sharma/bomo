@@ -5,6 +5,7 @@ import ColorCode from "../Common/ColorCode";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { deliever_request_details } from "../reduxdata/rootAction";
+import CountdownTimer from "../Common/CountdownTimer";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -16,12 +17,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
         navigate('/deleiver-request');
         dispatch(deliever_request_details(requestdata));
     };
-    const formatTime = (timeRemaining) => {
-        const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
-        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    };
+
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
@@ -35,7 +31,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-5 col-12">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(data?.timeRemaining20Hrs)}</span></span>
+                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={data?.req_mail_date} /> </span></span>
                                 </div>
                             </div>
                             <div className="col-md-6">

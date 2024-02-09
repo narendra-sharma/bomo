@@ -1,27 +1,42 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { designer_deliever_request } from "../reduxdata/rootAction";
 import DeliverSuccess from "./DeliverSuccess";
+import Draggable from "react-draggable";
 
 
 const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
     const [isDeliver, setIsDeliver] = useState(false);
+    const [isdrag, setIsdrag] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const handleDragStart = () => {
+        setIsdrag(true);
+    };
+   
+    const handleDragStop = (event, data) => {
+        if (!isDeliver && data?.x === 0) {
+            setIsdrag(false);
+        }  else {
+           handleSubmit();
+        }
+    };
+
     const handleSubmit = () => {
         designer_deliever_request(dispatch, user?.token, detail, navigate);
         handleClose();
         setIsDeliver(true);
     };
+
     useEffect(() => {
-        if(isDeliver) {
+        if (isDeliver) {
             setTimeout(() => {
                 setIsDeliver(false);
-            },5000);
+            }, 5000);
         };
-      }, [isDeliver]);
+    }, [isDeliver]);
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
@@ -37,13 +52,22 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
                             <br />
                             Happy with your uploads? Hit deliver:)
                         </p>
-                        <Button variant="success" className="w-100 rounded-pill btn-outline-dark" onClick={handleSubmit}>
-                            DELIVER NOW
-                        </Button>
+                        <div className={`px-1 py-1 ${isdrag ? "bg-success" : "border border-dark"} rounded-pill`}>
+                            <Draggable
+                                axis="x"
+                                onStart={handleDragStart}
+                                onStop={handleDragStop}
+                                bounds={{ left: 0, right: 200 }}
+                                position={{ x: 0, y: 0 }}>
+                                    <Button variant="success" className="w-50 rounded-pill btn-outline-dark">
+                                        DELIVER NOW
+                                    </Button>
+                            </Draggable>
+                        </div>
                     </div>
                 </Modal.Body>
             </Modal>
-            <DeliverSuccess show={isDeliver} handleClose={() => setIsDeliver(false)} data={currentdata}/>
+            <DeliverSuccess show={isDeliver} handleClose={() => setIsDeliver(false)} data={currentdata} />
         </div>
     )
 };
