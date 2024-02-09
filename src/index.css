@@ -59,6 +59,9 @@ font-family: var(--pubilc-sans-font);
 .extra-dark-green{
   color:#012801;
 }
+.color-black{
+  color: #000;
+}
 .display-inline{
   display: inline;
 }
@@ -1063,6 +1066,7 @@ select.form-control {
 .new-request{
   background-color: var(--gray-light);
   transition: .2s ease-in-out;
+  font-size: 15px;
 }
 .request-content:hover .new-request{
   background-color: #000;
@@ -1080,6 +1084,12 @@ select.form-control {
 .delivery-status i{
   color: #3FCE3C;
   font-size: 14px;
+}
+.modal .delivery-status-section .delivery-status i{
+ font-size:25px;
+}
+.modal .delivery-status {
+  font-size: 30px;
 }
 .delivery-status-section .statusbar-section{
  gap:20px;
@@ -1952,7 +1962,7 @@ button.accordion-button.collapsed  .late-request-section {
   font-size: 23px;
   line-height: 25px;
 }
-.progress_bar .step .deliver-status.delivery-cancel i{
+.progress_bar .step .deliver-status.delivery-cancel i , .delivery-status.delivery-cancel i{
  color: #F92B34;
 }
 .progress_bar .step .deliver-status.delivery-check i{
@@ -2030,6 +2040,10 @@ button.accordion-button.collapsed  .late-request-section {
 .review-btn:hover{
   background-color:#012801 ;
   color: #CDFFB5;
+}
+.completed-status{
+  position: absolute;
+  right: 0;
 }
 @media (min-width: 576px){
 .main-content-wraaper{
