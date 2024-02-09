@@ -44,7 +44,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                     {approvelist?.length} requests left{" "}
                 </small>
             </div>
-            {approvelist?.lenght > 0 ? approvelist?.map((request) => (
+            {approvelist?.length > 0 ? approvelist?.map((request) => (
                 <div className="col-lg-6">
                     <div className="table-responsive">
                         <table className="table table-borderless">

@@ -5,12 +5,11 @@ import { connect, useDispatch } from "react-redux";
 import { deliever_request_details, get_designer_active_requestslist } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RequestBrief from "../Modals/RequestBrief";
 import EmptyList from "../Common/EmptyList";
+import CountdownTimer from "../Common/CountdownTimer";
 const DesignerHome = ({user, activerequest, pollrequests}) => {
-    let [searchAccept] = useSearchParams();
-    const acceptdata = searchAccept.get('acceptRequest');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests,setActiverequests] = useState([]);
@@ -24,46 +23,6 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
     useEffect(()=> {
         setActiverequests(activerequest)
     },[activerequest]);
-
-    useEffect(()=>{
-        if(acceptdata){
-          navigate('/acceptance-request');
-        }
-    },[acceptdata]);
-
-    const calculateTimeRemaining = (acceptanceTime, duration) => {
-        const currentTime = new Date().getTime();
-        const deadline = new Date(acceptanceTime).getTime() + duration;
-        const timeRemaining = deadline - currentTime;
-        return timeRemaining > 0 ? timeRemaining : null;
-    };
-
-    const formatTime = (timeRemaining) => {
-        const seconds = Math.floor(timeRemaining / 1000);
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = seconds % 60;  
-    
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
-    };
-
-    useEffect(() => {
-        const updateTimers = () => {
-            setActiverequests((prevData) =>
-                prevData.map((request) => {
-                    const utcDate = new Date(request.req_mail_date);
-                    const localDate =  new Date(utcDate.toLocaleString());
-                    const acceptanceTime = localDate.getTime();
-                       return {
-                        ...request,
-                        timeRemaining20Hrs: calculateTimeRemaining(acceptanceTime, 20 * 60 * 60 * 1000),
-                       }
-                })
-            );
-        };
-        const timerId = setInterval(updateTimers, 1000);
-        return () => clearInterval(timerId);
-    }, []);
 
     const handleDeliever = (requestData) => {
         navigate('/deleiver-request');
@@ -79,7 +38,7 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
                         {activerequests?.length > 0 ? activerequests?.map((request) => (
                             <div className="mb-4">
                                 <div className="ms-4 mb-3">
-                                    <span className="deadline-date status position-relative ps-3">Deadline in <span className="fw-bold">{formatTime(request.timeRemaining20Hrs)}</span></span>
+                                    <span className="deadline-date status position-relative ps-3">Deadline in <span className="fw-bold"><CountdownTimer requestDate={request?.req_mail_date} /></span></span>
                                 </div>
                                 <div className="table-responsive rounded">
                                     <table className="table table-borderless mb-0">
@@ -100,7 +59,7 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
                                     </table>
                                 </div>
                             </div>
-                        )): <EmptyList name="Active Request" />}
+                        )) : <EmptyList name="Active Request" />}
                     </div>
                     <div className="mt-5">
                         <div className="mx-md-5 mx-sm-0 mb-4 d-flex"><h3 >Requests Poll</h3>

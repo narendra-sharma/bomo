@@ -6,6 +6,9 @@ import { format } from "date-fns";
 import ColorCode from "../Common/ColorCode";
 import { useNavigate } from "react-router-dom";
 import EmptyList from "../Common/EmptyList";
+import CountdownTimer from "../Common/CountdownTimer";
+
+const { REACT_APP_BOMO_URL } = process.env;
 
 const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const dispatch = useDispatch();
@@ -13,7 +16,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const [activerequests, setActiverequests] = useState([]);
 
     const scrollToTop = () => {
-       navigate('/');
+        navigate('/');
     };
 
     useEffect(() => {
@@ -32,12 +35,11 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     };
 
     const formatTime = (timeRemaining) => {
-        const seconds = Math.floor(timeRemaining / 1000);
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = seconds % 60;
-    
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        const hours = Math.floor(timeRemaining / (60 * 60 * 1000)).toString().padStart(2, '0');
+        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000)).toString().padStart(2, '0');
+        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000).toString().padStart(2, '0');
+
+        return `${hours}:${minutes}:${seconds}`;
     };
 
     useEffect(() => {
@@ -83,13 +85,15 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                             <div className="col-md-5 col-12">
                                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
                                                     <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
-                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold">{formatTime(request?.timeRemaining20Hrs)}</span></span>
+                                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={request?.req_mail_date} /></span></span>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="d-flex align-items-center">
                                                     <ColorCode request={request} />
-                                                    <p className="brand-assets-btn rounded">Brand Assets</p>
+                                                    <p className="brand-assets-btn rounded">
+                                                        <a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${request?.brand_profile?.brandassests}`} >Brand Assets</a>
+                                                    </p>
                                                 </div>
                                                 <div className="table-responsive">
                                                     <table className="table request-status table-borderless mb-0">
@@ -119,7 +123,9 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                                     </table>
                                                 </div>
                                                 <div className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center">
-                                                    Project Assets
+                                                    <a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`}>
+                                                        Project Assets
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +150,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                                 </div>
                             </div>
-                        )): <EmptyList name="Active Request" />}
+                        )) : <EmptyList name="Active Request" />}
 
                         <div className="mt-5 text-center">
                             <p>No more active Requests. See what’s new and apply</p>
