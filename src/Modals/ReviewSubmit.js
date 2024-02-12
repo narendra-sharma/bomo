@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import DeliverFiles from "./DeliverFiles";
+import { connect, useDispatch } from "react-redux";
+import { review_delivery_request_customer_admin } from "../reduxdata/rootAction";
+import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
 
-const ReviewSubmit = ({ show, handleClose }) => {
-    const [ispop, setIspop] = useState(false);
+const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
+    const dispatch = useDispatch();
+    const [isreview,setIsreview] = useState(false);
+
+    const handleReview = async (e,status) => {
+        e.preventDefault();
+        const reviewdata = {
+            _id: details._id,
+            reviewstatus: status,
+        };
+       await review_delivery_request_customer_admin(dispatch,user?.token,reviewdata);
+       setIsreview(true);       
+       handleClose();
+    };
     return (
         <div>
             <Modal show={show} onHide={handleClose} size="xl" className="logout-popup">
@@ -16,12 +31,12 @@ const ReviewSubmit = ({ show, handleClose }) => {
                             <p className="extra-dark-green">Confirm to get your files.</p>
                             <div className="d-flex gap-3 mt-4 pt-4">
                                 <div className="col-md-8">
-                                    <Button variant="unset" className="w-100 rounded-pill btn-outline-dark" onClick={() => setIspop(true)}>
+                                    <Button variant="unset" className="w-100 rounded-pill btn-outline-dark" onClick={(e) => handleReview(e,'completed')}>
                                         YES
                                     </Button>
                                 </div>
                                 <div className="col-md-4">
-                                    <Button variant="unset" className="w-100 rounded-pill btn-outline-dark" >
+                                    <Button variant="unset" className="w-100 rounded-pill btn-outline-dark" onClick={handleClose}>
                                         NO
                                     </Button>
                                 </div>
@@ -30,8 +45,16 @@ const ReviewSubmit = ({ show, handleClose }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <DeliverFiles show={ispop} onClose={() => setIspop(false)} />
+           {isreview && <DeliverFiles show={isSubmit} onClose={() => { dispatch({type: SUBMIT_NOW, payload: false })}} />}
         </div>
     )
 }
-export default ReviewSubmit;
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+        isSubmit: state.requests.isSubmit
+    };
+};
+export default connect(mapStateToProps)(ReviewSubmit);
+
