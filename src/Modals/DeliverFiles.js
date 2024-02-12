@@ -1,7 +1,9 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const DeliverFiles = ({show,onClose}) => {
+    const navigate = useNavigate();
     return (
         <Modal show={show} onHide={onClose} size="xl" className="logout-popup">
             <Modal.Body>
@@ -11,7 +13,7 @@ const DeliverFiles = ({show,onClose}) => {
                         <h4>Your delivery for <span className="fw-bold">Transition Brand Video </span>
                             <span className="d-block">has been approved and files are ready</span></h4>
                         <div className="my-5 pt-3 pb-4">
-                            <button className="review-btn fw-bold rounded-pill px-2" >Get My files</button>
+                            <button className="review-btn fw-bold rounded-pill px-2" onClick={() => navigate('/')}>Get My files</button>
                         </div>
                         <p className="mb-0">Time Share Your Creation!</p>
                     </div>

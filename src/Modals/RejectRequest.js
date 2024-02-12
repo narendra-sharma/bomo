@@ -8,14 +8,17 @@ const RejectRequest = ({ show, handleClose, detail, user }) => {
     const [formdata,setFormdata] = useState({
         message:''
     });
+
     const [errors,setErrors]=useState({
         message: ''
     });
+
     const handleInputChange = (e) => {
         const {name,value}=e.target;
         setErrors({...errors, [name]:value===''?'Specify your Needs':null});
         setFormdata({...formdata, [name]:value});
     };
+
     const handleSubmit = (e,status) => {
         e.preventDefault();
         const checkerrors={};
@@ -25,20 +28,22 @@ const RejectRequest = ({ show, handleClose, detail, user }) => {
             }
         });
         setErrors(checkerrors);
-        if(Object.keys(errors).length>0){
+        if(Object.keys(checkerrors).length>0){
             return;
         }
         const specifyData = { 
-            _id:detail._id,
-            deliverystatus:status,
+            _id: detail._id,
+            deliverystatus: status,
             message: formdata.message
         };
         superadmin_approve_delivery(dispatch,user?.token,specifyData);
         handleClose();
     };
+
     useEffect(() => {
         return () => { setFormdata({message:''}); setErrors({ message:null}); };
     },[show]);
+    
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Body>

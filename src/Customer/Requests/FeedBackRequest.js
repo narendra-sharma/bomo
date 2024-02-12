@@ -11,7 +11,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     get_feedback_review_requestlist(dispatch, user?.token);
-  }, []);
+  }, [user?.token,dispatch]);
   return (
     <div className="review-content bg-white px-3 py-5 rounded">
       <div className="table-responsive">
