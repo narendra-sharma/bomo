@@ -47,7 +47,7 @@ const PollRequests = ({ user, pollrequests }) => {
     return (
         <>
                 {pollrequests?.length > 0 ? pollrequests?.map((request) => (
-                    <div className="col-md-6 col-lg-4 col-12">
+                    <div className="col-md-6 col-lg-4 col-12 mb-3">
                         <div className="bg-white px-2 px-md-3 py-3 rounded">
                             <div className="d-flex justify-content-between">
                                 <h6 className="fw-bold">{request?.request_name}</h6>
@@ -56,12 +56,12 @@ const PollRequests = ({ user, pollrequests }) => {
                                 </p>
                             </div>
                             <div className="row">
-                                <div className="col-md-9 col-lg-9 d-flex align-items-center">
-                                    <div className="d-flex">
+                                <div className="col-md-11 col-lg-10 d-flex align-items-center">
+                                    <div className="d-flex align-items-center">
                                         <ColorCode request={request} />
                                         <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
                                     </div>
-                                    <div><a href="javascript:void(0)" className="text-decoration-none" onClick={() => {setToggle(true);setSelectedData(request);}}>+ Show full Brief</a></div>
+                                    <div><p><a href="javascript:void(0)" className="text-decoration-none" onClick={() => {setToggle(true);setSelectedData(request);}}>+ Show full Brief</a></p></div>
                                 </div>
                             </div>
                             <div className="row my-3">
