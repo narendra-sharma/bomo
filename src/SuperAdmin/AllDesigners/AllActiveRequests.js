@@ -9,7 +9,6 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
     useEffect(() => {
         get_superadmin_all_activerequests(user?.token, dispatch);
     }, []);
-    console.log(allactiverequests);
 
     return (
         <div class="accordion-item mb-5">

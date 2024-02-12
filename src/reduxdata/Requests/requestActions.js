@@ -381,6 +381,40 @@ export const get_superadmin_all_activerequests = async (token,dispatch) => {
   }
 };
 
+export const review_delivery_request_customer_admin = async (dispatch,token,reviewdata,navigate) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}user/feedback`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+      }
+    };
+    const reviewdetails = {
+      request_id : reviewdata._id,
+      status : reviewdata.reviewstatus 
+    };
+    if (reviewdetails.status === 'rejected') {
+      reviewdetails.message = reviewdata.message;
+    };
+    const res = await axios.put(url,JSON.stringify(reviewdetails),HEADERS);
+    if(res.data && res.data.status) {
+      toast.success(res.data?.message);
+        dispatch({
+          type: SUBMIT_NOW, 
+          payload: true 
+        });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {

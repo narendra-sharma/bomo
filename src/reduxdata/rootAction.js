@@ -46,7 +46,8 @@ import { newRequest,
   get_approve_delivery_list,
   superadmin_approve_delivery,
   get_feedback_review_requestlist,
-  get_superadmin_all_activerequests
+  get_superadmin_all_activerequests,
+  review_delivery_request_customer_admin
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -102,5 +103,6 @@ export {
   get_approve_delivery_list,
   superadmin_approve_delivery,
   get_feedback_review_requestlist,
-  get_superadmin_all_activerequests
+  get_superadmin_all_activerequests,
+  review_delivery_request_customer_admin
 };
