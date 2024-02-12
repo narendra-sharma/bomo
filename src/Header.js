@@ -8,6 +8,7 @@ const Header = ({ user, userrole, totalassigns }) => {
   const [cuser, setCuser] = useState(user);
   const navigate =  useNavigate();
   const dispatch = useDispatch();
+  const userRole = user?.role === 'designer' ? user?.role : ''
 
   let local = localStorage.getItem('userDetails');
   local = local ? JSON.parse(local) : null;
@@ -17,10 +18,10 @@ const Header = ({ user, userrole, totalassigns }) => {
   }, [local]);
 
   useEffect(() => {
-    if(user?.role==='designer'){
+    if(userRole){
       get_designer_assigned_requestlist(dispatch, user?.token);
     };
-  }, [dispatch,user?.role]);
+  }, [dispatch,userRole]);
 
   return (
     <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
