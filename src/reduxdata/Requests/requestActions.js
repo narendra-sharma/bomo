@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page, limit) => {
@@ -381,7 +381,7 @@ export const get_superadmin_all_activerequests = async (token,dispatch) => {
   }
 };
 
-export const review_delivery_request_customer_admin = async (dispatch,token,reviewdata,navigate) => {
+export const review_delivery_request_customer_admin = async (dispatch,token,reviewdata) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}user/feedback`;
@@ -400,11 +400,30 @@ export const review_delivery_request_customer_admin = async (dispatch,token,revi
     };
     const res = await axios.put(url,JSON.stringify(reviewdetails),HEADERS);
     if(res.data && res.data.status) {
-      toast.success(res.data?.message);
-        dispatch({
-          type: SUBMIT_NOW, 
-          payload: true 
-        });
+        toast.success(res.data?.message);
+        dispatch({ type: SUBMIT_NOW, payload: true });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const get_past_requests_for_customer_admin = async (dispatch,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}customer/past_request_data`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      }
+    };
+    const res = await axios.get(url,HEADERS);
+    if(res.data && res.data.status) {
+      dispatch({ type: GET_ALL_PAST_REQUEST_LIST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
     }

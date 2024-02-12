@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import dropdownImage from '../images/dropdown-img.png';
 import NewRequestShared from "./Sahred/NewRequestShared";
-const PastRequest = () => {
+import { get_past_requests_for_customer_admin } from "../reduxdata/rootAction";
+import { connect, useDispatch } from "react-redux";
+const PastRequest = ({user,pastrequests}) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    get_past_requests_for_customer_admin(dispatch,user?.token);
+  },[user?.token,dispatch]);
+  console.log(pastrequests);
     return(
         <>
           <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -561,4 +569,11 @@ const PastRequest = () => {
         </>
     )
 }
-export default PastRequest;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    pastrequests: state.requests.pastrequests,
+  };
+};
+export default connect(mapStateToProps)(PastRequest);

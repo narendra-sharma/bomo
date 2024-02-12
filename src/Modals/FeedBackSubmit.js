@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
-import { review_delivery_request_customer_admin } from "../reduxdata/rootAction";
 import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { review_delivery_request_customer_admin } from "../reduxdata/rootAction";
 
-const FeedBackSubmit = ({ show, handleClose, details, user }) => {
-    const dispatch = useDispatch();
+
+const FeedBackSubmit = ({ show, handleClose, details, user }) => {  
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formdata, setFormdata] = useState({
         feedback: ''
     });
@@ -20,7 +21,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
         setFormdata({ ...formdata, [name]: value });
     };
 
-    const handleFeedback = async (e, status) => {
+    const handleFeedback = (e,status) => {
         e.preventDefault();
         const checkerrors = {};
         Object.keys(formdata).forEach((name) => {
@@ -28,8 +29,8 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
                 checkerrors[name] = 'Specify what needs to be modified'
             }
         });
-        setErrors(checkerrors);
-        if (Object.keys(errors).length>0) {
+        setErrors({...errors, checkerrors});
+        if (Object.keys(checkerrors).length>0) {
             return;
         }
         const specifyData = {
@@ -37,8 +38,9 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
             reviewstatus: status,
             message: formdata.feedback
         };
-        await review_delivery_request_customer_admin(dispatch, user?.token, specifyData);
+        review_delivery_request_customer_admin(dispatch, user?.token, specifyData);
         navigate('/');
+        handleClose();
     };
 
     useEffect(() => {

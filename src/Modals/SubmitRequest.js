@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import RequestSuccess from './RequestSuccess';
 import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
-const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
+const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,8 +22,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
     };
 
     useEffect(() => {
-        let isSubmitvalue = issubmit;
-        if(isSubmitvalue) {
+        if(isSubmit) {
             setShowSuccess(true);
             setTimeout(() => {
                 setShowSuccess(false);
@@ -33,7 +32,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
                   })
             },3000);
         }
-      }, [issubmit,dispatch]);
+      }, [isSubmit,dispatch]);
 
     return (
         <div>
@@ -68,14 +67,14 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, issubmit }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <RequestSuccess view={showSuccess} viewClose={() => setShowSuccess(false)} datadetail={userdetail} requestdata={data} />
+           {showSuccess && <RequestSuccess view={isSubmit} viewClose={() => {dispatch({ type: SUBMIT_NOW, payload: false })}} datadetail={userdetail} requestdata={data} />}
         </div>
     )
 };
 
 const mapStateToProps = (state) => {
     return {
-        issubmit:state.requests.isSubmit
+        isSubmit:state.requests.isSubmit
     }
 }
 export default connect(mapStateToProps)(SubmitRequest);
