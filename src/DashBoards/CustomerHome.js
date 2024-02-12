@@ -45,7 +45,7 @@ const CustomerHome = ({ activerequest, user }) => {
                     <table className="table table-borderless">
                       <tbody>
                         <tr>
-                          <td className="text-center"><ColorCode request={request} /></td>
+                          <td className="text-center" style={{width:"119px"}}><ColorCode request={request} /></td>
                           <td>
                             <p>{request?.brand_profile?.brandname}</p>
                           </td>

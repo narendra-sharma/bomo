@@ -6,7 +6,7 @@ const FeedBackSubmit = ({show,handleClose}) => {
         <Modal show={show} onHide={handleClose} size="xl" className="logout-popup">
             <Modal.Body className="py-5">
                 <div className="py-5 px-60 ">
-                    <div className="w-50 m-auto my-5">
+                    <div className="w-50 m-auto my-">
                     <h5 className="mb-0 fw-bold">Specify what needs to be modified</h5>
                     <div className="feedback-submit-popup extra-grren rounded border border-dark my-4 p-4"> 
                         <p className="text-mute">Is the animation true to the brief? <br/>Are color changes needed?

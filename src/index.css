@@ -1679,18 +1679,23 @@ nav p.user-email {
   line-height: 18px;
   font-size: 11px;
 }
-.designer-active-request .table>:not(caption)>*>*{
+.designer-active-request .table>:not(caption)>*>* , .designer-request .table>:not(caption)>*>*{
   background-color: #ECF7EE;
+}
+.designer-request .table{
+  border-collapse: separate;
+  border-spacing: 0px 13px;
 }
 .designer-active-request .table-responsive{
   border: solid 1px #ECF7EE;
   transition: .3s ease-in-out;
 }
-.designer-active-request .table-responsive:hover {
+.designer-active-request .table-responsive:hover , .designer-request .table tr:hover {
   border: solid 1px #3FCE3C;
   transition: .3s ease-in-out;
 }
-.designer-active-request .table-responsive:hover button.deliver-now-btn{
+.designer-active-request .table-responsive:hover button.deliver-now-btn ,
+.designer-request .table-responsive tr:hover button.deliver-now-btn {
   padding: 4px 20px;
   background: transparent;
   border: solid 1px #3FCE3C;
@@ -2013,25 +2018,33 @@ button.accordion-button.collapsed  .late-request-section {
 }
 .customer-all  table.table.table-borderless.mb-0 {
   border-collapse: separate;
-  border-spacing: 0px 13px;
+  border-spacing: 0px 13px; 
 }
-.customer-all .review-content table td:first-child {
+.customer-all .review-content table td:first-child ,  .designer-request .table td:first-child{
   border-radius: 5px 0 0 5px;
 }
-.customer-all .review-content table td:last-child {
+.customer-all .review-content table td:last-child ,  .designer-request .table td:last-child{
   border-radius: 0px 5px 5px 0;
+}
+.designer-request .table td.shortad p{
+ width:105px
+}
+.review-content .designer-request table td {
+  padding: 13px 20px;
 }
 .review-delvery-popup{
   border: solid 1px#3FCE3C;
 }
 .review-delvery-popup h4{
   font-size: 21px;
+  font-weight: 400;
 }
 .review-btn{
   background-color: #ECF7EE;
   border: solid 1px #012801;
   color: #012801;
   padding: 5px 27px;
+  font-size: 18px;
 }
 .review-btn:hover{
   background-color:#012801 ;
