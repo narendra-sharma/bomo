@@ -44,13 +44,13 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
                                     <table className="table table-borderless mb-0">
                                         <tbody>
                                             <tr>
-                                                <td className="text-center"><ColorCode request={request} /></td>
+                                                <td className="text-center" style={{width:"100px"}}><ColorCode request={request} /></td>
                                                 <td><p >{request?.brand_profile?.brandname}</p></td>
-                                                <td><p><span className="fw-bold">{request?.request_name}</span></p></td>
-                                                <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                                                <td  style={{width:"125px"}}><p><span className="fw-bold">{request?.request_name}</span></p></td>
+                                                <td><p><span className="fw-bold" >Status</span> <span className="d-block">{request?.status}</span></p></td>
                                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
-                                                <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                                <td className="text-end"><p><span className="extra-dark-green" onClick={() => {setIstoggle(true); setSelectedData(request);}}>+ show full brief</span> </p></td>
+                                                <td style={{width:"140px"}}><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
+                                                <td className="text-end"><p><span className="extra-dark-green cursor-pointer" onClick={() => {setIstoggle(true); setSelectedData(request);}}>+ show full brief</span> </p></td>
                                                 <td className="text-end ps-0">
                                                     <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleDeliever(request)}>DELIVERY NOW</Button>
                                                 </td>
