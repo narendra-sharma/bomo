@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import dropdownImage from '../images/dropdown-img.png';
 import { Button } from "react-bootstrap";
-const PastRequest = () => {
+import { connect } from "react-redux";
+import { get_past_requests_for_designer } from "../reduxdata/rootAction";
+import { useDispatch } from "react-redux";
+import ColorCode from "../Common/ColorCode";
+import { format } from "date-fns";
+const PastRequest = ({designerpastrequests,user}) => {
   const data=[1,2,3,4,5];
+  const dispatch = useDispatch();
+  useEffect(()=> {
+    get_past_requests_for_designer(dispatch,user?.token);
+  },[dispatch,user?.token]);
+  console.log(designerpastrequests);
+
   return (<div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
     <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
       <div className="review-main-content designer-past-request past-request-section">
@@ -14,12 +25,14 @@ const PastRequest = () => {
               <div className="table-responsive">
                 <table className="table table-borderless mb-0">
                   <tbody>
-                    {data.map((request,i)=><tr>
-                      <td className="text-center"><p className="short0ad">Short Ad</p></td>
-                      <td><p>DIOR</p></td>
+                    {designerpastrequests?.data?.map((request,i)=><tr>
+                      <td className="text-center"><ColorCode request={request}/></td>
+                      <td><p>{request?.request_name}</p></td>
                       <td><p className="fw-bold">Adss23</p></td>
-                      <td><p><span className="fw-bold">Status</span> <span className="d-block">Delivered</span></p></td>
-                      <td><p><span className="fw-bold">Delivery Date</span> <span className="d-block">17/03/2023</span></p></td>
+                      <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                      <td><p><span className="fw-bold">Delivery Date</span> <span className="d-block">
+                           {request?.delivery_date ? format(new Date(request?.delivery_date),'dd/MM/yyyy') : 'No Date'}
+                        </span></p></td>
                       <td className="text-left" ><h6 className="fw-bold">$125</h6></td>
                       <td className="text-end">
                         <Button variant="light" className="btn px-4 fw-bold feedback-request rounded-pill">
@@ -38,4 +51,12 @@ const PastRequest = () => {
   </div>
   )
 }
-export default PastRequest;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+    designerpastrequests: state.requests.designerpastrequests
+  }
+};
+
+export default connect(mapStateToProps)(PastRequest);

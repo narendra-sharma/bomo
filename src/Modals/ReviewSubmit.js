@@ -45,7 +45,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
                     </div>
                 </Modal.Body>
             </Modal>
-           {isreview && <DeliverFiles show={isSubmit} onClose={() => { dispatch({type: SUBMIT_NOW, payload: false })}} />}
+           {isreview && <DeliverFiles show={isSubmit} onClose={() => { dispatch({type: SUBMIT_NOW, payload: false })}} requestdata={details}/>}
         </div>
     )
 }

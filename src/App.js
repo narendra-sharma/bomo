@@ -38,6 +38,7 @@ import CalculatorShared from "./CalculatorShared";
 import { get_user_subscription } from "./reduxdata/rootAction";
 import DelieverRequest from "./Designer/DelieverRequest";
 import DesignerRequest from "./Customer/Requests/DesignerRequest";
+import RequestExpand from "./Customer/Requests/RequestExpand";
 
 function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
@@ -119,6 +120,7 @@ function App({ user }) {
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/deleiver-request", element: <DelieverRequest /> },
       { path: "/acceptance-request", element: <DesignerRequest /> },
+      { path: "/request-expand", element: <RequestExpand/> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);
   return (
