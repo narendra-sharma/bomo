@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const DeliverFiles = ({show,onClose}) => {
+const DeliverFiles = ({show,onClose,requestdata}) => {
+    console.log(requestdata);
     const navigate = useNavigate();
+    const [data,setData] = useState({
+        _id: requestdata?._id,
+        request_name: requestdata?.request_name,
+        request_type: requestdata?.request_type, 
+        delivery_date: requestdata?.delivery_date,
+        description: requestdata?.description,
+        size: requestdata?.size,
+        file_type: requestdata?.file_type,
+        transparency: requestdata?.transparency,
+        references: requestdata?.references,
+        brandname: requestdata?.brand_profile?.brandname,
+        status: 'completed'
+    });
+    const handleRequest = () => {
+        navigate('/request-expand', { state: data });
+    };
     return (
         <Modal show={show} onHide={onClose} size="xl" className="logout-popup">
             <Modal.Body>
@@ -13,7 +30,7 @@ const DeliverFiles = ({show,onClose}) => {
                         <h4>Your delivery for <span className="fw-bold">Transition Brand Video </span>
                             <span className="d-block">has been approved and files are ready</span></h4>
                         <div className="my-5 pt-3 pb-4">
-                            <button className="review-btn fw-bold rounded-pill px-2" onClick={() => navigate('/')}>Get My files</button>
+                            <button className="review-btn fw-bold rounded-pill px-2" onClick={handleRequest}>Get My files</button>
                         </div>
                         <p className="mb-0">Time Share Your Creation!</p>
                     </div>

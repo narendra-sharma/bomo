@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 import { review_delivery_request_customer_admin } from "../reduxdata/rootAction";
 
 
-const FeedBackSubmit = ({ show, handleClose, details, user }) => {  
+const FeedBackSubmit = ({ show, handleClose, details, user }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formdata, setFormdata] = useState({
@@ -14,6 +14,22 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
     const [errors, setErrors] = useState({
         feedback: ''
     });
+    const [data,setData] = useState(null);
+    useEffect(() => {
+        setData({
+            _id: details?._id,
+            request_name: details?.request_name,
+            request_type: details?.request_type, 
+            delivery_date: details?.delivery_date,
+            description: details?.description,
+            size: details?.size,
+            file_type: details?.file_type,
+            transparency: details?.transparency,
+            references: details?.references,
+            brandname: details?.brand_profile?.brandname,
+            status: 'rejected'
+        });
+    },[details]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -39,8 +55,11 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
             message: formdata.feedback
         };
         review_delivery_request_customer_admin(dispatch, user?.token, specifyData);
-        navigate('/');
-        handleClose();
+    };
+    console.log(data);
+    const handleRequest = () => {
+        navigate('/request-expand', { state: data });
+        console.log(data);
     };
 
     useEffect(() => {
@@ -62,7 +81,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
                         {errors.feedback && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.feedback}</p>}
                         <div className="d-flex gap-3 justify-content-center mt-3 pt-4">
                             <div className="col-md-8">
-                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={(e) => handleFeedback(e,'rejected')}>
+                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={(e) => {handleFeedback(e,'rejected');handleRequest();}}>
                                     Add Feedback
                                 </Button>
                             </div>

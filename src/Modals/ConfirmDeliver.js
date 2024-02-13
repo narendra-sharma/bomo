@@ -18,6 +18,11 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
         return `${monthDay}th ${time}`;
     };
 
+    const showFeedback = () => {
+        setFeed(true);
+        viewClose();
+    };
+
     return (
         <div>
             <Modal show={isshow} size="xl" onHide={viewClose} className="logout-popup">
@@ -61,7 +66,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                             : <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => setIssucess(true)}></i>
                                         }
                                     </span>
-                                    <span className="delivery-status delivery-cancel bg-white p-1 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={() => setFeed(true)}></i></span>
+                                    <span className="delivery-status delivery-cancel bg-white p-1 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={showFeedback}></i></span>
                                     <div className="mt-5">
                                         {deliveryStage === 1 ? (
                                             <button className="btn btn-outline-dark px-3 py-1" onClick={() => setDeliveryStage(deliveryStage + 1)}>Next</button>

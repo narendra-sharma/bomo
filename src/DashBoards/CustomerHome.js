@@ -70,7 +70,7 @@ const CustomerHome = ({ activerequest, user }) => {
         </div>
         <div className="review-main-content mb-5">
           <div className="mx-md-5 mx-sm-0 mb-4">
-            <h3>Draft</h3>
+            <h3>Drafts</h3>
           </div>
           <DraftRequests />
         </div>
