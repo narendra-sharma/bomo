@@ -10,7 +10,6 @@ import dropdownImage from '../../images/dropdown-img.png';
 const FeedBackRequest = ({ user, feedbacklists }) => {
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
-  const [dragId,setDragId] = useState(null);
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -40,7 +39,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               <table className="table table-borderless feedback-queue">
-                {items ? (
+                {items?.length > 0 ? (
                   items.map((request, index) => (
                     <Draggable key={request?._id} draggableId={request?._id} index={index}>
                       {(provided) => (

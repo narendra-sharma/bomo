@@ -57,7 +57,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     };
 
     useEffect(() => {
-        get_admin_assign_requestlist(dispatch, user?.token, 1, 5);
+        get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
     }, [dispatch,user?.token]);
 
     useEffect(() => {

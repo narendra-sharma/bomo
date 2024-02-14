@@ -13,7 +13,7 @@ const ReviewRequest = ({ feedbacklists }) => {
         <div className="review-content bg-white px-3 px-md-5 py-5 rounded">
             <div className="table-responsive">
                 <table className="table table-borderless">
-                    {feedbacklists ? feedbacklists?.design_for_review?.map((request)=> (
+                    {feedbacklists?.design_for_review?.length > 0 ? feedbacklists?.design_for_review?.map((request)=> (
                          <tbody>
                          <tr>
                              <td className="text-center"><ColorCode request={request} /></td>

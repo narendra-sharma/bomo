@@ -8,11 +8,12 @@ import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 
+const { REACT_APP_BOMO_URL } = process.env;
+
 const RequestExpand = ({ user, deliverrequests }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const receivedData = location?.state;
-    console.log(receivedData);
 
     useEffect(() => {
         get_delivered_requests(dispatch, user?.token, receivedData?._id);
@@ -91,59 +92,83 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 <div>
                                     <div className="col-md-12">
                                         <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                            <div className="row justify-content-center">
-                                                <div className="col-md-3 align-self-center">
-                                                    <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                                        {!request?.request_id?.feedback_message ?
-                                                            <div>
-                                                                <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Delivery Accepted</button>  <i className="fa-solid fa-circle-check"></i>
-                                                            </div>
-                                                            : <div>
+
+                                            {request?.request_id?.feedback_message &&
+                                                <div className="row justify-content-center">
+                                                    <div className="col-md-3 align-self-center">
+                                                        <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
+                                                            {request?.request_id?.feedback_message && <div>
                                                                 <i className="fa-solid fa-circle-xmark cancel"></i>
                                                                 <span> Delivery Rejected</span>
                                                             </div>}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-md-3 d-flex text-center justify-content-center">
-                                                    <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                        <div className="delivery-status fw-bold">9:16</div>
-                                                        <div className="">
-                                                            <img src={designImage} alt="Imag" />
+                                                    <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                            <div className="delivery-status fw-bold">9:16</div>
+                                                            <div className="">
+                                                                <img src={designImage} alt="Imag" />
+                                                            </div>
                                                         </div>
-                                                        <div className="download-btn">
-                                                            {!request?.request_id?.feedback_message && <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>}
+                                                    </div>
+                                                    <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                            <div className="delivery-status fw-bold">16:9</div>
+                                                            <div className="">
+                                                                <img src={designImage2} alt="Imag" />
+                                                            </div>
                                                         </div>
+                                                    </div>
+                                                    {request?.request_id?.feedback_message &&
+                                                        <div className="col-md-12">
+                                                            <div className="feedback-request  p-4 mt-4 rounded">
+                                                                <h5 className="fw-bold">Feedback Requested {request?.createdAt ? format(new Date(request?.createdAt), 'dd/MM/yyyy') : 'No Date'} {formattedTime(request?.createdAt)}</h5>
+                                                                <p>
+                                                                    <span className="d-block">
+                                                                        {request?.request_id?.feedback_message}
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>}
 
+                                            {request?.request_id?.status === 'completed' &&
+                                                <div className="row justify-content-center">
+                                                    <div className="col-md-3 align-self-center">
+                                                        <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
+                                                            <div>
+                                                                <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Delivery Accepted</button>  <i className="fa-solid fa-circle-check"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="col-md-3 d-flex text-center justify-content-center">
-                                                    <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                        <div className="delivery-status fw-bold">16:9</div>
-                                                        <div className="">
-                                                            <img src={designImage2} alt="Imag" />
-                                                        </div>
-                                                        <div className="download-btn">
-                                                            {!request?.request_id?.feedback_message && <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>}
-                                                        </div>
+                                                    <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                            <div className="delivery-status fw-bold">9:16</div>
+                                                            <div className="">
+                                                                <img src={designImage} alt="Imag" />
+                                                            </div>
+                                                            <div className="download-btn">
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/landscape/${request?.landscape}`}>Download</a></button>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                            <div className="delivery-status fw-bold">16:9</div>
+                                                            <div className="">
+                                                                <img src={designImage2} alt="Imag" />
+                                                            </div>
+                                                            <div className="download-btn">
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/portrait/${request?.portrait}`}>Download</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>}
 
                                         </div>
                                     </div>
-                                    {request?.request_id?.feedback_message && 
-                                        <div className="col-md-12">
-                                        <div className="feedback-request  p-4 mt-4 rounded">
-                                            <h5 className="fw-bold">Feedback Requested {request?.createdAt ? format(new Date(request?.createdAt),'dd/MM/yyyy') : 'No Date'} {formattedTime(request?.createdAt)}</h5>
-                                            <p>
-                                                <span className="d-block">
-                                                    {request?.request_id?.feedback_message}
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    }
                                 </div>
                             ))}
                         </div>

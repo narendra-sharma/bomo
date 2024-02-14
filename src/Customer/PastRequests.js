@@ -6,9 +6,10 @@ import { get_past_requests_for_customer_admin } from "../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from '../Common/ColorCode';
 import { format } from "date-fns";
-const PastRequest = ({ user, pastrequests }) => {
+import CustomPagination from "../Common/CustomPagination";
+import EmptyList from "../Common/EmptyList";
+const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     get_past_requests_for_customer_admin(dispatch, user?.token);
   }, [user?.token, dispatch]);
@@ -35,7 +36,7 @@ const PastRequest = ({ user, pastrequests }) => {
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
             <div className="review-content bg-white px-4 px-md-4 py-5 rounded">
               <div className="row mb-4">
-                {Object.entries(groupedRequests).map(([monthYear, requests]) => (
+                {totalpastrequest > 0 ? Object.entries(groupedRequests).map(([monthYear, requests]) => (
                   <div className="row mb-4" key={monthYear}>
                     <div className="col-md-12">
                       <h5 className="mx-md-4 mx-sm-0 fw-bold">{monthYear}</h5>
@@ -62,9 +63,13 @@ const PastRequest = ({ user, pastrequests }) => {
                       </div>
                     ))}
                   </div>
-                ))}
+                )):
+                (<EmptyList name="Past Request" heading="List"/>)}
               </div>
             </div>
+            {(totalpastrequest > 0) && <CustomPagination total={totalpastrequest} onPageChange={(newPage, newLimit) => {
+                    get_past_requests_for_customer_admin(dispatch, user?.token, newPage, newLimit);
+                  }} />}
           </div>
         </div>
 
@@ -77,6 +82,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     pastrequests: state.requests.pastrequests,
+    totalpastrequest: state.requests.totalpastrequest
   };
 };
 export default connect(mapStateToProps)(PastRequest);

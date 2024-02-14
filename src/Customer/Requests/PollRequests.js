@@ -91,7 +91,7 @@ const PollRequests = ({ user, pollrequests }) => {
 
                         </div>
                     </div>
-                )): (<EmptyList name="Poll Request" />)}
+                )): (<EmptyList name="Requests Poll" />)}
             <div className="d-flex justify-content-center align-items-center">
                 <div className="status-btn">
                     <button className="btn pause-btn rounded-pill mt-4 py-1 w-100" onClick={scrollToTop}>

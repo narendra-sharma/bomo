@@ -23,10 +23,10 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
         setAssignedRequest(designerassignedrequests);
     }, [designerassignedrequests]);
 
-    const handleacceptRequest = (requestdetail) => {
+    const handleacceptRequest = (requestdetail,status) => {
       const request_id = requestdetail._id;
       
-      desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id);
+      desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id,status);
     };
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -48,7 +48,10 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
                                     <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span></p></td>
                                     <td><p><span className="fw-bold">Size</span> <span className="d-block">{request?.size}</span></p></td>
                                     <td className="text-end ps-0">
-                                        <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request)}>Accept</Button>
+                                        <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request,'accepted')}>Accept</Button>
+                                    </td>
+                                    <td className="text-end ps-0">
+                                        <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request,'rejected')}>Delete</Button>
                                     </td>
                                 </tr>
                             
