@@ -17,13 +17,13 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
     const handleRequest = () => {
       if(data){
         newRequest(data, dispatch, userdetail?.token, navigate);
+        setShowSuccess(true);
         handleClose();
       }
     };
 
     useEffect(() => {
-        if(isSubmit) {
-            setShowSuccess(true);
+        if(showSuccess) {
             setTimeout(() => {
                 setShowSuccess(false);
                 dispatch({
@@ -32,7 +32,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                   })
             },3000);
         }
-      }, [isSubmit,dispatch]);
+      }, [showSuccess]);
 
     return (
         <div>
