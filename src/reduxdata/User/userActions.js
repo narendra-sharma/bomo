@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
+import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -285,6 +285,32 @@ export const edit_designer_info = async (dispatch, token, infodata) => {
     if (res.data && res.data.status){
       toast.success(res.data?.message);
       get_user_profile_details(token,dispatch);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const approve_designer = async (token,dispatch,designerId,approvestatus) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/designer-action`;
+    const HEADERS = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,  
+      },
+    };
+    const designerdata = {
+      designer_id:designerId,
+      status: approvestatus
+    };
+    const res = await axios.put(url,JSON.stringify(designerdata),HEADERS);
+    if (res.data && res.data.status){
+      toast.success(res.data?.message);
+      get_single_designer_details(dispatch, designerId, token);
     }
   } catch (error) {
     dispatch(catch_errors_handle(error,dispatch));

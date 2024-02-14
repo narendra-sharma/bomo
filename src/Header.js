@@ -73,7 +73,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
               </p>
               {(userrole !== 'Designer') ? <div></div> : <>
                 <div className="header-request-btn position-relative">
-                  <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => { navigate('/acceptance-request') }}>Requests</Button>
+                  <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" disabled={((userrole === 'Designer') && !cuser?.isDesignerApproved)} onClick={() => { navigate('/acceptance-request') }}>Requests</Button>
                   {totalassigns>0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
