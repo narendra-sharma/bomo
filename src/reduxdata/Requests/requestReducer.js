@@ -4,6 +4,7 @@ const initialState = {
   pendingRequests: [],
   pendingTotal:0,
   totaldrafts:0,
+  totalpastrequest:0,
   draftrequests:[],
   pollrequests:[],
   assignrequests:[],
@@ -94,7 +95,8 @@ const requestReducer = (state = initialState, action) => {
     case GET_ALL_PAST_REQUEST_LIST:
       return {
         ...state,
-        pastrequests: action.payload.data
+        pastrequests: action.payload.data,
+        totalpastrequest: action.payload.total
       };
     case SUBMIT_NOW:
       return {

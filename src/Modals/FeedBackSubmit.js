@@ -37,6 +37,10 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
         setFormdata({ ...formdata, [name]: value });
     };
 
+    const handleRequest = () => {
+        navigate('/request-expand', { state: data });
+    };
+
     const handleFeedback = (e,status) => {
         e.preventDefault();
         const checkerrors = {};
@@ -55,11 +59,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
             message: formdata.feedback
         };
         review_delivery_request_customer_admin(dispatch, user?.token, specifyData);
-    };
-    console.log(data);
-    const handleRequest = () => {
-        navigate('/request-expand', { state: data });
-        console.log(data);
+        handleRequest();
     };
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
                         {errors.feedback && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.feedback}</p>}
                         <div className="d-flex gap-3 justify-content-center mt-3 pt-4">
                             <div className="col-md-8">
-                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={(e) => {handleFeedback(e,'rejected');handleRequest();}}>
+                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={(e) => {handleFeedback(e,'rejected');}}>
                                     Add Feedback
                                 </Button>
                             </div>

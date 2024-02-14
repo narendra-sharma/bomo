@@ -3,7 +3,6 @@ import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const DeliverFiles = ({show,onClose,requestdata}) => {
-    console.log(requestdata);
     const navigate = useNavigate();
     const [data,setData] = useState({
         _id: requestdata?._id,
