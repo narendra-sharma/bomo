@@ -10,7 +10,8 @@ import {
   delete_account,
   get_single_designer_details,
   edit_designer_info,
-  get_user_profile_details
+  get_user_profile_details,
+  approve_designer
 } from "./User/userActions";
 import {
   get_plans,
@@ -90,6 +91,7 @@ export {
   delete_existing_user,
   delete_account,
   get_all_users,
+  approve_designer,
   get_admin_pending_requestlist,
   get_designer_pool_requestlist,
   poll_request_apply,

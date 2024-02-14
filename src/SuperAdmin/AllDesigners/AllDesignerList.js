@@ -23,7 +23,7 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
     {(users.length > 0) ? users.map(item => 
 
           <tr key={item?._id}> 
-            <td >
+            <td>
               <p>
                 <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => { setView(item); setShow(true); }}>View as designer</button>
               </p>

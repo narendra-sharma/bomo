@@ -2357,3 +2357,59 @@ button.accordion-button.collapsed  .late-request-section {
   width: 100%;
   background: #ffffff;
 }
+.switch {
+  display: inline-block!important;
+  height: 34px!important;
+  position: relative;
+  width: 105px;
+}
+.switch input {
+  display: none;
+}
+input:checked+.slider {
+    background-color: #03ae6e;
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider, .slider:before {
+    position: absolute;
+    transition: .4s;
+}
+.slider {
+  background-color: #ddd;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+input:checked+.slider .on {
+  display: block;
+}
+.on {
+  left: 35%;
+}
+.off {
+  color: grey;
+  left: 63%;
+}
+.off, .on {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  position: absolute;
+  transform: translate(-50%,30%);
+  white-space: nowrap;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 5px;
+  width: 26px;
+}

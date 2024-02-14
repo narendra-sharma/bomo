@@ -30,7 +30,11 @@ const Sidebar = () => {
     });
   };
   useEffect(() => {
-    getSubscription();
+    if(userrole === 'customer_admin'){
+      getSubscription();
+    }else if(userrole === 'Designer'){
+      setIsSubscribe(user?.isDesignerApproved?true:false);
+    }
   }, [user]);
   useEffect(() => {
     let list = [];
@@ -70,13 +74,13 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = (((userrole === 'customer_admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 1500) ? localStorage.getItem('path') : '/';
+    location.pathname = (((userrole !== 'Super admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 1500) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole, isSubscribe]);
 
   const [show, setShow] = useState(false);
   const getSubscribe=(item)=>{
-    return (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to!=='/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
+    return ((userrole === 'Designer') && !isSubscribe) || (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to!=='/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
   }
   return (
     <div>
