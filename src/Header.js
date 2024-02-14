@@ -51,16 +51,18 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
             </div>
               : <>
                 <div className="designer-header">
+                <div className="row d-flex justify-content-between align-items-center">
                   {requestsWithEarliestDeadlines?.map((request) =>
-                    <div className="row">
-                      <div className="col-md-6">
+                    
+                      <div className="col-md-3">
                         <div className="d-flex justify-content-between align-items-center">
                           <Link>{request?.request_name}</Link>
-                          <Button variant="unset" className="rounded-pill deliver-now-btn ms-2 ">Deliver in <CountdownTimer requestDate={request?.req_mail_date} /></Button>
+                          <Button variant="unset" className="btn w-100 rounded-pill deliver-now-btn ms-2 ">Deliver in <CountdownTimer requestDate={request?.req_mail_date} /></Button>
                         </div>
                       </div>
-                    </div>
+                    
                   )}
+                  </div>
                 </div>
               </>}
             <div className="d-flex text-right justify-content-between align-items-center">
@@ -72,7 +74,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
               {(userrole !== 'Designer') ? <div></div> : <>
                 <div className="header-request-btn position-relative">
                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => { navigate('/acceptance-request') }}>Requests</Button>
-                  <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>
+                  {totalassigns>0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
 
