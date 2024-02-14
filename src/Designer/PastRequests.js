@@ -38,7 +38,7 @@ const PastRequest = ({ designerpastrequests, user }) => {
                       <tr>
                         <td className="text-center"><ColorCode request={request} /></td>
                         <td><p>{request?.request_name}</p></td>
-                        <td><p className="fw-bold">Adss23</p></td>
+                        <td><p className="fw-bold">{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p></td>
                         <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                         <td><p><span className="fw-bold">Delivery Date</span> <span className="d-block">
                           {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}

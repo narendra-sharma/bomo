@@ -49,12 +49,12 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                               <tbody>
                                 <tr>
                                   <td className="text-center"><ColorCode request={request} /></td>
-                                  <td><p>DIOR</p></td>
+                                  <td><p>{request?.brand_profile?.brandname}</p></td>
                                   <td><p><span className="fw-bold">Status</span><span className="d-block">{request?.status}</span></p></td>
                                   <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
                                      {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
                                     </span></p></td>
-                                  <td><p><span className="fw-bold">Request by</span> <span className="d-block">Pepín Noob</span></p></td>
+                                  <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                                 </tr>
                               </tbody>
                             </table>
