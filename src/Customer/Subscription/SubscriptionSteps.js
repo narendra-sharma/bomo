@@ -36,11 +36,6 @@ const SubscriptionSteps = (props) => {
       },3000);
     }
   }, [props.isPay,dispatch])
-  useEffect(()=>{
-    if(user){
-      get_customer_card(user?.token,dispatch);
-    }
-  },[]);
   return (
     <>
       <div className="review-main-content modify-subscription  bg-white py-5 px-3 rounded">
