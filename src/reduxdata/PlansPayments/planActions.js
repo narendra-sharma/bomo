@@ -41,6 +41,7 @@ export const pay_now = async (uToken, token, data, dispatch) => {
       dispatch({
         type: PAY_NOW,
       })
+      get_user_subscription({...res.data.user,token:uToken},dispatch);
     } else {
       toast.error(res.data.message);
     }
@@ -181,3 +182,25 @@ export const isSubscription = async (user) => {
   }
   return isExpired;
 }
+export const add_change_card = async (uToken, token, dispatch) => {
+  try {
+    dispatch(start_loading());
+    const url = `${REACT_APP_BOMO_URL}stripe/addCard`;
+    let headers = HEADERS;
+    headers.headers['x-access-token'] = uToken;
+    const res = await axios.put(url, {cardToken:token?.id}, headers);
+    if (res.data && res.data.status) {
+      dispatch({
+        type: PAY_NOW,
+      });
+      get_customer_card(uToken,dispatch);
+      toast.success('Successfully updated card.')
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
