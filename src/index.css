@@ -312,7 +312,7 @@ color: var(--dark-green);
   left : 0;
   z-index : 100;
   overflow-y: auto;
-  width: 130px;
+  width: 132px;
 }
 .overlay{
   background-color: rgb(0 0 0 / 45%);
@@ -333,7 +333,7 @@ color: var(--dark-green);
 nav {
   position: fixed;
   top: 0;
-  width: calc(100% - 130px);
+  width: calc(100% - 132px);
   z-index: 99;
 }
 .main-content-wraaper {
@@ -371,7 +371,7 @@ nav {
   font-size: 14px;
 }
 .rightside-wrapper{
-  width: calc(100% - 130px);
+  width: calc(100% - 132px);
 }
 .main-content-wraaper{
   color: #000;
@@ -1007,11 +1007,13 @@ td.vertical-middle {
 }
 .member-table .formcontrol {
   border: none;
-  border-bottom: solid 2px #BBBBBB;
+  background-color: #fff;
   width: 95%;
   font-size: 13px;
   outline: none;
-  height: 22px;
+  height: 27px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 select.form-control {
   appearance: auto;
@@ -1239,6 +1241,9 @@ ul.designer-list li{
   margin-top: 0;
   padding: 0;
   width:100%;
+  font-size: 12px;
+}
+.bg-light-gray .input-name .react-tagsinput-input{
   font-size: 11px;
 }
 /* .brand-table tr td:first-child{
@@ -1257,17 +1262,22 @@ ul.designer-list li{
 .add-brand-profile{
   border: solid 1px #000;
   padding: 30px 30px;
+  border-radius: 5px;
 }
 .add-brand-profile .input-name , .brand-table .input-name{
   background: transparent!important;
   border: none;
   padding: 0!important;
-  font-size: 14px;
+  font-size: 13px;
 }
 .add-brand-profile .input-name  {
   width: 100%;
-  padding: 0;
   margin-bottom: 0;
+  background: #fff!important;
+  border-radius: 5px;
+  padding: 4px 9px!important;
+  border: none;
+  width: 90%;
 }
 .add-brand-profile .upload-zip button {
   font-size: 13px;
@@ -1275,7 +1285,7 @@ ul.designer-list li{
   border: none;
   background: #fff;
   padding: 4px 30px;
-  border-radius: 30px;
+  border-radius: 5px;
   font-weight: 500;
 }
 .add-brand-profile .col-lg-1.col-12{
@@ -1386,15 +1396,23 @@ ul.designer-list li{
   margin: 0;
 }
 .bg-light-gray input.input-name , .bg-light-gray button.add-btn.border-0 , 
-.describing-tags span.react-tagsinput-tag  , .bg-light-gray.member-table .formcontrol  ,
-.bg-light-gray.member-table select{
-  background: lightgray!important;
+.describing-tags span.react-tagsinput-tag  {
+  background: #fff!important;
   border-radius: 5px;
-  padding: 3px 9px!important;
+  padding: 4px 9px!important;
   border: none;
 }
+.bg-light-gray.member-table .formcontrol  ,
 .bg-light-gray.member-table select{
-  padding: 0!important;;
+  height: 27px;
+}
+ .table>:not(caption)>*>* {
+  background: transparent!important;
+}
+.bg-light-gray.member-table select{
+  padding: 0!important;
+  border: none;
+  border-radius: 5px;
 }
 .modal .add-brand-profile p {
   font-size: 14px;
@@ -1541,8 +1559,9 @@ ul.designer-list li{
   letter-spacing: -0.48px;
 }
 .member-table select{
-  height: 20px;
-  margin-top: 4px;
+  height: 24px;
+  margin-top: 1px;
+  border-radius: 5px;
 }
 
 .member-content .member-table input:-webkit-autofill, 

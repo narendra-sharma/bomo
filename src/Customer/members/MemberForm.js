@@ -76,8 +76,8 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   };
 
   return (
-    <div className="member-content review-content rounded">
-      <div className="table-responsive member-table px-5"> 
+    <div className="member-content review-content rounded  bg-transparent border border-dark">
+      <div className="table-responsive member-table  bg-transparent border px-5"> 
         <table className="table table-borderless mb-0">
         <tbody>
           <tr>
@@ -87,7 +87,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 style={{ cursor: "pointer" }}
               >
                 <div className="col-md-3 col-3" style={{ height: "45px"}}>
-                  <p className="mb-0 user-email">
+                  <p className="mb-1 user-email">
                     <b>Color<span className="text-danger">*</span></b>
                   </p>
                   <input
@@ -98,7 +98,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                   />
                 </div>
                 <div className="col-md-9 col-9" >
-                  <p className="mb-0 user-email">
+                  <p className="mb-1 user-email">
                     <b>Name<span className="text-danger">*</span></b>
                   </p>
                       <input
@@ -147,7 +147,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </p>
             </td>
             <td>
-              <p className="mb-0 user-email">
+              <p className="mb-1 user-email">
                 <b>Email<span className="text-danger">*</span></b>
               </p>
               <input
