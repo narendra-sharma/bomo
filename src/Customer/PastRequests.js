@@ -55,6 +55,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                                      {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
                                     </span></p></td>
                                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
+                                  <td><p><span><img src={dropdownImage} alt="imag" /></span></p></td>
                                 </tr>
                               </tbody>
                             </table>
