@@ -148,7 +148,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             {(member.length > 0) && <div className="review-content rounded mb-3">
            
                 {member.map((item, index) => (
-                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark' : ''}`}
+                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-light-gray' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >
@@ -240,7 +240,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </p>
                       </td>
 
-                      <td className="text-end update-btn">
+                      <td className="text-end update-btn update-buttons">
 
                         {(updateRolepopUps !== index) ? (
                           <button
@@ -254,7 +254,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                             +edit
                           </button>
                         ) : (
-                          <button onClick={(e) => updateUserRole(e)}>
+                          <button className ="create-add-btn rounded-pill fw-bold mb-0 w-auto px-3 py-1" onClick={(e) => updateUserRole(e)}>
                             update
                           </button>
                         )}
@@ -309,7 +309,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Memeber</span></div>
+              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}

@@ -34,8 +34,8 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
           </div>
           <div className="review-main-content past-request-section mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
-            <div className="review-content bg-white px-4 px-md-4 py-5 rounded">
-              <div className="row mb-4">
+            <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
+              
                 {totalpastrequest > 0 ? Object.entries(groupedRequests).map(([monthYear, requests]) => (
                   <div className="row mb-4" key={monthYear}>
                     <div className="col-md-12">
@@ -55,7 +55,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                                      {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
                                     </span></p></td>
                                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                  <td><p><span><img src={dropdownImage} alt="imag" /></span></p></td>
+                                  <td><p><span><img src={dropdownImage} alt="imag" style={{maxWidth:"10px"}}/></span></p></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -66,7 +66,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                   </div>
                 )):
                 (<EmptyList name="Past Request" heading="List"/>)}
-              </div>
+              
             </div>
             {(totalpastrequest > 0) && <CustomPagination total={totalpastrequest} onPageChange={(newPage, newLimit) => {
                     get_past_requests_for_customer_admin(dispatch, user?.token, newPage, newLimit);

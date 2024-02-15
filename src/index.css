@@ -78,6 +78,10 @@ h1, h2 , h3, h4, h5, h6 , p{
 .h-100vh{
   height: 100vh;
 }
+.bg-light-gray{
+  background:
+  #F2F2F2;
+}
 .form-control{
   outline: none;
   box-shadow: none!important;
@@ -308,7 +312,7 @@ color: var(--dark-green);
   left : 0;
   z-index : 100;
   overflow-y: auto;
-  width: 150px;
+  width: 130px;
 }
 .overlay{
   background-color: rgb(0 0 0 / 45%);
@@ -329,7 +333,7 @@ color: var(--dark-green);
 nav {
   position: fixed;
   top: 0;
-  width: calc(100% - 150px);
+  width: calc(100% - 130px);
   z-index: 99;
 }
 .main-content-wraaper {
@@ -367,7 +371,7 @@ nav {
   font-size: 14px;
 }
 .rightside-wrapper{
-  width: calc(100% - 150px);
+  width: calc(100% - 130px);
 }
 .main-content-wraaper{
   color: #000;
@@ -833,8 +837,8 @@ table.feedback-queue tr:first-child td{
   width:200px
 }
 .past-request-section .review-content .short0ad {
-  width: 100px;
-  padding: 4px 8px;
+  width: 78px;
+  padding: 4px 2px;
 }
 .past-request-section .review-content .logo{
   background: rgba(6, 87, 235, 0.10);
@@ -1381,6 +1385,17 @@ ul.designer-list li{
 .add-brand-profile p {
   margin: 0;
 }
+.bg-light-gray input.input-name , .bg-light-gray button.add-btn.border-0 , 
+.describing-tags span.react-tagsinput-tag  , .bg-light-gray.member-table .formcontrol  ,
+.bg-light-gray.member-table select{
+  background: lightgray!important;
+  border-radius: 5px;
+  padding: 3px 9px!important;
+  border: none;
+}
+.bg-light-gray.member-table select{
+  padding: 0!important;;
+}
 .modal .add-brand-profile p {
   font-size: 14px;
 }
@@ -1552,11 +1567,6 @@ background-color: #D9D9D9;
 }
 p.user-email.date span.d-block {
   line-height: 25px;
-}
-.member-table .update-btn button{
-  background-color: transparent;
-  padding: 0;
-  border: none;
 }
 .new-request-section .review-main-content p{
   letter-spacing: -0.18px;
