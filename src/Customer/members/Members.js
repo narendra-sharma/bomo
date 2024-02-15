@@ -148,7 +148,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             {(member.length > 0) && <div className="review-content rounded mb-3">
            
                 {member.map((item, index) => (
-                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-light-gray' : ''}`}
+                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border bg-transparent border-dark bg-light-gray' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >

@@ -214,7 +214,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
             <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
-            <TagsInput value={newbrand.tags} className="input-name w-100" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
+            <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
