@@ -11,28 +11,31 @@ import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
 const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
     const [showSuccess, setShowSuccess] = useState(false);
+    const [requestdetail,setRequestdetail] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleRequest = () => {
       if(data){
-        newRequest(data, dispatch, userdetail?.token, navigate);
-        setShowSuccess(true);
+        newRequest(data, dispatch, userdetail?.token);
+        setRequestdetail(data);
         handleClose();
       }
     };
 
     useEffect(() => {
-        if(showSuccess) {
+        if(isSubmit) {
+            setShowSuccess(true);
             setTimeout(() => {
                 setShowSuccess(false);
+                navigate('/');
                 dispatch({
                     type: SUBMIT_NOW,
                     payload: false 
                   })
-            },3000);
+            },3000)
         }
-      }, [showSuccess]);
+      }, [isSubmit]);
 
     return (
         <div>
@@ -67,7 +70,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-           {showSuccess && <RequestSuccess view={isSubmit} viewClose={() => {dispatch({ type: SUBMIT_NOW, payload: false })}} datadetail={userdetail} requestdata={data} />}
+           <RequestSuccess view={showSuccess} viewClose={() => {setShowSuccess(false)}} datadetail={userdetail} requestdata={requestdetail} />
         </div>
     )
 };

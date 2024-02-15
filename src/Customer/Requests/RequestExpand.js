@@ -98,7 +98,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                     <div className="col-md-3 align-self-center">
                                                         <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                             {request?.request_id?.feedback_message && <div>
-                                                                <i className="fa-solid fa-circle-xmark cancel"></i>
+                                                                <i className="fa-solid fa-circle-xmark cancel" ></i>
                                                                 <span> Delivery Rejected</span>
                                                             </div>}
                                                         </div>
@@ -149,7 +149,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 <img src={designImage} alt="Imag" />
                                                             </div>
                                                             <div className="download-btn">
-                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/landscape/${request?.landscape}`}>Download</a></button>
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/landscape/${request?.landscape}`} download>Download</a></button>
                                                             </div>
 
                                                         </div>
@@ -161,7 +161,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 <img src={designImage2} alt="Imag" />
                                                             </div>
                                                             <div className="download-btn">
-                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/portrait/${request?.portrait}`}>Download</a></button>
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/portrait/${request?.portrait}`} download>Download</a></button>
                                                             </div>
                                                         </div>
                                                     </div>

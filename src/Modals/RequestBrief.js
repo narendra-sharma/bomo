@@ -56,7 +56,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div className="mb-3 position-relative">
                                     <img src={reelImage} alt="reel imag" width="100%" />
                                     <div className="project-btn">
-                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`}>Project Assets</a></div>
+                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} download="downloaded_image">Project Assets</a></div>
                                     </div>
                                 </div>
                                 <div className="table-responsive">

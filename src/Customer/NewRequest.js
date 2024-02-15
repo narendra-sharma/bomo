@@ -10,6 +10,7 @@ const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
 const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
+  console.log(requestData);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const now = new Date();
@@ -33,6 +34,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
     references: '',
     transparency: '',
     uploadFiles: '',
+    imageFile: '',
   });
 
   const [errors, setErrors] = useState({
@@ -211,13 +213,16 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
 
       if (requestData) {
         newrequest.request_id = requestData?._id;
+        newrequest.imagetwo = requestData?.file
       }
 
       if ((status === 'pending') && isValid) {
         setIspop(true);
         setNewData(newrequest);
-      } else if (status === 'draft') {
-       newRequest(newrequest, dispatch, usertoken, navigate);
+      } else if ((status === 'draft') && isValid) {
+       newRequest(newrequest, dispatch, usertoken);
+       console.log(newrequest);
+       navigate('/');
       }
     }
   };
@@ -240,6 +245,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
           references: requestData?.references,
           transparency: requestData?.transparency,
           uploadFiles: requestData?.file,
+          imageFile: requestData?.file
         })
       })
     }
@@ -253,8 +259,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
   }, []);
 
   useEffect(() => {
-    if (isAddEdit) {
-      setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "" }));
+    if (isAddEdit && !requestData) {
+      setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile:"" }));
       setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
       setImagePreview(null);
       setClickedIndex(null);
