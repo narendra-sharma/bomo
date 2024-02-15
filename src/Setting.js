@@ -12,9 +12,10 @@ import NewRequestShared from "./Customer/Sahred/NewRequestShared";
 import Delete from "./Modals/Delete";
 import reelImage from "./images/reel-image.png";
 import EditDesignerBio from "./Modals/EditDesignerBio";
+import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
 
 
-const Setting = ({ userrole, profiledetails }) => {
+const Setting = ({ userrole, profiledetails}) => {
   const user = JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
@@ -110,12 +111,12 @@ const Setting = ({ userrole, profiledetails }) => {
               <div className="col-lg-6 col-md-6 d-flex flex-column">
                 <BillingForm user={user} />
               </div>
-              {/* <div className="col-lg-6 col-md-6 mt-4 mt-md-0 d-flex flex-column">
+              <div className="col-lg-6 col-md-6 mt-4 mt-md-0 d-flex flex-column">
                 <PaymentCardInfo user={user} />
-              </div> */}
+              </div>
             </div>
           </div>
-            : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
+            : (userrole === 'customer_admin') && <SubscriptionSteps user={user}/>
           }
           {(userrole === 'Designer') ? <>
 
@@ -177,7 +178,7 @@ const Setting = ({ userrole, profiledetails }) => {
 const mapStateToProps = (state) => {
   return {
     userrole: state.auth.role,
-    profiledetails: state.auth.profiledetails,
+    profiledetails: state.auth.profiledetails
   };
 };
 export default connect(mapStateToProps)(Setting);

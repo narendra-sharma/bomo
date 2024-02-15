@@ -6,6 +6,7 @@ import CardInfo from "../Sahred/CardInfo";
 import { pay_now } from "../../reduxdata/PlansPayments/planActions";
 import { useDispatch } from "react-redux";
 import visa from '../../images/visa.png';
+import CardDetailShow from "../Sahred/CardDetail";
 const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
   const dispatch=useDispatch();
   const [cardDetails, setCardDetails] = useState(null);
@@ -185,23 +186,7 @@ const DoPayment = ({ stripe,elements,user,pieces, prize, save,cards }) => {
       <div className="pt-4 pb-4 do-payment">
         <div className="row align-items-center ms-lg-auto px-md-4 px-lg-4 px-2">
           <div className="col-md-6">
-             {cardDetails && (
-                  <div className="row d-flex align-items-center border pt-2 mb-2 mx-1">
-                    <div className="col-2">
-                      <input type="checkbox" checked={isDefault} onChange={()=>setIsDefault(!isDefault)}/>
-                    </div>
-                    <div className="col-2">
-                       <img src={visa} />
-                    </div>
-                    <div className="col-8">
-                      <p><b>{cardDetails.brand} {cardDetails.last4}</b></p>
-                      <p>Expiry: {cardDetails.exp_month}/{cardDetails.exp_year}</p>
-                    </div> 
-                  </div>
-                )}
-                {isDefault && <div className="row d-flex align-items-center justtify-content-end mx-1 mb-2">
-                  <button type="button" onClick={()=>setIsDefault(!isDefault)}>Add New Card</button>
-                </div>}
+             <CardDetailShow cardDetails={cardDetails} isDefault={isDefault} setIsDefault={setIsDefault}/>
               <div className="row">
                 {!isDefault && <CardInfo errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>}
                 <BillingInfo card={card} errors={errors} handleCardElementChange={(e,label)=>handleCardElementChange(e,label)}/>

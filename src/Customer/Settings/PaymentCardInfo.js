@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardInfo from "../Sahred/CardInfo";
 import { Elements, ElementsConsumer, CardNumberElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
+import CardDetailShow from "../Sahred/CardDetail";
+import { connect } from "react-redux";
 const {REACT_APP_STRIPE_PUBLIC_KEY}=process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
-const PaymentCardInfo = () => {
+const PaymentCardInfo = ({cards,user}) => {
+  const [cardDetails, setCardDetails] = useState(null);
+  const [isDefault, setIsDefault] = useState(false);
+  const [stripeData, setStripeData] = useState(null);
+  const [stripeElements, setStripeElements] = useState(null);
   const [cardFeilds,setCardFeilds]=useState({
     cardNumber:true,
     cardExpiry:true,
@@ -70,11 +76,11 @@ const PaymentCardInfo = () => {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements || checkAllErrors()) {
+    if (!stripeData || !stripeElements || checkAllErrors()) {
       return;
     }
-    const cardElement = elements.getElement(CardNumberElement);
-    const { error, token } = await stripe.createToken(cardElement);
+    const cardElement = stripeElements.getElement(CardNumberElement);
+    const { error, token } = await stripeData.createToken(cardElement);
     if (error) {
       let err = {
         error: { message: error.message }
@@ -92,32 +98,53 @@ const PaymentCardInfo = () => {
       
     }
   };
+  useEffect(()=>{
+    if(cards){
+      setCardDetails(cards);
+      setIsDefault(true);
+    }
+  },[cards])
   return (
     <>
       <div className="mb-3">
-        <h3>Payment info</h3>
+        <h3>Payment info {isDefault?'sxdcvb':''}</h3>
       </div>
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
-        <Elements stripe={stripePromise}>
+        <div className="px-3">
+          <CardDetailShow 
+            cardDetails={cardDetails} 
+            isDefault={isDefault} 
+            setIsDefault={setIsDefault}
+          />
+        </div>
+        {!isDefault && <Elements stripe={stripePromise}>
           <ElementsConsumer>
-            {({ stripe, elements }) => (
-              <form className="form" onSubmit={handleSubmit}>
-                <div className="text-end">
-                  <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
-                </div>
-
-                <div className="px-60">
-                  <div className="row">
-                    <CardInfo stripe={stripe} elements={elements} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
+            {({ stripe, elements }) =>{ 
+              setStripeElements(elements);
+              setStripeData(stripe);
+              return (
+              <>
+                <form className="form" onSubmit={handleSubmit}>
+                  <div className="text-end">
+                    <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
                   </div>
-                </div>
-              </form>
-            )}
+                  <div className="px-60">
+                    <div className="row">
+                      <CardInfo stripe={stripe} elements={elements} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
+                    </div>
+                  </div>
+                </form>
+              </>
+            )}}
           </ElementsConsumer>
-        </Elements>
+        </Elements>}
       </div>
     </>
   )
 }
-
-export default PaymentCardInfo;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.plan.cards
+  };
+};
+export default connect(mapStateToProps)(PaymentCardInfo);

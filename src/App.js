@@ -35,7 +35,7 @@ import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
 import 'react-tagsinput/react-tagsinput.css'
 import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
 import CalculatorShared from "./CalculatorShared";
-import { get_user_subscription } from "./reduxdata/rootAction";
+import { get_customer_card, get_user_subscription } from "./reduxdata/rootAction";
 import DelieverRequest from "./Designer/DelieverRequest";
 import DesignerRequest from "./Customer/Requests/DesignerRequest";
 import RequestExpand from "./Customer/Requests/RequestExpand";
@@ -75,6 +75,7 @@ function App({ user }) {
   useEffect(()=>{
     if(user){
       get_user_subscription(user,dispatch);
+      get_customer_card(user?.token,dispatch);
     }
   },[])
   useEffect(() => {
