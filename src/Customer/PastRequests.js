@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import dropdownImage from '../images/dropdown-img.png';
 import NewRequestShared from "./Sahred/NewRequestShared";
 import { get_past_requests_for_customer_admin } from "../reduxdata/rootAction";
@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 import EmptyList from "../Common/EmptyList";
 const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     get_past_requests_for_customer_admin(dispatch, user?.token);
@@ -24,6 +25,22 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
 
     return acc;
   }, {});
+
+  const handleRequest = (detail) => {
+    navigate('/request-expand', { state: {
+      _id: detail?._id,
+        request_name: detail?.request_name,
+        request_type: detail?.request_type, 
+        delivery_date: detail?.delivery_date,
+        description: detail?.description,
+        size: detail?.size,
+        file_type: detail?.file_type,
+        transparency: detail?.transparency,
+        references: detail?.references,
+        brandname: detail?.brand_profile?.brandname,
+        status: 'completed'
+    }});
+  };
 
   return (
     <>
@@ -55,7 +72,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                                      {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
                                     </span></p></td>
                                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                  <td><p><span><img src={dropdownImage} alt="imag" style={{maxWidth:"10px"}}/></span></p></td>
+                                  <td onClick={() => handleRequest(request)}><p><span><img src={dropdownImage} alt="imag" style={{maxWidth:"10px"}}/></span></p></td>
                                 </tr>
                               </tbody>
                             </table>

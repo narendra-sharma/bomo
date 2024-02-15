@@ -15,67 +15,72 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
     const navigate = useNavigate();
 
     const handleRequest = () => {
-      if(data){
-        newRequest(data, dispatch, userdetail?.token);
-        handleClose();
-      }
+        if (data) {
+            newRequest(data, dispatch, userdetail?.token);
+            handleClose();
+        }
     };
 
     useEffect(() => {
-        if(isSubmit) {
+        if (isSubmit) {
             setShowSuccess(true);
             setTimeout(() => {
                 setShowSuccess(false);
                 navigate('/');
                 dispatch({
                     type: SUBMIT_NOW,
-                    payload: false 
-                  })
-            },3000)
+                    payload: false
+                })
+            }, 3000);
         }
-      }, [isSubmit]);
+    }, [isSubmit]);
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} className="logout-popup">
-                <Modal.Body>
-                    <div className="px-4 py-4">
-                        <h5 className="mb-0">{data?.requestName},</h5>
-                        <p >All the fields are filled correctly</p>
-                        <p className="mt-2">Is the info provided accurate?<span className="d-block">
-                        All the working files working needed are there ?</span></p>
-                        <p >Once submitted you can't edit the request</p>
-                        <div className="d-flex gap-2 mt-5 pt-4">
-                            <div className="col-md-8">
-                                <Button
-                                    variant="light"
-                                    className="w-100 rounded-pill btn-outline-dark"
-                                    onClick={() => handleRequest()}
-                                >
-                                    SUBMIT
-                                </Button>
-                            </div>
-                            <div className="col-md-4">
-                                <Button
-                                    variant="light"
-                                    className="w-100 rounded-pill btn-outline-dark"
-                                    onClick={() => handleClose()}
-                                >
-                                    Go Back
-                                </Button>
+            <div>
+                <Modal show={show} onHide={handleClose} className="logout-popup">
+                    <Modal.Body>
+                        <div className="px-4 py-4">
+                            <h5 className="mb-0">{data?.requestName},</h5>
+                            <p >All the fields are filled correctly</p>
+                            <p className="mt-2">Is the info provided accurate?<span className="d-block">
+                                All the working files working needed are there ?</span></p>
+                            <p >Once submitted you can't edit the request</p>
+                            <div className="d-flex gap-2 mt-5 pt-4">
+                                <div className="col-md-8">
+                                    <Button
+                                        variant="light"
+                                        className="w-100 rounded-pill btn-outline-dark"
+                                        onClick={() => handleRequest()}
+                                    >
+                                        SUBMIT
+                                    </Button>
+                                </div>
+                                <div className="col-md-4">
+                                    <Button
+                                        variant="light"
+                                        className="w-100 rounded-pill btn-outline-dark"
+                                        onClick={() => handleClose()}
+                                    >
+                                        Go Back
+                                    </Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
-           <RequestSuccess view={showSuccess} viewClose={() => {setShowSuccess(false)}} datadetail={userdetail} requestdata={data} />
+                    </Modal.Body>
+                </Modal>
+            </div>
+            {isSubmit && <RequestSuccess view={showSuccess}
+                viewClose={() => { setShowSuccess(false); dispatch({ type: SUBMIT_NOW, payload: false }); }}
+                datadetail={userdetail}
+                requestdata={data} />}
         </div>
     )
 };
 
 const mapStateToProps = (state) => {
     return {
-        isSubmit:state.requests.isSubmit
+        isSubmit: state.requests.isSubmit
     }
 }
 export default connect(mapStateToProps)(SubmitRequest);

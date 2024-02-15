@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Button } from 'react-bootstrap';
 import EmptyList from '../../Common/EmptyList';
 import ColorCode from '../../Common/ColorCode';
@@ -23,11 +23,12 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
         setAssignedRequest(designerassignedrequests);
     }, [designerassignedrequests]);
 
-    const handleacceptRequest = (requestdetail,status) => {
+    const handleacceptRequest = useCallback((requestdetail,status) => {
       const request_id = requestdetail._id;
       
       desginer_accept_assignrequest(dispatch,user?.token,request_id,user?.email,user?._id,status);
-    };
+    },[dispatch, user?.token, user?.email, user?._id]);
+    
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
