@@ -32,7 +32,6 @@ const SubscriptionSteps = (props) => {
         dispatch({
           type: PAY_NOW
         })
-        get_user_subscription({...user},dispatch);
       },3000);
     }
   }, [props.isPay,dispatch])

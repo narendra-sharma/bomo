@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { get_designer_active_requestslist, get_designer_assigned_requestlist } from "./reduxdata/rootAction";
 import CountdownTimer from "./Common/CountdownTimer";
+const roles = [
+  { id: 1, label: "Admin", value: "customer_admin" },
+  { id: 2, label: "Member", value: "team_member" },
+];
 const Header = ({ user, userrole, totalassigns, activerequest }) => {
   const [cuser, setCuser] = useState(user);
   const navigate = useNavigate();
@@ -44,7 +48,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
             </button>
             {(userrole !== 'Designer') ? <div className="mx-md-5">
               <h4 className="mb-0">
-                {(userrole === 'customer_admin') ? <>{user?.company}
+                {(userrole === 'customer_admin') || user?.parent ? <>{user?.company || user?.parent?.company}
                   <span className="fw-bold"> Workspace</span></> : (userrole === 'Designer') ? '' : 'Super Admin Panel'
                 }
               </h4>
@@ -69,7 +73,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
               <img src={userImage} alt="Bomo logo" />
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
-                <span className="d-block">{(userrole === 'customer_admin') ? (cuser?.parent ? 'Admin' : 'Customer') : userrole}</span>
+                <span className="d-block">{(userrole === 'customer_admin') ?'Admin': (cuser?.parent ? roles.find(r=>r.value===cuser?.role).label : userrole)}</span>
               </p>
               {(userrole !== 'Designer') ? <div></div> : <>
                 <div className="header-request-btn position-relative">

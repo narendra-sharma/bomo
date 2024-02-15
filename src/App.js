@@ -70,12 +70,14 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
+    if(user){
+      get_customer_card(user?.token,dispatch);
+    }
   }, [user]);
   const dispatch=useDispatch();
   useEffect(()=>{
     if(user){
       get_user_subscription(user,dispatch);
-      get_customer_card(user?.token,dispatch);
     }
   },[])
   useEffect(() => {

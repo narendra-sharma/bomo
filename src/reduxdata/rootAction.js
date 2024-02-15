@@ -21,7 +21,8 @@ import {
   cancel_subscription,
   pause_subscription,
   get_user_subscription,
-  get_customer_card
+  get_customer_card,
+  add_change_card
 } from "./PlansPayments/planActions";
 import {
   addBrand,
@@ -112,5 +113,6 @@ export {
   review_delivery_request_customer_admin,
   get_past_requests_for_customer_admin,
   get_delivered_requests,
-  get_past_requests_for_designer
+  get_past_requests_for_designer,
+  add_change_card
 };

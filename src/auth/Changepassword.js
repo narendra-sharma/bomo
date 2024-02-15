@@ -9,8 +9,9 @@ import darkLogo from '../images/bomo-dark-green.svg';
 
 const Changepassword = (props) => {
 
-  const { isLoading,reset_password } = props;
+  const { isLoading } = props;
   let [searchParams] = useSearchParams();
+  const isMember=searchParams.get('member');
   const userrole = useSelector((state) => state.auth.role || '')
   const [formData, setFormData] = useState({
     password: '',
@@ -66,7 +67,7 @@ const Changepassword = (props) => {
   };
 
   const handleLink = async (user) => {
-    await reset_password(user, searchParams.get('token'), navigate, dispatch);
+    await reset_password(user, searchParams.get('token'),isMember, navigate, dispatch);
   }
 
   const currentDate = new Date();
@@ -86,7 +87,7 @@ const Changepassword = (props) => {
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
               
-            <h1 className="font-reckless">Changed Password</h1>
+            <h1 className="font-reckless">{isMember?'Create':'Changed'} Password</h1>
               <div class="login-date">{formattedDate}
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={userrole === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" /></Link></div>
               </div>
@@ -113,7 +114,7 @@ const Changepassword = (props) => {
                   {confirmpassworderror && <p className="error fw-bold">{confirmpassworderror}</p>}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
-                  {isLoading ? 'Changing.....' : 'Change Password'}
+                  {isLoading ? (isMember?'Creating.....':'Changing.....') : (isMember?'Create':'Change')+' Password'}
                 </button>
               </form>
             </div>
@@ -131,10 +132,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = () => {
-  return {
-    reset_password,
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Changepassword);
+export default connect(mapStateToProps)(Changepassword);

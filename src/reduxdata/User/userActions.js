@@ -4,6 +4,10 @@ import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
 const { REACT_APP_BOMO_URL } = process.env;
+const roles = [
+  { id: 1, label: "Admin", value: "customer_admin" },
+  { id: 2, label: "Member", value: "team_member" },
+];
 export const logout = () => {
   return {
     type: LOG_OUT,
@@ -131,6 +135,7 @@ export const forgot_password_reset = async (email, dispatch) => {
 export const reset_password = async (
   newPassword,
   token,
+  isMember,
   navigate,
   dispatch
 ) => {
@@ -148,7 +153,7 @@ export const reset_password = async (
       HEADERS
     );
     if (res.data && res.data.status) {
-      toast.success("Successfully updated password!");
+      toast.success(`Successfully ${isMember?'created':'updated'} password!`);
       navigate("/login");
     } else {
       toast.error(res.data.message);

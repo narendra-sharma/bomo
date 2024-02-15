@@ -51,6 +51,7 @@ const Sidebar = () => {
         { name: "Home", to: "/" },
         { name: "Past Requests", to: "/past-requests" },
         { name: "Brand Profile", to: "/brand-profile" },
+        { name: "Members", to: "/members" },
       ];
     } else if (userrole === "Designer") {
       list = [

@@ -12,7 +12,7 @@ import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from 'date-fns';
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
-  { id: 2, label: "Team Member", value: "team_member" },
+  { id: 2, label: "Member", value: "team_member" },
 ];
 
 const Members = ({ user, member, total, isAddEdit }) => {
@@ -206,7 +206,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               ))}
                             </select>
                           ) : (
-                            <span className="d-block text-capitalize">{item?.role.replace('_', ' ')}</span>
+                            <span className="d-block text-capitalize">{roles.find(r=>r.value===item?.role)?roles.find(r=>r.value===item?.role).label:'Customer'}</span>
                           )}
                         </p>
                       </td>
