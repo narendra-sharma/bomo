@@ -10,7 +10,7 @@ const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
 const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
-  console.log(requestData);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const now = new Date();
@@ -221,7 +221,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         setNewData(newrequest);
       } else if ((status === 'draft') && isValid) {
        newRequest(newrequest, dispatch, usertoken);
-       console.log(newrequest);
        navigate('/');
       }
     }

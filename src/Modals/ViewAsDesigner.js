@@ -12,7 +12,6 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
     const [isactive, setIsactive] = useState(designerdata?.designer_detail?.isDesignerApproved);
     const [isview, setIsview] = useState(false);
     const dispatch = useDispatch();
-    console.log(designerdata);
     useEffect(() => {
         if (view?._id) {
             get_single_designer_details(dispatch, view._id, user?.token);

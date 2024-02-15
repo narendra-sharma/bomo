@@ -11,14 +11,12 @@ import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
 const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
     const [showSuccess, setShowSuccess] = useState(false);
-    const [requestdetail,setRequestdetail] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleRequest = () => {
       if(data){
         newRequest(data, dispatch, userdetail?.token);
-        setRequestdetail(data);
         handleClose();
       }
     };
@@ -70,7 +68,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-           <RequestSuccess view={showSuccess} viewClose={() => {setShowSuccess(false)}} datadetail={userdetail} requestdata={requestdetail} />
+           <RequestSuccess view={showSuccess} viewClose={() => {setShowSuccess(false)}} datadetail={userdetail} requestdata={data} />
         </div>
     )
 };
