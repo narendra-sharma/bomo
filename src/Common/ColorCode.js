@@ -38,7 +38,7 @@ const ColorCode = ({ request, requestTypes }) => {
               request?.request_type?.replace(/_/g, " ")
             )}`,
           }}
-          onMouseEnter={() => handleMouseOver(request._id)}
+          onMouseEnter={() => handleMouseOver(request?._id)}
           onMouseLeave={handleMouseOut}
         >
           {request?.request_type?.replace(/_/g, " ")}

@@ -478,7 +478,7 @@ export const get_delivered_requests = async (dispatch,token,deliverId) => {
   }
 }
 
-export const newRequest = async (requestdata, dispatch, token, navigate) => {
+export const newRequest = async (requestdata, dispatch, token) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -495,22 +495,23 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
 
     if (requestdata?.request_id) {
       formData.append('request_id', requestdata?.request_id);
+      formData.append('image2', requestdata?.imagetwo?.split('/').pop());
     }
 
-    const url = `${REACT_APP_BOMO_URL}customer/${requestdata?.request_id ? 'request_edit' : 'request_create'}`;
+    // const url = `${REACT_APP_BOMO_URL}customer/${requestdata?.request_id ? 'request_edit' : 'request_create'}`;
+    const url = `${REACT_APP_BOMO_URL}customer/request_create`
     const headers = { 
       "x-access-token": token,
     };
-    const res = requestdata?.request_id ? await axios.put(url, formData, { headers }) : await axios.post(url, formData, { headers });
+    const res = await axios.post(url, formData, { headers });
     if (res.data && res.data.status) {
       get_user_subscription({token:token},dispatch);
       get_draft_requestlist(dispatch, token); 
       change_add_edit(dispatch);
       toast.success(`Request ${requestdata?.request_id ? 'updated' : requestdata?.status === 'draft' ? 'drafted' : 'Created'} Successfully`);
-      navigate('/');
       dispatch({
         type: SUBMIT_NOW, 
-        payload: true 
+        payload: requestdata?.status === 'pending' ? true : false
       });
     } else {
       toast.error(res.data.message);
