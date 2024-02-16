@@ -245,18 +245,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       </td>
                      { (user?.role==='customer_admin') && <td className="text-end update-btn update-buttons">
 
-                        {(updateRolepopUps !== index) ? (
-                          <button
-                            className="text-decoration-none text-dark cursor-pointer"
-                            onClick={() => { setShowAddComp(false); handleEditMember(index); }}
-                            style={{
-                              border: "none",
-                              backgroundColor: "#fff",
-                            }}
-                          >
-                            +edit
-                          </button>
-                        ) : (
+                        {(updateRolepopUps === index) && (
                           <button className ="create-add-btn rounded-pill fw-bold mb-0 w-auto px-3 py-1" onClick={(e) => updateUserRole(e)}>
                             update
                           </button>
@@ -281,7 +270,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </button>
 
                       </td>}
-                        <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
+                        {(user?.role==='customer_admin') && <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
                           <span className="edit">
                             {(updateRolepopUps === index) ?
                               <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
@@ -289,7 +278,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
                             }
                           </span>
-                      </td>
+                      </td>}
                       {showDeleteModals[index] && (
                         <DeleteBrand
                           heading="Member"
