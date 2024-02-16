@@ -240,7 +240,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </p>
                       </td>
 
-                      <td className="text-end update-btn update-buttons">
+                     { (user?.role==='customer_admin') && <td className="text-end update-btn update-buttons">
 
                         {(updateRolepopUps !== index) ? (
                           <button
@@ -259,8 +259,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           </button>
                         )}
 
-                      </td>
-
+                      </td>}
                       {(updateRolepopUps === index) && <td className="text-end update-btn">
 
                         <button
@@ -309,7 +308,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
+             (user?.role==='customer_admin') && <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}

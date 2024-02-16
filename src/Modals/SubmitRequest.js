@@ -33,7 +33,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                 })
             }, 3000);
         }
-    }, [isSubmit]);
+    }, [dispatch,isSubmit,navigate]);
 
     return (
         <div>
@@ -70,7 +70,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                     </Modal.Body>
                 </Modal>
             </div>
-            {isSubmit && <RequestSuccess view={showSuccess}
+            {showSuccess && <RequestSuccess view={showSuccess}
                 viewClose={() => { setShowSuccess(false); dispatch({ type: SUBMIT_NOW, payload: false }); }}
                 datadetail={userdetail}
                 requestdata={data} />}
