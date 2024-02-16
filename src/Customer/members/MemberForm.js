@@ -77,7 +77,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
 
   return (
     <div className="member-content review-content rounded border border-dark">
-      <div className="table-responsive member-table bg-light-gray border px-5"> 
+      <div className="table-responsive member-table bg-medium-gray border px-5"> 
         <table className="table table-borderless mb-0">
         <tbody>
           <tr>
@@ -117,7 +117,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               </div>
             </td>
             <td>
-              <p className="mb-0 user-email">
+              <p className="mb-1 user-email">
                 <b>Role<span className="text-danger">*</span></b>
               </p>
               <select
@@ -169,7 +169,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               <div className="d-flex justify-content-end">
                 <button
                   type="button"
-                  className="bg-mid-gray fw-bold border rounded-pill px-3 py-1 "
+                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 "
                   onClick={handleCreate}
                 >
                   CREATE
