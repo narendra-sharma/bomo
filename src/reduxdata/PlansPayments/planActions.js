@@ -203,7 +203,7 @@ export const add_change_card = async (uToken, token, dispatch) => {
         type: PAY_NOW,
       });
       get_customer_card(uToken,dispatch);
-      toast.success('Successfully updated card.')
+      toast.success('Successfully added card.')
     } else {
       toast.error(res.data.message);
     }
