@@ -15,7 +15,7 @@ const PaymentSuccess = (props) => {
           <h5 className="mb-0 fw-bold text-dark">{user?.name},</h5>
           <h6 className="mb-5 text-dark">you have succesfully subscribed for {user?.subscription?.quantity} pieces.</h6>
           <p className="text-mute">
-            Your subscription will renew on {user && user?.next_billing_date && format(new Date(user?.next_billing_date), 'MMMM d, yyy')}.
+            Your subscription will renew on {user && user?.subscription?.next_billing_date && format(new Date(user?.subscription?.next_billing_date), 'MMMM d, yyy')}.
             <br />
             Make any changes for the next period before this date
           </p>

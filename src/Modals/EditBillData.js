@@ -8,7 +8,7 @@ const EditBillData = ({show,handleClose,heading,onConfirm}) => {
       <Modal.Body>
         <div className="px-4 py-4">
         <h4 className="mb-0">Edit {heading}.</h4>
-          <p>Do you really want to Edit {heading}. ?</p>
+          <p>Do you really want to Edit {heading}?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={onConfirm}>

@@ -30,6 +30,7 @@ export const get_plans = async (dispatch) => {
     // dispatch(stop_loading());
   }
 };
+let pay=false;
 export const pay_now = async (uToken, token, data, dispatch) => {
   try {
     dispatch(start_loading());
@@ -41,6 +42,7 @@ export const pay_now = async (uToken, token, data, dispatch) => {
       dispatch({
         type: PAY_NOW,
       })
+      pay=true;
       get_user_subscription({...res.data.user,token:uToken},dispatch);
     } else {
       toast.error(res.data.message);
@@ -80,6 +82,7 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
     if (res.data && res.data.status) {
       toast.success('Subscription cancelled successfully.');
       get_user_subscription({token:uToken},dispatch);
+      get_payment_history(dispatch,uToken,1,10);
     } else {
       toast.error(res.data.message);
     }
@@ -116,7 +119,13 @@ export const get_user_subscription = async (user, dispatch) => {
     headers.headers['x-access-token'] = user?.token;
     const res = await axios.get(url, headers);
     if (res.data && res.data.status) {
-      dispatch(set_update_user({...res.data.data,token:user.token}));
+      let u=res.data.data;
+      if(u && u?.subscription?.length>0 && pay){
+        let sub=u?.subscription?.find(r=>r.type==='primary');
+        u.next_billing_date=sub?.next_billing_date;
+        pay=false;
+      }
+      dispatch(set_update_user({...u,token:user.token}));
     } else {
       toast.error(res.data.message);
     }
