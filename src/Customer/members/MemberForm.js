@@ -90,12 +90,13 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                   <p className="mb-1 user-email">
                     <b>Color<span className="text-danger">*</span></b>
                   </p>
-                  <input
+                  <div className="d-flex justify-content-center rounded bg-white" style={{padding:"5px" , width:"35px" , height:"35px"}}><input
                     type="color"
                     name="colour"
                     value={formData.colour}
-                    onChange={(e) => handleChange("colour", e.target.value) } id="color1" 
+                    onChange={(e) => handleChange("colour", e.target.value) } id="color1" className="cursor-pointer"
                   />
+                  </div>
                 </div>
                 <div className="col-md-9 col-9" >
                   <p className="mb-1 user-email">
@@ -166,15 +167,15 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
             </td>
             
             <td className="vertical-middle member-last-column">
-              <div className="d-flex justify-content-end">
+              <div className="">
                 <button
                   type="button"
-                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 "
+                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-100" style={{marginBottom:"10px"}}
                   onClick={handleCreate}
                 >
                   CREATE
                 </button>
-                <button className="create-add-btn delete-btn rounded-pill fw-bold px-4 w-auto m-0" type="button" onClick={() => setShowAddComp(false)}>
+                <button className="create-add-btn delete-btn rounded-pill fw-bold px-4 mb-0 w-100" type="button" onClick={() => setShowAddComp(false)}>
                   Close
                 </button>
               </div>
