@@ -76,8 +76,8 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
   };
 
   return (
-    <div className="member-content review-content rounded  bg-transparent border border-dark">
-      <div className="table-responsive member-table  bg-transparent border px-5"> 
+    <div className="member-content review-content rounded border border-dark">
+      <div className="table-responsive member-table bg-light-gray border px-5"> 
         <table className="table table-borderless mb-0">
         <tbody>
           <tr>
