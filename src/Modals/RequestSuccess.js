@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import pay_success from '../images/pay_success.png';
 
 const RequestSuccess = ({view,viewClose,datadetail,requestdata}) => {
+    console.log(requestdata);
     return (
         <Modal show={view} onHide={viewClose} className="logout-popup">
             <Modal.Body>
@@ -10,8 +11,8 @@ const RequestSuccess = ({view,viewClose,datadetail,requestdata}) => {
                     <div className="d-flex align-items-center justify-content-end mb-3">
                         <img src={pay_success} alt='img not found' />
                     </div>
-                    <h5 className="mb-0 fw-bold ">{datadetail?.name}, you succesfully created</h5>
-                    <h5 className="mb-2">{requestdata?.requestName}</h5>
+                    <span className="mb-0 fw-bold ">{datadetail?.name}</span><span>, you succesfully created</span>
+                    <h5 className="mb-2">{requestdata?.requestName}</h5>    
                     <p className="">
                         We are reviewing the assests,
                         <br />

@@ -478,7 +478,7 @@ export const get_delivered_requests = async (dispatch,token,deliverId) => {
   }
 }
 
-export const newRequest = async (requestdata, dispatch, token) => {
+export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -498,7 +498,6 @@ export const newRequest = async (requestdata, dispatch, token) => {
       formData.append('image2', requestdata?.imagetwo?.split('/').pop());
     }
 
-    // const url = `${REACT_APP_BOMO_URL}customer/${requestdata?.request_id ? 'request_edit' : 'request_create'}`;
     const url = `${REACT_APP_BOMO_URL}customer/request_create`
     const headers = { 
       "x-access-token": token,
@@ -513,6 +512,9 @@ export const newRequest = async (requestdata, dispatch, token) => {
         type: SUBMIT_NOW, 
         payload: requestdata?.status === 'pending' ? true : false
       });
+      if(requestdata?.status === 'draft'){
+        navigate('/');
+      }
     } else {
       toast.error(res.data.message);
     }

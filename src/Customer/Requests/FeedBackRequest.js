@@ -6,8 +6,10 @@ import EmptyList from "../../Common/EmptyList";
 import { format } from "date-fns";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import dropdownImage from '../../images/dropdown-img.png';
+import { useNavigate } from "react-router-dom";
 
 const FeedBackRequest = ({ user, feedbacklists }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [items, setItems] = useState([]);
 
@@ -31,6 +33,23 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
   useEffect(() => {
     setItems(feedbacklists?.updated_feedback_queue);
   }, [feedbacklists]);
+
+  const handleView = (request) => {
+    const data = {
+      _id: request?._id,
+      request_name: request?.request_name,
+      request_type: request?.request_type, 
+      delivery_date: request?.delivery_date,
+      description: request?.description,
+      size: request?.size,
+      file_type: request?.file_type,
+      transparency: request?.transparency,
+      references: request?.references,
+      brandname: request?.brand_profile?.brandname,
+      status: 'rejected'
+    };
+    navigate('/request-expand', { state: data});
+  };
 
   return (
     <div className="review-content bg-white px-3 py-5 rounded">
@@ -60,7 +79,12 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                             ? "No Date"
                             : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
                           <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                          <td><img src={dropdownImage} alt="" /></td>
+                          <td>
+                            <select type='select' defaultValue='' onChange={() => handleView(request)}>
+                              <option value='' disabled></option>
+                              <option value='view'>View</option>
+                            </select>
+                          </td>
                         </tr>
                         </body>
                       )}
