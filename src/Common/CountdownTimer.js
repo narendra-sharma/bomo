@@ -9,18 +9,21 @@ const CountdownTimer = ({ requestDate }) => {
     const updateCountdown = () => {
       const requestDateInMs = new Date(requestDate).getTime() + duration;
       const currentTime = new Date().getTime();
-      const timeDifference = requestDateInMs - currentTime;
-
-      if (timeDifference > 0) {
-        setCountdownTime(timeDifference);
-      } else {
+      let timeDifference = requestDateInMs - currentTime;
+  
+      if (timeDifference <= 0) {
         setCountdownTime(0);
+        return;
       }
+      timeDifference = Math.round(timeDifference / 1000) * 1000;
+  
+      setCountdownTime(timeDifference);
     };
+  
     const timer = setInterval(updateCountdown, 1000);
-
+  
     return () => clearInterval(timer);
-  }, [requestDate]);
+  }, [requestDate, duration]);
 
   return (
     <Countdown

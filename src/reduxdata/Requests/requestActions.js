@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page=1, limit=10) => {
@@ -258,7 +258,7 @@ export const get_customeradmin_active_requestslist = async (dispatch, token) => 
   }
 };
 
-export const designer_deliever_request = async (dispatch,token,data,navigate) => {
+export const designer_deliever_request = async (dispatch,token,data) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -275,7 +275,7 @@ export const designer_deliever_request = async (dispatch,token,data,navigate) =>
     const res = await axios.put(url,formData,HEADERS);
     if(res.data && res.data.status) {
       toast.success(res.data?.message);
-      navigate('/');
+      dispatch({ type: SUBMIT_NOW, payload: true });
     } else {
       toast.error(res.data?.message);
     }
@@ -508,10 +508,8 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
       get_draft_requestlist(dispatch, token); 
       change_add_edit(dispatch);
       toast.success(`Request ${requestdata?.request_id ? 'updated' : requestdata?.status === 'draft' ? 'drafted' : 'Created'} Successfully`);
-      dispatch({
-        type: SUBMIT_NOW, 
-        payload: requestdata?.status === 'pending' ? true : false
-      });
+      dispatch({ type: SUBMIT_NOW, payload: requestdata?.status === 'pending' ? true : false });
+      dispatch({ type: GET_NEW_REQUEST, payload: res?.data});
       if(requestdata?.status === 'draft'){
         navigate('/');
       }

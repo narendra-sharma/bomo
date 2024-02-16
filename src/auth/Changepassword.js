@@ -114,7 +114,7 @@ const Changepassword = (props) => {
                   {confirmpassworderror && <p className="error fw-bold">{confirmpassworderror}</p>}
                 </div>
                 <button type="submit" className="submit-btn signup-btn">
-                  {isLoading ? (isMember?'Creating.....':'Changing.....') : (isMember?'Create':'Change')+' Password'}
+                  {isLoading ? (isMember?'Creating.....':'Changing.....') : (isMember?'Create':'Reset')+' Password'}
                 </button>
               </form>
             </div>

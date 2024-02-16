@@ -25,7 +25,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
                 <Modal.Body className="py-5">
                     <div className="py-5 px-60 ">
                         <div className="review-submit-popup extra-grren rounded my-5 p-5">
-                            <h5 className="mb-0 extra-dark-green fw-bold">User,</h5>
+                            <h5 className="mb-0 extra-dark-green fw-bold">{user?.name},</h5>
                             <p className="extra-dark-green"> Are you satisfied with the delivery?
                                 <br />Once approved you won’t be able to ask for further reviews.</p>
                             <p className="extra-dark-green">Confirm to get your files.</p>

@@ -139,7 +139,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                                                 <input type="checkbox"
                                                     id="togBtn" name="togBtn"
                                                     checked={designerdata?.designer_detail?.isDesignerApproved}
-                                                    onClick={() => {setIsactive(!isactive);setIsview(true);}} />
+                                                    onClick={() => { setIsactive(!isactive); setIsview(true); }} />
                                                 <div className="slider round">
                                                     {designerdata?.designer_detail?.isDesignerApproved ? <span>Active</span> :
                                                         <span>In-active</span>}
@@ -191,7 +191,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <ApproveDesigner isview={isview} viewClose ={() => setIsview(false)} details={designerdata} designerstatus={isactive} />
+            <ApproveDesigner isview={isview} viewClose={() => setIsview(false)} details={designerdata} designerstatus={isactive} />
         </div>
     )
 }

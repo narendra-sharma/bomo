@@ -1,11 +1,9 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newRequest } from '../reduxdata/rootAction';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import RequestSuccess from './RequestSuccess';
 import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
@@ -23,9 +21,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
 
     useEffect(() => {
         if (isSubmit) {
-            setShowSuccess(true);
             setTimeout(() => {
-                setShowSuccess(false);
                 navigate('/');
                 dispatch({
                     type: SUBMIT_NOW,
@@ -33,7 +29,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                 })
             }, 3000);
         }
-    }, [dispatch,isSubmit,navigate]);
+    }, [dispatch]);
 
     return (
         <div>
@@ -70,10 +66,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                     </Modal.Body>
                 </Modal>
             </div>
-            {showSuccess && <RequestSuccess view={showSuccess}
-                viewClose={() => { setShowSuccess(false); dispatch({ type: SUBMIT_NOW, payload: false }); }}
-                datadetail={userdetail}
-                requestdata={data} />}
+            <RequestSuccess view={isSubmit} viewClose={() => { dispatch({ type: SUBMIT_NOW, payload: false}); }} datadetail={userdetail} />
         </div>
     )
 };
