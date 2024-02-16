@@ -260,7 +260,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                               <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold">
                                 Update
                               </button>
-                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold mb-0"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
                             </>}
                           </span>
                           <span className="edit">

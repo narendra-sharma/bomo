@@ -158,12 +158,13 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       <td>
                         <div className="d-flex  align-items-center">
                           {(updateRolepopUps === index) ?
+                           <div className="d-flex justify-content-center rounded bg-white" style={{padding:"5px" , alignSelf:"end"}}>
                             <input
                               type="color"
                               name="colour"
                               value={formdata?.colour}
-                              onChange={(e) => handleChange(e)} id="color1"
-                            /> :
+                              onChange={(e) => handleChange(e)} id="color1" className="cursor-pointer"
+                            /></div> :
                             <div
                               style={{
                                 backgroundColor: item?.colour,
@@ -172,6 +173,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 borderRadius: 25,
                               }}
                             ></div>
+                            
+                          
                           }
                           <p className="mb-0 user-email">
                             <b>Name</b>
