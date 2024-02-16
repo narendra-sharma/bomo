@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
 import { add_change_card } from "../../reduxdata/rootAction";
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
+import EditBillData from "../../Modals/EditBillData";
 const {REACT_APP_STRIPE_PUBLIC_KEY}=process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const PaymentCardInfo = ({cards,user,isPay}) => {
@@ -15,6 +16,7 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
   const [isDefault, setIsDefault] = useState(false);
   const [stripeData, setStripeData] = useState(null);
   const [stripeElements, setStripeElements] = useState(null);
+  const[show,setShow]=useState(false);
   const dispatch=useDispatch();
   const [cardFeilds,setCardFeilds]=useState({
     cardNumber:true,
@@ -109,9 +111,17 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
         toast.error(error.message);
       }
     } else {
-      add_change_card(user?.token,token,dispatch);
+      setShow(true);
     }
   };
+
+  const handleConfirm = async () => {
+    const cardElement = stripeElements.getElement(CardNumberElement);
+    const { error, token } = await stripeData.createToken(cardElement);
+    add_change_card(user?.token,token,dispatch);
+    setShow(false);
+  };
+
   useEffect(()=>{
     if(cards){
       setCardDetails(cards);
@@ -161,6 +171,7 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
           </ElementsConsumer>
         </Elements>}
       </div>
+      <EditBillData show={show} handleClose={() => setShow(false)} heading={'Card'} onConfirm={handleConfirm}/>
     </>
   )
 }

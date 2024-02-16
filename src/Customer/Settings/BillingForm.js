@@ -83,7 +83,7 @@ const BillingForm = ({user}) => {
           </div>
         </form>
       </div>
-      <EditBillData show={show} handleClose={() => setShow(false)} onConfirm={handleConfirm}/>
+      <EditBillData show={show} handleClose={() => setShow(false)} heading={'Billing Info'} onConfirm={handleConfirm}/>
     </>
   )
 }

@@ -87,7 +87,7 @@ const Changepassword = (props) => {
           <div className="signup-content">
             <div className="form-heading d-flex flex-column justify-content-between">
               
-            <h1 className="font-reckless">{isMember?'Create':'Changed'} Password</h1>
+            <h1 className="font-reckless">{isMember?'Create':'Reset'} Password</h1>
               <div class="login-date">{formattedDate}
               <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none"><img src={userrole === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" /></Link></div>
               </div>
@@ -106,7 +106,7 @@ const Changepassword = (props) => {
                 <div className="">
                   <div className="password position-relative">
                     <label>
-                    Confirm:</label>
+                    Confirm Password:</label>
                   
                   <input  type={showconfirmPassword ? "text" : "password"} name="confirmpassword" value={formData.confirmpassword} onChange={handleInputChange} className="form_control" placeholder="Confirm Password" id="exampleInputEmail1" aria-describedby="emailHelp" />
                   <i className={showconfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={toggleConfirmPasswordVisibility} ></i>

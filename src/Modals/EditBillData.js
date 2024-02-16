@@ -2,13 +2,13 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
-const EditBillData = ({show,handleClose,onConfirm}) => {
+const EditBillData = ({show,handleClose,heading,onConfirm}) => {
     return (
         <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>
         <div className="px-4 py-4">
-        <h4 className="mb-0">Edit Billing Info.</h4>
-          <p>Do you really want to Edit Billing Info. ?</p>
+        <h4 className="mb-0">Edit {heading}.</h4>
+          <p>Do you really want to Edit {heading}. ?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={onConfirm}>

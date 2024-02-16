@@ -26,20 +26,21 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
     return acc;
   }, {});
 
-  const handleRequest = (detail) => {
-    navigate('/request-expand', { state: {
-      _id: detail?._id,
-        request_name: detail?.request_name,
-        request_type: detail?.request_type, 
-        delivery_date: detail?.delivery_date,
-        description: detail?.description,
-        size: detail?.size,
-        file_type: detail?.file_type,
-        transparency: detail?.transparency,
-        references: detail?.references,
-        brandname: detail?.brand_profile?.brandname,
-        status: 'completed'
-    }});
+  const handleView = (request) => {
+    const data = {
+      _id: request?._id,
+      request_name: request?.request_name,
+      request_type: request?.request_type, 
+      delivery_date: request?.delivery_date,
+      description: request?.description,
+      size: request?.size,
+      file_type: request?.file_type,
+      transparency: request?.transparency,
+      references: request?.references,
+      brandname: request?.brand_profile?.brandname,
+      status: 'completed'
+    };
+    navigate('/request-expand', { state: data});
   };
 
   return (
@@ -52,42 +53,47 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
           <div className="review-main-content past-request-section mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
             <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
-              
-                {totalpastrequest > 0 ? Object.entries(groupedRequests).map(([monthYear, requests]) => (
-                  <div className="row mb-4" key={monthYear}>
-                    <div className="col-md-12">
-                      <h5 className="mx-md-4 mx-sm-0 fw-bold">{monthYear}</h5>
-                    </div>
-                    {requests?.map((request) => (
-                      <div className="col-md-4">
-                        <Link className="text-decoration-none">
-                          <div className="table-responsive">
-                            <table className="table table-borderless mb-0">
-                              <tbody>
-                                <tr>
-                                  <td className="text-center"><ColorCode request={request} /></td>
-                                  <td><p>{request?.brand_profile?.brandname}</p></td>
-                                  <td><p><span className="fw-bold">Status</span><span className="d-block">{request?.status}</span></p></td>
-                                  <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
-                                     {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
-                                    </span></p></td>
-                                  <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                                  <td onClick={() => handleRequest(request)}><p><span><img src={dropdownImage} alt="imag" style={{maxWidth:"10px"}}/></span></p></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </Link>
-                      </div>
-                    ))}
+
+              {totalpastrequest > 0 ? Object.entries(groupedRequests).map(([monthYear, requests]) => (
+                <div className="row mb-4" key={monthYear}>
+                  <div className="col-md-12">
+                    <h5 className="mx-md-4 mx-sm-0 fw-bold">{monthYear}</h5>
                   </div>
-                )):
-                (<EmptyList name="Past Request" heading="List"/>)}
-              
+                  {requests?.map((request) => (
+                    <div className="col-md-4">
+                      <Link className="text-decoration-none">
+                        <div className="table-responsive">
+                          <table className="table table-borderless mb-0">
+                            <tbody>
+                              <tr>
+                                <td className="text-center"><ColorCode request={request} /></td>
+                                <td><p>{request?.brand_profile?.brandname}</p></td>
+                                <td><p><span className="fw-bold">Status</span><span className="d-block">{request?.status}</span></p></td>
+                                <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
+                                  {!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}
+                                </span></p></td>
+                                <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
+                                <td>
+                                  <select type='select' defaultValue='' onChange={() => handleView(request)}>
+                                    <option value='' disabled></option>
+                                    <option value='view'>View</option>
+                                  </select>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )) :
+                (<EmptyList name="Past Request" heading="List" />)}
+
             </div>
             {(totalpastrequest > 0) && <CustomPagination total={totalpastrequest} onPageChange={(newPage, newLimit) => {
-                    get_past_requests_for_customer_admin(dispatch, user?.token, newPage, newLimit);
-                  }} />}
+              get_past_requests_for_customer_admin(dispatch, user?.token, newPage, newLimit);
+            }} />}
           </div>
         </div>
 

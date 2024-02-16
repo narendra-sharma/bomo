@@ -220,8 +220,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         setIspop(true);
         setNewData(newrequest);
       } else if ((status === 'draft') && isValid) {
-       newRequest(newrequest, dispatch, usertoken);
-       navigate('/');
+       newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }
   };
@@ -258,7 +257,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
   }, []);
 
   useEffect(() => {
-    if (isAddEdit && !requestData) {
+    if (isAddEdit) {
       setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile:"" }));
       setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
       setImagePreview(null);
