@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { designer_deliever_request } from "../reduxdata/rootAction";
 import DeliverSuccess from "./DeliverSuccess";
 import Draggable from "react-draggable";
+import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
 
 
-const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
-    const [isDeliver, setIsDeliver] = useState(false);
+const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) => {
+    // const [isDeliver, setIsDeliver] = useState(false);
     const [isdrag, setIsdrag] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
     };
    
     const handleDragStop = (event, data) => {
-        if (!isDeliver && data?.x === 0) {
+        if (data?.x === 0) {
             setIsdrag(false);
         }  else {
            handleSubmit();
@@ -25,18 +26,21 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
     };
 
     const handleSubmit = () => {
-        designer_deliever_request(dispatch, user?.token, detail, navigate);
+        designer_deliever_request(dispatch, user?.token, detail);
         handleClose();
-        setIsDeliver(true);
     };
 
     useEffect(() => {
-        if (isDeliver) {
+        if (isSubmit) {
             setTimeout(() => {
-                setIsDeliver(false);
+                navigate('/');
+                dispatch({
+                    type: SUBMIT_NOW,
+                    payload: false
+                })
             }, 5000);
         };
-    }, [isDeliver]);
+    }, [isSubmit]);
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
@@ -67,14 +71,15 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <DeliverSuccess show={isDeliver} handleClose={() => setIsDeliver(false)} data={currentdata} />
+            <DeliverSuccess show={isSubmit} handleClose={() => { dispatch({ type: SUBMIT_NOW, payload: false}); }} data={currentdata} />
         </div>
     )
 };
 
 const mapStateToProps = (state) => {
     return {
-        user: state.auth.user
+        user: state.auth.user,
+        isSubmit: state.requests.isSubmit
     };
 };
 

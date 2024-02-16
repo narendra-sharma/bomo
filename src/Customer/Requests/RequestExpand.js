@@ -98,7 +98,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                     <div className="col-md-3 align-self-center">
                                                         <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                             {request?.request_id?.feedback_message && <div>
-                                                                <i className="fa-solid fa-circle-xmark cancel" ></i>
+                                                                <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
                                                                 <span> Delivery Rejected</span>
                                                             </div>}
                                                         </div>

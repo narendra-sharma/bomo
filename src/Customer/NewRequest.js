@@ -252,13 +252,13 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
   useEffect(() => {
     getbrandlist(dispatch, usertoken);
     return () => {
-      dispatch(get_edit_request_data(null))
+      dispatch(get_edit_request_data(null));
     }
   }, []);
 
   useEffect(() => {
     if (isAddEdit) {
-      setFormData((prevFormData) => ({ ...prevFormData, requestName: "", brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile:"" }));
+      setFormData((prevFormData) => ({ ...prevFormData, brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile:"" }));
       setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
       setImagePreview(null);
       setClickedIndex(null);
