@@ -10,6 +10,7 @@ import {
 import { useDispatch, connect } from "react-redux";
 import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from 'date-fns';
+import { Link } from "react-router-dom";
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
   { id: 2, label: "Member", value: "team_member" },
@@ -239,46 +240,34 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           }
                         </p>
                       </td>
+                      {(updateRolepopUps === index) && <td>
+                        <div className="edit-buttons">
+                          <span className="update-buttons">
+                            <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold" onClick={(e) => updateUserRole(e)}>
+                              Update
+                            </button>
+                            <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold" 
+                              onClick={() => {
+                                const updatedModals = [...showDeleteModals];
+                                updatedModals[index] = true;
+                                setShowDeleteModals(updatedModals);
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </span>
+                          </div>
+                         </td>}
+                        <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
+                          <span className="edit">
 
-                      <td className="text-end update-btn update-buttons">
-
-                        {(updateRolepopUps !== index) ? (
-                          <button
-                            className="text-decoration-none text-dark cursor-pointer"
-                            onClick={() => { setShowAddComp(false); handleEditMember(index); }}
-                            style={{
-                              border: "none",
-                              backgroundColor: "#fff",
-                            }}
-                          >
-                            +edit
-                          </button>
-                        ) : (
-                          <button className ="create-add-btn rounded-pill fw-bold mb-0 w-auto px-3 py-1" onClick={(e) => updateUserRole(e)}>
-                            update
-                          </button>
-                        )}
-
+                            {(updateRolepopUps === index) ?
+                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
+                              :
+                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
+                            }
+                          </span>
                       </td>
-
-                      {(updateRolepopUps === index) && <td className="text-end update-btn">
-
-                        <button
-                          className=" text-decoration-none text-dark"
-                          onClick={() => {
-                            const updatedModals = [...showDeleteModals];
-                            updatedModals[index] = true;
-                            setShowDeleteModals(updatedModals);
-                          }}
-                          style={{
-                            border: "none",
-                            backgroundColor: "#fff",
-                          }}
-                        >
-                          delete
-                        </button>
-
-                      </td>}
                       {showDeleteModals[index] && (
                         <DeleteBrand
                           heading="Member"
