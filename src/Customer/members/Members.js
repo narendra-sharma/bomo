@@ -149,7 +149,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             {(member.length > 0) && <div className="review-content rounded mb-3">
            
                 {member.map((item, index) => (
-                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-light-gray' : ''}`}
+                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >
@@ -241,12 +241,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </p>
                       </td>
                       {(updateRolepopUps === index) && <td>
-                        <div className="edit-buttons">
-                          <span className="update-buttons">
-                            <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold" onClick={(e) => updateUserRole(e)}>
+                        <div className="p-0">
+                            <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100" onClick={(e) => updateUserRole(e)}>
                               Update
                             </button>
-                            <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold" 
+                            <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-100 mb-0" 
                               onClick={() => {
                                 const updatedModals = [...showDeleteModals];
                                 updatedModals[index] = true;
@@ -255,7 +254,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                             >
                               Delete
                             </button>
-                          </span>
+                         
                           </div>
                          </td>}
                         <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
