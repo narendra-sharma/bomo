@@ -31,7 +31,7 @@ const SubscriptionSteps = (props) => {
         setShow(false);
         dispatch({
           type: PAY_NOW
-        })
+        });
       },3000);
     }
   }, [props.isPay,dispatch])
