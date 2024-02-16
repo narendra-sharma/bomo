@@ -12,7 +12,7 @@ const RequestSuccess = ({view,viewClose,datadetail,newrequest}) => {
                         <img src={pay_success} alt='img not found' />
                     </div>
                     <span className="mb-0 fw-bold ">{datadetail?.name}</span><span>, you succesfully created</span>
-                    <h5 className="mb-2">{newrequest?.request.request_name}</h5>    
+                    <h5 className="mb-2">{newrequest ? newrequest?.request?.request_name : '--'}</h5>    
                     <p className="">
                         We are reviewing the assests,
                         <br />
