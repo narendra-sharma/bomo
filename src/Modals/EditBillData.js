@@ -7,12 +7,12 @@ const EditBillData = ({show,handleClose,heading,onConfirm}) => {
         <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>
         <div className="px-4 py-4">
-        <h4 className="mb-0">Edit {heading}.</h4>
-          <p>Do you really want to Edit {heading}?</p>
+        <h4 className="mb-0">{heading}.</h4>
+          <p>Do you really want to {heading}?</p>
           <div className="d-flex gap-2 mt-5 pt-4">
             <div className="col-md-6">
               <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={onConfirm}>
-                Edit
+                Yes
               </Button>
             </div>
             <div className="col-md-6">

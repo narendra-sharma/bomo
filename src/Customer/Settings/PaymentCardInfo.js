@@ -157,13 +157,14 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
               return (
               <>
                 <form className="form" onSubmit={handleSubmit}>
-                  <div className="text-end">
-                    <button type="submit" className="border-0 bg-transparent mx-3 text-muted">edit</button>
-                  </div>
+                  
                   <div className="px-60">
                     <div className="row">
                       <CardInfo stripe={stripe} elements={elements} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
                     </div>
+                  </div>
+                  <div className="text-end px-3">
+                    <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100 px-3">Save</button>
                   </div>
                 </form>
               </>
@@ -171,7 +172,7 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
           </ElementsConsumer>
         </Elements>}
       </div>
-      <EditBillData show={show} handleClose={() => setShow(false)} heading={'Card'} onConfirm={handleConfirm}/>
+      <EditBillData show={show} handleClose={() => setShow(false)} heading={'Add Card'} onConfirm={handleConfirm}/>
     </>
   )
 }
