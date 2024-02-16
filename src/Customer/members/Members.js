@@ -243,26 +243,46 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           }
                         </p>
                       </td>
-                      {(updateRolepopUps === index) && <td>
-                        <div className="p-0">
-                            <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100" onClick={(e) => updateUserRole(e)}>
-                              Update
-                            </button>
-                            <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-100 mb-0" 
-                              onClick={() => {
-                                const updatedModals = [...showDeleteModals];
-                                updatedModals[index] = true;
-                                setShowDeleteModals(updatedModals);
-                              }}
-                            >
-                              Delete
-                            </button>
-                         
-                          </div>
-                         </td>}
+                     { (user?.role==='customer_admin') && <td className="text-end update-btn update-buttons">
+
+                        {(updateRolepopUps !== index) ? (
+                          <button
+                            className="text-decoration-none text-dark cursor-pointer"
+                            onClick={() => { setShowAddComp(false); handleEditMember(index); }}
+                            style={{
+                              border: "none",
+                              backgroundColor: "#fff",
+                            }}
+                          >
+                            +edit
+                          </button>
+                        ) : (
+                          <button className ="create-add-btn rounded-pill fw-bold mb-0 w-auto px-3 py-1" onClick={(e) => updateUserRole(e)}>
+                            update
+                          </button>
+                        )}
+
+                      </td>}
+                      {(updateRolepopUps === index) && <td className="text-end update-btn">
+
+                        <button
+                          className=" text-decoration-none text-dark"
+                          onClick={() => {
+                            const updatedModals = [...showDeleteModals];
+                            updatedModals[index] = true;
+                            setShowDeleteModals(updatedModals);
+                          }}
+                          style={{
+                            border: "none",
+                            backgroundColor: "#fff",
+                          }}
+                        >
+                          delete
+                        </button>
+
+                      </td>}
                         <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
                           <span className="edit">
-
                             {(updateRolepopUps === index) ?
                               <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
                               :
@@ -300,7 +320,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-              <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
+             (user?.role==='customer_admin') && <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}
