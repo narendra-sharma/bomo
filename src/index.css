@@ -891,9 +891,9 @@ td.vertical-middle {
   padding: 0;
   border: none;
   border-radius: 30px;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
 }
 #color1::-webkit-color-swatch {
   border: none;
@@ -1243,7 +1243,7 @@ ul.designer-list li{
   width:100%;
   font-size: 12px;
 }
-.bg-light-gray .input-name .react-tagsinput-input{
+.bg-medium-gray .input-name .react-tagsinput-input{
   font-size: 11px;
 }
 /* .brand-table tr td:first-child{
@@ -1263,6 +1263,7 @@ ul.designer-list li{
   border: solid 1px #000;
   padding: 30px 30px;
   border-radius: 5px;
+  background: #e9e6e6;
 }
 .add-brand-profile .input-name , .brand-table .input-name{
   background: transparent!important;
@@ -1395,24 +1396,29 @@ ul.designer-list li{
 .add-brand-profile p {
   margin: 0;
 }
-.bg-light-gray input.input-name , .bg-light-gray button.add-btn.border-0 , 
+.bg-medium-gray input.input-name , .bg-medium-gray button.add-btn.border-0 , 
 .describing-tags span.react-tagsinput-tag  {
   background: #fff!important;
   border-radius: 5px;
   padding: 4px 9px!important;
   border: none;
 }
-.bg-light-gray.member-table .formcontrol  ,
-.bg-light-gray.member-table select{
-  height: 27px;
+.bg-medium-gray input.input-name{
+  width: 90%;
+}
+.bg-medium-gray.member-table .formcontrol  ,
+.bg-medium-gray.member-table select{
+  height: 35px;
 }
  .table>:not(caption)>*>* {
   background: transparent!important;
 }
-.bg-light-gray.member-table select{
+.bg-medium-gray.member-table select{
   padding: 0!important;
   border: none;
   border-radius: 5px;
+  background: #fff;
+  opacity: 1;
 }
 .modal .add-brand-profile p {
   font-size: 14px;
@@ -1560,7 +1566,6 @@ ul.designer-list li{
 }
 .member-table select{
   height: 24px;
-  margin-top: 1px;
   border-radius: 5px;
 }
 
@@ -1574,15 +1579,24 @@ ul.designer-list li{
   -webkit-box-shadow: 0 0 0px 1000px var(--gray-light) inset!important;
 }
 .member-table {
-  background: #fff;
   border-radius: 5px;
+  background: #fff;
 }
-.member-table tr td button{
-background-color: #D9D9D9;
+.member-table tr td button.bg-mid-gray{
+background-color: #3FCE3C;
+border:solid 1px #3FCE3C; 
+}
+.member-table tr td button.bg-mid-gray:hover{
+  background-color: transparent;
+    color: #3FCE3C;
+    border: solid 1px #3FCE3C;
 }
 .member-table .d-flex {
   gap: 20px;
   padding: 0;
+}
+.bg-medium-gray {
+  background: #e9e6e6;
 }
 p.user-email.date span.d-block {
   line-height: 25px;

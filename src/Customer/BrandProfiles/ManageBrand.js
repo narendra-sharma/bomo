@@ -221,7 +221,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             <button className="create-add-btn brands-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
               {brand?.id ? 'Update' : 'Create'}
             </button>
-            <button className="create-add-btn brands-add-btn delete-btn rounded-pill fw-bold" type="button" onClick={() => close()}>
+            <button className="create-add-btn brands-add-btn delete-btn rounded-pill fw-bold mb-0" type="button" onClick={() => close()}>
               Close
             </button>
           </div>

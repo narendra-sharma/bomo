@@ -10,6 +10,7 @@ import {
 import { useDispatch, connect } from "react-redux";
 import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from 'date-fns';
+import { Link } from "react-router-dom";
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
   { id: 2, label: "Member", value: "team_member" },
@@ -148,7 +149,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             {(member.length > 0) && <div className="review-content rounded mb-3">
            
                 {member.map((item, index) => (
-                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border bg-transparent border-dark bg-light-gray' : ''}`}
+                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >
@@ -157,12 +158,13 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       <td>
                         <div className="d-flex  align-items-center">
                           {(updateRolepopUps === index) ?
+                           <div className="d-flex justify-content-center rounded bg-white" style={{padding:"5px" , alignSelf:"end"}}>
                             <input
                               type="color"
                               name="colour"
                               value={formdata?.colour}
-                              onChange={(e) => handleChange(e)} id="color1"
-                            /> :
+                              onChange={(e) => handleChange(e)} id="color1" className="cursor-pointer"
+                            /></div> :
                             <div
                               style={{
                                 backgroundColor: item?.colour,
@@ -171,6 +173,8 @@ const Members = ({ user, member, total, isAddEdit }) => {
                                 borderRadius: 25,
                               }}
                             ></div>
+                            
+                          
                           }
                           <p className="mb-0 user-email">
                             <b>Name</b>
@@ -239,7 +243,6 @@ const Members = ({ user, member, total, isAddEdit }) => {
                           }
                         </p>
                       </td>
-
                      { (user?.role==='customer_admin') && <td className="text-end update-btn update-buttons">
 
                         {(updateRolepopUps !== index) ? (
@@ -278,6 +281,15 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </button>
 
                       </td>}
+                        <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
+                          <span className="edit">
+                            {(updateRolepopUps === index) ?
+                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
+                              :
+                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
+                            }
+                          </span>
+                      </td>
                       {showDeleteModals[index] && (
                         <DeleteBrand
                           heading="Member"
