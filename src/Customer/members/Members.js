@@ -215,7 +215,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                         </p>
                       </td>
                       <td>
-                        <p className="mb-0 user-email">
+                        <p className="mb-0 user-email member-date">
                           <b>Date added</b>
                           <p
                             className="d-block"

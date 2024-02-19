@@ -12,18 +12,20 @@ const CardDetailShow = ({cardDetails,isDefault,setIsDefault}) => {
             {arr.map((r,i)=><img key={i} src={r} className="me-1"/>)}
         </div>
         {cardDetails && (
-            <div className="row d-flex align-items-center border pt-2 mb-2 mx-1">
-            <div className="col-2">
-                <input type="checkbox" checked={isDefault} onChange={()=>setIsDefault(!isDefault)}/>
-            </div>
-            <div className="col-10">
-                <p><b>{cardDetails.brand} {cardDetails.last4}</b></p>
-                <p>Expiry: {cardDetails.exp_month}/{cardDetails.exp_year}</p>
-            </div> 
-            </div>
+            <div className="border py-3 mb-2  px-2 mb-4 rounded">
+                <div className="row d-flex align-items-center">
+                    <div className="col-1">
+                        <input type="checkbox" checked={isDefault} onChange={()=>setIsDefault(!isDefault)}/>
+                    </div>
+                    <div className="col-10">
+                        <p className="mb-0"><b>{cardDetails.brand} {cardDetails.last4}</b></p>
+                        <p className="mb-0">Expiry: {cardDetails.exp_month}/{cardDetails.exp_year}</p>
+                    </div> 
+                </div>
+         </div>
         )}
-        {isDefault && <div className="row d-flex align-items-center justtify-content-end mx-1 mb-2">
-            <button type="button" onClick={()=>setIsDefault(!isDefault)}>Add New Card</button>
+        {isDefault && <div className="row d-flex align-items-center justtify-content-end mx-1 mb-2 status-btn">
+            <button type="button" onClick={()=>setIsDefault(!isDefault)} className="w-auto new-request rounded-pill btn border rounded-pill pause-btn">Add New Card</button>
         </div>}
     </>
   )
