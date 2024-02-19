@@ -2123,6 +2123,9 @@ button.accordion-button.collapsed  .late-request-section {
 .feedback-submit-popup p{
   font-size: 15px;
 }
+.bg-medium-gray .member-date{
+  height: 57px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;

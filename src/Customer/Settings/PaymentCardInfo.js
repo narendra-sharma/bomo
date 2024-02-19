@@ -142,7 +142,7 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
         <h3>Payment info</h3>
       </div>
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
-        <div className="px-3">
+        <div className="px-60 pt-4">
           <CardDetailShow 
             cardDetails={cardDetails} 
             isDefault={isDefault} 
@@ -161,11 +161,11 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
                   <div className="px-60">
                     <div className="row">
                       <CardInfo stripe={stripe} elements={elements} errors={errors} handleCardElementChange={(e, label) => handleCardElementChange(e, label)} />
+                      <div className="col-12"><button type="submit" className="w-auto create-add-btn brands-add-btn rounded-pill fw-bold w-100 px-4 mt-2">Save</button>
+                      </div>
                     </div>
                   </div>
-                  <div className="text-end px-3">
-                    <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100 px-3">Save</button>
-                  </div>
+
                 </form>
               </>
             )}}
