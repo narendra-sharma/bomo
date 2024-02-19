@@ -1,4 +1,4 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST} from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS} from "./requestTypes";
 const initialState = {
   isSubmit:false,
   pendingRequests: [],
@@ -34,7 +34,8 @@ const initialState = {
   pastrequests:[],
   deliverrequests:[],
   designerpastrequests: [],
-  newrequest: []
+  newrequest: [],
+  expandedrequest: []
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -128,6 +129,11 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         newrequest: action.payload
+      };
+    case GET_EXPAND_REQUEST_DETAILS:
+      return {
+        ...state,
+        expandedrequest: action.payload
       };
     default:
       return state;

@@ -4,6 +4,7 @@ import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
 import { poll_request_apply } from "../reduxdata/rootAction";
+import { saveAs } from "file-saver";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -13,6 +14,22 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
         let applyrequest = requestdata._id;
         poll_request_apply(applyrequest, dispatch, user?.token);
         handleClose();
+    };
+    const handleZip = () => {
+        const zipUrl = `${REACT_APP_BOMO_URL}${data?.brand_profile?.brandassests}`;
+        saveAs(zipUrl, `${data?.brand_profile?.logo?.split('/').pop()}`);
+        console.log('doewnloaded');
+    };
+    const handleDownload = async(imageUrl) => {
+        const downloadUrl = `${REACT_APP_BOMO_URL}${imageUrl}`;
+        const response = await fetch(downloadUrl);
+        const blob = await response.blob();
+
+        // Extract the filename from the URL or provide a custom filename
+        const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+
+        // Trigger the download using file-saver
+        saveAs(blob, filename);
     };
 
     return (
@@ -38,7 +55,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
                                 <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
-                                <p className="brand-assets-btn rounded bg-white request-poll-active" ><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.brandassests}`} >Brand Assets</a></p>
+                                <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={handleZip}>Brand Assets</p>
                             </div>
                         </div>
                         <div className="col-md-6 delivery-date-content">
@@ -54,7 +71,9 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="mb-3 position-relative">
                                 <img src={reelImage} alt="reel imag" width="100%" />
                                 <div className="project-btn">
-                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`}>Project Assets</a></div>
+                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${data?.brand_profile?.logo}`)}>
+                                            Project Assets
+                                    </div>
                                 </div>
                             </div>
                             <div className="table-responsive">

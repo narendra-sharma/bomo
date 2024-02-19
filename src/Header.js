@@ -70,7 +70,25 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
                 </div>
               </>}
             <div className="d-flex text-right justify-content-between align-items-center">
-              <img src={userImage} alt="Bomo logo" />
+              {user?.role === 'team_member' ? 
+               <div
+               style={{
+                 backgroundColor: user?.colour,
+                 width: 30,
+                 height: 30,  
+                 borderRadius: 25,
+               }}
+             ></div>
+             :userrole === 'customer_admin' ? 
+             <div
+             style={{
+               backgroundColor: user?.colour,
+               width: 30,
+               height: 30,
+               borderRadius: 25,
+             }}
+           ></div>
+            :<img src={userImage} alt="Bomo logo" />}
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
                 <span className="d-block">{(userrole === 'customer_admin') ?'Admin': (cuser?.parent ? roles.find(r=>r.value===cuser?.role).label : userrole)}</span>
@@ -81,7 +99,6 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
                   {totalassigns>0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
-
             </div>
           </div>
         </div>

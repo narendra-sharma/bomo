@@ -52,7 +52,8 @@ import { newRequest,
   review_delivery_request_customer_admin,
   get_past_requests_for_customer_admin,
   get_delivered_requests,
-  get_past_requests_for_designer
+  get_past_requests_for_designer,
+  get_expanded_request_detail
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -114,5 +115,6 @@ export {
   get_past_requests_for_customer_admin,
   get_delivered_requests,
   get_past_requests_for_designer,
-  add_change_card
+  add_change_card,
+  get_expanded_request_detail 
 };

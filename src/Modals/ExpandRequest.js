@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
 import designImage from "../images/nine-sixteen.png";
 import designImage2 from "../images/sixteen-nine.png";
 import aepdesign from "../images/aep-image.png";
+import ColorCode from '../Common/ColorCode';
+import { connect } from 'react-redux';
+import { get_expanded_request_detail } from '../reduxdata/rootAction';
+import { useDispatch } from 'react-redux';
 
-const ExpandRequest = ({ show, handleClose }) => {
+const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
+    const dispatch = useDispatch();
+    console.log(expanddetails);
+
+    useEffect(() => {
+        if(requestdata?._id){
+            get_expanded_request_detail(dispatch, user?.token, requestdata?._id);
+        }
+    },[dispatch,user?.token,requestdata?._id]);
+
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="expand-request view-as-customer-popup">
             <Modal.Body className="p-3 px-md-5 py-3">
@@ -78,18 +91,18 @@ const ExpandRequest = ({ show, handleClose }) => {
                 <div className="px-60 py-5 mx-3 review-main-content bg-white">
                     <div className="row review-content">
                         <div className="col-md-7">
-                            <div class="mb-3"><h3 class="fw-bold">Intro SS23 campaign</h3></div>
+                            <div class="mb-3"><h3 class="fw-bold">{requestdata?.request_name}</h3></div>
                         </div>
                         <div className="col-md-5">
                             <div class="d-flex justify-content-end">
                                 <h5 class="fw-bold">$125</h5>
-                                <h6 class="text-end ps-5 fw-bold"> Comleted
+                                <h6 class="text-end ps-5 fw-bold"> Completed
                                     <span class="d-block">Jan 20th</span></h6>
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <div class=" d-flex align-items-center review-content ">
-                                <p class="short0ad" >short ad</p>
+                                <ColorCode request={requestdata}/>
                                 <p class="short0ad dor rounded-pill">DOR</p>
                                 <p class="short0ad project-assets rounded-pill">Project Assets</p>
                             </div>
@@ -107,16 +120,16 @@ const ExpandRequest = ({ show, handleClose }) => {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <p>Who is your target audience?
-                                                    <span className="d-block">What do you want to achieve with this animation?
+                                                <p>
+                                                    <span className="d-block">{requestdata?.description}
                                                     </span>
-                                                    <span className="d-block">Where is this going to appear?</span>
+                                                    {/* <span className="d-block">Where is this going to appear?</span> */}
                                                 </p>
                                             </td>
-                                            <td><p>9:16<span class="d-block">1:1</span> </p></td>
-                                            <td><p>.mp4</p></td>
-                                            <td><p>NO</p> </td>
-                                            <td><p>-</p></td>
+                                            <td><p>{requestdata?.size}</p></td>
+                                            <td><p>{requestdata?.file_type}</p></td>
+                                            <td><p>{requestdata?.transparency}</p> </td>
+                                            <td><p>{requestdata?.references}</p></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -245,4 +258,11 @@ const ExpandRequest = ({ show, handleClose }) => {
     )
 };
 
-export default ExpandRequest;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+        expanddetails: state.requests.expandedrequest
+    };
+};
+
+export default connect(mapStateToProps)(ExpandRequest);

@@ -5,6 +5,8 @@ import { start_loading, stop_loading } from "../rootAction";
 import { MEMBERS_LIST, USERS_LIST, SINGLE_USER_DATA } from "./mmebersTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
 import { catch_errors_handle } from "../rootAction";
+import { USER_UPDATE } from "../User/userTypes";
+import { set_update_user } from "../User/userActions";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -33,6 +35,7 @@ export const get_all_members = async (
       toast.error(res?.data?.message);
     }
   } catch (error) {
+    console.log(error);
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading);
@@ -40,7 +43,7 @@ export const get_all_members = async (
 };
 
 // add a new memeber
-export const add_new_member = async (dispatch, userData, token, memberdata) => {
+export const add_new_member = async (dispatch, userData, token, memberdata, user) => {
   dispatch(start_loading);
   const headers = {
     headers: {
@@ -58,10 +61,22 @@ export const add_new_member = async (dispatch, userData, token, memberdata) => {
       toast.success(res.data?.message);
       get_all_members(dispatch, token);
       change_add_edit(dispatch);
+      if(user?._id === memberdata?.id){
+        const usercolor = memberdata?.colour;
+        if (user) {
+          user.colour = usercolor;
+          localStorage.setItem("userDetails", JSON.stringify(user));
+          dispatch({
+            type: USER_UPDATE,
+            payload: user,
+          });
+        }
+      }
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
+    console.log(error);
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());

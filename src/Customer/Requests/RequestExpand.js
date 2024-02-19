@@ -7,6 +7,7 @@ import { get_delivered_requests } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
+import { saveAs } from 'file-saver';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -30,6 +31,17 @@ const RequestExpand = ({ user, deliverrequests }) => {
         const date = new Date(timeDate);
         const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
         return `${time}`;
+    };
+    const handleDownload = async(imageUrl) => {
+        const downloadUrl = `${REACT_APP_BOMO_URL}${imageUrl}`;
+        const response = await fetch(downloadUrl);
+        const blob = await response.blob();
+
+        // Extract the filename from the URL or provide a custom filename
+        const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+
+        // Trigger the download using file-saver
+        saveAs(blob, filename);
     };
 
     return (
@@ -149,9 +161,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 <img src={designImage} alt="Imag" />
                                                             </div>
                                                             <div className="download-btn">
-                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/landscape/${request?.landscape}`} download>Download</a></button>
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0" onClick={() => handleDownload(`designe/landscape/${request?.landscape}`)}>
+                                                                        Download
+                                                                </button>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                     <div className="col-md-3 d-flex text-center justify-content-center">
@@ -161,7 +174,9 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 <img src={designImage2} alt="Imag" />
                                                             </div>
                                                             <div className="download-btn">
-                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}designe/portrait/${request?.portrait}`} download>Download</a></button>
+                                                                <button className="rounded-pill px-3 py-1 fw-bold border-0" onClick={() => handleDownload(`designe/portrait/${request?.portrait}`)}>
+                                                                    Download
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
