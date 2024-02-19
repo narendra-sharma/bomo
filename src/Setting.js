@@ -15,7 +15,7 @@ import EditDesignerBio from "./Modals/EditDesignerBio";
 import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
 
 
-const Setting = ({ userrole, profiledetails}) => {
+const Setting = ({ userrole, profiledetails }) => {
   const user = JSON.parse(localStorage.getItem('userDetails'));
   const [showchangePassword, setShowchangePassword] = useState(false);
   const [showchangeProfile, setShowchangeProfile] = useState(false);
@@ -61,7 +61,16 @@ const Setting = ({ userrole, profiledetails}) => {
               <div className={(userrole === 'customer_admin') ? 'col-lg-4' : 'col-lg-6'}>
                 <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                   <div className="d-flex text-right justify-content-between align-items-center">
-                    <img src={userImage} alt="Bomo logo" />
+                    {userrole === 'customer_admin' ?
+                      <div
+                        style={{
+                          backgroundColor: user?.colour,
+                          width: 30,
+                          height: 30,
+                          borderRadius: 25,
+                        }}
+                      ></div>
+                      : <img src={userImage} alt="Bomo logo" />}
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className=" d-md-block">Name</b>
                       <span className="d-block">{user?.name}</span></p>
@@ -69,7 +78,7 @@ const Setting = ({ userrole, profiledetails}) => {
                   <div className="d-flex text-right justify-content-between align-items-center">
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className="d-md-block">Role</b>
-                      <span className="d-block">{(userrole === 'customer_admin') ? 'Customer' : userrole}</span></p>
+                      <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : userrole}</span></p>
                   </div>
                   <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
                 </div>
@@ -116,7 +125,7 @@ const Setting = ({ userrole, profiledetails}) => {
               </div>
             </div>
           </div>
-            : (userrole === 'customer_admin') && <SubscriptionSteps user={user}/>
+            : (userrole === 'customer_admin') && <SubscriptionSteps user={user} />
           }
           {(userrole === 'Designer') ? <>
 

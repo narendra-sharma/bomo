@@ -67,7 +67,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="fw-bold" onClick={() => setShow(true)}>
+                                            <span className="fw-bold" onClick={() => {setShow(true);setReqdata(request)}}>
                                                 Expand Request
                                             </span>{" "}
                                         </p>
@@ -75,7 +75,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                                     <td>
                                         <div className="d-flex align-items-center">
                                             <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e, request, 'accepted')}>
-                                                {isapprove[request?._id] === 'accepted' ? 'Approve' : 'Approve Delivery'}
+                                                {isapprove[request?._id] === 'accepted' ? 'Approve' : 'Pay Now'}
                                             </button>
                                             {isapprove[request?._id] === 'accepted' ?
                                                 <i className="fa-solid fa-check-circle text-success"></i> :
@@ -88,7 +88,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                     </div>
                 </div>
             )) : (<EmptyList name="Approve Request" />)}
-            <ExpandRequest show={show} handleClose={() => setShow(false)} />
+            <ExpandRequest show={show} handleClose={() => setShow(false)} requestdata={reqdata} />
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )

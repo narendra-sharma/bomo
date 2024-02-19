@@ -87,11 +87,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
         setErrors({ ...errors, role: value === '' ? 'Role is required' : null });
         setFormdata({ ...formdata, role: value });
         break;
-      
+
       case 'email':
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-        setErrors({ ...errors, email: value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null})
-        setFormdata({ ...formdata, email: value});
+        setErrors({ ...errors, email: value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null })
+        setFormdata({ ...formdata, email: value });
         break;
 
       case 'colour':
@@ -116,9 +116,9 @@ const Members = ({ user, member, total, isAddEdit }) => {
       colour: formdata?.colour,
       role: formdata?.role
     };
-    add_new_member(dispatch, null, user?.token, memberdata);
+    add_new_member(dispatch, null, user?.token, memberdata, user);
     setUpdateRolepopUps(-1);
-    setFormdata({name: "",role: "",email: "",colour: ""});
+    setFormdata({ name: "", role: "", email: "", colour: "" });
   };
 
   useEffect(() => {
@@ -147,34 +147,40 @@ const Members = ({ user, member, total, isAddEdit }) => {
               <h3>Members</h3>
             </div>
             {(member.length > 0) && <div className="review-content rounded mb-3">
-           
-                {member.map((item, index) => (
-                  <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray' : ''}`}
+
+              {member.map((item, index) => (
+                <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >
-                  
+
                     <tr className="members">
                       <td>
                         <div className="d-flex  align-items-center">
                           {(updateRolepopUps === index) ?
-                           <div className="d-flex justify-content-center rounded bg-white" style={{padding:"5px" , alignSelf:"end"}}>
-                            <input
-                              type="color"
-                              name="colour"
-                              value={formdata?.colour}
-                              onChange={(e) => handleChange(e)} id="color1" className="cursor-pointer"
-                            /></div> :
-                            <div
-                              style={{
-                                backgroundColor: item?.colour,
+                            <div className="d-flex justify-content-center rounded bg-white" style={{ padding: "5px", alignSelf: "end" }}>
+                              <input
+                                type="color"
+                                name="colour"
+                                value={formdata?.colour}
+                                onChange={(e) => handleChange(e)} id="color1" className="cursor-pointer"
+                              /></div> :
+                            !item?.colour ?
+                              <div style={{
+                                backgroundColor: "black",
                                 width: 30,
                                 height: 30,
                                 borderRadius: 25,
                               }}
-                            ></div>
-                            
-                          
+                              ></div> :
+                              <div
+                                style={{
+                                  backgroundColor: item?.colour,
+                                  width: 30,
+                                  height: 30,
+                                  borderRadius: 25,
+                                }}
+                              ></div>
                           }
                           <p className="mb-0 user-email">
                             <b>Name</b>
@@ -210,7 +216,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
                               ))}
                             </select>
                           ) : (
-                            <span className="d-block text-capitalize">{roles.find(r=>r.value===item?.role)?roles.find(r=>r.value===item?.role).label:'Customer'}</span>
+                            <span className="d-block text-capitalize">{roles.find(r => r.value === item?.role) ? roles.find(r => r.value === item?.role).label : 'Customer'}</span>
                           )}
                         </p>
                       </td>
@@ -245,32 +251,32 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       </td>
                       {(updateRolepopUps === index) && <td>
                         <div className="p-0">
-                            <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100" onClick={(e) => updateUserRole(e)}>
-                              Update
-                            </button>
-                            <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-100 mb-0" 
-                              onClick={() => {
-                                const updatedModals = [...showDeleteModals];
-                                updatedModals[index] = true;
-                                setShowDeleteModals(updatedModals);
-                              }}
-                            >
-                              Delete
-                            </button>
-                         
-                          </div>
-                         </td>}
-                        {(user?.role==='customer_admin') && <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
-                          <span className="edit">
+                          <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100" onClick={(e) => updateUserRole(e)}>
+                            Update
+                          </button>
+                          <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-100 mb-0"
+                            onClick={() => {
+                              const updatedModals = [...showDeleteModals];
+                              updatedModals[index] = true;
+                              setShowDeleteModals(updatedModals);
+                            }}
+                          >
+                            Delete
+                          </button>
 
-                            {(updateRolepopUps === index) ?
-                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
-                              :
-                              <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
-                            }
-                          </span>
+                        </div>
                       </td>}
-                      
+                      {(user?.role === 'customer_admin') && <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
+                        <span className="edit">
+
+                          {(updateRolepopUps === index) ?
+                            <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
+                            :
+                            <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
+                          }
+                        </span>
+                      </td>}
+
                       {showDeleteModals[index] && (
                         <DeleteBrand
                           heading="Member"
@@ -286,9 +292,9 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       )}
                     </tr>
                   </table>
-                  </div>
-                ))}
-              
+                </div>
+              ))}
+
             </div>}
             <div className="review-content add-member px-4 py-2 rounded mb-3">
               {total > 0 && (
@@ -301,7 +307,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
               )}
             </div>
             {!showAddComp ? (
-             (user?.role==='customer_admin') && <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true);setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
+              (user?.role === 'customer_admin') && <div className="add-new-brand add-member-count" onClick={() => { setShowAddComp(true); setUpdateRolepopUps(-1); }}><button className="add-btn">+</button> <span className="ms-4 ps-2"><span className="fw-bold">Add</span> New Member</span></div>
             ) : (
               <MemberForm roles={roles} setShowAddComp={setShowAddComp} />
             )}
