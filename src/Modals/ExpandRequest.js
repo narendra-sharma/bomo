@@ -7,16 +7,22 @@ import ColorCode from '../Common/ColorCode';
 import { connect } from 'react-redux';
 import { get_expanded_request_detail } from '../reduxdata/rootAction';
 import { useDispatch } from 'react-redux';
+import { format } from 'date-fns';
 
 const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
     const dispatch = useDispatch();
-    console.log(expanddetails);
 
     useEffect(() => {
-        if(requestdata?._id){
+        if (requestdata?._id) {
             get_expanded_request_detail(dispatch, user?.token, requestdata?._id);
         }
-    },[dispatch,user?.token,requestdata?._id]);
+    }, [dispatch, user?.token, requestdata?._id]);
+
+    const formattedTime = (timeDate) => {
+        const date = new Date(timeDate);
+        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
+        return `${time}`;
+    };
 
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="expand-request view-as-customer-popup">
@@ -27,31 +33,36 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                             <div class="step">
                                 <p className="brief-content invisible">0</p>
                                 <div class="deliver-status">
+                                    <p className="brief-content">Brief Published</p>
+                                </div>
+                                <p className="brief-date">
+                                    {expanddetails?.req_data?.createdAt ? format(new Date(expanddetails?.req_data?.createdAt), 'dd/MM/yyyy') : 'No Date'}
+                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
+                            </div>
+
+                            {expanddetails?.req_data?.brief_rejected_at === null ?
+                                <div class="step">
+                                    <p className="brief-content">Brief Approved</p>
+                                    <div class="deliver-status delivery-check">
+                                        <span><i class="fa-solid fa-circle-check"></i></span>
+                                    </div>
+                                    <p className="brief-date">
+                                        {format(new Date(expanddetails?.req_data?.brief_approved_at),'dd/MM/yyyy')}
+                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span></p>
+                                </div> :
+                                <div class="step">
                                     <p className="brief-content">Brief Rejected</p>
+                                    <div class="deliver-status delivery-cancel">
+                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                    </div>
+                                    <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
                                 </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
-
-                            <div class="step">
-                                <p className="brief-content">Brief Rejected</p>
-                                <div class="deliver-status delivery-cancel">
-                                    <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
-
-                            <div class="step">
-                                <p className="brief-content">Brief Approved</p>
-                                <div class="deliver-status delivery-check">
-                                    <span><i class="fa-solid fa-circle-check"></i></span>
-                                </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
+                            }
 
                             <div class="step">
                                 <p className="brief-content invisible">Brief Rejected</p>
                                 <div class="deliver-status delivery-request-count">
-                                    <span class="bg-white rounded-pill px-1">123 Request</span>
+                                    <span class="bg-white rounded-pill px-1">{expanddetails?.req_data?.designer_list?.length} applicants</span>
                                 </div>
                                 <p className="brief-date invisible">16/03/2023 <span className="d-block">12:44</span></p>
                             </div>
@@ -91,7 +102,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                 <div className="px-60 py-5 mx-3 review-main-content bg-white">
                     <div className="row review-content">
                         <div className="col-md-7">
-                            <div class="mb-3"><h3 class="fw-bold">{requestdata?.request_name}</h3></div>
+                            <div class="mb-3"><h3 class="fw-bold">{expanddetails?.req_data?.request_name}</h3></div>
                         </div>
                         <div className="col-md-5">
                             <div class="d-flex justify-content-end">
@@ -102,7 +113,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <div class=" d-flex align-items-center review-content ">
-                                <ColorCode request={requestdata}/>
+                                <ColorCode request={expanddetails?.req_data} />
                                 <p class="short0ad dor rounded-pill">DOR</p>
                                 <p class="short0ad project-assets rounded-pill">Project Assets</p>
                             </div>
@@ -121,15 +132,15 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                         <tr>
                                             <td>
                                                 <p>
-                                                    <span className="d-block">{requestdata?.description}
+                                                    <span className="d-block">{expanddetails?.req_data?.description}
                                                     </span>
                                                     {/* <span className="d-block">Where is this going to appear?</span> */}
                                                 </p>
                                             </td>
-                                            <td><p>{requestdata?.size}</p></td>
-                                            <td><p>{requestdata?.file_type}</p></td>
-                                            <td><p>{requestdata?.transparency}</p> </td>
-                                            <td><p>{requestdata?.references}</p></td>
+                                            <td><p>{expanddetails?.req_data?.size}</p></td>
+                                            <td><p>{expanddetails?.req_data?.file_type}</p></td>
+                                            <td><p>{expanddetails?.req_data?.transparency}</p> </td>
+                                            <td><p>{expanddetails?.req_data?.references}</p></td>
                                         </tr>
                                     </tbody>
                                 </table>

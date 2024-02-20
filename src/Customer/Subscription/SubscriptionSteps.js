@@ -7,17 +7,17 @@ import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
 import { get_customer_card, get_user_subscription } from "../../reduxdata/PlansPayments/planActions";
-const { REACT_APP_STRIPE_PUBLIC_KEY }= process.env;
+const { REACT_APP_STRIPE_PUBLIC_KEY } = process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
   const dispatch = useDispatch();
-  const [user,setUser]=useState(props.user);
+  const [user, setUser] = useState(props.user);
   const steps = ['Subscription Setup', 'Payment'];
   const [pieces, setPieces] = useState(5);
   const [prize, setPrize] = useState(250);
   const [save, setSave] = useState(0);
   const [step, setStep] = useState(0);
-  const changeQuantityData=(val)=>{
+  const changeQuantityData = (val) => {
     setPieces(val.pieces);
     setPrize(val.price);
     setSave(val.saved);
@@ -28,13 +28,17 @@ const SubscriptionSteps = (props) => {
       setShow(true);
       setStep(0);
       setTimeout(() => {
-        setShow(false);
-        dispatch({
-          type: PAY_NOW
-        });
-      },3000);
+        closeSuccessPopup();
+      }, 3000);
     }
-  }, [props.isPay,dispatch])
+  }, [props.isPay, dispatch]);
+
+  const closeSuccessPopup = () => {
+    setShow(false);
+    dispatch({
+      type: PAY_NOW
+    });
+  }
   return (
     <>
       <div className="review-main-content modify-subscription  bg-white py-5 px-3 rounded">
@@ -46,7 +50,7 @@ const SubscriptionSteps = (props) => {
           </div>
         </div>
         {step === 0 && <>
-          <SubscriptionCalculator change={(val)=>changeQuantityData(val)} isSubscribe/>
+          <SubscriptionCalculator change={(val) => changeQuantityData(val)} isSubscribe />
           <div className="mb-5 text-center">
             <button type="button" className="btn update-btn rounded-pill px-4 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
           </div>
@@ -55,12 +59,12 @@ const SubscriptionSteps = (props) => {
         {step === 1 && <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ stripe, elements }) => (
-              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} cards={props.cards}/>
+              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} cards={props.cards} />
             )}
           </ElementsConsumer>
         </Elements>}
       </div>
-      <PaymentSuccess show={show} handleClose={() => setShow(false)} />
+      <PaymentSuccess show={show} handleClose={() => closeSuccessPopup()} />
     </>
   )
 }
