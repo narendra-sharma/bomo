@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CUSTOMER_CARD, GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW } from "./planTypes";
 import { toast } from "react-toastify";
-import { start_loading, stop_loading, catch_errors_handle } from "../rootAction";
+import { start_loading, stop_loading, catch_errors_handle, change_add_edit } from "../rootAction";
 import { set_update_user } from "../User/userActions";
 
 const { REACT_APP_BOMO_URL } = process.env;
@@ -199,9 +199,7 @@ export const add_change_card = async (uToken, token, dispatch) => {
     headers.headers['x-access-token'] = uToken;
     const res = await axios.put(url, {cardToken:token?.id}, headers);
     if (res.data && res.data.status) {
-      dispatch({
-        type: PAY_NOW,
-      });
+      change_add_edit(dispatch)
       get_customer_card(uToken,dispatch);
       toast.success('Successfully added card.')
     } else {

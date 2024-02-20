@@ -75,7 +75,7 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = (((userrole !== 'Super admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 1500) ? localStorage.getItem('path') : '/';
+    location.pathname = (((userrole !== 'Super admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 25000) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole, isSubscribe]);
 
