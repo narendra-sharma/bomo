@@ -149,7 +149,7 @@ const Members = ({ user, member, total, isAddEdit }) => {
             {(member.length > 0) && <div className="review-content rounded mb-3">
 
               {member.map((item, index) => (
-                <div className={`table-responsive member-table table table-borderless px-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray' : ''}`}
+                <div className={`table-responsive member-table table table-borderless ps-5 ${(updateRolepopUps === index) ? 'border border-dark bg-medium-gray px-0 ps-5' : ''}`}
                   key={index}>
                   <table
                     className="table table-borderless mb-0" >
@@ -251,10 +251,10 @@ const Members = ({ user, member, total, isAddEdit }) => {
                       </td>
                       {(updateRolepopUps === index) && <td>
                         <div className="p-0">
-                          <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-100" onClick={(e) => updateUserRole(e)}>
+                          <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-auto mx-auto" onClick={(e) => updateUserRole(e)}>
                             Update
                           </button>
-                          <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-100 mb-0"
+                          <button type="button" className="create-add-btn delete-btn rounded-pill fw-bold w-auto mx-auto mb-0"
                             onClick={() => {
                               const updatedModals = [...showDeleteModals];
                               updatedModals[index] = true;
@@ -266,11 +266,11 @@ const Members = ({ user, member, total, isAddEdit }) => {
 
                         </div>
                       </td>}
-                      {(user?.role === 'customer_admin') && <td className="col-md-2 col-12 mb-3 mb-md-0 vertical-middle text-center">
-                        <span className="edit">
+                      {(user?.role === 'customer_admin') && <td className="col-md-1 col-12 mb-3 mb-md-0 vertical-middle text-center">
+                        <span className="edit p-0">
 
                           {(updateRolepopUps === index) ?
-                            <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}>- exit edit</Link>
+                            <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(null); }}><span className="fa fa-times"></span></Link>
                             :
                             <Link className="text-dark text-decoration-none" onClick={() => { setShowAddComp(false); handleEditMember(index); }}>+ edit</Link>
                           }

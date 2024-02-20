@@ -170,12 +170,12 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               <div className="">
                 <button
                   type="button"
-                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-100" style={{marginBottom:"10px"}}
+                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-auto mx-auto" style={{marginBottom:"10px"}}
                   onClick={handleCreate}
                 >
                   CREATE
                 </button>
-                <button className="create-add-btn delete-btn rounded-pill fw-bold px-4 mb-0 w-100" type="button" onClick={() => setShowAddComp(false)}>
+                <button className="create-add-btn delete-btn rounded-pill fw-bold px-4 mb-0 w-auto mx-auto" type="button" onClick={() => setShowAddComp(false)}>
                   Close
                 </button>
               </div>

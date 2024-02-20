@@ -2126,6 +2126,15 @@ button.accordion-button.collapsed  .late-request-section {
 .bg-medium-gray .member-date{
   height: 57px;
 }
+.bg-medium-gray.member-table tr.members td:nth-child(1) , 
+.bg-medium-gray.member-table tr.members td:nth-child(2) ,
+.bg-medium-gray.member-table tr.members td:nth-child(3),
+.bg-medium-gray.member-table tr.members td:nth-child(4){
+width: auto;
+} 
+.bg-medium-gray.member-table .members .d-flex p{
+  width: 75%;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
