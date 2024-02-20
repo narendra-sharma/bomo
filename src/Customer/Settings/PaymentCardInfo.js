@@ -6,12 +6,11 @@ import { toast } from "react-toastify";
 import CardDetailShow from "../Sahred/CardDetail";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { add_change_card } from "../../reduxdata/rootAction";
-import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
+import { add_change_card, change_add_edit } from "../../reduxdata/rootAction";
 import EditBillData from "../../Modals/EditBillData";
 const {REACT_APP_STRIPE_PUBLIC_KEY}=process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
-const PaymentCardInfo = ({cards,user,isPay}) => {
+const PaymentCardInfo = ({cards,user,isAddEdit}) => {
   const [cardDetails, setCardDetails] = useState(null);
   const [isDefault, setIsDefault] = useState(false);
   const [stripeData, setStripeData] = useState(null);
@@ -129,13 +128,11 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
     }
   },[cards])
   useEffect(()=>{
-    if(isPay){
-      dispatch({
-        type: PAY_NOW
-      })
+    if(isAddEdit){
+      change_add_edit(dispatch);
       setIsDefault(true);
     }
-  },[isPay])
+  },[isAddEdit])
   return (
     <>
       <div className="mb-3">
@@ -179,7 +176,7 @@ const PaymentCardInfo = ({cards,user,isPay}) => {
 const mapStateToProps = (state) => {
   return {
     cards: state.plan.cards,
-    isPay: state.plan.isPay,
+    isAddEdit: state.brand.isAddEdit,
   };
 };
 export default connect(mapStateToProps)(PaymentCardInfo);

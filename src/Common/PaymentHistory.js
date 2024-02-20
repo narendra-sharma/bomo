@@ -5,12 +5,12 @@ import { CSVLink } from "react-csv";
 import CustomPagination from "./CustomPagination";
 import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
 import EmptyList from "./EmptyList";
-const PaymentHistory = ({user,userrole,data,total}) => {
+const PaymentHistory = ({user,userrole,data,total,isPay}) => {
   const csvLinkRef = useRef();
   const dispatch=useDispatch();
   useEffect(()=>{
     get_payment_history(dispatch,user?.token);
-  },[])
+  },[isPay])
   const handleButtonClick = () => {
     if (csvLinkRef.current) {
       csvLinkRef.current.link.click();
@@ -63,7 +63,8 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     userrole: state.auth.role,
     data: state.plan.payments,
-    total: state.plan.total
+    total: state.plan.total,
+    isPay:state.plan.isPay
   };
 };
 export default connect(mapStateToProps)(PaymentHistory);

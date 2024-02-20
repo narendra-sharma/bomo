@@ -47,8 +47,8 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                         <span><i class="fa-solid fa-circle-check"></i></span>
                                     </div>
                                     <p className="brief-date">
-                                        {format(new Date(expanddetails?.req_data?.brief_approved_at),'dd/MM/yyyy')}
-                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span></p>
+                                        {format(new Date(expanddetails?.req_data?.brief_approved_at), 'dd/MM/yyyy')}
+                                        <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span></p>
                                 </div> :
                                 <div class="step">
                                     <p className="brief-content">Brief Rejected</p>
@@ -72,7 +72,14 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                 <div class="deliver-status delivery-check">
                                     <span><i class="fa-solid fa-circle-check"></i></span>
                                 </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
+                                <p className="brief-date">
+                                    {expanddetails?.req_data?.req_mail_date ?
+                                        format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')
+                                        : '----'}
+                                    <span className="d-block">{
+                                        expanddetails?.req_data?.req_mail_date ?
+                                            formattedTime(expanddetails?.req_data?.req_mail_date)
+                                            : '----'}</span></p>
                             </div>
                             <div class="step">
                                 <p className="brief-content">Assigned to </p>
@@ -146,70 +153,73 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                 </table>
                             </div>
                         </div>
-                        <div className="col-md-12">
-                            <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                <div className="row justify-content-center">
-                                    <div className="col-md-12 text-center mb-4">
-                                        <h3 className="color-dark">Delivery 1</h3>
-                                        <p>17/03/2023 14:11 <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
-                                    </div>
+                        {expanddetails?.delivery_data?.map((request,index) => 
+                        <div key={index}>
+                            <div className="col-md-12">
+                                <div className="delivery-status-section bg-white p-4 rounded mt-3">
+                                    <div className="row justify-content-center">
+                                        <div className="col-md-12 text-center mb-4">
+                                            <h3 className="color-dark">Delivery {index+1}</h3>
+                                            <p>{format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
+                                        </div>
 
-                                    <div className="col-md-3 d-flex text-center justify-content-center">
-                                        <div className="statusbar-section d-flex flex-column justify-content-between">
-                                            <div className="delivery-status fw-bold">9:16</div>
-                                            <div className="">
-                                                <img src={designImage} alt="Image" />
+                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                            <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                <div className="delivery-status fw-bold">9:16</div>
+                                                <div className="">
+                                                    <img src={designImage} alt="Image" />
+                                                </div>
+                                                <div className="download-btn">
+                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                </div>
+
                                             </div>
-                                            <div className="download-btn">
-                                                <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                        </div>
+                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                            <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                <div className="delivery-status fw-bold">16:9</div>
+                                                <div className="">
+                                                    <img src={designImage2} alt="Image" />
+                                                </div>
+                                                <div className="download-btn">
+                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                            <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                <div className="delivery-status fw-bold">.AEP</div>
+                                                <div className="">
+                                                    <img src={aepdesign} alt="Image" />
+                                                </div>
+                                                <div className="download-btn">
+                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div className="col-md-3 align-self-center">
+                                            <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
+                                                <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <div className="col-md-3 d-flex text-center justify-content-center">
-                                        <div className="statusbar-section d-flex flex-column justify-content-between">
-                                            <div className="delivery-status fw-bold">16:9</div>
-                                            <div className="">
-                                                <img src={designImage2} alt="Image" />
-                                            </div>
-                                            <div className="download-btn">
-                                                <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 d-flex text-center justify-content-center">
-                                        <div className="statusbar-section d-flex flex-column justify-content-between">
-                                            <div className="delivery-status fw-bold">.AEP</div>
-                                            <div className="">
-                                                <img src={aepdesign} alt="Image" />
-                                            </div>
-                                            <div className="download-btn">
-                                                <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div className="col-md-3 align-self-center">
-                                        <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                            <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i>
-                                        </div>
-
-                                    </div>
                                 </div>
-
                             </div>
-                        </div>
-                        <div className="col-md-12">
-                            <div className="feedback-request  p-4 mt-4 rounded">
+                            <div className="col-md-12">
+                                <div className="feedback-request  p-4 mt-4 rounded">
 
-                                <h5 className="fw-bold">Feedback 1 Requested 17/03/2023 14:11</h5>
-                                <p>Who is your target audience?
-                                    <span className="d-block">What do you want to achieve with this animation? </span>
-                                    <span className="d-block">Where is this going to appear?</span></p>
+                                    <h5 className="fw-bold">Feedback 1 Requested 17/03/2023 14:11</h5>
+                                    <p>Who is your target audience?
+                                        <span className="d-block">What do you want to achieve with this animation? </span>
+                                        <span className="d-block">Where is this going to appear?</span></p>
 
+                                </div>
                             </div>
-                        </div>
+                        </div>)}
                     </div>
 
                     <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
