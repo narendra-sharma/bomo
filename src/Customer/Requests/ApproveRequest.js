@@ -63,7 +63,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                                         </p>
                                     </td>
                                     <td>
-                                        <p>Ad ss23 Winter</p>
+                                        <p>{request?.request_name}</p>
                                     </td>
                                     <td>
                                         <p>

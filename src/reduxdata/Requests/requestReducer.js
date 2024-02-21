@@ -1,4 +1,4 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS} from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY,GET_DESIGNERS_PAYMENT_HISTORY} from "./requestTypes";
 const initialState = {
   isSubmit:false,
   pendingRequests: [],
@@ -35,7 +35,11 @@ const initialState = {
   deliverrequests:[],
   designerpastrequests: [],
   newrequest: [],
-  expandedrequest: []
+  expandedrequest: [],
+  customersPayment: [],
+  designerPayments:[],
+  customerTotal:0,
+  designerTotal:0,
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -135,6 +139,18 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         expandedrequest: action.payload
       };
+    case GET_CUSTOMERS_PAYMENT_HISTORY:
+      return {
+        ...state,
+        customersPayment: action.payload.data,
+        customerTotal: action.payload.total
+      };
+    case GET_DESIGNERS_PAYMENT_HISTORY:
+      return {
+        ...state,
+        designerPayments: action.payload.data,
+        designerTotal: action.payload.total
+      };  
     default:
       return state;
   }

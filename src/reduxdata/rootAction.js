@@ -53,7 +53,8 @@ import { newRequest,
   get_past_requests_for_customer_admin,
   get_delivered_requests,
   get_past_requests_for_designer,
-  get_expanded_request_detail
+  get_expanded_request_detail,
+  get_customers_payment_history
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -116,5 +117,6 @@ export {
   get_delivered_requests,
   get_past_requests_for_designer,
   add_change_card,
-  get_expanded_request_detail 
+  get_expanded_request_detail,
+  get_customers_payment_history 
 };

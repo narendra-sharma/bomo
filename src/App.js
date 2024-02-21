@@ -1,44 +1,43 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
+import React, { useEffect, useState, lazy, Suspense } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useRoutes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import Signup from "./auth/Signup";
-import Login from "./auth/Login";
-import { useEffect, useState } from "react";
-import Home from "./Home";
-import Bomohome from "./auth/Home";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import PastRequest from "./PastRequests";
-import Subscription from "./Customer/Subscription/Index";
-import Members from "./Customer/members/Members";
-import Profile from "./Customer/Profile";
-import Setting from "./Setting";
-import AllCustomers from "./SuperAdmin/AllCustomers";
-import AllRequests from "./SuperAdmin/AllRequests";
-import Payments from "./Payments";
-import SiteEdit from "./SuperAdmin/SiteEdit";
-import ActiveRequests from "./Designer/ActiveRequests";
-import MotionTips from "./Designer/MotionTips";
 import $ from "jquery";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Forgotpassword from "./auth/Forgotpassword";
-import Changepassword from "./auth/Changepassword";
-import Updatepassword from "./Modals/Updatepassword";
 import { connect, useDispatch } from "react-redux";
-import EditProfile from "./Modals/EditProfile";
-import NewRequest from "./Customer/NewRequest";
-import RequestStatus from "./Customer/RequestStatus";
-import LoadingSpinner from "./LoadingSpinner";
-import BrandProfile from "./Customer/BrandProfiles/BrandProfile";
-import 'react-tagsinput/react-tagsinput.css'
-import AllDesigners from "./SuperAdmin/AllDesigners/AllDesigners";
-import CalculatorShared from "./CalculatorShared";
 import { get_customer_card, get_user_subscription } from "./reduxdata/rootAction";
-import DelieverRequest from "./Designer/DelieverRequest";
-import DesignerRequest from "./Customer/Requests/DesignerRequest";
-import RequestExpand from "./Customer/Requests/RequestExpand";
+import LoadingSpinner from "./LoadingSpinner";
+
+const Signup = lazy(() => import("./auth/Signup"));
+const Login = lazy(() => import("./auth/Login"));
+const Home = lazy(() => import("./Home"));
+const Bomohome = lazy(() => import("./auth/Home"));
+const Sidebar = lazy(() => import("./Sidebar"));
+const Header = lazy(() => import("./Header"));
+const PastRequest = lazy(() => import("./PastRequests"));
+const Subscription = lazy(() => import("./Customer/Subscription/Index"));
+const Members = lazy(() => import("./Customer/members/Members"));
+const Profile = lazy(() => import("./Customer/Profile"));
+const Setting = lazy(() => import("./Setting"));
+const AllCustomers = lazy(() => import("./SuperAdmin/AllCustomers"));
+const AllRequests = lazy(() => import("./SuperAdmin/AllRequests"));
+const Payments = lazy(() => import("./Payments"));
+const SiteEdit = lazy(() => import("./SuperAdmin/SiteEdit"));
+const ActiveRequests = lazy(() => import("./Designer/ActiveRequests"));
+const MotionTips = lazy(() => import("./Designer/MotionTips"));
+const Forgotpassword = lazy(() => import("./auth/Forgotpassword"));
+const Changepassword = lazy(() => import("./auth/Changepassword"));
+const Updatepassword = lazy(() => import("./Modals/Updatepassword"));
+const EditProfile = lazy(() => import("./Modals/EditProfile"));
+const NewRequest = lazy(() => import("./Customer/NewRequest"));
+const RequestStatus = lazy(() => import("./Customer/RequestStatus"));
+const BrandProfile = lazy(() => import("./Customer/BrandProfiles/BrandProfile"));
+const AllDesigners = lazy(() => import("./SuperAdmin/AllDesigners/AllDesigners"));
+const CalculatorShared = lazy(() => import("./CalculatorShared"));
+const DelieverRequest = lazy(() => import("./Designer/DelieverRequest"));
+const DesignerRequest = lazy(() => import("./Customer/Requests/DesignerRequest"));
+const RequestExpand = lazy(() => import("./Customer/Requests/RequestExpand"));
 
 function App({ user }) {
   const [isAuth, setIsAuth] = useState(false);
@@ -70,13 +69,13 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    if(user){
+    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
       get_customer_card(user?.token,dispatch);
     }
   }, [user]);
   const dispatch=useDispatch();
   useEffect(()=>{
-    if(user){
+    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
       get_user_subscription(user,dispatch);
     }
   },[])
@@ -128,14 +127,20 @@ function App({ user }) {
     ]);
   return (
     <BrowserRouter>
-    <ToastContainer/>
-    <LoadingSpinner/>
-      {isAuth ? <>
+    <ToastContainer />
+    <LoadingSpinner />
+    {isAuth ? (
+      <Suspense fallback={null}>
         <Sidebar />
-        <Header/>
+        <Header />
         <AfterLoginCustomerRoutes />
-      </> : <AuthRoutes />}
-    </BrowserRouter>
+      </Suspense>
+    ) : (
+      <Suspense fallback={null}>
+        <AuthRoutes />
+      </Suspense>
+    )}
+  </BrowserRouter>
   );
 }
 const mapStateToProps = (state) => {

@@ -4,8 +4,6 @@ const initialState = {
     plans: [],
     isPay:false,
     payments:[],
-    cpayments:[],
-    dpayments:[],
     total:0,
     cards:null
   };
