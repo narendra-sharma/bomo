@@ -1231,7 +1231,7 @@ ul.designer-list li{
   line-height: 20px;
 }
 .brand-tags-section{
-  gap: 10px;
+  gap: 18px;
 }
 .date-created{
   flex: 0 0 30%;
@@ -1280,7 +1280,7 @@ ul.designer-list li{
   border-radius: 5px;
   padding: 4px 9px!important;
   border: none;
-  width: 85%;
+  width: 90%;
 }
 .add-brand-profile .upload-zip button {
   font-size: 13px;
@@ -1290,7 +1290,7 @@ ul.designer-list li{
   padding: 4px 30px;
   border-radius: 5px;
   font-weight: 500;
-  width: 85%;
+  width: 90%;
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
@@ -1581,7 +1581,7 @@ ul.designer-list li{
 .member-table {
   border-radius: 5px;
   background: #fff;
-  padding-right: 20px;
+  padding-right: 25px;
 }
 .member-table tr td button.bg-mid-gray{
 background-color: #3FCE3C;
