@@ -399,6 +399,9 @@ nav {
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
+.review-content td p{
+  font-size: 13px;
+}
 .review-content .short0ad {
   border: solid 1px #B185F2;
   padding: 4px 10px;
@@ -856,7 +859,7 @@ table.feedback-queue tr:first-child td{
   background: rgba(249, 43, 52, 0.10);
 }
 .member-table tr td{
-  padding: 18px 10px;
+  padding: 20px 10px;
   vertical-align: top;
 }
 td.vertical-middle {
@@ -1555,8 +1558,8 @@ ul.designer-list li{
 .brand-assets {
   color: #84A6FD;
 }
-.member-content p , .member-table select{
-  font-size: 13px;
+.review-content .member-table p , .review-content .member-table select{
+  font-size: 14px;
   line-height: 16px;
   margin-bottom: 0;
   letter-spacing: -0.48px;
@@ -1955,9 +1958,6 @@ button.accordion-button.collapsed  .late-request-section {
 }
 .expand-request .review-content .short0ad {
   padding: 4px 20px;
-}
-.review-content td p{
-  font-size: 13px;
 }
 .delivery-status button{
  font-size: 14px;
