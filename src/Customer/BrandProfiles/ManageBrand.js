@@ -193,7 +193,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div>
               <label htmlFor="Brand Name">Brand Name<span className="text-danger">*</span></label>
               <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.brandname} onChange={handleChange} />
@@ -217,11 +217,11 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
-            <button className="create-add-btn brands-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0 g-0'}>
+            <button className="create-add-btn brands-add-btn rounded-pill fw-bold w-auto  mx-auto" type="submit" onClick={(e) => handleSubmit(e)}>
               {brand?.id ? 'Update' : 'Create'}
             </button>
-            <button className="create-add-btn brands-add-btn delete-btn rounded-pill fw-bold mb-0" type="button" onClick={() => close()}>
+            <button className="create-add-btn brands-add-btn delete-btn rounded-pill fw-bold mb-0 w-auto  mx-auto" type="button" onClick={() => close()}>
               Close
             </button>
           </div>
