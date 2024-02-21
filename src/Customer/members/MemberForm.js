@@ -77,7 +77,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
 
   return (
     <div className="member-content review-content rounded border border-dark">
-      <div className="table-responsive member-table bg-medium-gray border px-5"> 
+      <div className="table-responsive member-table bg-medium-gray border ps-5"> 
         <table className="table table-borderless mb-0">
         <tbody>
           <tr>
@@ -176,11 +176,12 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 >
                   CREATE
                 </button>
-                <button className="border-0 bg-transparent fw-bold mb-0 p-0" type="button" onClick={() => setShowAddComp(false)}>
-                  <span className="fa fa-times"></span>
-                </button>
+               
               </div>
             </td>
+            <td className="col-md-1 col-12 mb-3 mb-md-0 vertical-middle text-center"> <button className="border-0 bg-transparent fw-bold mb-0 p-0" type="button" onClick={() => setShowAddComp(false)}>
+                  <span className="fa fa-times"></span>
+                </button></td>
           </tr>
         </tbody>
         </table>

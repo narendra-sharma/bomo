@@ -1581,6 +1581,7 @@ ul.designer-list li{
 .member-table {
   border-radius: 5px;
   background: #fff;
+  padding-right: 20px;
 }
 .member-table tr td button.bg-mid-gray{
 background-color: #3FCE3C;

@@ -218,7 +218,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0 g-0'}>
-            <p>&nbsp;</p>
+          
             <div className="d-flex justify-content-center gap-5">
 
               <button className="create-add-btn brands-add-btn rounded-pill w-auto fw-bold mb-0" type="submit" onClick={(e) => handleSubmit(e)}>
