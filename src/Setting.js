@@ -13,6 +13,7 @@ import Delete from "./Modals/Delete";
 import reelImage from "./images/reel-image.png";
 import EditDesignerBio from "./Modals/EditDesignerBio";
 import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
+import BankInfo from "./Customer/Settings/BankInfo";
 
 
 const Setting = ({ userrole, profiledetails }) => {
@@ -169,6 +170,9 @@ const Setting = ({ userrole, profiledetails }) => {
             <div className="row mt-3">
               <div className="col-md-7">
                 <BillingForm user={user} />
+              </div>
+              <div className="col-md-5">
+                <BankInfo />
               </div>
             </div>
           </> : <div></div>}
