@@ -1272,13 +1272,12 @@ ul.designer-list li{
   font-size: 13px;
 }
 .add-brand-profile .input-name  {
-  width: 100%;
   margin-bottom: 0;
   background: #fff!important;
   border-radius: 5px;
   padding: 4px 9px!important;
   border: none;
-  width: 90%;
+  width: 85%;
 }
 .add-brand-profile .upload-zip button {
   font-size: 13px;
@@ -1288,6 +1287,7 @@ ul.designer-list li{
   padding: 4px 30px;
   border-radius: 5px;
   font-weight: 500;
+  width: 85%;
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
@@ -1330,7 +1330,7 @@ ul.designer-list li{
   border: none;
   margin: 0 0 7px;
   text-transform: uppercase;
-  padding: 5px 35px;
+  padding: 5px 25px;
   border-radius: 30px;
   font-weight: 700;
   letter-spacing: -0.48px;
@@ -1363,11 +1363,8 @@ ul.designer-list li{
 .edit-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
-  justify-content: space-between;
-}
-.edit-buttons span.edit {
-  width: 55px;
+  align-items: center;
+  justify-content: end;
 }
 .brand-table button.new-request{
   background: #E1E1E1;
@@ -1403,7 +1400,7 @@ ul.designer-list li{
   padding: 4px 9px!important;
   border: none;
 }
-.bg-medium-gray input.input-name{
+.bg-medium-gray input.input-name , .bg-medium-gray button.add-btn.border-0{
   width: 90%;
 }
 .bg-medium-gray.member-table .formcontrol  ,

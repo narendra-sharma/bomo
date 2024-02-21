@@ -170,7 +170,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               <div className="">
                 <button
                   type="button"
-                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-auto mx-auto" style={{marginBottom:"10px"}}
+                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-auto mx-auto d-block" style={{marginBottom:"10px"}}
                   onClick={handleCreate}
                 >
                   CREATE

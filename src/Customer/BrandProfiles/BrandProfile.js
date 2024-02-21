@@ -254,19 +254,19 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                        </div>
                       </td>
                       <td className="col-lg-2 col-12 mb-3 mb-md-0 vertical-middle">
-                        <div className="edit-buttons">
+                        <div className="edit-buttons d-flex align-items-center justify-content-end gap-5">
                           <span className="update-buttons">
                             {(isEdit && edit?.id === brand?._id) && <>
-                              <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold">
+                              <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-auto  mx-auto">
                                 Update
                               </button>
-                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold mb-0"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold mb-0 w-auto  mx-auto"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
                             </>}
                           </span>
-                          <span className="edit">
+                          <span className="edit gap-5 d-flex align-items-center justify-content-center">
 
                             {(isEdit && edit?.id === brand?._id) ?
-                              <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}>- exit edit</Link>
+                              <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}><span className="fa fa-times"></span></Link>
                               :
                               <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
                             }
