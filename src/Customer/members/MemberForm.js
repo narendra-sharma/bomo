@@ -169,6 +169,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
             <td className="vertical-middle member-last-column">
             
               <div className="d-flex justify-content-end gap-5">
+                
                 <button
                   type="button"
                   className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-auto d-block mb-0"
@@ -176,12 +177,15 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 >
                   CREATE
                 </button>
+                <button className="border-0 bg-transparent fw-bold mb-0 p-0" type="button" onClick={() => setShowAddComp(false)}>
+                  <span className="fa fa-times"></span>
+                </button>
                
               </div>
-            </td>
-            <td className="col-md-1 col-12 mb-3 mb-md-0 vertical-middle text-center"> <button className="border-0 bg-transparent fw-bold mb-0 p-0" type="button" onClick={() => setShowAddComp(false)}>
-                  <span className="fa fa-times"></span>
-                </button></td>
+            
+            
+         
+                </td>
           </tr>
         </tbody>
         </table>
