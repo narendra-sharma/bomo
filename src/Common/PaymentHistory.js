@@ -33,7 +33,7 @@ const PaymentHistory = ({user,userrole,data,total,isPay,search,useFor}) => {
     if(userrole==='Super admin'){
       get_customers_payment_history(dispatch, user?.token,search,useFor,page,perPage);
     }else{
-      get_payment_history(dispatch,user?.token,page, perPage)
+      get_payment_history(dispatch,user?.token,page, perPage);
     }
   }
   return (

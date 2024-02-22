@@ -11,7 +11,9 @@ import {
   get_single_designer_details,
   edit_designer_info,
   get_user_profile_details,
-  approve_designer
+  approve_designer,
+  add_user_account,
+  uploadImage
 } from "./User/userActions";
 import {
   get_plans,
@@ -72,6 +74,8 @@ export {
   get_single_designer_details,
   edit_designer_info,
   get_user_profile_details,
+  uploadImage,
+  add_user_account,
   get_plans,
   profile_update,
   update_password,

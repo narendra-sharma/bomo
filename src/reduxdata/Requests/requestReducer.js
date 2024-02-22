@@ -36,7 +36,7 @@ const initialState = {
   designerpastrequests: [],
   newrequest: [],
   expandedrequest: [],
-  customersPayment: [],
+  customersPayments: [],
   designerPayments:[],
   customerTotal:0,
   designerTotal:0,
@@ -142,7 +142,7 @@ const requestReducer = (state = initialState, action) => {
     case GET_CUSTOMERS_PAYMENT_HISTORY:
       return {
         ...state,
-        customersPayment: action.payload.data,
+        customersPayments: action.payload.data,
         customerTotal: action.payload.total
       };
     case GET_DESIGNERS_PAYMENT_HISTORY:
