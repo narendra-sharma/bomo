@@ -219,7 +219,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
           
-            <div className="d-flex justify-content-center gap-5">
+            <div className="d-flex justify-content-end gap-5">
 
               <button className="create-add-btn brands-add-btn rounded-pill w-auto fw-bold mb-0" type="submit" onClick={(e) => handleSubmit(e)}>
                 {brand?.id ? 'Update' : 'Create'}

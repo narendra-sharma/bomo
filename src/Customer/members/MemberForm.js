@@ -172,7 +172,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 
                 <button
                   type="button"
-                  className="bg-mid-gray fw-bold rounded-pill px-3 py-1 w-auto d-block mb-0"
+                  className="create-add-btn brands-add-btn rounded-pill w-auto fw-bold mb-0"
                   onClick={handleCreate}
                 >
                   CREATE
