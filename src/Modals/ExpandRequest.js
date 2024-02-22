@@ -209,16 +209,19 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
                                 </div>
                             </div>
-                            <div className="col-md-12">
+                            {request?.feedback_message ? <div className="col-md-12">
                                 <div className="feedback-request  p-4 mt-4 rounded">
 
-                                    <h5 className="fw-bold">Feedback 1 Requested 17/03/2023 14:11</h5>
-                                    <p>Who is your target audience?
-                                        <span className="d-block">What do you want to achieve with this animation? </span>
-                                        <span className="d-block">Where is this going to appear?</span></p>
+                                    <h5 className="fw-bold">
+                                        Feedback {index+1} Requested {format(new Date (request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)}
+                                    </h5>
+                                    <p>
+                                        <span className="d-block">{request?.feedback_message}</span>
+                                    </p>
 
                                 </div>
-                            </div>
+                            </div> :
+                            <div></div> }
                         </div>)}
                     </div>
 

@@ -193,14 +193,14 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {errors.logo && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.logo}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div>
               <label htmlFor="Brand Name">Brand Name<span className="text-danger">*</span></label>
               <input type="text" className="input-name form-control" name="brandname" placeholder="Name" defaultValue={brand?.brandname} onChange={handleChange} />
               {errors.brandname && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandname}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="upload-zip">
               <label htmlFor="Brand Assests">Brand Assests<span className="text-danger">*</span></label>
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
@@ -212,18 +212,22 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <label htmlFor="Tags">Tags<span className="text-danger">*</span></label>
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0 g-0'}>
-            <button className="create-add-btn brands-add-btn rounded-pill fw-bold" type="submit" onClick={(e) => handleSubmit(e)}>
-              {brand?.id ? 'Update' : 'Create'}
-            </button>
-            <button className="create-add-btn brands-add-btn delete-btn rounded-pill fw-bold mb-0" type="button" onClick={() => close()}>
-              Close
-            </button>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
+          
+            <div className="d-flex justify-content-center gap-5">
+
+              <button className="create-add-btn brands-add-btn rounded-pill w-auto fw-bold mb-0" type="submit" onClick={(e) => handleSubmit(e)}>
+                {brand?.id ? 'Update' : 'Create'}
+              </button>
+              <button className="border-0 bg-transparent fw-bold mb-0 p-0" type="button" onClick={() => close()}>
+                <span className="fa fa-times"></span>
+              </button>
+            </div>
           </div>
         </div>
       </form>

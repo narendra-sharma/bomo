@@ -5,12 +5,18 @@ import { CSVLink } from "react-csv";
 import CustomPagination from "./CustomPagination";
 import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
 import EmptyList from "./EmptyList";
-const PaymentHistory = ({user,userrole,data,total,isPay}) => {
+import { get_customers_payment_history } from "../reduxdata/rootAction";
+const PaymentHistory = ({user,userrole,data,total,isPay,search,useFor}) => {
   const csvLinkRef = useRef();
   const dispatch=useDispatch();
   useEffect(()=>{
-    get_payment_history(dispatch,user?.token);
-  },[isPay])
+    if(userrole==='Super admin'){
+      get_customers_payment_history(dispatch, user?.token,search,useFor);
+    }else{
+      get_payment_history(dispatch,user?.token);
+    }
+  },[userrole,isPay,search]);
+
   const handleButtonClick = () => {
     if (csvLinkRef.current) {
       csvLinkRef.current.link.click();
@@ -19,10 +25,17 @@ const PaymentHistory = ({user,userrole,data,total,isPay}) => {
   const headers = userrole === 'customer_admin' ? ['Date', 'Status', 'Amount($)'] : ['Date', 'Status', 'Amount($)', 'Brand'];
   const [csvData,setCsvData] = useState([headers,[]]);
   useEffect(()=>{
-    if(data.length>0){
-      setCsvData([headers, ...data.map(item => userrole === 'customer_admin' ? [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='active'?'COMPLETED':'PENDING', (item.amount/100)] : [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='active'?'COMPLETED':'PENDING', (item.amount/100), item.brand])]);
+    if(total>0){
+      setCsvData([headers, ...data.map(item => userrole === 'customer_admin' ? [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='active'?'COMPLETED':'PENDING', (item.amount/100)] : [format(new Date(item?.createdAt), 'MM/dd/yyyy'), item.payment_status==='paid'?'PAID':'PENDING', (item.amount/100)])]);
     }
-  },[data])
+  },[data,total]);
+  const handlePage=(page,perPage)=>{
+    if(userrole==='Super admin'){
+      get_customers_payment_history(dispatch, user?.token,search,useFor,page,perPage);
+    }else{
+      get_payment_history(dispatch,user?.token,page, perPage)
+    }
+  }
   return (
     <div className="payment-history-section review-main-content p-5 rounderd mt-5">
       <div className={`d-flex ${userrole !== 'Super admin' ? 'justify-content-between' : 'justify-content-end'} align-item-center mb-5`}>
@@ -43,7 +56,7 @@ const PaymentHistory = ({user,userrole,data,total,isPay}) => {
             </tr>
           </thead>
           <tbody>
-            {(data.length > 0) ? data.map((item, i) => <tr key={i}>
+            {(total > 0) ? data.map((item, i) => <tr key={i}>
               <td>{format(new Date(item?.createdAt), 'dd/MM/yyyy')}</td>
               <td>{item.payment_status==='paid'?'COMPLETED':'PENDING'}</td>
               <td>${(item.amount/100)} </td>
@@ -52,7 +65,7 @@ const PaymentHistory = ({user,userrole,data,total,isPay}) => {
               : <EmptyList name="Payment History" isTable/>}
           </tbody>
         </table>
-        {total > 0 && <CustomPagination total={total} onPageChange={(page, perPage) => get_payment_history(dispatch,user?.token,page, perPage)} />}
+        {total > 0 && <CustomPagination total={total} onPageChange={(page, perPage) => handlePage(page,perPage)} />}
       </div>
     </div>
   )
@@ -62,8 +75,6 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userrole: state.auth.role,
-    data: state.plan.payments,
-    total: state.plan.total,
     isPay:state.plan.isPay
   };
 };

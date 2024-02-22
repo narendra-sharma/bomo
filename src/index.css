@@ -399,6 +399,9 @@ nav {
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
+.review-content td p{
+  font-size: 13px;
+}
 .review-content .short0ad {
   border: solid 1px #B185F2;
   padding: 4px 10px;
@@ -856,7 +859,7 @@ table.feedback-queue tr:first-child td{
   background: rgba(249, 43, 52, 0.10);
 }
 .member-table tr td{
-  padding: 18px 10px;
+  padding: 20px 10px;
   vertical-align: top;
 }
 td.vertical-middle {
@@ -1228,7 +1231,7 @@ ul.designer-list li{
   line-height: 20px;
 }
 .brand-tags-section{
-  gap: 10px;
+  gap: 18px;
 }
 .date-created{
   flex: 0 0 30%;
@@ -1272,7 +1275,6 @@ ul.designer-list li{
   font-size: 13px;
 }
 .add-brand-profile .input-name  {
-  width: 100%;
   margin-bottom: 0;
   background: #fff!important;
   border-radius: 5px;
@@ -1288,6 +1290,7 @@ ul.designer-list li{
   padding: 4px 30px;
   border-radius: 5px;
   font-weight: 500;
+  width: 90%;
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
@@ -1330,7 +1333,7 @@ ul.designer-list li{
   border: none;
   margin: 0 0 7px;
   text-transform: uppercase;
-  padding: 5px 35px;
+  padding: 5px 25px;
   border-radius: 30px;
   font-weight: 700;
   letter-spacing: -0.48px;
@@ -1363,11 +1366,8 @@ ul.designer-list li{
 .edit-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
-  justify-content: space-between;
-}
-.edit-buttons span.edit {
-  width: 55px;
+  align-items: center;
+  justify-content: end;
 }
 .brand-table button.new-request{
   background: #E1E1E1;
@@ -1403,7 +1403,7 @@ ul.designer-list li{
   padding: 4px 9px!important;
   border: none;
 }
-.bg-medium-gray input.input-name{
+.bg-medium-gray input.input-name , .bg-medium-gray button.add-btn.border-0{
   width: 90%;
 }
 .bg-medium-gray.member-table .formcontrol  ,
@@ -1558,8 +1558,8 @@ ul.designer-list li{
 .brand-assets {
   color: #84A6FD;
 }
-.member-content p , .member-table select{
-  font-size: 13px;
+.review-content .member-table p , .review-content .member-table select{
+  font-size: 14px;
   line-height: 16px;
   margin-bottom: 0;
   letter-spacing: -0.48px;
@@ -1581,6 +1581,7 @@ ul.designer-list li{
 .member-table {
   border-radius: 5px;
   background: #fff;
+  padding-right: 25px;
 }
 .member-table tr td button.bg-mid-gray{
 background-color: #3FCE3C;
@@ -1958,9 +1959,6 @@ button.accordion-button.collapsed  .late-request-section {
 }
 .expand-request .review-content .short0ad {
   padding: 4px 20px;
-}
-.review-content td p{
-  font-size: 13px;
 }
 .delivery-status button{
  font-size: 14px;
