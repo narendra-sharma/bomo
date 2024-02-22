@@ -4,18 +4,25 @@ import { Modal } from "react-bootstrap";
 import SubscriptionStatus from "../Customer/Sahred/SubscriptionStatus";
 import { useDispatch, connect } from "react-redux";
 import { get_single_data } from "../reduxdata/members/memberAction";
+
 import { format } from "date-fns";
-const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
+import { get_user_subscription_details } from "../reduxdata/PlansPayments/planActions";
+const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscription }) => {
   const customerId = view?._id;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (customerId) get_single_data(dispatch, customerId, token);
+    if (customerId) {
+      get_single_data(dispatch, customerId, token)
+      get_user_subscription_details(customerId, token, dispatch)
+    }
   }, [customerId]);
 
   const getFormattedDate = (date) => {
     if (date) return format(new Date(date), "dd MMMM yyyy");
   };
+
+  console.log("USERRRRRRRRRRRRR SUBSCRIPTION", subscription);
 
   return (
     <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
@@ -99,7 +106,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
                                     </div>
                                 </div>
                             </div> */}
-              <SubscriptionStatus user={view} />
+              <SubscriptionStatus user={view} subscribedUser={subscription} />
             </div>
           </div>
 
@@ -227,6 +234,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData }) => {
 const mapStateToProps = (state) => {
   return {
     singleUserData: state.member.singleUserData,
+    subscription: state.plan.subscription
   };
 };
 export default connect(mapStateToProps)(ViewAsCustomer);
