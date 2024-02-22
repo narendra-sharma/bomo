@@ -130,16 +130,12 @@ function App({ user }) {
     <BrowserRouter>
     <ToastContainer />
     <LoadingSpinner />
-    {isAuth ? (
-      <Suspense fallback={null}>
+    {isAuth ? <>
         <Sidebar />
         <Header />
         <AfterLoginCustomerRoutes />
-      </Suspense>
-    ) : (
-      <Suspense fallback={null}>
+        </>  : (
         <AuthRoutes />
-      </Suspense>
     )}
   </BrowserRouter>
   );

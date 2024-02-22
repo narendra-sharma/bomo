@@ -1,4 +1,4 @@
-import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_DESIGNER_INFO, UPDATE_PASSWORD_SUCCESS, USER_UPDATE, } from "./userTypes";
+import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_DESIGNER_INFO, UPDATE_PASSWORD_SUCCESS, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE, } from "./userTypes";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('userDetails')),
@@ -8,6 +8,7 @@ const initialState = {
   profile:null,
   singledesignerdata:null,
   profiledetails: null,
+  image_path:null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -47,7 +48,12 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         profiledetails: action.payload
-      }
+      };
+      case UPLOAD_IMAGE_FILE_SUCCESS:
+        return {
+          ...state,
+          image_path: action.payload,
+        };
     default:
       return state;
   }

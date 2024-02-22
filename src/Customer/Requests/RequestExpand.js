@@ -15,6 +15,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const receivedData = location?.state;
+    console.log(receivedData);
 
     useEffect(() => {
         get_delivered_requests(dispatch, user?.token, receivedData?._id);
@@ -37,10 +38,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
         const response = await fetch(downloadUrl);
         const blob = await response.blob();
 
-        // Extract the filename from the URL or provide a custom filename
         const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
 
-        // Trigger the download using file-saver
         saveAs(blob, filename);
     };
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, USER_UPDATE } from "./userTypes";
+import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -346,4 +346,69 @@ export const get_user_profile_details = async (token, dispatch) => {
   }
 };
 
+export const uploadImage = async (imageFile, dispatch) => {
+  dispatch(start_loading());
+  try {
+    const formData = new FormData();
+    formData.append('proof', imageFile);
+    const url = `${REACT_APP_BOMO_URL}designer/imageProof`;
+    const res = await axios.post(url, formData);
+
+    if (res.data && res.data.status) {
+      const imagePath = res.data.path;
+      dispatch({ type: UPLOAD_IMAGE_FILE_SUCCESS, payload: imagePath });
+      return res.data.path;
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const add_user_account = async (dispatch,accountdata,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}designer/addAccount`;
+    const HEADERS = {
+      headers:{
+        "x-access-token":token,
+      }
+    };
+
+    const accountdetail = {
+      account_holder_name: accountdata.accountHolderName,
+      account_number: accountdata.accountNumber,
+      email: accountdata.email,
+      city: accountdata.city,
+      state: accountdata.state,
+      line1: accountdata.address,
+      postal_code: accountdata.postal_code,
+      day: accountdata.day,
+      month: accountdata.month,
+      year: accountdata.year,
+      first_name: accountdata.firstname,
+      gender: accountdata.gender,
+      phone: accountdata.phone,
+      id_number: accountdata.idnumber,
+      document_front: accountdata.documentfront,
+      document_back: accountdata.documentback,
+      frontImageName:  accountdata.frontImageName,
+      backImageName: accountdata.backImageName
+    };
+
+    const res = await axios.post(url, accountdetail, HEADERS);
+    if (res.data && res.data.status) {
+      toast.success(res?.data?.message);
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
 

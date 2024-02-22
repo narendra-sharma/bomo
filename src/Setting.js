@@ -168,10 +168,10 @@ const Setting = ({ userrole, profiledetails }) => {
               </div>
             </div>
             <div className="row mt-3">
-              <div className="col-md-7">
+              <div className="col-md-6">
                 <BillingForm user={user} />
               </div>
-              <div className="col-md-5">
+              <div className="col-md-6">
                 <BankInfo />
               </div>
             </div>
