@@ -870,15 +870,15 @@ td.vertical-middle {
 }
 .member-table tr.members td:nth-child(1) 
 {
-  width:190px;
+  width: 210px;
 }
 .member-table tr.members td:nth-child(2)
 {
- width: 155px;
+ width: 170px;
 }
 .member-table tr.members td:nth-child(3)
 {
- width: 155px;
+ width: 170px;
 }
 .member-table tr.members td:nth-child(4){
   width:250px
@@ -1185,7 +1185,7 @@ ul.designer-list li{
   color: #F92B34;
 }
 .brand-table{
-  padding: 20px 30px;
+  padding: 20px 20px;
   margin-bottom: 20px;
 }
 .brand-table img {
@@ -1225,13 +1225,13 @@ ul.designer-list li{
   align-items: center;
 }
 .brand-table table td {
-  padding: 3px 5px;
+  padding: 3px 10px;
   vertical-align: top;
   font-size: 14px;
   line-height: 20px;
 }
 .brand-tags-section{
-  gap: 18px;
+  gap: 15px;
 }
 .date-created{
   flex: 0 0 30%;
@@ -1280,7 +1280,7 @@ ul.designer-list li{
   border-radius: 5px;
   padding: 4px 9px!important;
   border: none;
-  width: 90%;
+  width: 95%;
 }
 .add-brand-profile .upload-zip button {
   font-size: 13px;
@@ -1290,7 +1290,7 @@ ul.designer-list li{
   padding: 4px 30px;
   border-radius: 5px;
   font-weight: 500;
-  width: 90%;
+  width: 95%;
 }
 .add-brand-profile .col-lg-1.col-12{
   padding-right: 0;
@@ -1305,7 +1305,7 @@ ul.designer-list li{
   color: #000;
   font-size: 13px;
   border: none;
-  margin: 0 0 10px;
+  margin: 0 0 7px;
   text-transform: uppercase;
   display: block;
   width: 72%;
@@ -1408,7 +1408,7 @@ ul.designer-list li{
 }
 .bg-medium-gray.member-table .formcontrol  ,
 .bg-medium-gray.member-table select{
-  height: 35px;
+  height: 28px;
 }
  .table>:not(caption)>*>* {
   background: transparent!important;
@@ -1560,7 +1560,7 @@ ul.designer-list li{
 }
 .review-content .member-table p , .review-content .member-table select{
   font-size: 14px;
-  line-height: 16px;
+  line-height: 19px;
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
@@ -1581,7 +1581,7 @@ ul.designer-list li{
 .member-table {
   border-radius: 5px;
   background: #fff;
-  padding-right: 25px;
+  padding-right: 20px;
 }
 .member-table tr td button.bg-mid-gray{
 background-color: #3FCE3C;
@@ -2122,7 +2122,7 @@ button.accordion-button.collapsed  .late-request-section {
   font-size: 15px;
 }
 .bg-medium-gray .member-date{
-  height: 57px;
+  height: 48px;
 }
 .bg-medium-gray.member-table tr.members td:nth-child(1) , 
 .bg-medium-gray.member-table tr.members td:nth-child(2) ,

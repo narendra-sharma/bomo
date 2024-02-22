@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useRoutes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import 'react-tagsinput/react-tagsinput.css'
+import 'react-tagsinput/react-tagsinput.css';
 import $ from "jquery";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

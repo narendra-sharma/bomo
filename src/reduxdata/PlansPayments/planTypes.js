@@ -1,4 +1,5 @@
-export const GET_PLANS='GET_PLANS';
-export const PAY_NOW='PAY_NOW';
-export const GET_PAYMENT_HISTORY='GET_PAYMENT_HISTORY';
-export const CUSTOMER_CARD='CUSTOMER_CARD';
+export const GET_PLANS = 'GET_PLANS';
+export const PAY_NOW = 'PAY_NOW';
+export const GET_PAYMENT_HISTORY = 'GET_PAYMENT_HISTORY';
+export const CUSTOMER_CARD = 'CUSTOMER_CARD';
+export const SUBSCRIPTION_INFO = "SUBSCRIPTION_INFO";
