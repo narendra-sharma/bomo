@@ -8,13 +8,12 @@ import RequestSuccess from './RequestSuccess';
 import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
 const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
-    const [showSuccess, setShowSuccess] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleRequest = () => {
+    const handleRequest = async () => {
         if (data) {
-            newRequest(data, dispatch, userdetail?.token);
+            await newRequest(data, dispatch, userdetail?.token);
             handleClose();
         }
     };

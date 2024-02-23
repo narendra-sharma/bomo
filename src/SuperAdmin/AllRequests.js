@@ -3,6 +3,7 @@ import SearchInput from "../Common/SearchInput";
 import { useDispatch, connect } from "react-redux";
 import PendingRequest from "../Customer/Requests/PendingRequest";
 import AllActiveRequests from "./AllDesigners/AllActiveRequests";
+import AllDrafts from "./AllDrafts";
 const AllRequests = ({ user }) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState(null)
@@ -709,6 +710,7 @@ const AllRequests = ({ user }) => {
                 </div>
                 </div>
               </div>
+              <AllDrafts search={search}/>
             </div>
           </div>
         </div>

@@ -43,8 +43,7 @@ const BankInfo = ({ user, imagepath }) => {
   const [isShow, setIsShow] = useState(false);
 
   const handleInfoChange = async (e) => {
-    const { name, value, files } = e.target;
-    const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
+    const { name, value } = e.target;
     switch (name) {
       case 'accountHolderName':
         setErrors({ ...errors, accountHolderName: !value ? `Account Holder Name is Required` : null });
@@ -70,26 +69,6 @@ const BankInfo = ({ user, imagepath }) => {
         setErrors({ ...errors, idnumber: value === '' ? 'Id Number is Required' : value?.length > 10 ? 'Id Number is Invalid' : '' });
         setBankInfo({ ...bankInfo, idnumber: value });
         break;
-      case 'documentfront':
-        const frontdoc = files[0];
-        setErrors({ ...errors, documentfront: frontdoc === undefined ? 'Upload your Front Document' : '' });
-        if (!allowedFileTypes.includes(frontdoc.type)) {
-          setErrors({ ...errors, documentfront: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else if (allowedFileTypes.includes(frontdoc.type)) {
-          await uploadImage(frontdoc, dispatch,);
-          setBankInfo({...bankInfo, documentfront: imagepath});
-        }
-        break;
-      case 'documentback':
-        const backdoc = files[0];
-        setErrors({ ...errors, documentback: backdoc === undefined ? 'Upload your Back Document' : '' });
-        if (!allowedFileTypes.includes(backdoc.type)) {
-          setErrors({ ...errors, documentback: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else if (allowedFileTypes.includes(backdoc.type)) {
-          await uploadImage(backdoc, dispatch);
-          setBankInfo({...bankInfo, documentback: imagepath});
-        }
-        break;
       case 'gender':
         setErrors({ ...errors, gender: value === '' ? 'Select your Gender' : '' });
         setBankInfo({ ...bankInfo, gender: value });
@@ -97,6 +76,30 @@ const BankInfo = ({ user, imagepath }) => {
 
       default:
         break;
+    }
+  };
+
+  const handleFileChange = async (event, type) => {
+    const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
+    const file = event.target.files[0];
+    if (type === 'front') {
+      if (allowedFileTypes.includes(file.type)) {
+        const imagePath = await uploadImage(file, dispatch, type);
+        setBankInfo({ ...bankInfo, documentfront: imagePath });
+        setErrors({ ...errors, documentfront: '' });
+      } else {
+        setErrors({ ...errors, documentfront: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
+        setBankInfo({ ...bankInfo, documentfront: '' });
+      }
+    } else if (type === 'back') {
+      if (allowedFileTypes.includes(file.type)) {
+        const imagePath = await uploadImage(file, dispatch, type);
+        setBankInfo({ ...bankInfo, documentback: imagePath });
+        setErrors({ ...errors, documentback: '' });
+      } else {
+        setErrors({ ...errors, documentback: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
+        setBankInfo({ ...bankInfo, documentback: '' });
+      }
     }
   };
 
@@ -161,6 +164,7 @@ const BankInfo = ({ user, imagepath }) => {
       };
       await add_user_account(dispatch, accountdetail, user?.token);
       setIsShow(false);
+      console.log(accountdetail);
     }
   };
 
@@ -172,7 +176,19 @@ const BankInfo = ({ user, imagepath }) => {
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
         {(user?.account_id && !isShow) &&
           <div className="px-4 py-4 ms-5">
-            <h5 class="mb-0 fw-bold text-dark">You are Connected to Stripe</h5>
+            <div className="d-flex align-items-center mb-2">
+              {arr?.map((r, i) => <img key={i} src={r} className="me-1" alt="imag" />)}
+            </div>
+            <div className="border py-3 mb-2  px-2 mb-4 rounded">
+              <div className="row d-flex align-items-center">
+                <div className="col-1">
+                  <input type="checkbox" checked={user?.account_id} />
+                </div>
+                <div className="col-10">
+                  <p className="mb-0"><b>You are Connected to Stripe</b></p>
+                </div>
+              </div>
+            </div>
             <div className="row d-flex align-items-center justtify-content-end mx-1 mb-2 status-btn">
               <button type="button" className="w-auto new-request rounded-pill btn border rounded-pill pause-btn" onClick={() => setIsShow(true)}>Edit Account</button>
             </div>
@@ -278,7 +294,7 @@ const BankInfo = ({ user, imagepath }) => {
                         className="form-control"
                         name="documentfront"
                         defaultValue={bankInfo.documentfront}
-                        onChange={handleInfoChange}
+                        onChange={(e) => handleFileChange(e, 'front')}
                       />
                       {errors.documentfront && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.documentfront}</p>}
                     </div>
@@ -291,7 +307,7 @@ const BankInfo = ({ user, imagepath }) => {
                         className="form-control"
                         name="documentback"
                         defaultValue={bankInfo.documentback}
-                        onChange={handleInfoChange}
+                        onChange={(e) => handleFileChange(e, 'back')}
                       />
                       {errors.documentback && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.documentback}</p>}
                     </div>

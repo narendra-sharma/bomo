@@ -346,7 +346,7 @@ export const get_user_profile_details = async (token, dispatch) => {
   }
 };
 
-export const uploadImage = async (imageFile, dispatch) => {
+export const uploadImage = async (imageFile, dispatch,imgtype) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -356,7 +356,11 @@ export const uploadImage = async (imageFile, dispatch) => {
 
     if (res.data && res.data.status) {
       const imagePath = res.data.path;
-      dispatch({ type: UPLOAD_IMAGE_FILE_SUCCESS, payload: imagePath });
+      if (imgtype === 'front') {
+        dispatch({ type: UPLOAD_IMAGE_FILE_SUCCESS, payload: imagePath, imgtype: 'front' });
+      } else if (imgtype === 'back') {
+        dispatch({ type: UPLOAD_IMAGE_FILE_SUCCESS, payload: imagePath, imgtype: 'back' });
+      }
       return res.data.path;
     } else {
       toast.error(res.data.message);

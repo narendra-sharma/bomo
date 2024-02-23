@@ -15,7 +15,6 @@ const PauseSubscription = (props) => {
     }
     handleClose();
   }
-  console.log(getSubscriptionId)
   return (
     <Modal show={show} onHide={handleClose} className="logout-popup">
       <Modal.Body>

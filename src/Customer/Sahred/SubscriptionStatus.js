@@ -6,7 +6,6 @@ import { isSubscription } from "../../reduxdata/rootAction";
 
 const SubscriptionStatus = ({ user, isSetting, subscribedUser }) => {
   let getSubscriptionId = subscribedUser?.subscription?.filter((item) => item.type == 'primary');
-  console.log("NEWWWW USERRRRRRRR", user);
   const [pause, setPause] = useState(false);
   const [cancel, setCancel] = useState(false);
   const [final, setFinal] = useState(false);
