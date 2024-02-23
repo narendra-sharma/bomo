@@ -21,6 +21,7 @@
     "file-saver": "^2.0.5",
     "i": "^0.3.7",
     "jquery": "^3.7.1",
+    "js-file-downloader": "^1.1.25",
     "moment": "^2.30.1",
     "npm": "^10.2.5",
     "react": "^18.2.0",

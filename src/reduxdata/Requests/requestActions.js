@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page=1, limit=10) => {
@@ -501,7 +501,7 @@ export const get_expanded_request_detail = async (dispatch, token, requestId) =>
 export const get_customers_payment_history = async (dispatch, token,search,useFor, page=1, limit=10) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}payment-history?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const url = `${REACT_APP_BOMO_URL}${useFor==='customer'?'payment-history':'designer-payment-history'}?page=${page}&limit=${limit}${search?'&search='+search:''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -511,6 +511,41 @@ export const get_customers_payment_history = async (dispatch, token,search,useFo
     if(res.data && res.data.status) {
       dispatch({ type: useFor==='customer'?GET_CUSTOMERS_PAYMENT_HISTORY:GET_DESIGNERS_PAYMENT_HISTORY, payload: res.data,useFor:useFor });
     };
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const get_all_draft_requests = async (dispatch,token,page=1,limit=10,search) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/draft_requests?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      }
+    };
+    const res = await axios.get(url,HEADERS);
+    if(res.data && res.data.status) {
+      dispatch({ type: GET_ALL_DRAFTS, payload:  res.data});
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const image_download = async (dispatch, imgfile) =>{
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}download?file=${imgfile}`;
+    const res = await axios.get(url);
+    if(res) {
+      dispatch({type:GET_DOWNLOAD_PATH, payload: res.data.path });
+    }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
   } finally {

@@ -3,33 +3,31 @@ import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
-import { poll_request_apply } from "../reduxdata/rootAction";
+import { image_download, poll_request_apply } from "../reduxdata/rootAction";
 import { saveAs } from "file-saver";
 
+// const reelImage = React.lazy(() => import('../images/reel-image.png'));
 const { REACT_APP_BOMO_URL } = process.env;
 
-const RequestDetails = ({ show, handleClose, data, user }) => {
+const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
     const dispatch = useDispatch();
     const handleApplyRequest = (requestdata) => {
         let applyrequest = requestdata._id;
         poll_request_apply(applyrequest, dispatch, user?.token);
         handleClose();
     };
-    const handleZip = () => {
-        const zipUrl = `${REACT_APP_BOMO_URL}${data?.brand_profile?.brandassests}`;
-        saveAs(zipUrl, `${data?.brand_profile?.logo?.split('/').pop()}`);
-        console.log('doewnloaded');
-    };
-    const handleDownload = async(imageUrl) => {
-        const downloadUrl = `${REACT_APP_BOMO_URL}${imageUrl}`;
-        const response = await fetch(downloadUrl);
+   
+    const handleDownload = async (imageUrl) => {
+        const downloadUrl = `${imageUrl}`;
+        await image_download(dispatch,downloadUrl);
+        console.log(filePath);
+
+        const response = await fetch(filePath);
         const blob = await response.blob();
+        const blobWithType = new Blob([blob], { type: 'image/*' || '.zip' });
 
-        // Extract the filename from the URL or provide a custom filename
         const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-
-        // Trigger the download using file-saver
-        saveAs(blob, filename);
+        saveAs(blobWithType, filename);
     };
 
     return (
@@ -55,7 +53,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
                                 <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
-                                <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={handleZip}>Brand Assets</p>
+                                <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>Brand Assets</p>
                             </div>
                         </div>
                         <div className="col-md-6 delivery-date-content">
@@ -118,6 +116,7 @@ const RequestDetails = ({ show, handleClose, data, user }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
+        filePath: state.requests.filePath
     };
 };
 export default connect(mapStateToProps)(RequestDetails);

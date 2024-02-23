@@ -23,7 +23,7 @@ const Payments = ({user,pdata,ptotal,cdata,ctotal,ddata,dtotal}) => {
             <PaymentHistory data={ddata} total={dtotal} search={search} useFor="designer"/>
           </div>
           <div className="mt-5 review-main-content">
-            <h3>{ctotal>0 && dtotal}  Customers</h3>
+            <h3>{ctotal>0 && ctotal}  Customers</h3>
             <PaymentHistory data={cdata} total={ctotal} search={search} useFor="customer"/>
           </div>
         </>

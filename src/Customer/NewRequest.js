@@ -192,7 +192,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
     return valid;
   };
 
-  const handleSubmit = (e, status) => {
+  const handleSubmit = async (e, status) => {
     e.preventDefault();
     const isValid = validateForm();
 
@@ -220,7 +220,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         setIspop(true);
         setNewData(newrequest);
       } else if ((status === 'draft') && isValid) {
-       newRequest(newrequest, dispatch, usertoken, navigate);
+        await newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }
   };

@@ -56,7 +56,9 @@ import { newRequest,
   get_delivered_requests,
   get_past_requests_for_designer,
   get_expanded_request_detail,
-  get_customers_payment_history
+  get_customers_payment_history,
+  image_download,
+  get_all_draft_requests
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -122,5 +124,7 @@ export {
   get_past_requests_for_designer,
   add_change_card,
   get_expanded_request_detail,
-  get_customers_payment_history 
+  get_customers_payment_history,
+  image_download,
+  get_all_draft_requests 
 };

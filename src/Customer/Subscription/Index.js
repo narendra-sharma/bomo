@@ -6,7 +6,7 @@ import SubscriptionStatus from "../Sahred/SubscriptionStatus";
 import { isSubscription } from "../../reduxdata/rootAction";
 import NewRequestShared from "../Sahred/NewRequestShared";
 import { format } from "date-fns";
-const Subscription = ({ user }) => {
+const Subscription = ({ user,paymentdata,paytotal }) => {
   const [isSubscribe, setIsSubscribe] = useState(false);
   const getSubscription = async () => {
     await isSubscription(user).then(r => {
@@ -61,7 +61,7 @@ const Subscription = ({ user }) => {
             </div>
           </>}
           <SubscriptionSteps user={user} />
-          <PaymentHistory />
+          <PaymentHistory data={paymentdata} total={paytotal}/>
         </div>
       </div>
     </>
@@ -69,7 +69,9 @@ const Subscription = ({ user }) => {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    paymentdata: state.plan.payments,
+    paytotal: state.plan.total
   };
 };
 
