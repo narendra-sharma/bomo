@@ -1,33 +1,41 @@
 import React, { useEffect } from "react";
-import { get_all_draft_requests } from "../reduxdata/rootAction";
-import { useDispatch } from "react-redux";
+import { get_all_review_requests } from "../reduxdata/rootAction";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
-import CustomPagination from "../Common/CustomPagination";
 
-const AllDrafts = ({ user, drafts, total,search }) => {
+
+const AllReviews = ({ user, reviews }) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        get_all_draft_requests(dispatch, user?.token,1,10,search);
-    }, [user?.token,search]);
+        get_all_review_requests(dispatch, user?.token, 1, 10);
+    }, []);
+    console.log(reviews);
     return (
         <div class="accordion-item mb-5">
-            <h3 class="accordion-header" id="panelsStayOpen-headingFour">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <span className="mb-4 d-inline-block position-relative">Draft Requests</span>
+            <h3 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <span className="mb-4 d-inline-block position-relative">Ready to Review Request</span>
                 </button>
             </h3>
-            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                 <div class="accordion-body p-0">
                     <div className="row g-0 bg-white">
-                        {drafts?.map((request) => (
+                        <div className="col-md-12">
+                            <div className="late-request-section bg-white py-3 px-4 d-flex">
+
+                                <div className="">
+                                    <p className="mb-0 fw-bold -status">waiting <span className="fas fa-angle-left arrow" ></span> 12h - Priority</p>
+                                </div>
+                            </div>
+                        </div>
+                        {reviews?.map((request) => (
                             <div className="col-md-6">
                                 <div className="review-content px-4  mb-3">
                                     <div className="table-responsive">
                                         <table className="table table-borderless mb-0">
                                             <tbody>
-
                                                 <tr>
                                                     <td className="text-center">
                                                         <p className="">edit</p>{" "}
@@ -52,7 +60,8 @@ const AllDrafts = ({ user, drafts, total,search }) => {
                                                             <span className="fw-bold">Delivery</span>{" "}
                                                             <span className="d-block">
                                                                 {request?.delivery_date ?
-                                                                    format(new Date(request?.delivery_date), 'dd/MM/yyyyy') : 'No Date'}
+                                                                    format(new Date(request?.delivery_date), 'dd/MM/yyyy') :
+                                                                    'No Date'}
                                                             </span>
                                                         </p>
                                                     </td>
@@ -63,7 +72,6 @@ const AllDrafts = ({ user, drafts, total,search }) => {
                                                         </p>
                                                     </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -71,9 +79,6 @@ const AllDrafts = ({ user, drafts, total,search }) => {
                             </div>
                         ))}
                     </div>
-                    {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
-                        get_all_draft_requests(dispatch, user?.token, newPage, newLimit);
-                    }} />}
                 </div>
             </div>
         </div>
@@ -83,10 +88,9 @@ const AllDrafts = ({ user, drafts, total,search }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        drafts: state.requests.alldrafts,
-        total: state.requests.totalalldraft
+        reviews: state.requests.allreviews,
+        total: state.requests.totalallreviews
     };
 };
 
-export default connect(mapStateToProps)(AllDrafts);
-
+export default connect(mapStateToProps)(AllReviews);
