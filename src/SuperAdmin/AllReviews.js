@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
+import CustomPagination from "../Common/CustomPagination";
 
 
-const AllReviews = ({ user, reviews }) => {
+const AllReviews = ({ user, reviews, total }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         get_all_review_requests(dispatch, user?.token, 1, 10);
@@ -79,6 +80,9 @@ const AllReviews = ({ user, reviews }) => {
                             </div>
                         ))}
                     </div>
+                    {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
+                        get_all_review_requests(dispatch, user?.token, newPage, newLimit);
+                    }} />}
                 </div>
             </div>
         </div>
