@@ -154,6 +154,7 @@ color: var(--dark-green);
   outline: none;
   font-weight: 500;
   height: 38px;
+  width: 100%;
 
 }
 .designer-signup-form  .form_control{
@@ -198,7 +199,7 @@ font-weight: 500;
 .signup-content p.error ,  p.error {
   font-size: 13px;
   margin-top: 3px;
-  color: #c74c4c;
+  color: #c74c4c!important;
 }
 .already-register{
   text-align: right;
