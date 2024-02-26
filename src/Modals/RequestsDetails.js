@@ -3,10 +3,9 @@ import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
-import { image_download, poll_request_apply } from "../reduxdata/rootAction";
-import FileSaver, { saveAs } from "file-saver";
+import { poll_request_apply } from "../reduxdata/rootAction";
+import { saveAs } from "file-saver";
 
-// const reelImage = React.lazy(() => import('../images/reel-image.png'));
 const { REACT_APP_BOMO_URL } = process.env;
 
 const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
@@ -17,24 +16,29 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
         handleClose();
     };
 
-    const handleDownload = async (imageUrl) => {
-        // const downloadUrl = `${imageUrl}`;
-        // const imagefile = await image_download(dispatch, downloadUrl);
 
-        fetch(`${REACT_APP_BOMO_URL}${imageUrl}`,
-            { mode: 'no-cors' })
-            .then(response => response.blob())
-            .then(blob => {
-                var blob = new Blob([blob], {type: "image/*"});
-                FileSaver.saveAs(blob, "hello world.txt");
-            });
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: 'text/plain',
+                pdf: 'application/pdf',
+                zip: 'application/zip',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+            };
+            return mimeTypes[ext] || 'application/octet-stream';
+        };
 
-        // const response = await fetch(imagefile);
-        // const blob = await response.blob();
-        // const blobWithType = new Blob([blob]);
-
-        // const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-        // saveAs(blobWithType, filename);
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
     };
 
     return (

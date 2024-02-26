@@ -13,7 +13,8 @@ import {
   get_user_profile_details,
   approve_designer,
   add_user_account,
-  uploadImage
+  uploadImage,
+  get_overall_stats
 } from "./User/userActions";
 import {
   get_plans,
@@ -128,5 +129,6 @@ export {
   get_customers_payment_history,
   image_download,
   get_all_draft_requests,
-  get_all_review_requests 
+  get_all_review_requests,
+  get_overall_stats 
 };

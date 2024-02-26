@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APPROVE_DESIGNER, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE } from "./userTypes";
+import { APPROVE_DESIGNER, GET_OVERALL_STATS, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -415,4 +415,26 @@ export const add_user_account = async (dispatch,accountdata,token) => {
     dispatch(stop_loading());
   }
 };
+
+export const get_overall_stats = async (dispatch,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/overall_stats`;
+    const HEADERS = {
+      headers:{
+        "x-access-token": token
+      }
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_OVERALL_STATS, payload: res.data });
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+}
 
