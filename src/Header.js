@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import userImage from './images/user-img.png';
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { get_designer_active_requestslist, get_designer_assigned_requestlist } from "./reduxdata/rootAction";
+import { get_designer_active_requestslist, get_designer_assigned_requestlist, switch_to_superadmin } from "./reduxdata/rootAction";
 import CountdownTimer from "./Common/CountdownTimer";
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
@@ -38,6 +38,10 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
     }
   });
 
+  const handleSwitch = async () => {
+    await switch_to_superadmin(dispatch,user?.token);
+  };
+
   return (
     <div className="ml-md-auto px-0 ms-md-auto rightside-wrapper">
       <nav className="px-60 py-3 bg-white">
@@ -55,50 +59,54 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
             </div>
               : <>
                 <div className="designer-header">
-                <div className="row d-flex justify-content-between align-items-center">
-                  {requestsWithEarliestDeadlines?.map((request) =>
-                    
+                  <div className="row d-flex justify-content-between align-items-center">
+                    {requestsWithEarliestDeadlines?.map((request) =>
+
                       <div className="col-md-3">
                         <div className="d-flex justify-content-between align-items-center">
                           <Link>{request?.request_name}</Link>
                           <Button variant="unset" className="btn w-100 rounded-pill deliver-now-btn ms-2 ">Deliver in <CountdownTimer requestDate={request?.req_mail_date} /></Button>
                         </div>
                       </div>
-                    
-                  )}
+
+                    )}
                   </div>
                 </div>
               </>}
             <div className="d-flex text-right justify-content-between align-items-center">
-              {user?.role === 'team_member' ? 
-               <div
-               style={{
-                 backgroundColor: user?.colour,
-                 width: 30,
-                 height: 30,  
-                 borderRadius: 25,
-               }}
-             ></div>
-             :userrole === 'customer_admin' ? 
-             <div
-             style={{
-               backgroundColor: user?.colour,
-               width: 30,
-               height: 30,
-               borderRadius: 25,
-             }}
-           ></div>
-            :<img src={userImage} alt="Bomo logo" />}
+              {user?.role === 'team_member' ?
+                <div
+                  style={{
+                    backgroundColor: user?.colour,
+                    width: 30,
+                    height: 30,
+                    borderRadius: 25,
+                  }}
+                ></div>
+                : userrole === 'customer_admin' ?
+                  <div
+                    style={{
+                      backgroundColor: user?.colour,
+                      width: 30,
+                      height: 30,
+                      borderRadius: 25,
+                    }}
+                  ></div>
+                  : <img src={userImage} alt="Bomo logo" />}
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
-                <span className="d-block">{(userrole === 'customer_admin') ?'Admin': (cuser?.parent ? roles.find(r=>r.value===cuser?.role).label : userrole)}</span>
+                <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : (cuser?.parent ? roles.find(r => r.value === cuser?.role).label : userrole)}</span>
               </p>
               {(userrole !== 'Designer') ? <div></div> : <>
                 <div className="header-request-btn position-relative">
                   <Button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" disabled={((userrole === 'Designer') && !cuser?.isDesignerApproved)} onClick={() => { navigate('/acceptance-request') }}>Requests</Button>
-                  {totalassigns>0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
+                  {totalassigns > 0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
+              {(userrole === 'Designer') && user?.superadminToDesigner ?
+                <div className="header-request-btn position-relative">
+                  <button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => handleSwitch()}>SwitchToSuperAdmin</button>
+                </div> : <div></div>}
             </div>
           </div>
         </div>

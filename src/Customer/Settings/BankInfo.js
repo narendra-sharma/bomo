@@ -83,11 +83,12 @@ const BankInfo = ({ user, imagepath }) => {
     const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
     const file = event.target.files[0];
     if (type === 'front') {
+
       if (allowedFileTypes.includes(file.type)) {
         const imagePath = await uploadImage(file, dispatch, type);
         setBankInfo({ ...bankInfo, documentfront: imagePath });
         setErrors({ ...errors, documentfront: '' });
-      } else {
+      } else if(!allowedFileTypes.includes(file.type)) {
         setErrors({ ...errors, documentfront: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         setBankInfo({ ...bankInfo, documentfront: '' });
       }
@@ -96,7 +97,7 @@ const BankInfo = ({ user, imagepath }) => {
         const imagePath = await uploadImage(file, dispatch, type);
         setBankInfo({ ...bankInfo, documentback: imagePath });
         setErrors({ ...errors, documentback: '' });
-      } else {
+      } else if(!allowedFileTypes.includes(file.type)){
         setErrors({ ...errors, documentback: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         setBankInfo({ ...bankInfo, documentback: '' });
       }
@@ -112,8 +113,8 @@ const BankInfo = ({ user, imagepath }) => {
       { name: 'dob', validation: (value) => value === '' ? 'DOB is Required' : '' },
       { name: 'phone', validation: (value) => value === '' ? 'Phone Number is Required' : '' },
       { name: 'idnumber', validation: (value) => value === '' ? 'Id Number is Required' : '' },
-      { name: 'documentfront', validation: (value) => value === undefined ? 'Upload your Front Document' : '' },
-      { name: 'documentback', validation: (value) => value === undefined ? 'Upload your Back Document' : '' },
+      { name: 'documentfront', validation: (value) => value === '' ? 'Upload your Front Document' : '' },
+      { name: 'documentback', validation: (value) => value === '' ? 'Upload your Back Document' : '' },
       { name: 'gender', validation: (value) => value === '' ? 'Select your Gender' : '' },
     ];
 
@@ -263,11 +264,14 @@ const BankInfo = ({ user, imagepath }) => {
                       <div className="input-group">
                         <span className="input-group-text">+34</span>
                         <input
-                          type="number"
+                          type="text"
                           className="form-control"
                           name="phone"
                           defaultValue={bankInfo.phone}
-                          onChange={handleInfoChange}
+                          onInput={(e) => {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            handleInfoChange(e);
+                          }}
                         />
                       </div>
                       {errors.phone && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.phone}</p>}
@@ -277,11 +281,14 @@ const BankInfo = ({ user, imagepath }) => {
                     <div className="form-group">
                       <label htmlFor="cvc">Id Number<span className="text-danger">*</span></label>
                       <input
-                        type="number"
+                        type="text"
                         className="form-control"
                         name="idnumber"
                         defaultValue={bankInfo.idnumber}
-                        onChange={handleInfoChange}
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                          handleInfoChange(e);
+                        }}
                       />
                       {errors.idnumber && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.idnumber}</p>}
                     </div>

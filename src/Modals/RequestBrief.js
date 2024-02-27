@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { deliever_request_details } from "../reduxdata/rootAction";
 import CountdownTimer from "../Common/CountdownTimer";
+import { saveAs } from 'file-saver';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -17,6 +18,31 @@ const RequestBrief = ({ show, handleClose, data }) => {
         navigate('/deleiver-request');
         dispatch(deliever_request_details(requestdata));
     };
+
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: 'text/plain',
+                pdf: 'application/pdf',
+                zip: 'application/zip',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+            };
+            return mimeTypes[ext] || 'application/octet-stream';
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
+    };
+
 
     return (
         <>
@@ -38,7 +64,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div className="d-flex align-items-center mb-3">
                                     <ColorCode request={data} />
                                     <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
-                                    <p className="brand-assets-btn rounded bg-white request-poll-active" ><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.brandassests}`} >Brand Assets</a></p>
+                                    <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
+                                        Brand Assets
+                                    </p>
                                 </div>
                             </div>
                             <div className="col-md-6 delivery-date-content">
@@ -56,7 +84,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div className="mb-3 position-relative">
                                     <img src={reelImage} alt="reel imag" width="100%" />
                                     <div className="project-btn">
-                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center"><a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} download="downloaded_image">Project Assets</a></div>
+                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${data?.brand_profile?.logo}`)}>
+                                            Project Assets
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="table-responsive">

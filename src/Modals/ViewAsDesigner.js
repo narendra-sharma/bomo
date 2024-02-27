@@ -27,7 +27,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                             <div className="col-md-12 col-12">
                                 <p className="text-center mb-3">
                                     <button className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark" onClick={() => handleClose()}>
-                                        view as designer
+                                        View as designer
                                     </button>
                                 </p>
                             </div>
@@ -171,19 +171,19 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                                         <p className="text-dark">Website</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.website}</Link> </p>
+                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.website ? designerdata?.designer_detail?.website: ''}</Link> </p>
                                     </div>
                                     <div className="col-md-3 col-lg-3">
                                         <p className="text-dark">Instagram</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.instagram}</Link></p>
+                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.instagram ? designerdata?.designer_detail?.instagram: ''}</Link></p>
                                     </div>
                                     <div className="col-md-3 col-lg-3">
                                         <p className="text-dark">Behance</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.behance}</Link></p>
+                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.behance ? designerdata?.designer_detail?.behance : ''}</Link></p>
                                     </div>
                                 </div>
                             </div>

@@ -17,6 +17,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
         const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
         return `${monthDay}th ${time}`;
     };
+    console.log(requestdata);
 
     const showFeedback = () => {
         setFeed(true);

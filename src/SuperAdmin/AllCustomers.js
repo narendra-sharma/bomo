@@ -44,7 +44,7 @@ const AllCustomers = ({ user, users, total }) => {
                                         setShow(true);
                                       }}
                                     >
-                                      view all customer
+                                      View as customer
                                     </button>
                                   </p>
                                 </td>

@@ -12,15 +12,16 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
   const role = 'designer';
   const [search, setSearch] = useState(null)
   useEffect(() => {
-    get_all_users(dispatch, user?.token, role, 1, 10, search, true);
-    get_all_users(dispatch, user?.token, role, 1, 10, search, false);
+    if(user?.role ==='superadmin'){
+      get_all_users(dispatch, user?.token, role, 1, 10, search, true);
+      get_all_users(dispatch, user?.token, role, 1, 10, search, false);
+    }
   }, [search]);
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
-          <h3 className="fw-bold mb-3">Designers</h3>
-          {/* <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#view-design-popup">view all customer</button> */}
+          <h3 className="fw-bold mb-3">{total+inactiveTotal > 0 && <span className="bg-white rounded-circle  mr-2">{total+inactiveTotal}</span>} Designers</h3>
           <SearchInput placeholder="Browse Designers..." handleSearch={(val) => setSearch(val)} />
           <div className="mt-5 review-main-content">
             <AllDesignerList active user={user} users={users} total={total} search={search} />

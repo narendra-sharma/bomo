@@ -27,9 +27,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                     <ColorCode request={request} />
                   </td>
                   <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'draft' ? 'Draft' : '--'}</span></p></td>
-                  <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
-                    {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}
-                  </span></p></td>
+                  <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                   <td className="text-center"><p>{request?.brand_profile?.brandname}</p></td>
                   <td className="text-center"><p><Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>continue editing</Link></p></td>

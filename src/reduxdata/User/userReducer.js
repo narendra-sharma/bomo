@@ -9,7 +9,8 @@ const initialState = {
   singledesignerdata:null,
   profiledetails: null,
   image_path:null,
-  overallstats:[]
+  overallstats:[],
+  isSwitch: JSON.parse(localStorage.getItem('SWITCHTYPE')),
 };
 
 const authReducer = (state = initialState, action) => {

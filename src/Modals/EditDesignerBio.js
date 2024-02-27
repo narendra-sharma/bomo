@@ -14,54 +14,46 @@ const EditDesignerBio = ({ data, show, handleClose, user }) => {
     });
     const [errors, setErrors] = useState({
         bio: '',
-        website: '',
-        instagram: '',
-        behance: '',
     });
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setErrors({ ...errors, [name]: value === '' ? `${name} is Required` : null });
+        setErrors({ ...errors, [name]: value === '' ? `Bio is Required` : null });
         setFormData({ ...formData, [name]: value });
     };
-    const handleSubmit =  (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const checkerrors = {};
-        Object.keys(formData).forEach((name)=> {
-            if(formData[name]===''){
-                checkerrors[name] = `${name} is Required`;
+            if(!formData?.bio || formData?.bio?.trim() ===''){
+                setErrors({...errors, bio:'Bio is Required'});
+                return;
             }
-        });
-        setErrors(checkerrors);
-        if(Object.keys(checkerrors).length>0){
-            return;
-        }
+       
         const designerdata = {
             bio: formData.bio,
             website: formData.website,
             instagram: formData.instagram,
             behance: formData.behance
         };
-        edit_designer_info(dispatch, user?.token, designerdata);
+         await edit_designer_info(dispatch, user?.token, designerdata);
         handleClose();
-    }
+    };
 
     useEffect(()=> {
-        if(data){
+        if(show){
             setFormData({
-                bio: data?.bio,
-                website: data?.website,
-                instagram: data?.instagram,
-                behance: data?.behance, 
-            })
+                bio: data?.bio || '',
+                website: data?.website || '',
+                instagram: data?.instagram || '',
+                behance: data?.behance || ''
+            });
         };
-    },[data]);
+        setErrors({ bio:''});
+    },[show]);
 
     useEffect(() => {
         return () => {
-            setErrors({ bio:null, instagram:null, website:null, behance:null});
+            setErrors({ bio:null});
         };
-    },[show]);
+    },[]);
     return (
         <>
             <Modal show={show} onHide={handleClose} className="logout-popup">
@@ -72,26 +64,23 @@ const EditDesignerBio = ({ data, show, handleClose, user }) => {
                     <form class="mb-4">
                         <div className="mb-3">
                             <div className="form-row position-relative">
-                                <input type="text" name="bio" className="form-control" placeholder="bio" defaultValue={formData.bio} onChange={handleInputChange} />
+                                <input type="text" name="bio" className="form-control" placeholder="bio" value={formData.bio} onChange={handleInputChange} />
                                 {errors.bio && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.bio}</p>}
                             </div>
                         </div>
                         <div className="mb-3">
                             <div className="form-row position-relative">
-                                <input type="text" name="website" className="form-control" placeholder="website" defaultValue={formData.website} onChange={handleInputChange} />
-                                {errors.website && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.website}</p>}
+                                <input type="text" name="website" className="form-control" placeholder="website" value={formData.website} onChange={handleInputChange} />
                             </div>
                         </div>
                         <div className="mb-3">
                             <div className="form-row position-relative">
-                                <input type="text" name="instagram" className="form-control" placeholder="instagram" defaultValue={formData.instagram} onChange={handleInputChange} />
-                                {errors.instagram && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.instagram}</p>}
+                                <input type="text" name="instagram" className="form-control" placeholder="instagram" value={formData.instagram} onChange={handleInputChange} />
                             </div>
                         </div>
                         <div className="mb-3">
                             <div className="form-row position-relative">
-                                <input type="text" name="behance" className="form-control" placeholder="behance" defaultValue={formData.behance} onChange={handleInputChange} />
-                                {errors.behance && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.behance}</p>}
+                                <input type="text" name="behance" className="form-control" placeholder="behance" value={formData.behance} onChange={handleInputChange} />
                             </div>
                         </div>
                     </form>
@@ -102,7 +91,6 @@ const EditDesignerBio = ({ data, show, handleClose, user }) => {
                         </Button>
                         <Button variant="primary" className="rounded-pill px-4 ms-3" onClick={(e) => handleSubmit(e, formData)} >
                             Update Bio
-                            {/* {isLoading ? 'Updating.....' : 'Update Password'} */}
                         </Button>
                     </div>
                 </Modal.Body>
@@ -113,7 +101,7 @@ const EditDesignerBio = ({ data, show, handleClose, user }) => {
 
 const mapStateToProps = (state) => {
     return {
-      user: state.auth.user,
+      user: state.auth.user
     };
   };
 
