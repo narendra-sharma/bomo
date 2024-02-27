@@ -39,7 +39,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                             <h5 className="mb-0">{data?.requestName},</h5>
                             <p >All the fields are filled correctly</p>
                             <p className="mt-2">Is the info provided accurate?<span className="d-block">
-                                All the working files working needed are there ?</span></p>
+                            Are all the working files needed there?</span></p>
                             <p >Once submitted you can't edit the request</p>
                             <div className="d-flex gap-2 mt-5 pt-4">
                                 <div className="col-md-8">

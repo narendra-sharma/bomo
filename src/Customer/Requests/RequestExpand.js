@@ -15,7 +15,6 @@ const RequestExpand = ({ user, deliverrequests }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const receivedData = location?.state;
-    console.log(receivedData);
 
     useEffect(() => {
         get_delivered_requests(dispatch, user?.token, receivedData?._id);
@@ -33,14 +32,28 @@ const RequestExpand = ({ user, deliverrequests }) => {
         const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
         return `${time}`;
     };
-    const handleDownload = async(imageUrl) => {
-        const downloadUrl = `${REACT_APP_BOMO_URL}${imageUrl}`;
-        const response = await fetch(downloadUrl);
-        const blob = await response.blob();
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: 'text/plain',
+                pdf: 'application/pdf',
+                zip: 'application/zip',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+            };
+            return mimeTypes[ext] || 'application/octet-stream';
+        };
 
-        const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-
-        saveAs(blob, filename);
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
     };
 
     return (

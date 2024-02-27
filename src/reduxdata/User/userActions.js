@@ -335,7 +335,7 @@ export const get_user_profile_details = async (token, dispatch) => {
     };
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
-      dispatch({ type: GET_PROFILE_DETAILS, payload: res.data.data });
+      dispatch({ type: GET_PROFILE_DETAILS, payload: res.data.data });   
     } else {
       toast.error(res.data.message);
     }
@@ -436,5 +436,67 @@ export const get_overall_stats = async (dispatch,token) => {
   } finally {
     dispatch(stop_loading());
   }
-}
+};
+
+export const switch_to_designer = async (dispatch,userId,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/switch_to_designer?id=${userId}`;
+    const HEADERS = {
+      headers:{
+        "x-access-token": token
+      }
+    };
+    const res = await axios.post(url,{},HEADERS);
+    if (res.data && res.data.status) {
+      if (res?.data?.data?.role === "designer") {
+        if (res?.data?.data?.role === "designer") {
+          dispatch(set_user_type("Designer"));
+          localStorage.setItem("USERTYPE", JSON.stringify("Designer"));
+        }
+        toast.success("Successfully switch to designer");
+        dispatch(set_update_user(res.data.data));
+      }else{
+        toast.error("Invalid Data.");
+      }
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const switch_to_superadmin = async (dispatch,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/switch_to_superadmin`;
+    const HEADERS = {
+      headers:{
+        "x-access-token": token
+      }
+    };
+    const res = await axios.post(url,{},HEADERS);
+    if (res.data && res.data.status) {
+      if (res?.data?.data?.role === "superadmin") {
+        if (res?.data?.data?.role === "superadmin") {
+          dispatch(set_user_type("Super admin"));
+          localStorage.setItem("USERTYPE", JSON.stringify("Super admin"));
+        }
+        toast.success("Successfully switch to SuperAdmin");
+        dispatch(set_update_user(res.data.data));
+      }else{
+        toast.error("Invalid Data.");
+      }
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
 

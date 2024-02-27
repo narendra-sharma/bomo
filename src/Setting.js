@@ -150,19 +150,19 @@ const Setting = ({ userrole, profiledetails }) => {
                     <p className="text-dark">Website</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{profiledetails?.website}</Link> </p>
+                    <p className=""><Link className="text-decoration-none" to={`${profiledetails?.website}`} target="_blank">{profiledetails?.website}</Link></p>
                   </div>
                   <div className="col-md-3 col-lg-3">
                     <p className="text-dark">Instagram</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{profiledetails?.instagram} </Link></p>
+                    <p className=""><Link className="text-decoration-none" to={`${profiledetails?.instagram}`} target="_blank">{profiledetails?.instagram}</Link></p>
                   </div>
                   <div className="col-md-3 col-lg-3">
                     <p className="text-dark">Behance</p>
                   </div>
                   <div className="col-md-9 col-lg-9">
-                    <p className=""><Link className="text-decoration-none">{profiledetails?.behance}</Link></p>
+                    <p className=""><Link className="text-decoration-none" to={`${profiledetails?.behance}`} target="_blank">{profiledetails?.behance}</Link></p>
                   </div>
                 </div>
               </div>

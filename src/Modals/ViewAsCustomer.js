@@ -35,7 +35,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                   className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark"
                   onClick={() => handleClose()}
                 >
-                  view as customer
+                  View as customer
                 </button>
               </p>
               <div className="d-flex justify-content-between align-items-center">

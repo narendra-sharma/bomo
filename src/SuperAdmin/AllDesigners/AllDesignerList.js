@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { get_all_users } from "../../reduxdata/rootAction";
+import { get_all_users, switch_to_designer } from "../../reduxdata/rootAction";
 import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
 import EmptyList from "../../Common/EmptyList";
@@ -11,6 +11,11 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
   const role = 'designer';
   const [view, setView] = useState(null);
   const [show, setShow] = useState(false);
+
+  const handleswitchto_designer = async (userId) => {
+    await switch_to_designer(dispatch,userId,user?.token);
+  };
+
   return (
   <div className="review-content mb-4">
     <div className="d-flex align-items-center mb-3">
@@ -25,15 +30,15 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
           <tr key={item?._id}> 
             <td>
               <p>
-                <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => { setView(item); setShow(true); }}>View as designer</button>
+                <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => handleswitchto_designer(item?._id)}>View as designer</button>
               </p>
             </td>
             <td><p className="fw-bold">{item?.name}</p></td>
             <td><p><span className="fw-bold">Date added</span> <span className="d-block">{item?.createdAt && format(new Date(item?.createdAt), 'dd/MM/yyyy')}</span></p></td>
             <td><p><span className="fw-bold">Contact </span> <span className="d-block">{item?.email}</span></p></td>
-            <td><p><span className="fw-bold">Active Requests</span> <span className="d-block">2</span></p></td>
-            <td><p><span className="fw-bold">Completed Requests</span> <span className="d-block">44</span></p></td>
-            <td><p><span>expand</span></p></td>
+            <td><p><span className="fw-bold">Active Requests</span> <span className="d-block">{item?.active_requests}</span></p></td>
+            <td><p><span className="fw-bold">Completed Requests</span> <span className="d-block">{item?.completed_requests}</span></p></td>
+            <td><p><span className="cursor-pointer" onClick={() => { setView(item); setShow(true); }}>expand</span></p></td>
           </tr>
         )
       : <EmptyList name="Designers" />}

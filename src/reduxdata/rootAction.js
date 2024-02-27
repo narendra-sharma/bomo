@@ -14,7 +14,9 @@ import {
   approve_designer,
   add_user_account,
   uploadImage,
-  get_overall_stats
+  get_overall_stats,
+  switch_to_designer,
+  switch_to_superadmin
 } from "./User/userActions";
 import {
   get_plans,
@@ -130,5 +132,7 @@ export {
   image_download,
   get_all_draft_requests,
   get_all_review_requests,
-  get_overall_stats 
+  get_overall_stats,
+  switch_to_designer,
+  switch_to_superadmin 
 };

@@ -19,7 +19,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
-  const transparencies = ['Yes', 'No', 'Does not apply'];
+  const transparencies = ['Yes', 'No'];
   const [imagePreview, setImagePreview] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -306,12 +306,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
                     <div className="col-md-12">
                       <div className="form-group">
                         <label htmlFor="Description" className="ms-3 mb-2">Description<span className="text-danger">*</span></label>
-                        <textarea name="description" className="form-control w-100" placeholder="Describe the Brief for this piece. Include as much info as possible.
-                                            Tone and Style
-                                            Target Audience
-                                            Goal of the Piece
-                                            Display Platform
-                                            Duration" defaultValue={formData?.description} onChange={handleInputChange} ></textarea>
+                        <textarea name="description" className="form-control w-100" placeholder="Describe the brief for this piece. Include as much info as possible. Tone and Style, Target Audience, Goal of the Piece, Display Platform, Duration." defaultValue={formData?.description} onChange={handleInputChange} ></textarea>
                         {errors.description && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.description}</p>}
                       </div>
                     </div>
