@@ -9,7 +9,7 @@ const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
   { id: 2, label: "Member", value: "team_member" },
 ];
-const Header = ({ user, userrole, totalassigns, activerequest }) => {
+const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
   const [cuser, setCuser] = useState(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
 
   let local = localStorage.getItem('userDetails');
   local = local ? JSON.parse(local) : null;
+  const ischeck = localStorage.getItem('SWITCHTYPE');
 
   useEffect(() => {
     setCuser(local);
@@ -103,7 +104,7 @@ const Header = ({ user, userrole, totalassigns, activerequest }) => {
                   {totalassigns > 0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
-              {(userrole === 'Designer') && user?.superadminToDesigner ?
+              {(userrole === 'Designer') && isSwitch && ischeck ?
                 <div className="header-request-btn position-relative">
                   <button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => handleSwitch()}>SwitchToSuperAdmin</button>
                 </div> : <div></div>}
@@ -119,6 +120,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userrole: state.auth.role,
+    isSwitch: state.auth.isSwitch,
     totalassigns: state.requests.totalassigns,
     activerequest: state.requests.activerequest,
   };

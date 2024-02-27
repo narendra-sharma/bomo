@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap"
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import reelImage from "../images/reel-image.png";
-import { get_single_designer_details } from "../reduxdata/rootAction";
+import { get_single_designer_details, switch_to_designer } from "../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ApproveDesigner from "./ApproveDesigner";
 
@@ -18,6 +18,10 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
         }
     }, [view]);
 
+    const handleswitchto_designer = async (userId) => {
+        await switch_to_designer(dispatch, userId, user?.token);
+    };
+
     return (
         <div>
             <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
@@ -26,7 +30,7 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                         <div className="row mb-3">
                             <div className="col-md-12 col-12">
                                 <p className="text-center mb-3">
-                                    <button className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark" onClick={() => handleClose()}>
+                                    <button className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark" onClick={() => handleswitchto_designer(designerdata?.designer_detail?._id)}>
                                         View as designer
                                     </button>
                                 </p>
@@ -126,7 +130,13 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                                             </div>
                                             <div className="">
                                                 <p className="mb-0 user-email ms-1 ms-lg-3">
-                                                    <b className=" d-md-block">Country</b><span className="d-block">-</span></p>
+                                                    <b className=" d-md-block">Country</b>
+                                                    <span className="d-block">
+                                                        {designerdata?.designer_detail?.address?.country ?
+                                                            designerdata?.designer_detail?.address?.country
+                                                            : '-'}
+                                                    </span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -171,19 +181,19 @@ const ViewAsDesigner = ({ view, show, handleClose, user, designerdata }) => {
                                         <p className="text-dark">Website</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.website ? designerdata?.designer_detail?.website: ''}</Link> </p>
+                                        <p className=""><Link className="text-decoration-none" to={`${designerdata?.designer_detail?.website}`} target="_blank">{designerdata?.designer_detail?.website ? designerdata?.designer_detail?.website : ''}</Link> </p>
                                     </div>
                                     <div className="col-md-3 col-lg-3">
                                         <p className="text-dark">Instagram</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.instagram ? designerdata?.designer_detail?.instagram: ''}</Link></p>
+                                        <p className=""><Link className="text-decoration-none" to={`${designerdata?.designer_detail?.instagram}`} target="_blank">{designerdata?.designer_detail?.instagram ? designerdata?.designer_detail?.instagram : ''}</Link></p>
                                     </div>
                                     <div className="col-md-3 col-lg-3">
                                         <p className="text-dark">Behance</p>
                                     </div>
                                     <div className="col-md-9 col-lg-9">
-                                        <p className=""><Link className="text-decoration-none">{designerdata?.designer_detail?.behance ? designerdata?.designer_detail?.behance : ''}</Link></p>
+                                        <p className=""><Link className="text-decoration-none" to={`${designerdata?.designer_detail?.behance}`} target="_blank">{designerdata?.designer_detail?.behance ? designerdata?.designer_detail?.behance : ''}</Link></p>
                                     </div>
                                 </div>
                             </div>

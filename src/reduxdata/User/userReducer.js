@@ -1,4 +1,4 @@
-import { APPROVE_DESIGNER, GET_OVERALL_STATS, GET_PROFILE_DETAILS, GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPDATE_DESIGNER_INFO, UPDATE_PASSWORD_SUCCESS, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE, } from "./userTypes";
+import { APPROVE_DESIGNER, GET_OVERALL_STATS, GET_PROFILE_DETAILS, GET_PROFILE_SUCCESS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_SWITCH_TYPE, SET_USER_TYPE, UPDATE_DESIGNER_INFO, UPDATE_PASSWORD_SUCCESS, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE, } from "./userTypes";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('userDetails')),
@@ -25,6 +25,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         role: action.payload,
+      };
+    case SET_SWITCH_TYPE:
+      return {
+        ...state,
+        isSwitch: action.payload,
       };
     case USER_UPDATE:
       return {
