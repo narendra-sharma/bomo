@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchInput from "../Common/SearchInput";
 import userImage from "../images/user-img.png";
 import { connect, useDispatch } from "react-redux";
-import { get_all_users } from "../reduxdata/rootAction";
+import { get_all_users, switch_to_designer } from "../reduxdata/rootAction";
 import CustomPagination from "../Common/CustomPagination";
 import { format } from "date-fns";
 import ViewAsCustomer from "../Modals/ViewAsCustomer";
@@ -17,11 +17,16 @@ const AllCustomers = ({ user, users, total }) => {
   useEffect(() => {
     get_all_users(dispatch, user?.token, role, 1, 10, search);
   }, [search]);
+
+  const handleswitchto_designer = async (userId) => {
+    await switch_to_designer(dispatch,userId,user?.token);
+  };
+
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
-          <h3 className="fw-bold mb-3">Customers</h3>
+          <h3 className="fw-bold mb-3">{total > 0 && <span className="bg-white rounded-circle  mr-2">{total}</span>} Customers</h3>
           <SearchInput
             placeholder="Browse Customers..."
             handleSearch={(val) => setSearch(val)}
@@ -39,10 +44,7 @@ const AllCustomers = ({ user, users, total }) => {
                                   <p>
                                     <button
                                       className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark"
-                                      onClick={() => {
-                                        setView(item);
-                                        setShow(true);
-                                      }}
+                                      onClick={() => handleswitchto_designer(item?._id)}
                                     >
                                       View as customer
                                     </button>
@@ -53,7 +55,7 @@ const AllCustomers = ({ user, users, total }) => {
                                 </td>
                                 <td>
                                   <p className="fw-bold color-light-blue">
-                                    2 ACTIVE Requests
+                                    {item?.active_requests} ACTIVE Requests
                                   </p>
                                 </td>
                                 <td>
@@ -77,28 +79,27 @@ const AllCustomers = ({ user, users, total }) => {
                                 <td>
                                   <p>
                                     <span className="fw-bold">Monthly Requests</span>{" "}
-                                    <span className="d-block">2</span>
+                                    <span className="d-block">{item?.monthly_request}</span>
                                   </p>
                                 </td>
                                 <td>
                                   <p>
                                     <span className="fw-bold">Total Admins</span>{" "}
-                                    <span className="d-block">2</span>
+                                    <span className="d-block">{item?.no_of_admin}</span>
                                   </p>
                                 </td>
                                 <td>
                                   <p>
                                     <span className="fw-bold">Members</span>{" "}
-                                    <span className="d-block">6</span>
+                                    <span className="d-block">{item?.no_of_cust}</span>
                                   </p>
                                 </td>
                                 <td>
                                   <p>
-                                    <span>expand</span>
+                                    <span className="cursor-pointer" onClick={() => { setView(item); setShow(true); }}>expand</span>
                                   </p>
                                 </td>
-                              </tr>
-                            
+                              </tr>      
                       ))
                     ) : (
                       <EmptyList name="Customers" />

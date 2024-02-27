@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APPROVE_DESIGNER, GET_OVERALL_STATS, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_USER_TYPE, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE } from "./userTypes";
+import { APPROVE_DESIGNER, GET_OVERALL_STATS, GET_PROFILE_DETAILS, GET_SINGLE_DESIGNER_DETAILS, LOG_OUT, SET_SWITCH_TYPE, SET_USER_TYPE, UPLOAD_IMAGE_FILE_SUCCESS, USER_UPDATE } from "./userTypes";
 import { toast } from "react-toastify";
 import { start_loading, stop_loading } from "../rootAction";
 
@@ -13,7 +13,7 @@ export const logout = () => {
     type: LOG_OUT,
   };
 };
-export const catch_errors_handle = (error,dispatch) => {
+export const catch_errors_handle = (error, dispatch) => {
   if (error.response) {
     toast.error(error.response.data.message);
     if (error.response.status === 401) {
@@ -43,7 +43,7 @@ export const signup = async (user, role, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -83,7 +83,7 @@ export const login = async (user, role, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -98,10 +98,17 @@ export const set_user_type = (usertype) => {
   };
 };
 
+export const set_switch_type = (userSwitch) => {
+  return {
+    type: SET_SWITCH_TYPE,
+    payload: userSwitch,
+  };
+};
+
 export const set_update_user = (user) => {
-  if(user?.subscription && user?.subscription?.length>0){
-    let sub=user?.subscription?.find(r=>r.type==='primary');
-    user.subscription=sub;
+  if (user?.subscription && user?.subscription?.length > 0) {
+    let sub = user?.subscription?.find(r => r.type === 'primary');
+    user.subscription = sub;
   }
   localStorage.setItem("userDetails", JSON.stringify(user));
   return {
@@ -126,7 +133,7 @@ export const forgot_password_reset = async (email, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -153,13 +160,13 @@ export const reset_password = async (
       HEADERS
     );
     if (res.data && res.data.status) {
-      toast.success(`Successfully ${isMember?'created':'updated'} password!`);
+      toast.success(`Successfully ${isMember ? 'created' : 'updated'} password!`);
       navigate("/login");
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -194,7 +201,7 @@ export const update_password = async (
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   }
 };
 
@@ -211,12 +218,12 @@ export const profile_update = async (data, token, dispatch) => {
     const res = await axios.post(url, { name: data.name }, HEADERS);
     if (res.data && res.data.status) {
       toast.success("Profile updated successfully.");
-      dispatch(set_update_user({...res.data.data,token:token}));
+      dispatch(set_update_user({ ...res.data.data, token: token }));
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -242,7 +249,7 @@ export const delete_account = async (token, navigate, dispatch) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -253,7 +260,7 @@ export const get_single_designer_details = async (dispatch, userId, token) => {
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/single_designer_detail?id=${userId}`;
     const HEADERS = {
-      headers:{
+      headers: {
         "x-access-token": token
       }
     };
@@ -264,7 +271,7 @@ export const get_single_designer_details = async (dispatch, userId, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -277,7 +284,7 @@ export const edit_designer_info = async (dispatch, token, infodata) => {
     const HEADERS = {
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,  
+        "x-access-token": token,
       },
     };
     const designerdata = {
@@ -286,39 +293,39 @@ export const edit_designer_info = async (dispatch, token, infodata) => {
       instagram: infodata.instagram,
       behance: infodata.behance
     };
-    const res = await axios.put(url,JSON.stringify(designerdata),HEADERS);
-    if (res.data && res.data.status){
+    const res = await axios.put(url, JSON.stringify(designerdata), HEADERS);
+    if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_user_profile_details(token,dispatch);
+      get_user_profile_details(token, dispatch);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const approve_designer = async (token,dispatch,designerId,approvestatus) => {
+export const approve_designer = async (token, dispatch, designerId, approvestatus) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/designer-action`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,  
+        "x-access-token": token,
       },
     };
     const designerdata = {
-      designer_id:designerId,
+      designer_id: designerId,
       status: approvestatus
     };
-    const res = await axios.put(url,JSON.stringify(designerdata),HEADERS);
-    if (res.data && res.data.status){
+    const res = await axios.put(url, JSON.stringify(designerdata), HEADERS);
+    if (res.data && res.data.status) {
       toast.success(res.data?.message);
       get_single_designer_details(dispatch, designerId, token);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
@@ -329,24 +336,24 @@ export const get_user_profile_details = async (token, dispatch) => {
   try {
     const url = `${REACT_APP_BOMO_URL}profile/detail`;
     const HEADERS = {
-      headers:{
+      headers: {
         "x-access-token": token
       }
     };
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
-      dispatch({ type: GET_PROFILE_DETAILS, payload: res.data.data });   
+      dispatch({ type: GET_PROFILE_DETAILS, payload: res.data.data });
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const uploadImage = async (imageFile, dispatch,imgtype) => {
+export const uploadImage = async (imageFile, dispatch, imgtype) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -366,19 +373,19 @@ export const uploadImage = async (imageFile, dispatch,imgtype) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch))
+    dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const add_user_account = async (dispatch,accountdata,token) => {
+export const add_user_account = async (dispatch, accountdata, token) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}designer/addAccount`;
     const HEADERS = {
-      headers:{
-        "x-access-token":token,
+      headers: {
+        "x-access-token": token,
       }
     };
 
@@ -399,7 +406,7 @@ export const add_user_account = async (dispatch,accountdata,token) => {
       id_number: accountdata.idnumber,
       document_front: accountdata.documentfront,
       document_back: accountdata.documentback,
-      frontImageName:  accountdata.frontImageName,
+      frontImageName: accountdata.frontImageName,
       backImageName: accountdata.backImageName
     };
 
@@ -410,18 +417,18 @@ export const add_user_account = async (dispatch,accountdata,token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch))
+    dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const get_overall_stats = async (dispatch,token) => {
+export const get_overall_stats = async (dispatch, token) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/overall_stats`;
     const HEADERS = {
-      headers:{
+      headers: {
         "x-access-token": token
       }
     };
@@ -432,22 +439,22 @@ export const get_overall_stats = async (dispatch,token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch))
+    dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const switch_to_designer = async (dispatch,userId,token) => {
+export const switch_to_designer = async (dispatch, userId, token) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/switch_to_designer?id=${userId}`;
     const HEADERS = {
-      headers:{
+      headers: {
         "x-access-token": token
       }
     };
-    const res = await axios.post(url,{},HEADERS);
+    const res = await axios.post(url, {}, HEADERS);
     if (res.data && res.data.status) {
       if (res?.data?.data?.role === "designer") {
         if (res?.data?.data?.role === "designer") {
@@ -456,45 +463,57 @@ export const switch_to_designer = async (dispatch,userId,token) => {
         }
         toast.success("Successfully switch to designer");
         dispatch(set_update_user(res.data.data));
-      }else{
+        localStorage.setItem("SWITCHTYPE", res.data.data.superadminToDesigner);
+        dispatch({ type: SET_SWITCH_TYPE, payload: res.data.data.superadminToDesigner });
+      } else if (res?.data?.data?.role === "customer_admin") {
+        if (res?.data?.data?.role === "customer_admin") {
+          dispatch(set_user_type("customer_admin"));
+          localStorage.setItem("USERTYPE", JSON.stringify("customer_admin"));
+        }
+        toast.success("Successfully switch to customer");
+        dispatch(set_update_user(res.data.data));
+        localStorage.setItem("SWITCHTYPE", res.data.data.superadminToCustomer);
+        dispatch({ type: SET_SWITCH_TYPE, payload: res.data.data.superadminToCustomer });
+      } else {
         toast.error("Invalid Data.");
       }
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch))
+    dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
   }
 };
 
-export const switch_to_superadmin = async (dispatch,token) => {
+export const switch_to_superadmin = async (dispatch, token) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/switch_to_superadmin`;
     const HEADERS = {
-      headers:{
+      headers: {
         "x-access-token": token
       }
     };
-    const res = await axios.post(url,{},HEADERS);
+    const res = await axios.post(url, {}, HEADERS);
     if (res.data && res.data.status) {
       if (res?.data?.data?.role === "superadmin") {
         if (res?.data?.data?.role === "superadmin") {
           dispatch(set_user_type("Super admin"));
           localStorage.setItem("USERTYPE", JSON.stringify("Super admin"));
+          localStorage.removeItem('SWITCHTYPE');
         }
         toast.success("Successfully switch to SuperAdmin");
         dispatch(set_update_user(res.data.data));
-      }else{
+      } else {
         toast.error("Invalid Data.");
       }
     } else {
       toast.error(res.data.message);
     }
   } catch (error) {
-    dispatch(catch_errors_handle(error,dispatch));
+    dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
   }
