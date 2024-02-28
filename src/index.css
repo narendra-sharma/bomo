@@ -1846,6 +1846,18 @@ h3.counter-number span {
   text-align: center;
   line-height: 30px;
 }
+h3.counter-circle span {
+  font-size: 15px;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  text-align: center;
+  line-height: 35px;
+  background-color: 
+  transparent;
+ border: solid 1px #D2CECE;
+ color: #838383;
+}
 button.accordion-button .late-request-section {
   display: none;
 }
@@ -2056,7 +2068,8 @@ button.accordion-button.collapsed  .late-request-section {
   width:110px;
 }
 .customer-all .review-content table td {
-  padding: 20px 8px;
+  padding: 20px 20px;
+  background: #fff !important;
 }
 .customer-all  table.table.table-borderless.mb-0 {
   border-collapse: separate;
@@ -2134,6 +2147,13 @@ width: auto;
 .bg-medium-gray.member-table .members .d-flex p{
   width: 75%;
 }
+.approve-designer-popup.logout-popup.modal.show {
+  background: #00000094;
+}
+.designer-active-request-section .col-lg-6{
+  width: 48%;
+  margin-right: 20px;
+}
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;
@@ -2174,7 +2194,14 @@ width: auto;
     height: auto
   }
 }
-
+@media(max-width:1400px){
+  .customer-all .review-content table td {
+    padding: 20px 10px;
+    }
+    .review-content table tr td button ,  .customer-all .review-content table td p {
+      font-size: 12px;
+    }
+}
 @media(max-width:1300px){
   .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
     padding-left: 40px;
@@ -2200,6 +2227,7 @@ width: auto;
   .view-as-customer-popup .modal-dialog{
     max-width:1100px;
   }
+
 }
 @media(max-width:1200px){
   .ml-md-auto.py-4.ms-md-auto.rightside-wrapper , nav.px-60 {
@@ -2216,6 +2244,7 @@ width: auto;
   .view-as-customer-popup .modal-dialog{
     max-width: 75%;
   }
+
   .view-customer-content .active-request-section, 
   .view-customer-content .active-request-section:last-child {
     flex: 0 0 49%;
@@ -2411,17 +2440,12 @@ width: auto;
   width: 100%;
   background: #ffffff;
 }
-.switch {
-  display: inline-block!important;
-  height: 34px!important;
-  position: relative;
-  width: 105px;
-}
 .switch input {
   display: none;
 }
 input:checked+.slider {
     background-color: #03ae6e;
+    color: #fff;  
 }
 .slider.round {
     border-radius: 34px;
@@ -2437,6 +2461,11 @@ input:checked+.slider {
   left: 0;
   right: 0;
   top: 0;
+  position: relative;
+  padding: 3px 14px;
+  padding-left: 38px;
+
+
 }
 input:checked+.slider .on {
   display: block;
@@ -2461,9 +2490,8 @@ input:checked+.slider .on {
 }
 .slider:before {
   background-color: #fff;
-  bottom: 4px;
   content: "";
-  height: 26px;
+  height: 22px;
   left: 5px;
-  width: 26px;
+  width: 22px;
 }
