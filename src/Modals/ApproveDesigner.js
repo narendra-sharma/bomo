@@ -14,7 +14,7 @@ const ApproveDesigner = ({ isview, viewClose, details, user, designerstatus }) =
 
     return (
         <div>
-            <Modal show={isview} onHide={viewClose} className="logout-popup">
+            <Modal show={isview} onHide={viewClose} className="logout-popup approve-designer-popup">
                 <Modal.Body>
                     <div className="px-4 py-4">
                         <h4 className="mb-0">{details?.designer_detail?.isDesignerApproved ? 'In-Active': 'Acitve'} {details?.name}</h4>
