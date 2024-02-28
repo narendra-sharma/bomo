@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
-const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
+const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imagePath }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -104,19 +104,20 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         break;
 
       case 'uploadFiles':
-        const Files = files[0];
-        const Fileupload = [...Files];
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
-        const invalidFile = Fileupload?.filter(file => !allowedFileTypes.includes(file.type));
+        const UploadImage = files[0];
+        const Fileupload = [UploadImage];
         const filteredFile = Fileupload.filter(file => allowedFileTypes.includes(file.type));
-        const uploadedFiles = [...filteredFile?.slice(0, 3)];
+        const uploadedFiles = [...filteredFile];
         if (!Fileupload) {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
-        } else if (allowedFileTypes.includes(Files.type)) {
+        } else if (!allowedFileTypes.includes(UploadImage.type)) {
           setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else if (invalidFile?.length === 0) {
-           await new_image_upload(dispatch,Files);
+        } else if (allowedFileTypes.includes(UploadImage.type)) {
           fileInputRef.current.click();
+          const newpath = await new_image_upload(dispatch, UploadImage);
+          console.log(newpath);
+          setUploadFiles(prevfile => [...prevfile, newpath]);
           setFormData({
             ...formData, uploadFiles: uploadFiles,
           });
@@ -220,11 +221,11 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
       size: formData.size,
       references: formData.references,
       transparency: formData.transparency,
-      uploadFiles: formData.uploadFiles,
+      uploadFiles: uploadFiles,
       status: status
     };
 
-    if(formData.brandProfile){
+    if (formData.brandProfile) {
       newrequest.brandProfile = formData.brandProfile
     }
 
@@ -241,6 +242,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
     } else if ((status === 'draft') && (formData.requestName !== '')) {
       await newRequest(newrequest, dispatch, usertoken, navigate);
       console.log(newrequest);
+      console.log(uploadFiles);
     }
   };
 
@@ -411,10 +413,14 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
                     {images.map((preview, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center me-3 mb-3">
                         <img src={preview} alt='img' height="300" />
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm position-absolute top-0 end-0">
+                          Remove
+                        </button>
                       </div>
                     ))}
                   </div>
-                  {/* {imagePreview && <div className="d-flex align-item-center justify-content-center mb-4"><img src={imagePreview} alt="Preview" height="300" /></div>} */}
                   <label class="uploadFile">
                     <span class="filename"><img src={plusImage} alt="" /></span>
                     <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} multiple />
@@ -452,6 +458,7 @@ const mapStateToProps = (state) => {
     requestTypes: state.requests.requestTypes,
     requestData: state.requests.editrequestData,
     isAddEdit: state.brand.isAddEdit,
+    imagePath: state.requests.imagePath
   };
 };
 export default connect(mapStateToProps)(NewRequest);

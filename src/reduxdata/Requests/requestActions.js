@@ -598,38 +598,35 @@ export const image_download = async (dispatch, imgfile) =>{
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {
-    const formData = new FormData();
-    formData.append("request_name", requestdata.requestName);
-    if(requestdata.brandProfile){
-    formData.append("brand_profile", requestdata.brandProfile);
-    }
-    formData.append("request_type", requestdata.requestype);
-    formData.append("description", requestdata.description);
-    formData.append("file_type", requestdata.fileType);
-    formData.append("size", requestdata.size);
-    formData.append("references", requestdata.references);
-    formData.append("transparency", requestdata.transparency);
-    if (requestdata.uploadFiles && requestdata.uploadFiles.length > 0) {
-      requestdata.uploadFiles.forEach((file) => {
-        formData.append(`image`, file);
-      });
-    }
-    formData.append("status", requestdata.status);
-
-    if (requestdata?.request_id) {
-      formData.append('request_id', requestdata?.request_id);
-    }
-    if (requestdata?.request_id && requestdata.imagetwo.length > 0) {
-      requestdata.imagetwo.forEach((file) => {
-        formData.append(`image2`, file);
-      });
-    }
-
     const url = `${REACT_APP_BOMO_URL}customer/request_create`
     const headers = { 
+      "Content-Type": "application/json",
       "x-access-token": token,
     };
-    const res = await axios.post(url, formData, { headers });
+    
+    const requestdetails = {
+      request_name : requestdata.requestName,
+      request_type : requestdata.requestype,
+      description: requestdata.description,
+      file_type: requestdata.file_type,
+      size: requestdata.size,
+      references: requestdata.references,
+      transparency: requestdata.transparency,
+      status: requestdata.status
+    };
+    if (requestdata?.request_id) {
+      requestdetails.request_id = requestdata.request_id
+    }
+
+    if (requestdata.uploadFiles && requestdata.uploadFiles.length > 0) {
+       requestdetails.image = requestdata.uploadFiles
+    }
+
+    if(requestdata.brandProfile){
+       requestdetails.brand_profile = requestdata.brandProfile
+      }
+
+    const res = await axios.post(url, JSON.stringify(requestdetails), { headers });
     if (res.data && res.data.status) {
       get_user_subscription({token:token},dispatch);
       get_draft_requestlist(dispatch, token); 
