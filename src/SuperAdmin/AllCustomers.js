@@ -36,7 +36,7 @@ const AllCustomers = ({ user, users, total }) => {
             <div className="table-responsive" >
               <table className="table table-borderless mb-0">
                   <tbody>
-                    {users.length > 0 ? (
+                    {users?.length > 0 ? (
                       users.map((item) => (
                       
                               <tr key={item?._id}>
@@ -79,7 +79,7 @@ const AllCustomers = ({ user, users, total }) => {
                                 <td>
                                   <p>
                                     <span className="fw-bold">Monthly Requests</span>{" "}
-                                    <span className="d-block">{item?.monthly_request}</span>
+                                    <span className="d-block">{item?.monthly_request ? item?.monthly_request : '0'}</span>
                                   </p>
                                 </td>
                                 <td>

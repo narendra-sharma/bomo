@@ -7,9 +7,9 @@ import { get_designer_active_requestslist, get_designer_assigned_requestlist, sw
 import CountdownTimer from "./Common/CountdownTimer";
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
-  { id: 2, label: "Member", value: "team_member" },
+  { id: 2, label: "Member", value: "customer" },
 ];
-const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
+const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
   const [cuser, setCuser] = useState(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
   });
 
   const handleSwitch = async () => {
-    await switch_to_superadmin(dispatch,user?.token);
+    await switch_to_superadmin(dispatch, user?.token);
   };
 
   return (
@@ -75,7 +75,7 @@ const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
                 </div>
               </>}
             <div className="d-flex text-right justify-content-between align-items-center">
-              {user?.role === 'team_member' ?
+              {user?.role === 'customer' ?
                 <div
                   style={{
                     backgroundColor: user?.colour,
@@ -84,7 +84,7 @@ const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
                     borderRadius: 25,
                   }}
                 ></div>
-                : userrole === 'customer_admin' ?
+                : ((userrole === 'customer_admin') && (user?.colour)) ?
                   <div
                     style={{
                       backgroundColor: user?.colour,
@@ -93,7 +93,13 @@ const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
                       borderRadius: 25,
                     }}
                   ></div>
-                  : <img src={userImage} alt="Bomo logo" />}
+                  : <div style={{
+                    backgroundColor: "black",
+                    width: 30,
+                    height: 30,
+                    borderRadius: 25,
+                  }}
+                  ></div>}
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
                 <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : (cuser?.parent ? roles.find(r => r.value === cuser?.role).label : userrole)}</span>
@@ -104,7 +110,7 @@ const Header = ({ user, userrole, totalassigns, activerequest,isSwitch }) => {
                   {totalassigns > 0 && <div className="request-count"><span className="counter-digit">{totalassigns}</span></div>}
                 </div>
               </>}
-              {(userrole === 'Designer') && isSwitch && ischeck ?
+              {(userrole === 'Designer' || userrole === 'customer_admin') && isSwitch && ischeck ?
                 <div className="header-request-btn position-relative">
                   <button variant="unset" className="rounded-pill btn btn-outline-dark ms-2" onClick={() => handleSwitch()}>SwitchToSuperAdmin</button>
                 </div> : <div></div>}
