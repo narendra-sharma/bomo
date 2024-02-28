@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 import { Link } from "react-router-dom";
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
-  { id: 2, label: "Member", value: "team_member" },
+  { id: 2, label: "Member", value: "customer" },
 ];
 
 const Members = ({ user, member, total, isAddEdit }) => {

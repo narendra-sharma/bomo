@@ -62,7 +62,7 @@ const Setting = ({ userrole, profiledetails }) => {
               <div className={(userrole === 'customer_admin') ? 'col-lg-4' : 'col-lg-6'}>
                 <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                   <div className="d-flex text-right justify-content-between align-items-center">
-                    {userrole === 'customer_admin' ?
+                    {((userrole === 'customer_admin') && (user?.colour)) ?
                       <div
                         style={{
                           backgroundColor: user?.colour,
@@ -71,7 +71,13 @@ const Setting = ({ userrole, profiledetails }) => {
                           borderRadius: 25,
                         }}
                       ></div>
-                      : <img src={userImage} alt="Bomo logo" />}
+                      :<div style={{
+                        backgroundColor: "black",
+                        width: 30,
+                        height: 30,
+                        borderRadius: 25,
+                      }}
+                      ></div>}
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className=" d-md-block">Name</b>
                       <span className="d-block">{user?.name}</span></p>

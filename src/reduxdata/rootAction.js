@@ -62,7 +62,8 @@ import { newRequest,
   get_customers_payment_history,
   image_download,
   get_all_draft_requests,
-  get_all_review_requests
+  get_all_review_requests,
+  new_image_upload
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -134,5 +135,6 @@ export {
   get_all_review_requests,
   get_overall_stats,
   switch_to_designer,
-  switch_to_superadmin 
+  switch_to_superadmin,
+  new_image_upload 
 };

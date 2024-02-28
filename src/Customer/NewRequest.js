@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, newRequest } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, newRequest, new_image_upload } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -21,6 +22,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
   const [imagePreview, setImagePreview] = useState(null);
+  const [images, setImages] = useState([]);
+  const [uploadFiles, setUploadFiles] = useState([]);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -61,7 +64,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
     setHoveredIndex(null);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value, files } = e.target;
 
     switch (name) {
@@ -101,18 +104,24 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
         break;
 
       case 'uploadFiles':
+        const Files = files[0];
+        const Fileupload = [...Files];
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
-        const Fileupload = files[0];
+        const invalidFile = Fileupload?.filter(file => !allowedFileTypes.includes(file.type));
+        const filteredFile = Fileupload.filter(file => allowedFileTypes.includes(file.type));
+        const uploadedFiles = [...filteredFile?.slice(0, 3)];
         if (!Fileupload) {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
-        } else if (!allowedFileTypes.includes(Fileupload.type)) {
+        } else if (allowedFileTypes.includes(Files.type)) {
           setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else if (allowedFileTypes.includes(Fileupload.type)) {
+        } else if (invalidFile?.length === 0) {
+           await new_image_upload(dispatch,Files);
           fileInputRef.current.click();
           setFormData({
-            ...formData, uploadFiles: Fileupload,
+            ...formData, uploadFiles: uploadFiles,
           });
-          setImagePreview(URL.createObjectURL(Fileupload));
+          const newImages = uploadedFiles?.map(file => URL.createObjectURL(file));
+          setImages(prevImages => [...prevImages, ...newImages]);
           setErrors({ ...errors, uploadFiles: '' });
         }
         break;
@@ -194,40 +203,50 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
 
   const handleSubmit = async (e, status) => {
     e.preventDefault();
-    const isValid = validateForm();
 
-    if (isValid) {
+    if (status === 'pending') {
+      const isValid = validateForm();
 
-      let newrequest = {
-        requestName: formData.requestName,
-        brandProfile: formData.brandProfile,
-        description: formData.description,
-        requestype: formData.requestype,
-        fileType: formData.fileType,
-        size: formData.size,
-        references: formData.references,
-        transparency: formData.transparency,
-        uploadFiles: formData.uploadFiles,
-        status: status
-      };
-
-      if (requestData) {
-        newrequest.request_id = requestData?._id;
-        newrequest.imagetwo = requestData?.file
+      if (!isValid) {
+        return;
       }
+    }
 
-      if ((status === 'pending') && isValid) {
-        setIspop(true);
-        setNewData(newrequest);
-      } else if ((status === 'draft') && isValid) {
-        await newRequest(newrequest, dispatch, usertoken, navigate);
-      }
+    let newrequest = {
+      requestName: formData.requestName,
+      description: formData.description,
+      requestype: formData.requestype,
+      fileType: formData.fileType,
+      size: formData.size,
+      references: formData.references,
+      transparency: formData.transparency,
+      uploadFiles: formData.uploadFiles,
+      status: status
+    };
+
+    if(formData.brandProfile){
+      newrequest.brandProfile = formData.brandProfile
+    }
+
+    if (requestData) {
+      newrequest.request_id = requestData?._id;
+      newrequest.imagetwo = requestData?.file.map(path => path)
+    }
+
+    if ((status === 'pending')) {
+      setIspop(true);
+      setNewData(newrequest);
+    } else if ((status === 'draft') && (formData.requestName === '')) {
+      toast.error('Atleast specify your Request Name!')
+    } else if ((status === 'draft') && (formData.requestName !== '')) {
+      await newRequest(newrequest, dispatch, usertoken, navigate);
+      console.log(newrequest);
     }
   };
 
   useEffect(() => {
     if (requestData) {
-      setImagePreview(LOGO_URL + requestData?.file);
+      setImages(requestData.file.map(path => LOGO_URL + path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
       setFormData(prev => {
         return ({
@@ -258,18 +277,18 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
 
   useEffect(() => {
     if (isAddEdit) {
-      setFormData((prevFormData) => ({ ...prevFormData, brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile:"" }));
+      setFormData((prevFormData) => ({ ...prevFormData, brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile: "" }));
       setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
       setImagePreview(null);
       setClickedIndex(null);
       change_add_edit(dispatch);
     }
   }, [isAddEdit]);
-  const getNextBillingDate=()=>{
+  const getNextBillingDate = () => {
     let date;
-    if(user && user?.next_billing_date){
+    if (user && user?.next_billing_date) {
       const nextBillingDate = new Date(user?.next_billing_date);
-      date=nextBillingDate;
+      date = nextBillingDate;
     }
     return format(new Date(date), 'MMM dd');
   }
@@ -388,10 +407,17 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit }) => {
                 </div>
                 <div className="col-md-12 review-content">
                   <label htmlFor="Upload Files" className="ms-3 mb-2">Upload Files<span className="text-danger">*</span></label>
-                  {imagePreview && <div className="d-flex align-item-center justify-content-center mb-4"><img src={imagePreview} alt="Preview" height="300" /></div>}
+                  <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
+                    {images.map((preview, index) => (
+                      <div key={index} className="d-flex align-item-center justify-content-center me-3 mb-3">
+                        <img src={preview} alt='img' height="300" />
+                      </div>
+                    ))}
+                  </div>
+                  {/* {imagePreview && <div className="d-flex align-item-center justify-content-center mb-4"><img src={imagePreview} alt="Preview" height="300" /></div>} */}
                   <label class="uploadFile">
                     <span class="filename"><img src={plusImage} alt="" /></span>
-                    <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} />
+                    <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} multiple />
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>

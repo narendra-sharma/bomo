@@ -46,7 +46,7 @@ const Sidebar = () => {
         { name: "Subscription", to: "/subscription" },
         { name: "Members", to: "/members" },
       ];
-    } else if (userrole === "Team Member" || userrole === "team_member") {
+    } else if (userrole === "customer" || userrole === "customer") {
       list = [
         { name: "Home", to: "/" },
         { name: "Past Requests", to: "/past-requests" },

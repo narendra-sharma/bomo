@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page=1, limit=10) => {
@@ -558,6 +558,28 @@ export const get_all_review_requests = async (dispatch,token,page=1,limit=10,sea
   }
 };
 
+export const new_image_upload = async (dispatch,imagedata) => {
+  dispatch(start_loading());
+  try {
+    const formData = new FormData();
+    formData.append('imageFile', imagedata);
+    const url = `${REACT_APP_BOMO_URL}request/fileupload`;
+    const res = await axios.post(url, formData);
+
+    if (res.data && res.data.status) {
+      const imagePath = res.data.path;
+      dispatch({ type: UPLOAD_NEW_IMAGE, payload: imagePath });
+      return res.data.path;
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+}
+
 export const image_download = async (dispatch, imgfile) =>{
   dispatch(start_loading());
   try {
@@ -578,19 +600,29 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
   try {
     const formData = new FormData();
     formData.append("request_name", requestdata.requestName);
+    if(requestdata.brandProfile){
     formData.append("brand_profile", requestdata.brandProfile);
+    }
     formData.append("request_type", requestdata.requestype);
     formData.append("description", requestdata.description);
     formData.append("file_type", requestdata.fileType);
     formData.append("size", requestdata.size);
     formData.append("references", requestdata.references);
     formData.append("transparency", requestdata.transparency);
-    formData.append("image", requestdata.uploadFiles);
+    if (requestdata.uploadFiles && requestdata.uploadFiles.length > 0) {
+      requestdata.uploadFiles.forEach((file) => {
+        formData.append(`image`, file);
+      });
+    }
     formData.append("status", requestdata.status);
 
     if (requestdata?.request_id) {
       formData.append('request_id', requestdata?.request_id);
-      formData.append('image2', requestdata?.imagetwo?.split('/').pop());
+    }
+    if (requestdata?.request_id && requestdata.imagetwo.length > 0) {
+      requestdata.imagetwo.forEach((file) => {
+        formData.append(`image2`, file);
+      });
     }
 
     const url = `${REACT_APP_BOMO_URL}customer/request_create`

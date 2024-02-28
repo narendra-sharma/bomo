@@ -6,7 +6,7 @@ import { start_loading, stop_loading } from "../rootAction";
 const { REACT_APP_BOMO_URL } = process.env;
 const roles = [
   { id: 1, label: "Admin", value: "customer_admin" },
-  { id: 2, label: "Member", value: "team_member" },
+  { id: 2, label: "Member", value: "customer" },
 ];
 export const logout = () => {
   return {
@@ -63,16 +63,16 @@ export const login = async (user, role, dispatch) => {
     const res = await axios.post(url, user, HEADERS);
     if (res.data && res.data.status) {
       if (
-        res?.data?.data?.role === "Team Member" ||
-        res?.data?.data?.role === "team_member" ||
+        res?.data?.data?.role === "customer" ||
+        res?.data?.data?.role === "customer" ||
         res.data.data.role === role
       ) {
         if (
-          res?.data?.data?.role === "Team Member" ||
-          res?.data?.data?.role === "team_member"
+          res?.data?.data?.role === "customer" ||
+          res?.data?.data?.role === "customer"
         ) {
-          dispatch(set_user_type("Team Member"));
-          localStorage.setItem("USERTYPE", JSON.stringify("Team Member"));
+          dispatch(set_user_type("customer"));
+          localStorage.setItem("USERTYPE", JSON.stringify("customer"));
         }
         toast.success("Successfully user logged-in!");
         dispatch(set_update_user(res.data.data));
@@ -107,7 +107,7 @@ export const set_switch_type = (userSwitch) => {
 
 export const set_update_user = (user) => {
   if (user?.subscription && user?.subscription?.length > 0) {
-    let sub = user?.subscription?.find(r => r.type === 'primary');
+    let sub = user?.subscription?.find(r => r?.type === 'primary');
     user.subscription = sub;
   }
   localStorage.setItem("userDetails", JSON.stringify(user));
@@ -464,7 +464,10 @@ export const switch_to_designer = async (dispatch, userId, token) => {
         toast.success("Successfully switch to designer");
         dispatch(set_update_user(res.data.data));
         localStorage.setItem("SWITCHTYPE", res.data.data.superadminToDesigner);
-        dispatch({ type: SET_SWITCH_TYPE, payload: res.data.data.superadminToDesigner });
+        dispatch({
+          type: SET_SWITCH_TYPE,
+          payload: res.data.data.superadminToDesigner
+        });
       } else if (res?.data?.data?.role === "customer_admin") {
         if (res?.data?.data?.role === "customer_admin") {
           dispatch(set_user_type("customer_admin"));
@@ -473,7 +476,10 @@ export const switch_to_designer = async (dispatch, userId, token) => {
         toast.success("Successfully switch to customer");
         dispatch(set_update_user(res.data.data));
         localStorage.setItem("SWITCHTYPE", res.data.data.superadminToCustomer);
-        dispatch({ type: SET_SWITCH_TYPE, payload: res.data.data.superadminToCustomer });
+        dispatch({
+          type: SET_SWITCH_TYPE,
+          payload: res.data.data.superadminToCustomer
+        });
       } else {
         toast.error("Invalid Data.");
       }
@@ -481,6 +487,7 @@ export const switch_to_designer = async (dispatch, userId, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
+    console.log(error);
     dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
@@ -513,6 +520,7 @@ export const switch_to_superadmin = async (dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
+    console.log(error);
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());

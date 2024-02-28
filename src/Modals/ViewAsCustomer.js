@@ -7,10 +7,10 @@ import { get_single_data } from "../reduxdata/members/memberAction";
 
 import { format } from "date-fns";
 import { get_user_subscription_details } from "../reduxdata/PlansPayments/planActions";
-const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscription }) => {
+import { switch_to_designer } from "../reduxdata/rootAction";
+const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscription, user }) => {
   const customerId = view?._id;
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (customerId) {
       get_single_data(dispatch, customerId, token)
@@ -22,7 +22,10 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
     if (date) return format(new Date(date), "dd MMMM yyyy");
   };
 
-  console.log("USERRRRRRRRRRRRR SUBSCRIPTION", subscription);
+  const handleswitchto_customer = async (userId) => {
+    await switch_to_designer(dispatch, userId, user?.token);
+};
+
 
   return (
     <Modal show={show} onHide={handleClose} size="xl" className="view-as-customer-popup">
@@ -126,7 +129,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <p className="fw-bold">Remainig This Period</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.remaining_this_period}
+                    {singleUserData?.remaining_this_period ? singleUserData?.remaining_this_period : '0'}
                   </h2>
                 </div>
               </div>
@@ -146,7 +149,8 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <p className="fw-bold">Request in Feedback Queue</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.requests_in_feedback_queue}
+                    {singleUserData?.requests_in_feedback_queue?.length > 0 ?
+                    singleUserData?.requests_in_feedback_queue : '0'}
                   </h2>
                 </div>
               </div>
@@ -176,7 +180,8 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <p className="fw-bold">Number of Requests Finished</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.num_of_requests_finished}
+                    {singleUserData?.num_of_requests_finished?.length > 0 ?
+                    singleUserData?.num_of_requests_finished: '0'}
                   </h2>
                 </div>
               </div>
@@ -206,7 +211,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <p className="fw-bold">Months Subscribed</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.months_subscribed}
+                    {singleUserData?.months_subscribed ? singleUserData?.months_subscribed : '0'}
                   </h2>
                 </div>
                 <p className="mb-0 start-date">
@@ -233,6 +238,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
 };
 const mapStateToProps = (state) => {
   return {
+    user: state.auth.user,
     singleUserData: state.member.singleUserData,
     subscription: state.plan.subscription
   };
