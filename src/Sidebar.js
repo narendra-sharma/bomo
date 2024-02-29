@@ -20,20 +20,21 @@ const Sidebar = () => {
     navigate('/');
   }
   const [items, setItems] = useState([]);
-  const [isSubscribe,setIsSubscribe]=useState(false);
-  const getSubscription=async()=>{
-    await isSubscription(user).then(r=>{
-      if(!r && (userrole === 'customer_admin')){
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const getSubscription = async () => {
+    await isSubscription(user).then(r => {
+      if (!r && (userrole === 'customer_admin')) {
         navigate('/settings');
       }
       setIsSubscribe(r);
     });
   };
   useEffect(() => {
-    if(userrole === 'customer_admin'){
+    if (userrole === 'customer_admin') {
       getSubscription();
-    }else if(userrole === 'Designer'){
-      setIsSubscribe(user?.isDesignerApproved?true:false);
+    } else if (userrole === 'Designer') {
+      setIsSubscribe(user?.isDesignerApproved ? true : false);
     }
   }, [user]);
   useEffect(() => {
@@ -75,13 +76,13 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = (((userrole !== 'Super admin') && !isSubscribe) || isPay)?'/settings':((n - time) < 25000) ? localStorage.getItem('path') : '/';
+    location.pathname = (((userrole !== 'Super admin') && !isSubscribe && redirect) || isPay) ? '/settings' : ((n - time) < 25000) ? localStorage.getItem('path') : '/';
     navigate(location.pathname);
   }, [userrole, isSubscribe]);
 
   const [show, setShow] = useState(false);
-  const getSubscribe=(item)=>{
-    return ((userrole === 'Designer') && !isSubscribe) || (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to!=='/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
+  const getSubscribe = (item) => {
+    return ((userrole === 'Designer') && !isSubscribe) || (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to !== '/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
   }
   return (
     <div>
@@ -98,10 +99,10 @@ const Sidebar = () => {
             <img src={bomoLogo} alt="Bomo logo" />
           </div>
           <div className="list-group pt-5">
-              {items.map(item => <Link 
-              to={`${(getSubscribe(item)? '#':item.to)}`} 
-              key={item.name} 
-              className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active':'')} ${getSubscribe(item)?'disable':''}`}>
+            {items.map(item => <Link
+              to={`${(getSubscribe(item) ? '#' : item.to)}`}
+              key={item.name}
+              className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active' : '')} ${getSubscribe(item) ? 'disable' : ''}`}>
               <span className="ml-2">{item.name}</span>
             </Link>)}
           </div>

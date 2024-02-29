@@ -71,7 +71,7 @@ const Setting = ({ userrole, profiledetails }) => {
                           borderRadius: 25,
                         }}
                       ></div>
-                      :<div style={{
+                      : <div style={{
                         backgroundColor: "black",
                         width: 30,
                         height: 30,
