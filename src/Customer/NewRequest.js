@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, newRequest, new_image_upload } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
@@ -242,7 +242,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
-      console.log(requestData);
       setImages(requestData.file.map(path => LOGO_URL + path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
       setFormData(prev => {
@@ -288,6 +287,12 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
     return format(new Date(date), 'MMM dd');
   }
+  const handleDelete = async (imgpath,requestId) => {
+    console.log(imgpath);
+    console.log(requestId);
+    //  await image_delete(dispatch,imgpath,requestId);
+  };
+
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -406,12 +411,18 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
                     {images.map((preview, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
-                        <img src={preview} alt='img' height="300" />
-                        <button
+                        <img src={`${preview}`} alt='img' height="300" />
+                       {requestData && <button
                           type="button"
-                          className="btn btn-sm rounded-pill upload-file-close position-absolute">
+                          className="btn btn-sm rounded-pill upload-file-close position-absolute" 
+                          onClick={() => handleDelete(preview,requestData?._id)}>
                           <i class="fa-solid fa-xmark color-white"></i>
-                        </button>
+                        </button>}
+                      </div>
+                    ))}
+                    {requestData && requestData?.file.map((preview,index) => (
+                      <div>
+                        
                       </div>
                     ))}
                   </div>
