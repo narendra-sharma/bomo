@@ -23,6 +23,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const transparencies = ['Yes', 'No'];
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);
+  const [files,setFiles] = useState([]);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -103,16 +104,12 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         break;
 
       case 'uploadFiles':
-        const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
         const UploadImage = files[0];
         const Fileupload = [UploadImage];
-        const filteredFile = Fileupload.filter(file => allowedFileTypes.includes(file.type));
-        const uploadedFiles = [...filteredFile];
+        const uploadedFiles = [...Fileupload];
         if (!Fileupload) {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
-        } else if (!allowedFileTypes.includes(UploadImage.type)) {
-          setErrors({ ...errors, uploadFiles: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-        } else if (allowedFileTypes.includes(UploadImage.type)) {
+        }  else if (Fileupload) {
           fileInputRef.current.click();
           const newpath = await new_image_upload(dispatch, UploadImage);
           setUploadFiles(prevfile => [...prevfile, newpath]);
@@ -178,13 +175,13 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
     const fieldsToValidate = [
       { name: 'requestName', validation: (value) => value === '' ? 'Request Name is Required' : '' },
-      { name: 'brandProfile', validation: (value) => value === undefined ? 'Brand Profile is Required' : '' },
+      { name: 'brandProfile', validation: (value) => value === '' ? 'Brand Profile is Required' : '' },
       { name: 'requestype', validation: (value) => value === '' ? 'Select your Request Type' : '' },
       { name: 'description', validation: (value) => value === '' ? 'Description is Required' : '' },
-      { name: 'fileType', validation: (value) => value === undefined ? 'Select your filetype' : '' },
+      { name: 'fileType', validation: (value) => value === '' ? 'Select your filetype' : '' },
       { name: 'size', validation: (value) => value === '' ? 'Select your size' : '' },
       { name: 'references', validation: (value) => value === '' ? 'Reference is Required' : '' },
-      { name: 'uploadFiles', validation: (value) => value === ''  ? 'Upload your file' : '' },
+      { name: 'uploadFiles', validation: (value) => value === '' ? 'Upload your file' : '' },
       { name: 'transparency', validation: (value) => value === '' ? 'Transparency is Required' : '' },
     ];
 
@@ -217,24 +214,25 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
     if (requestData) {
       newrequest.request_id = requestData?._id;
-      newrequest.uploadFiles = [...uploadFiles, ...requestData?.file];
-    } else if (!requestData){
+      newrequest.uploadFiles = [...uploadFiles, ...files];
+    } else if (!requestData) {
       newrequest.uploadFiles = [...uploadFiles];
     }
 
     if (status === 'pending') {
       const isValid = validateForm();
 
-      if(isValid){
+      if (isValid && newrequest?.uploadFiles?.length >=3) {
         setIspop(true);
         setNewData(newrequest);
-      } else if (!isValid) {
-        return;
+      } else if (!isValid && !newrequest?.uploadFiles?.length >=3) {
+        toast.error('Please Upload Atleast 3 files');
+        
       }
     } else if (status === 'draft') {
-      if(formData.requestName===''){
+      if (formData.requestName === '') {
         toast.error('Atleast specify your Request Name!')
-      } else if (formData.requestName !== ''){
+      } else if (formData.requestName !== '') {
         await newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }
@@ -242,21 +240,22 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
-      setImages(requestData.file.map(path => LOGO_URL + path));
+      setImages(requestData?.file?.map(path => LOGO_URL + path));
+      setFiles(requestData?.file?.map(path => path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
       setFormData(prev => {
         return ({
           ...prev,
-          requestName: requestData?.request_name,
-          brandProfile: requestData?.brand_profile?._id,
-          requestype: requestData?.request_type,
-          description: requestData?.description,
-          fileType: requestData?.file_type,
-          size: requestData?.size,
+          requestName: requestData?.request_name || '',
+          brandProfile: requestData?.brand_profile?._id || '',
+          requestype: requestData?.request_type || '',
+          description: requestData?.description || '',
+          fileType: requestData?.file_type || '',
+          size: requestData?.size || '',
           customsize: "",
           customsizes: [],
-          references: requestData?.references,
-          transparency: requestData?.transparency,
+          references: requestData?.references || '',
+          transparency: requestData?.transparency || '',
           uploadFiles: requestData?.file?.length > 0 ? requestData?.file : '',
           imageFile: requestData?.file
         })
@@ -287,10 +286,18 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
     return format(new Date(date), 'MMM dd');
   }
-  const handleDelete = async (imgpath,requestId) => {
-    console.log(imgpath);
-    console.log(requestId);
-    //  await image_delete(dispatch,imgpath,requestId);
+  const handleDelete = async (imgpath, requestId, index) => {
+     await image_delete(dispatch,imgpath,requestId);
+     setFiles((prevImages) => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      return newImages;
+    });
+    setImages((prevpath) => {
+      const newPath = [...prevpath];
+      newPath.splice(index, 1);
+      return newPath;
+    });
   };
 
   return (
@@ -411,18 +418,13 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
                     {images.map((preview, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
-                        <img src={`${preview}`} alt='img' height="300" />
-                       {requestData && <button
+                        <img src={`${preview}`} alt='img' height="300" />  
+                        {requestData && <button
                           type="button"
-                          className="btn btn-sm rounded-pill upload-file-close position-absolute" 
-                          onClick={() => handleDelete(preview,requestData?._id)}>
+                          className="btn btn-sm rounded-pill upload-file-close position-absolute"
+                          onClick={() => handleDelete(preview, requestData?._id,index)}>
                           <i class="fa-solid fa-xmark color-white"></i>
                         </button>}
-                      </div>
-                    ))}
-                    {requestData && requestData?.file.map((preview,index) => (
-                      <div>
-                        
                       </div>
                     ))}
                   </div>
