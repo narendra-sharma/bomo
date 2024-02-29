@@ -11,7 +11,6 @@ import { format } from 'date-fns';
 
 const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
     const dispatch = useDispatch();
-
     useEffect(() => {
         if (requestdata?._id) {
             get_expanded_request_detail(dispatch, user?.token, requestdata?._id);
@@ -23,6 +22,8 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
         const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
         return `${time}`;
     };
+
+    console.log("ASDJGHQWUEHWE", expanddetails);
 
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="expand-request view-as-customer-popup">
@@ -153,76 +154,76 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                 </table>
                             </div>
                         </div>
-                        {expanddetails?.delivery_data?.map((request,index) => 
-                        <div key={index}>
-                            <div className="col-md-12">
-                                <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                    <div className="row justify-content-center">
-                                        <div className="col-md-12 text-center mb-4">
-                                            <h3 className="color-dark">Delivery {index+1}</h3>
-                                            <p>{format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
-                                        </div>
+                        {expanddetails?.delivery_data?.map((request, index) =>
+                            <div key={index}>
+                                <div className="col-md-12">
+                                    <div className="delivery-status-section bg-white p-4 rounded mt-3">
+                                        <div className="row justify-content-center">
+                                            <div className="col-md-12 text-center mb-4">
+                                                <h3 className="color-dark">Delivery {index + 1}</h3>
+                                                <p>{format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
+                                            </div>
 
-                                        <div className="col-md-3 d-flex text-center justify-content-center">
-                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                <div className="delivery-status fw-bold">9:16</div>
-                                                <div className="">
-                                                    <img src={designImage} alt="Image" />
+                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                                <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                    <div className="delivery-status fw-bold">9:16</div>
+                                                    <div className="">
+                                                        <img src={designImage} alt="Image" />
+                                                    </div>
+                                                    <div className="download-btn">
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                    </div>
+
                                                 </div>
-                                                <div className="download-btn">
-                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                            </div>
+                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                                <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                    <div className="delivery-status fw-bold">16:9</div>
+                                                    <div className="">
+                                                        <img src={designImage2} alt="Image" />
+                                                    </div>
+                                                    <div className="download-btn">
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                                <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                    <div className="delivery-status fw-bold">.AEP</div>
+                                                    <div className="">
+                                                        <img src={aepdesign} alt="Image" />
+                                                    </div>
+                                                    <div className="download-btn">
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3 align-self-center">
+                                                <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
+                                                    <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i>
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <div className="col-md-3 d-flex text-center justify-content-center">
-                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                <div className="delivery-status fw-bold">16:9</div>
-                                                <div className="">
-                                                    <img src={designImage2} alt="Image" />
-                                                </div>
-                                                <div className="download-btn">
-                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
-                                                </div>
 
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 d-flex text-center justify-content-center">
-                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                <div className="delivery-status fw-bold">.AEP</div>
-                                                <div className="">
-                                                    <img src={aepdesign} alt="Image" />
-                                                </div>
-                                                <div className="download-btn">
-                                                    <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 align-self-center">
-                                            <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                                <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i>
-                                            </div>
-
-                                        </div>
                                     </div>
-
                                 </div>
-                            </div>
-                            {request?.feedback_message ? <div className="col-md-12">
-                                <div className="feedback-request  p-4 mt-4 rounded">
+                                {request?.feedback_message ? <div className="col-md-12">
+                                    <div className="feedback-request  p-4 mt-4 rounded">
 
-                                    <h5 className="fw-bold">
-                                        Feedback {index+1} Requested {format(new Date (request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)}
-                                    </h5>
-                                    <p>
-                                        <span className="d-block">{request?.feedback_message}</span>
-                                    </p>
+                                        <h5 className="fw-bold">
+                                            Feedback {index + 1} Requested {format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)}
+                                        </h5>
+                                        <p>
+                                            <span className="d-block">{request?.feedback_message}</span>
+                                        </p>
 
-                                </div>
-                            </div> :
-                            <div></div> }
-                        </div>)}
+                                    </div>
+                                </div> :
+                                    <div></div>}
+                            </div>)}
                     </div>
 
                     <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">

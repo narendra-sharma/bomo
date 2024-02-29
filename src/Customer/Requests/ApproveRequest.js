@@ -67,7 +67,7 @@ const ApproveRequest = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="fw-bold" onClick={() => {setShow(true);setReqdata(request)}}>
+                                            <span className="fw-bold" onClick={() => { setShow(true); setReqdata(request) }}>
                                                 Expand Request
                                             </span>{" "}
                                         </p>
