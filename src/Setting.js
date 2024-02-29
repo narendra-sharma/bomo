@@ -72,6 +72,7 @@ const Setting = ({ userrole, profiledetails }) => {
                         }}
                       ></div>
                       : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
+
                         backgroundColor: "black",
                         width: 30,
                         height: 30,

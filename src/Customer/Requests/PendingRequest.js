@@ -16,8 +16,8 @@ const PendingRequest = ({user, allRequest, total,search }) => {
     <div className="row mb-4">
       <h3 className="mb-3">Pending Requests</h3>
       <div className="col-md-12">
-        <div className="col-md-12">
-          <div className="review-content pending-request rounded mt-4">
+        <div className="bg-white rounded mt-4 p-4">
+          <div className="review-content pending-request">
             {(allRequest.length>0) ?
               allRequest.map((item, index) => {
                 return (
@@ -28,7 +28,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                           <td className="text-center">
                            <ColorCode request={item} />
                           </td>
-                          <td>
+                          <td style={{width:"170px" , paddingLeft:"25px"}}>
                             <p>
                               <span className="fw-bold">{item?.user_id?.company}</span>{" "}
                               <span className="d-block">
@@ -36,7 +36,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                               </span>{" "}
                             </p>
                           </td>
-                          <td>
+                          <td style={{width:"140px"}}>
                             <p>
                               <span className="fw-bold">Status</span>{" "}
                               <span className="d-block text-capitalize">{item?.status}</span>

@@ -61,7 +61,7 @@ const PollRequests = ({ user, pollrequests }) => {
                                         <ColorCode request={request} />
                                         <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
                                     </div>
-                                    <div><p><a href="javascript:void(0)" className="text-decoration-none" onClick={() => {setToggle(true);setSelectedData(request);}}>+ Show full Brief</a></p></div>
+                                    <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => {setToggle(true);setSelectedData(request);}}>+ Show full Brief</a></p></div>
                                 </div>
                             </div>
                             <div className="row my-3">
@@ -93,8 +93,8 @@ const PollRequests = ({ user, pollrequests }) => {
                     </div>
                 )): (<EmptyList name="Requests Poll" />)}
             <div className="d-flex justify-content-center align-items-center">
-                <div className="status-btn">
-                    <button className="btn pause-btn rounded-pill mt-4 py-1 w-100" onClick={scrollToTop}>
+                <div className="poll-request-btn">
+                    <button className="rounded-pill btn btn-outline-dark mt-4 py-1 w-100" onClick={scrollToTop}>
                         Go to the Top
                     </button>
                 </div>

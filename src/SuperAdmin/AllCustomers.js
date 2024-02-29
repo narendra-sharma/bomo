@@ -26,7 +26,7 @@ const AllCustomers = ({ user, users, total }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
-          <h3 className="fw-bold mb-3 counter-circle">{total > 0 && <span className="rounded-circle mr-2">{total}</span>} Customers</h3>
+          <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">{total > 0 && <span className="rounded-circle bg-white mr-2">{total}</span>} Customers</h3>
           <SearchInput
             placeholder="Browse Customers..."
             handleSearch={(val) => setSearch(val)}

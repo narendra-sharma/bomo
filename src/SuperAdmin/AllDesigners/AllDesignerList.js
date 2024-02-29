@@ -20,7 +20,7 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
   <div className="review-content mb-4">
     <div className="d-flex align-items-center mb-3">
       <h3 className="mb-0 counter-number d-flex align-items-center ">{total > 0 && <span className="bg-white rounded-circle  mr-2">{total}</span>}Designers</h3>
-      <p className="mb-0 ms-2">{active ? 'Active this month' : 'Haven’t been active this month'}</p>
+      <p className="mb-0 ms-2" style={{alignSelf:'center', lineHeight: '23px'}}>{active ? 'Active this month' : 'Haven’t been active this month'}</p>
     </div>
     <div  className="table-responsive designer-table mb-3">
       <table className="table table-borderless mb-0">

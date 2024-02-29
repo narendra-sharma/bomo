@@ -405,12 +405,12 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   <label htmlFor="Upload Files" className="ms-3 mb-2">Upload Files<span className="text-danger">*</span></label>
                   <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
                     {images.map((preview, index) => (
-                      <div key={index} className="d-flex align-item-center justify-content-center me-3 mb-3">
+                      <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
                         <img src={preview} alt='img' height="300" />
                         <button
                           type="button"
-                          className="btn btn-danger btn-sm position-absolute top-0 end-0">
-                          Remove
+                          className="btn btn-sm rounded-pill upload-file-close position-absolute">
+                          <i class="fa-solid fa-xmark color-white"></i>
                         </button>
                       </div>
                     ))}
