@@ -893,7 +893,7 @@ td.vertical-middle {
 .member-table .members p  {
   padding: 0;
 }
-#color1 {
+#color1 , .color1 {
   -webkit-appearance: none;
   padding: 0;
   border: none;
@@ -902,15 +902,21 @@ td.vertical-middle {
   height: 25px;
   flex: 0 0 25px;
 }
-#color1::-webkit-color-swatch {
+#color1::-webkit-color-swatch , .color1::-webkit-color-swatch  {
   border: none;
   border-radius: 30px;
   padding: 0;
 }
-#color1::-webkit-color-swatch-wrapper {
+#color1::-webkit-color-swatch-wrapper , .color1::-webkit-color-swatch-wrapper {
   border: none;
   border-radius: 30px;
   padding: 0;
+}
+.color1{
+  right: 10px;
+  top:50%;
+  transform: translateY(-50%);
+
 }
 .logout-popup .modal-dialog {
   display: flex;

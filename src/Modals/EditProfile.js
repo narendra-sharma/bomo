@@ -67,7 +67,7 @@ const EditProfile = ({ show, handleClose, user }) => {
         </Modal.Header>
         <Modal.Body className="py-4">
           <form>
-            <div className="mb-4 d-flex">
+            <div className="mb-4 d-flex position-relative">
               <input
                 type="text"
                 name="username"
@@ -77,7 +77,7 @@ const EditProfile = ({ show, handleClose, user }) => {
                 placeholder="Username"
               />
               {usernameError ? <p class="mt-1 error fw-bold">{usernameError}</p> : null}
-              <input type="color" value={formData?.colour} name="colour" onChange={handleInputChange} />
+              <input type="color" class="color1 position-absolute" value={formData?.colour} name="colour" onChange={handleInputChange} />
             </div>
           </form>
           <div className="text-end">
