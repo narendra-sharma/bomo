@@ -15,6 +15,7 @@ const LOGO_URL = REACT_APP_BOMO_URL;
 
 const BrandProfile = ({ brands, total, user, zipfile_path }) => {
   const dispatch = useDispatch();
+  console.log("USERRRRRRRRR", user);
   const usertoken = user.token;
   const [handleshow, setHandleshow] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
@@ -240,19 +241,19 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                         }
                       </td>
                       <td className="col-lg-4 col-12 mb-3 mb-md-0 g-0">
-                       <div className="d-flex  brand-tags-section">
-                         <div className="date-created"> 
-                          <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
+                        <div className="d-flex  brand-tags-section">
+                          <div className="date-created">
+                            <span className="fw-bold">Date Created</span> <span className="d-block">{format(new Date(brand?.createdAt), 'MM/dd/yyyy')}</span>
                           </div>
                           <div className="describing-tags"> <span className="fw-bold d-block">Tags</span>
-                        {(isEdit && edit?.id === brand?._id) ?
-                          <div>
-                            <TagsInput className="input-name w-100" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} value={formdata?.tags} onChange={handleTagsChange} />
-                            {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
-                          </div>
-                          :
-                          <span className="d-block">{brand?.tags.join(', ')}</span>}</div>
-                       </div>
+                            {(isEdit && edit?.id === brand?._id) ?
+                              <div>
+                                <TagsInput className="input-name w-100" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} value={formdata?.tags} onChange={handleTagsChange} />
+                                {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
+                              </div>
+                              :
+                              <span className="d-block">{brand?.tags.join(', ')}</span>}</div>
+                        </div>
                       </td>
                       <td className="col-lg-2 col-12 mb-3 mb-md-0 vertical-middle">
                         <div className="edit-buttons d-flex align-items-center justify-content-end gap-5">
@@ -261,15 +262,15 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                               <button type="submit" className="create-add-btn brands-add-btn rounded-pill fw-bold w-auto  mx-auto">
                                 Update
                               </button>
-                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold mb-0 w-auto  mx-auto"  onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
+                              <button type="button" className=" brands-add-btn delete-btn rounded-pill fw-bold mb-0 w-auto  mx-auto" onClick={() => { handleDeleteBrand(brand) }}>Delete</button>
                             </>}
                           </span>
                           <span className="edit gap-5 d-flex align-items-center justify-content-center">
-
+                            {console.log("ASDASDASDASDASDDASDASDAS", user?.role)}
                             {(isEdit && edit?.id === brand?._id) ?
                               <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}><span className="fa fa-times"></span></Link>
                               :
-                              <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
+                              user?.role !== "customer" && <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
                             }
                           </span>
                         </div>
