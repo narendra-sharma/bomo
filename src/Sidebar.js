@@ -25,6 +25,7 @@ const Sidebar = () => {
   const getSubscription = async () => {
     await isSubscription(user).then(r => {
       if (!r && (userrole === 'customer_admin')) {
+        setRedirect(true);
         navigate('/settings');
       }
       setIsSubscribe(r);
