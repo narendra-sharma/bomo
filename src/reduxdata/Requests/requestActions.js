@@ -595,6 +595,21 @@ export const image_download = async (dispatch, imgfile) =>{
   }
 };
 
+export const image_delete = async (dispatch,imgpath,requestId) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}removeImage?file=${imgpath}&request_id=${requestId}`;
+    const res = await axios.delete(url);
+    if(res.data && res.data.status) {
+      toast.success('Image Removed Successfully');
+    }
+  }catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+}
+
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {

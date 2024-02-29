@@ -14,6 +14,8 @@ import reelImage from "./images/reel-image.png";
 import EditDesignerBio from "./Modals/EditDesignerBio";
 import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
 import BankInfo from "./Customer/Settings/BankInfo";
+import { format } from "date-fns";
+import SharedRequest from "./Common/SharedRequest";
 
 
 const Setting = ({ userrole, profiledetails }) => {
@@ -44,10 +46,8 @@ const Setting = ({ userrole, profiledetails }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
+          {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <SharedRequest />}
 
-          {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <div className="mx-md-3 mx-lg-5 mb-4 row">
-            <NewRequestShared />
-          </div>}
           <div className="review-main-content">
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Settings</h3>
@@ -79,7 +79,7 @@ const Setting = ({ userrole, profiledetails }) => {
                         borderRadius: 25,
                       }}
                       ></div> :
-                      <img src={`${userImage}`} alt="img" />}
+                        <img src={`${userImage}`} alt="img" />}
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className=" d-md-block">Name</b>
                       <span className="d-block">{user?.name}</span></p>

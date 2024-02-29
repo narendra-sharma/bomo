@@ -8,6 +8,7 @@ import ColorCode from '../Common/ColorCode';
 import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 import EmptyList from "../Common/EmptyList";
+import SharedRequest from "../Common/SharedRequest";
 const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,9 +48,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          <div className="mx-md-3 mx-lg-5 mb-4">
-            <NewRequestShared />
-          </div>
+        {((user?.role === 'customer_admin')) && <SharedRequest />}
           <div className="review-main-content past-request-section mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
             <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
