@@ -7,13 +7,15 @@ import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 import CustomPagination from "../../Common/CustomPagination";
 import ViewAsDesigner from "../../Modals/ViewAsDesigner";
+import ExpandRequest from '../../Modals/ExpandRequest';
 
 const AssignRequest = ({ assignrequests, user, totalassigns }) => {
     const dispatch = useDispatch();
     const [assignData, setAssignData] = useState([]);
     const [view, setView] = useState(null);
     const [show, setShow] = useState(false);
-
+    const [expand, setExpand] = useState(false);
+    const [reqdata, setReqdata] = useState({});
     const handleDesignerClick = (designer, requestId) => {
         if (assignData.find(request => request._id === requestId)) {
             const updatedAssignData = assignData.map(request => {
@@ -58,7 +60,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
 
     useEffect(() => {
         get_admin_assign_requestlist(dispatch, user?.token, 1, 10);
-    }, [dispatch,user?.token]);
+    }, [dispatch, user?.token]);
 
     useEffect(() => {
         setAssignData(assignrequests);
@@ -101,7 +103,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                             </td>
                                             <td>
                                                 <p>
-                                                    <span>Expand Request</span>{" "}
+                                                    <span onClick={() => setExpand(true)}>Expand Request</span>{" "}
                                                 </p>
                                             </td>
                                             <td>
@@ -140,7 +142,8 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         e.stopPropagation();
-                                                        handleDesignerClick(item, request._id)}}></i>{" "}
+                                                        handleDesignerClick(item, request._id)
+                                                    }}></i>{" "}
                                                 {item?.name}
                                             </p>
                                         </Link>
@@ -156,6 +159,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     </div>
                 </div>
             )) : <EmptyList name="Assign Request" />}
+            <ExpandRequest show={expand} handleClose={() => setExpand(false)} />
             {totalassigns > 0 && (
                 <CustomPagination
                     total={totalassigns}
@@ -164,7 +168,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     }}
                 />
             )}
-             <ViewAsDesigner view={view} show={show} handleClose={()=>{setShow(false);setView(null);}} />
+            <ViewAsDesigner view={view} show={show} handleClose={() => { setShow(false); setView(null); }} />
         </>
     )
 };

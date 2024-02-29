@@ -8,7 +8,7 @@ import ApproveDelivery from "../Customer/Requests/ApproveDelivery";
 import ApproveRequest from "../Customer/Requests/ApproveRequest";
 import OverallStats from "../Customer/Requests/OverallStats";
 
-const SuperAdminHome = ({totalassigns,approvelist}) => {
+const SuperAdminHome = ({ totalassigns, approvelist }) => {
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
@@ -21,7 +21,7 @@ const SuperAdminHome = ({totalassigns,approvelist}) => {
                             </div>
                         </div>
                         <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
-                            <ApproveRequest/>
+                            <ApproveRequest />
                         </div>
                     </div>
                     <div className="mb-5">
@@ -41,7 +41,7 @@ const SuperAdminHome = ({totalassigns,approvelist}) => {
                             </div>
                         </div>
                         <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3">
-                           <ApproveDelivery />
+                            <ApproveDelivery />
                         </div>
                     </div>
                     <OverallStats />
