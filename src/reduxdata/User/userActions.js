@@ -205,7 +205,7 @@ export const update_password = async (
   }
 };
 
-export const profile_update = async (data, token, dispatch) => {
+export const profile_update = async (data, token, dispatch, navigate, user) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}profile/update`;
@@ -215,8 +215,17 @@ export const profile_update = async (data, token, dispatch) => {
         "x-access-token": token,
       },
     };
-    const res = await axios.post(url, { name: data.name }, HEADERS);
+    const res = await axios.post(url, { name: data.name, colour: data?.colour }, HEADERS);
     if (res.data && res.data.status) {
+      const usercolor = data?.colour;
+      if (user) {
+        user.colour = usercolor;
+        localStorage.setItem("userDetails", JSON.stringify(user));
+        dispatch({
+          type: USER_UPDATE,
+          payload: user,
+        });
+      }
       toast.success("Profile updated successfully.");
       dispatch(set_update_user({ ...res.data.data, token: token }));
     } else {

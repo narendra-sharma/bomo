@@ -4,11 +4,11 @@ import { profile_update } from "../reduxdata/rootAction";
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-const EditProfile = ({ show, handleClose }) => {
+const EditProfile = ({ show, handleClose, user }) => {
   const [formData, setFormData] = useState({
     username: '',
-  });
-
+    colour: ""
+  })
   const [usernameError, setUsernameError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,25 +23,26 @@ const EditProfile = ({ show, handleClose }) => {
     }
 
     if (formData.username) {
-            const tokendata = JSON.parse(localStorage.getItem('userDetails'));
-           const usertoken = tokendata.token;
-           const userDataForm = {
-             name: formData.username,
-           }
-        await profile_update(
-          userDataForm,
-          usertoken,
-          navigate,
-          dispatch
-        );
-        handleClose();
+      const tokendata = JSON.parse(localStorage.getItem('userDetails'));
+      const usertoken = tokendata.token;
+      const userDataForm = {
+        name: formData.username,
+        colour: formData.colour
+      }
+      await profile_update(
+        userDataForm,
+        usertoken,
+        navigate,
+        dispatch,
+        user
+      );
+      handleClose();
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
     if (name === 'username') {
       setUsernameError(value === '' ? 'Username is Required' : null);
     }
@@ -52,6 +53,7 @@ const EditProfile = ({ show, handleClose }) => {
       const storedUsername = JSON.parse(localStorage.getItem('userDetails'));
       setFormData({
         username: storedUsername.name || '',
+        colour: storedUsername?.colour || ""
       });
       setUsernameError(null);
     }
@@ -65,7 +67,7 @@ const EditProfile = ({ show, handleClose }) => {
         </Modal.Header>
         <Modal.Body className="py-4">
           <form>
-            <div className="mb-4">
+            <div className="mb-4 d-flex">
               <input
                 type="text"
                 name="username"
@@ -75,33 +77,35 @@ const EditProfile = ({ show, handleClose }) => {
                 placeholder="Username"
               />
               {usernameError ? <p class="mt-1 error fw-bold">{usernameError}</p> : null}
+              <input type="color" value={formData?.colour} name="colour" onChange={handleInputChange} />
             </div>
           </form>
           <div className="text-end">
-            <Button variant="secondary"  className ="rounded-pill px-4" onClick={handleClose}>
+            <Button variant="secondary" className="rounded-pill px-4" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" className ="rounded-pill px-4 ms-3" onClick={(e) => handleSubmit(e, formData)}>
+            <Button variant="primary" className="rounded-pill px-4 ms-3" onClick={(e) => handleSubmit(e, formData)}>
               Update Profile
             </Button>
           </div>
-          </Modal.Body>
+        </Modal.Body>
       </Modal>
     </>
   );
 };
 
 const mapStateToProps = (state) => {
-    return {
-      token: state.auth.token,
-      user: state.auth.user,
-    };
+  return {
+    token: state.auth.token,
+    user: state.auth.user,
   };
-  
-  const mapDispatchToProps = () => {
-    return {
-        profile_update,
-    };
+};
+
+const mapDispatchToProps = () => {
+  return {
+    profile_update,
+
   };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
