@@ -62,7 +62,7 @@ const DesignerHome = ({user, activerequest, pollrequests}) => {
                         )) : <EmptyList name="Active Request" />}
                     </div>
                     <div className="mt-5">
-                        <div className="mx-md-5 mx-sm-0 mb-4 d-flex"><h3 >Requests Pool</h3>
+                        <div className="mx-md-5 mx-sm-0 mb-4 d-flex align-items-center gap-4"><h3 class="mb-0">Requests Pool</h3>
                             <span>{pollrequests?.length} requests</span>
                         </div>
 
