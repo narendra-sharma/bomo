@@ -93,13 +93,14 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                       borderRadius: 25,
                     }}
                   ></div>
-                  : <div style={{
+                  : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
                     backgroundColor: "black",
                     width: 30,
                     height: 30,
                     borderRadius: 25,
                   }}
-                  ></div>}
+                  ></div> :
+                  <img src={`${userImage}`} alt="img" />}
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b className="d-none d-md-block">{cuser?.name}</b>
                 <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : (cuser?.parent ? roles.find(r => r.value === cuser?.role).label : userrole)}</span>

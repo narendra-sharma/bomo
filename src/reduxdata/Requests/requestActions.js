@@ -608,7 +608,7 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
       request_name : requestdata.requestName,
       request_type : requestdata.requestype,
       description: requestdata.description,
-      file_type: requestdata.file_type,
+      file_type: requestdata.fileType,
       size: requestdata.size,
       references: requestdata.references,
       transparency: requestdata.transparency,
@@ -618,7 +618,7 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
       requestdetails.request_id = requestdata.request_id
     }
 
-    if (requestdata.uploadFiles && requestdata.uploadFiles.length > 0) {
+    if (requestdata.uploadFiles && requestdata.uploadFiles?.length > 0) {
        requestdetails.image = requestdata.uploadFiles
     }
 
