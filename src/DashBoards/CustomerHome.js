@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DraftRequests from "../Customer/Requests/DraftRequests";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import { connect, useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import EmptyList from "../Common/EmptyList";
 
 const CustomerHome = ({ activerequest, user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activerequests, setActiverequests] = useState([]);
   useEffect(() => {
     get_customeradmin_active_requestslist(dispatch, user?.token);
@@ -20,6 +21,23 @@ const CustomerHome = ({ activerequest, user }) => {
   useEffect(() => {
     setActiverequests(activerequest);
   }, [activerequest]);
+
+  const handleView = (request) => {
+    const data = {
+      _id: request?._id,
+      request_name: request?.request_name,
+      request_type: request?.request_type, 
+      delivery_date: request?.delivery_date,
+      description: request?.description,
+      size: request?.size,
+      file_type: request?.file_type,
+      transparency: request?.transparency,
+      references: request?.references,
+      brandname: request?.brand_profile?.brandname,
+      status: 'production'
+    };
+    navigate('/request-expand', { state: data});
+  };
 
   return (
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -49,10 +67,10 @@ const CustomerHome = ({ activerequest, user }) => {
             <div className="col-lg-6 col-md-12 bg-white rounded mb-5">
               <div className="review-content bg-white px-3 py-5 rounded">
                 <div className="table-responsive">
-                  {activerequests.length>0 ? activerequests?.map((request) => (
+                  {activerequests?.length>0 ? activerequests?.map((request) => (
                     <table className="table table-borderless">
                       <tbody>
-                        <tr>
+                        <tr onClick={() => handleView(request)}>
                           <td className="text-center" style={{width:"119px"}}><ColorCode request={request} /></td>
                           <td>
                             <p>{request?.brand_profile?.brandname}</p>

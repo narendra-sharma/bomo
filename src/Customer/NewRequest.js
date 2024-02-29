@@ -21,7 +21,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const fileTypes = ['Mp4', 'Mov', 'gif'];
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
-  const [imagePreview, setImagePreview] = useState(null);
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);
 
@@ -116,7 +115,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         } else if (allowedFileTypes.includes(UploadImage.type)) {
           fileInputRef.current.click();
           const newpath = await new_image_upload(dispatch, UploadImage);
-          console.log(newpath);
           setUploadFiles(prevfile => [...prevfile, newpath]);
           setFormData({
             ...formData, uploadFiles: uploadFiles,
@@ -180,13 +178,13 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
     const fieldsToValidate = [
       { name: 'requestName', validation: (value) => value === '' ? 'Request Name is Required' : '' },
-      { name: 'brandProfile', validation: (value) => value === '' ? 'Brand Profile is Required' : '' },
+      { name: 'brandProfile', validation: (value) => value === undefined ? 'Brand Profile is Required' : '' },
       { name: 'requestype', validation: (value) => value === '' ? 'Select your Request Type' : '' },
       { name: 'description', validation: (value) => value === '' ? 'Description is Required' : '' },
-      { name: 'fileType', validation: (value) => value === '' ? 'Select your filetype' : '' },
+      { name: 'fileType', validation: (value) => value === undefined ? 'Select your filetype' : '' },
       { name: 'size', validation: (value) => value === '' ? 'Select your size' : '' },
       { name: 'references', validation: (value) => value === '' ? 'Reference is Required' : '' },
-      { name: 'uploadFiles', validation: (value) => value === '' ? 'Upload your file' : '' },
+      { name: 'uploadFiles', validation: (value) => value === ''  ? 'Upload your file' : '' },
       { name: 'transparency', validation: (value) => value === '' ? 'Transparency is Required' : '' },
     ];
 
@@ -205,49 +203,46 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const handleSubmit = async (e, status) => {
     e.preventDefault();
 
-    if (status === 'pending') {
-      const isValid = validateForm();
-
-      if (!isValid) {
-        return;
-      }
-    }
-
     let newrequest = {
       requestName: formData.requestName,
       description: formData.description,
+      brandProfile: formData.brandProfile,
       requestype: formData.requestype,
       fileType: formData.fileType,
       size: formData.size,
       references: formData.references,
       transparency: formData.transparency,
-      uploadFiles: uploadFiles,
       status: status
     };
 
-    if (formData.brandProfile) {
-      newrequest.brandProfile = formData.brandProfile
-    }
-
     if (requestData) {
       newrequest.request_id = requestData?._id;
-      newrequest.imagetwo = requestData?.file.map(path => path)
+      newrequest.uploadFiles = [...uploadFiles, ...requestData?.file];
+    } else if (!requestData){
+      newrequest.uploadFiles = [...uploadFiles];
     }
 
-    if ((status === 'pending')) {
-      setIspop(true);
-      setNewData(newrequest);
-    } else if ((status === 'draft') && (formData.requestName === '')) {
-      toast.error('Atleast specify your Request Name!')
-    } else if ((status === 'draft') && (formData.requestName !== '')) {
-      await newRequest(newrequest, dispatch, usertoken, navigate);
-      console.log(newrequest);
-      console.log(uploadFiles);
+    if (status === 'pending') {
+      const isValid = validateForm();
+
+      if(isValid){
+        setIspop(true);
+        setNewData(newrequest);
+      } else if (!isValid) {
+        return;
+      }
+    } else if (status === 'draft') {
+      if(formData.requestName===''){
+        toast.error('Atleast specify your Request Name!')
+      } else if (formData.requestName !== ''){
+        await newRequest(newrequest, dispatch, usertoken, navigate);
+      }
     }
   };
 
   useEffect(() => {
     if (requestData) {
+      console.log(requestData);
       setImages(requestData.file.map(path => LOGO_URL + path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
       setFormData(prev => {
@@ -263,7 +258,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
           customsizes: [],
           references: requestData?.references,
           transparency: requestData?.transparency,
-          uploadFiles: requestData?.file,
+          uploadFiles: requestData?.file?.length > 0 ? requestData?.file : '',
           imageFile: requestData?.file
         })
       })
@@ -281,7 +276,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     if (isAddEdit) {
       setFormData((prevFormData) => ({ ...prevFormData, brandProfile: "", requestype: "", description: "", fileType: "", size: "", customsize: "", customsizes: [], references: "", transparency: "", uploadFiles: "", imageFile: "" }));
       setErrors({ requestName: null, brandProfile: null, description: null, fileType: null, size: null, references: null, transparency: null, uploadFiles: null, customerror: null });
-      setImagePreview(null);
       setClickedIndex(null);
       change_add_edit(dispatch);
     }

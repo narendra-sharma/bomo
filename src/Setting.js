@@ -71,13 +71,14 @@ const Setting = ({ userrole, profiledetails }) => {
                           borderRadius: 25,
                         }}
                       ></div>
-                      :<div style={{
+                      : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
                         backgroundColor: "black",
                         width: 30,
                         height: 30,
                         borderRadius: 25,
                       }}
-                      ></div>}
+                      ></div> :
+                      <img src={`${userImage}`} alt="img" />}
                     <p className="mb-0 user-email  ms-1 ms-lg-2">
                       <b className=" d-md-block">Name</b>
                       <span className="d-block">{user?.name}</span></p>

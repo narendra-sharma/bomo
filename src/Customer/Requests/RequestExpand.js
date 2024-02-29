@@ -61,10 +61,11 @@ const RequestExpand = ({ user, deliverrequests }) => {
             <div className="main-content-wraaper px-60 pt-md-2 pt-lg-5 pb-0">
                 <div className="mx-md-0 mx-lg-4 px-60 ">
                     <div className="order-completed px-5 py-4 rounded mb-5">
-                        <p className="mb-0 extra-dark-green">{receivedData?.status === 'completed' ? 'Order completed' : 'Delivered'}
+                        <p className="mb-0 extra-dark-green">{receivedData?.status === 'completed' ? 'Order completed' : receivedData?.status === 'production' ? 'Order in Production' : 'Delivered'}
                             <span className="d-block fw-bold">
                                 {receivedData?.status === 'completed' ? 'All good! You approved this order and files are ready to be used'
-                                    : 'Waiting for your review. Approve it to download the files or request feedback to modify the delivery'}
+                                    : receivedData?.status === 'production' ? `Delivery Scheduled for ${formatDate(receivedData?.delivery_date)}`
+                                        : 'Waiting for your review. Approve it to download the files or request feedback to modify the delivery'}
                             </span>
                         </p>
                     </div>
@@ -83,7 +84,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             <div className="col-md-5 col-lg-6 mb-3">
                                 <div className="d-flex  justify-content-end">
                                     <div className="delivery-date text-end ps-5">
-                                        <div className="fw-bold h6">Delivered on<span className="d-block h6">{formatDate(receivedData?.delivery_date)}</span></div>
+                                        <div className="fw-bold h6">Delivered {receivedData?.status==='production' ? 'expected':'on'}<span className="d-block h6">{formatDate(receivedData?.delivery_date)}</span></div>
                                     </div>
                                 </div>
 
@@ -112,9 +113,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     </table>
                                 </div>
                             </div>
-                            {deliverrequests?.data?.map((request) => (
-                                <div>
-                                    <div className="col-md-12">
+
+                            <div>
+                                <div className="col-md-12">
+                                    {deliverrequests ? deliverrequests?.data?.map((request) => (
                                         <div className="delivery-status-section bg-white p-4 rounded mt-3">
 
                                             {request?.request_id?.feedback_message &&
@@ -174,7 +176,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                             </div>
                                                             <div className="download-btn">
                                                                 <button className="rounded-pill px-3 py-1 fw-bold border-0" onClick={() => handleDownload(`designe/landscape/${request?.landscape}`)}>
-                                                                        Download
+                                                                    Download
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -193,12 +195,16 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                         </div>
                                                     </div>
                                                 </div>}
-                                        </div>
-                                    </div>
+                                        </div>)) : <div></div>}
                                 </div>
-                            ))}
+                            </div>
+
                         </div>
                     </div>
+                    {receivedData?.status === 'production' &&
+                        <div className="col-md-12">
+                            <span>Deliver Expected</span>
+                        </div>}
                 </div>
             </div>
         </div>
