@@ -33,16 +33,16 @@ const SharedRequest = () => {
       }
 
     return (
-        <div className="mx-md-3 mx-lg-5 mb-4 row align-items-center">
-            <div className="col-lg-4"></div>
-            <div className="col-lg-4 col-md-5 review-content">
-              {user?.subscription?.status !== 'active' && (getGraceTime() > 0) && <p className="mb-md-0 mb-3">You have still grace period of <span className="fw-bold">{getGraceTime()} days</span> for remaining requests. </p>}
-              <p className="mb-md-0 mb-3 text-mute text-center">{user?.subscription.status === 'inactive' ? 'Your subscription will end in ' : user?.subscription.status === 'paused' ? 'Your paused plan auto renews in ' : 'Your subscription plan auto renews in '} <span className="fw-bold">{getDifferece()} days</span> <span className="d-block">You have <span className="fw-bold">{user?.quantity} requests</span> left until {getNextBillingDate()}</span></p>
-            </div>
-            <div className="col-md-7 col-lg-4">
-              <NewRequestShared />
-            </div>
-          </div>
+      <div className="mx-md-3 mx-lg-5 mb-4 row align-items-center">
+        <div className="col-lg-4"></div>
+        <div className="col-lg-4 col-md-5 review-content">
+          {user?.subscription?.status !== 'active' && (getGraceTime() > 0) && <p className="mb-md-0 mb-3">You have still grace period of <span className="fw-bold">{getGraceTime()} days</span> for remaining requests. </p>}
+          <p className="mb-md-0 mb-3 text-mute text-center">{user?.subscription.status === 'inactive' ? 'Your subscription will end in ' : user?.subscription.status === 'paused' ? 'Your paused plan auto renews in ' : 'Your subscription plan auto renews in '} <span className="fw-bold">{getDifferece()} days</span> <span className="d-block">You have <span className="fw-bold">{user?.quantity===0?'no':user?.quantity} requests</span> left until {getNextBillingDate()}</span></p>
+        </div>
+        <div className="col-md-7 col-lg-4">
+          <NewRequestShared />
+        </div>
+      </div>
     )
 }
 

@@ -93,7 +93,6 @@ export const cancel_subscription = async (uToken, sid, dispatch) => {
   }
 };
 export const pause_subscription = async (user, dispatch) => {
-  console.log("ACTIONN USERRRRRR", user)
   try {
     dispatch(start_loading());
     const url = `${REACT_APP_BOMO_URL}stripe/subscription/pause/${user?.subscription?._id}`;
@@ -113,7 +112,6 @@ export const pause_subscription = async (user, dispatch) => {
   }
 };
 export const pause_subscription_superadmin = async (user, dispatch, subId, token, getSubscriptionId) => {
-  console.log("SUBSCRIBEDDDDD", getSubscriptionId);
   try {
     dispatch(start_loading());
     const url = `${REACT_APP_BOMO_URL}superAdmin/pause_subscription/${subId}`;

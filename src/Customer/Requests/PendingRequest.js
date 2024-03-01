@@ -6,19 +6,21 @@ import { get_admin_pending_requestlist } from "../../reduxdata/rootAction";
 import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
 import ColorCode from "../../Common/ColorCode";
-const PendingRequest = ({user, allRequest, total,search }) => {
+import { get_accepted_request } from "../../reduxdata/Requests/requestActions";
+const PendingRequest = ({ user, allRequest, total, search }) => {
   const [showAcceptModal, setshowAcceptModal] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    get_admin_pending_requestlist(dispatch, user?.token,1,10,search);
-  }, [dispatch,search]);
+    get_admin_pending_requestlist(dispatch, user?.token, 1, 10, search);
+    get_accepted_request(dispatch, user?.token, 1, 10, search);
+  }, [dispatch, search]);
   return (
     <div className="row mb-4">
       <h3 className="mb-3">Pending Requests</h3>
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
           <div className="review-content pending-request">
-            {(allRequest.length>0) ?
+            {(allRequest.length > 0) ?
               allRequest.map((item, index) => {
                 return (
                   <div className="table-responsive" key={index}>
@@ -26,9 +28,9 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                       <tbody>
                         <tr>
                           <td className="text-center">
-                           <ColorCode request={item} />
+                            <ColorCode request={item} />
                           </td>
-                          <td style={{width:"170px" , paddingLeft:"25px"}}>
+                          <td style={{ width: "170px", paddingLeft: "25px" }}>
                             <p>
                               <span className="fw-bold">{item?.user_id?.company}</span>{" "}
                               <span className="d-block">
@@ -36,7 +38,7 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                               </span>{" "}
                             </p>
                           </td>
-                          <td style={{width:"140px"}}>
+                          <td style={{ width: "140px" }}>
                             <p>
                               <span className="fw-bold">Status</span>{" "}
                               <span className="d-block text-capitalize">{item?.status}</span>
@@ -84,15 +86,15 @@ const PendingRequest = ({user, allRequest, total,search }) => {
                   </div>
                 );
               })
-              : <EmptyList name="Pending Request"/>}
-              {total > 0 && (
-                <CustomPagination
-                  total={total}
-                  onPageChange={(newPage, newLimit) => {
-                    get_admin_pending_requestlist(dispatch, user?.token, newPage, newLimit, search);
-                  }}
-                />
-              )}
+              : <EmptyList name="Pending Request" />}
+            {total > 0 && (
+              <CustomPagination
+                total={total}
+                onPageChange={(newPage, newLimit) => {
+                  get_admin_pending_requestlist(dispatch, user?.token, newPage, newLimit, search);
+                }}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -23,8 +23,6 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
         return `${time}`;
     };
 
-    console.log("ASDJGHQWUEHWE", expanddetails);
-
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="expand-request view-as-customer-popup">
             <Modal.Body className="p-3 px-md-5 py-3">
