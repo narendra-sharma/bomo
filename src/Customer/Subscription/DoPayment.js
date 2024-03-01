@@ -7,12 +7,10 @@ import { pay_now } from "../../reduxdata/PlansPayments/planActions";
 import { useDispatch } from "react-redux";
 import visa from '../../images/visa.png';
 import CardDetailShow from "../Sahred/CardDetail";
-import PaymentDetails from "../../Modals/PaymentDetails";
 const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
   const dispatch = useDispatch();
   const [cardDetails, setCardDetails] = useState(null);
   const [isDefault, setIsDefault] = useState(false);
-  const [showAcceptModal, setshowAcceptModal] = useState(false);
   const [card, setCard] = useState({
     name: user?.address ? user?.address?.name : (user?.name && (user?.name.split(' ').length > 0)) ? user?.name.split(' ')[0] : '',
     surname: user?.address ? user?.address?.surname : (user?.name && (user?.name.split(' ').length > 1)) ? user?.name.split(' ')[1] : '',
@@ -41,8 +39,6 @@ const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
     vatNumber: ''
   });
 
-  const [DataToSend, setDataToSend] = useState(null);
-  const [stripeInfo, setstripeInfo] = useState({});
   useEffect(() => {
     if (cards) {
       setCardDetails(cards);
@@ -171,14 +167,8 @@ const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
           cardToken: token?.id,
           ...card
         };
-
-        if (user?.subscription) {
-          setstripeInfo(token);
-          setDataToSend(data);
-          setshowAcceptModal(true);
-        } else {
-          pay_now(user?.token, token, data, dispatch)
-        }
+        
+        doPay(token, data);
       }
       return error ? false : true;
     } else {
@@ -188,18 +178,17 @@ const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
         quantity: pieces,
         ...card
       };
-      if (user?.subscription) {
-        setDataToSend(data);
-        setshowAcceptModal(true);
-      } else {
-        pay_now(user?.token, {}, data, dispatch)
-      }
+      doPay({},data);
     }
   };
-  const doPay = (label) => {
-    let data = { ...DataToSend };
-    data[label] = 1;
-    pay_now(user?.token, stripeInfo, data, dispatch);
+  const doPay=(token,data)=>{
+    if(user?.plan_id && (user.quantity===0)){
+      data.current_month=1;
+    }
+    if(user?.plan_id && (user.quantity>0)){
+      data.next_month=1;
+    }
+    pay_now(user?.token, token, data, dispatch);
   }
   return (
     <>
@@ -229,7 +218,6 @@ const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
               <div className="d-flex align-items-center justify-content-end">
                 <button type="submit" className="btn pay-now rounded px-5 mt-3" disabled={!stripe || !elements}>Pay Now</button>
               </div>
-              <PaymentDetails heading={"TEST"} showAcceptModal={showAcceptModal} setshowAcceptModal={setshowAcceptModal} doPay={(val) => doPay(val)} />
             </div>
           </div>
         </div>
