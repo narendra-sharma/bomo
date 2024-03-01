@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
-import { get_customer_card, get_user_subscription } from "../../reduxdata/PlansPayments/planActions";
+import { format, add } from "date-fns";
 const { REACT_APP_STRIPE_PUBLIC_KEY } = process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -39,6 +39,11 @@ const SubscriptionSteps = (props) => {
       type: PAY_NOW
     });
   }
+  const getRenew=()=>{
+    const currentDate = new Date();
+    const futureDate = add(currentDate, { days: 30 });
+    return format(futureDate, 'MMM dd');
+  }
   return (
     <>
       <div className="review-main-content modify-subscription  bg-white py-5 px-3 rounded">
@@ -54,7 +59,18 @@ const SubscriptionSteps = (props) => {
           <div className="mb-5 text-center">
             <button type="button" className="btn update-btn rounded-pill px-4 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
           </div>
-          <p className="text-center">Subscriptions are billed monthly at the start of the period.</p>
+          <p className="text-center">
+            {user?.plan_id
+              ?(user?.quantity===0)
+              ?<>
+                You are changing your plan to <b>{pieces}</b> monthly pieces. Your new plan starts today and renews on <b>{getRenew()}</b>.
+              </>
+              :<>
+               Subscriptions are billed every <b>30</b> days. You will be charged <b>${prize}</b> on <b>{format(new Date(user?.next_billing_date), 'MMM dd')}</b>.
+              </>
+              :'Subscriptions are billed monthly at the start of the period.'
+            }
+          </p>
         </>}
         {step === 1 && <Elements stripe={stripePromise}>
           <ElementsConsumer>

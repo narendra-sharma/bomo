@@ -3,6 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { get_plans } from "../reduxdata/rootAction";
 import imageLogo from '../images/bomo-dark-green.svg';
 import logoImage from '../images/bomo-light-green.svg';
+import { format } from "date-fns";
 const SubscriptionSteps = (props) => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(props.user);
@@ -67,9 +68,25 @@ const SubscriptionSteps = (props) => {
     }
     return (
         <div className={props.isSubscribe?'':'container bg-transparent calculator-screen pt-4'}>
-            <h2 className="text-center">{user?.plan_id ? 'Modify your' : 'Start using'} <span className="subscription-heading">{user?.plan_id ? 'Subscription' : <img src={props.isSubscribe?imageLogo:logoImage} alt="Bomo logo" />}</span> </h2>
+            <h2 className="text-center">
+                {user?.plan_id ? user?.quantity===0?'Need more':'Modify your' : 'Start using'} 
+                <span className="subscription-heading">
+                    {user?.plan_id ? 
+                      user?.quantity===0? ' Pieces before '+format(new Date(user?.next_billing_date), 'MMM dd')+'?'
+                    :' Subscription' 
+                    : <img src={props.isSubscribe?imageLogo:logoImage} alt="Bomo logo" />
+                    }
+                </span> 
+            </h2>
             <p className="sub-heading text-center  mt-3">
-                {user?.plan_id ? `Your current plan includes ${user?.subscription?.quantity} pieces per month. Need to change it?`
+                {user?.plan_id ? 
+                user?.quantity===0?<>
+                  You finished the <b>{user?.subscription?.quantity}</b> pieces included in your plan.
+                  <br />Update your subscription to continue making requests today.
+                </>
+                :<>
+                  Your current plan includes <b>{user?.subscription?.quantity}</b> pieces per month. Need to change it?
+                </>
                     : <>
                         Choose the number of Pieces you want to create monthly.
                         <br />Need more? You can modify it next month
