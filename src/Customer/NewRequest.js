@@ -7,7 +7,6 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Select } from "chakra-react-select";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -396,7 +395,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
 
-                          <select  name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
+                          <select name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
                             <option value="" disabled>Select</option>
                             {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                             {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
