@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useRevalidator } from "react-router-dom";
 import { addBrand, deleteBrand, getbrandlist, uploadZip } from "../../reduxdata/rootAction";
 import ManageBrand from "./ManageBrand";
 import CustomPagination from "../../Common/CustomPagination";
@@ -15,7 +15,6 @@ const LOGO_URL = REACT_APP_BOMO_URL;
 
 const BrandProfile = ({ brands, total, user, zipfile_path }) => {
   const dispatch = useDispatch();
-  console.log("USERRRRRRRRR", user);
   const usertoken = user.token;
   const [handleshow, setHandleshow] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
@@ -266,11 +265,18 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                             </>}
                           </span>
                           <span className="edit gap-5 d-flex align-items-center justify-content-center">
-                            {console.log("ASDASDASDASDASDDASDASDAS", user?.role)}
                             {(isEdit && edit?.id === brand?._id) ?
                               <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}><span className="fa fa-times"></span></Link>
                               :
-                              user?.role !== "customer" && <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
+                              user?.role !== "customer_admin" && user?._id == brand?.user_id &&
+                              <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
+
+                            }
+                            {user?.role == "customer_admin" &&
+                              (isEdit && edit?.id === brand?._id) ?
+                              <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}><span className="fa fa-times"></span></Link>
+                              :
+                              user?.role == "customer_admin" && <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
                             }
                           </span>
                         </div>
