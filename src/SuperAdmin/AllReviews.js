@@ -12,7 +12,6 @@ const AllReviews = ({ user, reviews, total }) => {
     useEffect(() => {
         get_all_review_requests(dispatch, user?.token, 1, 10);
     }, []);
-    console.log(reviews);
     return (
         <div class="accordion-item mb-5">
             <h3 class="accordion-header" id="panelsStayOpen-headingTwo">

@@ -7,7 +7,6 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Select from "react-select";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -443,7 +442,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                             onChange={(selected) => handleSizes(selected)}
                             placeholder="Select size"
                             isClearable={false}  />
-                            
+
                           {(formData.size === 'Custom') && <>
                             <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>

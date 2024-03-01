@@ -8,6 +8,8 @@ import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 import { saveAs } from 'file-saver';
+import designImage3 from "../../images/nine-sixteen-1.png";
+import designImage4 from "../../images/sixteen-nine2.png";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -202,9 +204,40 @@ const RequestExpand = ({ user, deliverrequests }) => {
                         </div>
                     </div>
                     {receivedData?.status === 'production' &&
-                        <div className="col-md-12">
-                            <span>Deliver Expected</span>
-                        </div>}
+                        // <div className="col-md-12">
+                        //     <span>Deliver Expected</span>
+                        // </div>
+                    <div className="delivery-status-section active-request p-5 rounded mt-4"> 
+                        <div className="row justify-content-center">
+                            <div className="col-md-4 justify-content-center align-self-center">
+                                <div className="delivery-status fw-bold mb-2">
+                                <i className="fa-solid fa-circle-minus minus"></i>  Delivery Expected
+                                </div>
+                                <p className="status-date text-secondary mb-0">
+                                    17/03/2023 14:11
+                                </p>
+                            </div>
+                            <div className="col-md-4 d-flex text-center justify-content-center">
+                                <div className="statusbar-section d-flex flex-column justify-content-between">
+                                    <div className="delivery-status fw-bold">9:16</div>
+                                    <div className="">
+                                    <img src={designImage3} alt="Image" />
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className="col-md-4 d-flex text-center justify-content-center">
+                                <div className="statusbar-section d-flex flex-column justify-content-evenly">
+                                    <div className="delivery-status fw-bold">16:9</div>
+                                    <div className="">
+                                    <img src={designImage4} alt="Image" />
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
                 </div>
             </div>
         </div>

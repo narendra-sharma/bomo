@@ -7,10 +7,10 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST,GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE, GET_ADMIN_ACCEPTED_LIST } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
-export const get_draft_requestlist = async (dispatch, token, page=1, limit=10) => {
+export const get_draft_requestlist = async (dispatch, token, page = 1, limit = 10) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}customerAdmin/request-listing?page=${page}&limit=${limit}`;
@@ -32,10 +32,10 @@ export const get_draft_requestlist = async (dispatch, token, page=1, limit=10) =
   }
 };
 
-export const get_admin_pending_requestlist = async (dispatch, token, page=1, limit=10,search) => {
+export const get_admin_pending_requestlist = async (dispatch, token, page = 1, limit = 10, search) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -54,8 +54,30 @@ export const get_admin_pending_requestlist = async (dispatch, token, page=1, lim
   }
 };
 
-export const get_admin_assign_requestlist = async (dispatch, token, page=1, limit=10) => {
-  dispatch(start_loading);
+export const get_accepted_request = async (dispatch, token, page = 1, limit = 10, search) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/req-list?page=${page}&limit=${limit}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res?.data.status) {
+      dispatch({ type: GET_ADMIN_ACCEPTED_LIST, payload: res.data?.data });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+}
+
+export const get_admin_assign_requestlist = async (dispatch, token, page = 1, limit = 10) => {
+  dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/accepted-request-listing?page=${page}&limit=${limit}`;
     const HEADERS = {
@@ -72,7 +94,7 @@ export const get_admin_assign_requestlist = async (dispatch, token, page=1, limi
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
-    dispatch(stop_loading);
+    dispatch(stop_loading());
   }
 };
 
@@ -105,7 +127,7 @@ export const assign_admin_request = async (requestdata, dispatch, token) => {
     const HEADERS = {
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,  
+        "x-access-token": token,
       },
     };
     const requestDataToSend = {
@@ -113,10 +135,10 @@ export const assign_admin_request = async (requestdata, dispatch, token) => {
       primary_designer: requestdata.primary_designer,
       backup_designer: requestdata.backup_designer,
     };
-    const res = await axios.put(url,JSON.stringify(requestDataToSend),HEADERS);
+    const res = await axios.put(url, JSON.stringify(requestDataToSend), HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_admin_assign_requestlist(dispatch,token);
+      get_admin_assign_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }
@@ -136,10 +158,10 @@ export const poll_request_apply = async (requestdata, dispatch, token) => {
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url,{}, HEADERS);
+    const res = await axios.put(url, {}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.msg);
-      get_designer_pool_requestlist(dispatch,token);
+      get_designer_pool_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.msg);
     }
@@ -159,11 +181,11 @@ export const change_request_status = async (dispatch, token, id, status) => {
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url, { status: status,request_id:id }, HEADERS);
+    const res = await axios.put(url, { status: status, request_id: id }, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
       get_admin_pending_requestlist(dispatch, token);
-    }else {
+    } else {
       toast.error(res.data?.message);
     }
   } catch (error) {
@@ -173,7 +195,7 @@ export const change_request_status = async (dispatch, token, id, status) => {
   }
 };
 
-export const desginer_accept_assignrequest = async (dispatch,token,request_id,email,designer_id,status) => {
+export const desginer_accept_assignrequest = async (dispatch, token, request_id, email, designer_id, status) => {
   dispatch(start_loading);
   try {
     const url = `${REACT_APP_BOMO_URL}designer/accept-request?request_id=${request_id}&email=${email}&designer_id=${designer_id}&status=${status}`;
@@ -182,7 +204,7 @@ export const desginer_accept_assignrequest = async (dispatch,token,request_id,em
         "x-access-token": token,
       },
     };
-    const res = await axios.put(url,{}, HEADERS);
+    const res = await axios.put(url, {}, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
       get_designer_assigned_requestlist(dispatch, token);
@@ -227,8 +249,8 @@ export const get_designer_active_requestslist = async (dispatch, token) => {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_DESIGNER_ACTIVE_REQUEST_LIST, payload: res.data });
     }
   } catch (error) {
@@ -247,8 +269,8 @@ export const get_customeradmin_active_requestslist = async (dispatch, token) => 
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_CUSTOMER_ACTIVE_REQUEST_LIST, payload: res?.data });
     }
   } catch (error) {
@@ -258,7 +280,7 @@ export const get_customeradmin_active_requestslist = async (dispatch, token) => 
   }
 };
 
-export const designer_deliever_request = async (dispatch,token,data) => {
+export const designer_deliever_request = async (dispatch, token, data) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -272,8 +294,8 @@ export const designer_deliever_request = async (dispatch,token,data) => {
         "x-access-token": token,
       }
     };
-    const res = await axios.put(url,formData,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.put(url, formData, HEADERS);
+    if (res.data && res.data.status) {
       toast.success(res.data?.message);
       dispatch({ type: SUBMIT_NOW, payload: true });
     } else {
@@ -286,7 +308,7 @@ export const designer_deliever_request = async (dispatch,token,data) => {
   }
 };
 
-export const get_approve_delivery_list = async (token,dispatch) => {
+export const get_approve_delivery_list = async (token, dispatch) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/design_review`;
@@ -295,8 +317,8 @@ export const get_approve_delivery_list = async (token,dispatch) => {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, payload: res?.data });
     }
   } catch (error) {
@@ -306,7 +328,7 @@ export const get_approve_delivery_list = async (token,dispatch) => {
   }
 };
 
-export const superadmin_approve_delivery = async (dispatch,token,approvedata) => {
+export const superadmin_approve_delivery = async (dispatch, token, approvedata) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/design_action`;
@@ -317,14 +339,14 @@ export const superadmin_approve_delivery = async (dispatch,token,approvedata) =>
       }
     };
     const requestdetails = {
-      request_id : approvedata._id,
-      status : approvedata.deliverystatus 
+      request_id: approvedata._id,
+      status: approvedata.deliverystatus
     };
     if (approvedata.message) {
       requestdetails.message = approvedata.message;
     };
-    const res = await axios.put(url,JSON.stringify(requestdetails),HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.put(url, JSON.stringify(requestdetails), HEADERS);
+    if (res.data && res.data.status) {
       toast.success(res.data?.message);
       get_approve_delivery_list(token, dispatch);
     } else {
@@ -337,17 +359,17 @@ export const superadmin_approve_delivery = async (dispatch,token,approvedata) =>
   }
 };
 
-export const get_feedback_review_requestlist = async (dispatch,token,newPriority,designId) => {
+export const get_feedback_review_requestlist = async (dispatch, token, newPriority, designId) => {
   dispatch(start_loading());
   try {
-    const url = designId ? `${REACT_APP_BOMO_URL}user/review-requests?design_id=${designId}&priority=${newPriority}`:`${REACT_APP_BOMO_URL}user/review-requests`;
+    const url = designId ? `${REACT_APP_BOMO_URL}user/review-requests?design_id=${designId}&priority=${newPriority}` : `${REACT_APP_BOMO_URL}user/review-requests`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_FEEDBACK_QUE, payload: res?.data });
     } else {
       toast.error(res.data?.message);
@@ -359,7 +381,7 @@ export const get_feedback_review_requestlist = async (dispatch,token,newPriority
   }
 };
 
-export const get_superadmin_all_activerequests = async (token,dispatch) => {
+export const get_superadmin_all_activerequests = async (token, dispatch) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/priority_list`;
@@ -368,8 +390,8 @@ export const get_superadmin_all_activerequests = async (token,dispatch) => {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_ALL_ACTIVE_REQUEST_LIST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
@@ -381,7 +403,7 @@ export const get_superadmin_all_activerequests = async (token,dispatch) => {
   }
 };
 
-export const review_delivery_request_customer_admin = async (dispatch,token,reviewdata) => {
+export const review_delivery_request_customer_admin = async (dispatch, token, reviewdata) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}user/feedback`;
@@ -392,16 +414,16 @@ export const review_delivery_request_customer_admin = async (dispatch,token,revi
       }
     };
     const reviewdetails = {
-      request_id : reviewdata._id,
-      status : reviewdata.reviewstatus 
+      request_id: reviewdata._id,
+      status: reviewdata.reviewstatus
     };
     if (reviewdetails.status === 'rejected') {
       reviewdetails.message = reviewdata.message;
     };
-    const res = await axios.put(url,JSON.stringify(reviewdetails),HEADERS);
-    if(res.data && res.data.status) {
-        toast.success(res.data?.message);
-        dispatch({ type: SUBMIT_NOW, payload: true });
+    const res = await axios.put(url, JSON.stringify(reviewdetails), HEADERS);
+    if (res.data && res.data.status) {
+      toast.success(res.data?.message);
+      dispatch({ type: SUBMIT_NOW, payload: true });
     } else {
       toast.error(res.data?.message);
     }
@@ -412,7 +434,7 @@ export const review_delivery_request_customer_admin = async (dispatch,token,revi
   }
 };
 
-export const get_past_requests_for_customer_admin = async (dispatch,token, page=1, limit=10) => {
+export const get_past_requests_for_customer_admin = async (dispatch, token, page = 1, limit = 10) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}customer/past_request_data?page=${page}&limit=${limit}`;
@@ -421,8 +443,8 @@ export const get_past_requests_for_customer_admin = async (dispatch,token, page=
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_ALL_PAST_REQUEST_LIST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
@@ -434,7 +456,7 @@ export const get_past_requests_for_customer_admin = async (dispatch,token, page=
   }
 };
 
-export const get_past_requests_for_designer = async (dispatch,token, page=1, limit=10) => {
+export const get_past_requests_for_designer = async (dispatch, token, page = 1, limit = 10) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}designer/past-request?page=${page}&limit=${limit}`;
@@ -443,8 +465,8 @@ export const get_past_requests_for_designer = async (dispatch,token, page=1, lim
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_DESIGNER_PAST_REQUEST_LIST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
@@ -456,7 +478,7 @@ export const get_past_requests_for_designer = async (dispatch,token, page=1, lim
   }
 };
 
-export const get_delivered_requests = async (dispatch,token,deliverId) => {
+export const get_delivered_requests = async (dispatch, token, deliverId) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}user/deliveries?request_id=${deliverId}`;
@@ -465,8 +487,8 @@ export const get_delivered_requests = async (dispatch,token,deliverId) => {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_DELIVER_REQUEST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
@@ -487,8 +509,8 @@ export const get_expanded_request_detail = async (dispatch, token, requestId) =>
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
       dispatch({ type: GET_EXPAND_REQUEST_DETAILS, payload: res.data });
     }
   } catch (error) {
@@ -498,18 +520,18 @@ export const get_expanded_request_detail = async (dispatch, token, requestId) =>
   }
 };
 
-export const get_customers_payment_history = async (dispatch, token,search,useFor, page=1, limit=10) => {
+export const get_customers_payment_history = async (dispatch, token, search, useFor, page = 1, limit = 10) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}${useFor==='customer'?'payment-history':'designer-payment-history'}?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const url = `${REACT_APP_BOMO_URL}${useFor === 'customer' ? 'payment-history' : 'designer-payment-history'}?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
-      dispatch({ type: useFor==='customer'?GET_CUSTOMERS_PAYMENT_HISTORY:GET_DESIGNERS_PAYMENT_HISTORY, payload: res.data,useFor:useFor });
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: useFor === 'customer' ? GET_CUSTOMERS_PAYMENT_HISTORY : GET_DESIGNERS_PAYMENT_HISTORY, payload: res.data, useFor: useFor });
     };
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
@@ -518,18 +540,18 @@ export const get_customers_payment_history = async (dispatch, token,search,useFo
   }
 };
 
-export const get_all_draft_requests = async (dispatch,token,page=1,limit=10,search) => {
+export const get_all_draft_requests = async (dispatch, token, page = 1, limit = 10, search) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/draft_requests?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/draft_requests?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
-      dispatch({ type: GET_ALL_DRAFTS, payload:  res.data});
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_ALL_DRAFTS, payload: res.data });
     }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
@@ -538,18 +560,18 @@ export const get_all_draft_requests = async (dispatch,token,page=1,limit=10,sear
   }
 };
 
-export const get_all_review_requests = async (dispatch,token,page=1,limit=10,search) => {
+export const get_all_review_requests = async (dispatch, token, page = 1, limit = 10, search) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/ready_for_review_requests?page=${page}&limit=${limit}${search?'&search='+search:''}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/ready_for_review_requests?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
       }
     };
-    const res = await axios.get(url,HEADERS);
-    if(res.data && res.data.status) {
-      dispatch({ type: GET_ALL_REVIEW_REQUESTS, payload: res.data});
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_ALL_REVIEW_REQUESTS, payload: res.data });
     }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
@@ -558,7 +580,7 @@ export const get_all_review_requests = async (dispatch,token,page=1,limit=10,sea
   }
 };
 
-export const new_image_upload = async (dispatch,imagedata) => {
+export const new_image_upload = async (dispatch, imagedata) => {
   dispatch(start_loading());
   try {
     const formData = new FormData();
@@ -580,13 +602,13 @@ export const new_image_upload = async (dispatch,imagedata) => {
   }
 }
 
-export const image_download = async (dispatch, imgfile) =>{
+export const image_download = async (dispatch, imgfile) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}download?file=${imgfile}`;
     const res = await axios.get(url);
-    if(res) {
-      dispatch({type:GET_DOWNLOAD_PATH, payload: res.data.path });
+    if (res) {
+      dispatch({ type: GET_DOWNLOAD_PATH, payload: res.data.path });
     }
   } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
@@ -595,15 +617,15 @@ export const image_download = async (dispatch, imgfile) =>{
   }
 };
 
-export const image_delete = async (dispatch,imgpath,requestId) => {
+export const image_delete = async (dispatch, imgpath, requestId) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}removeImage?file=${imgpath}&request_id=${requestId}`;
     const res = await axios.delete(url);
-    if(res.data && res.data.status) {
+    if (res.data && res.data.status) {
       toast.success('Image Removed Successfully');
     }
-  }catch (error) {
+  } catch (error) {
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());
@@ -614,14 +636,14 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}customer/request_create`
-    const headers = { 
+    const headers = {
       "Content-Type": "application/json",
       "x-access-token": token,
     };
-    
+
     const requestdetails = {
-      request_name : requestdata.requestName,
-      request_type : requestdata.requestype,
+      request_name: requestdata.requestName,
+      request_type: requestdata.requestype,
       description: requestdata.description,
       file_type: requestdata.fileType,
       size: requestdata.size,
@@ -634,22 +656,22 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
     }
 
     if (requestdata.uploadFiles && requestdata.uploadFiles?.length > 0) {
-       requestdetails.image = requestdata.uploadFiles
+      requestdetails.image = requestdata.uploadFiles
     }
 
-    if(requestdata.brandProfile){
-       requestdetails.brand_profile = requestdata.brandProfile
-      }
+    if (requestdata.brandProfile) {
+      requestdetails.brand_profile = requestdata.brandProfile
+    }
 
     const res = await axios.post(url, JSON.stringify(requestdetails), { headers });
     if (res.data && res.data.status) {
-      get_user_subscription({token:token},dispatch);
-      get_draft_requestlist(dispatch, token); 
+      get_user_subscription({ token: token }, dispatch);
+      get_draft_requestlist(dispatch, token);
       change_add_edit(dispatch);
       toast.success(`Request ${requestdata?.request_id ? 'updated' : requestdata?.status === 'draft' ? 'drafted' : 'Created'} Successfully`);
       dispatch({ type: SUBMIT_NOW, payload: requestdata?.status === 'pending' ? true : false });
-      dispatch({ type: GET_NEW_REQUEST, payload: res?.data});
-      if(requestdata?.status === 'draft'){
+      dispatch({ type: GET_NEW_REQUEST, payload: res?.data });
+      if (requestdata?.status === 'draft') {
         navigate('/');
       }
     } else {
@@ -663,7 +685,7 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
 };
 
 export const get_edit_request_data = (requestdetails) => {
-    return ({ type: GET_EDIT_REQUEST_DATA, payload: requestdetails });
+  return ({ type: GET_EDIT_REQUEST_DATA, payload: requestdetails });
 };
 
 export const deliever_request_details = (requestdata) => {
