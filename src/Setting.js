@@ -46,7 +46,7 @@ const Setting = ({ userrole, profiledetails }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          {((userrole === 'customer_admin' || userrole === 'customer') && user?.quantity && isSubscribe) && <SharedRequest />}
+          {((userrole === 'customer_admin' || userrole === 'customer') && user?.quantity > 0 && isSubscribe) && <SharedRequest />}
 
           <div className="review-main-content">
             <div className="mx-md-5 mx-sm-0 mb-4">

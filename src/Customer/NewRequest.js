@@ -38,7 +38,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     requestype: '',
     description: '',
     fileType: '',
-    size: '',
+    size: [],
     customsize: "",
     customsizes: [],
     references: '',
@@ -91,7 +91,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         break;
 
       case 'size':
-        setErrors({ ...errors, size: value === '' ? 'Please Select your size' : null });
+        setErrors({ ...errors, size: value?.length === 0 ? 'Please Select your size' : null });
         setFormData({ ...formData, size: value });
         break;
 
@@ -123,7 +123,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
           setFormData({
             ...formData, uploadFiles: uploadFiles,
           });
-          // const newImages = uploadedFiles?.map(file => URL.createObjectURL(file));
           setImages(prevImages => [
             ...prevImages,
             {
@@ -142,24 +141,24 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
   };
 
-  // const handleSizes = (selectedOptions) => {
-  //   const ratioRegex = /^\d+:\d*$/;
-  //   if (selectedOptions === null || selectedOptions.length === 0) {
-  //     setErrors({ ...errors, customerror: 'Please Select your size' });
-  //   } else {
-  //     const selectedValues = selectedOptions.map((option) => option.value);
-  
-  //     if (selectedValues.every((value) => ratioRegex.test(value))) {
-  //       setFormData({
-  //         ...formData,
-  //         size: selectedValues,
-  //       });
-  //       setErrors({ ...errors, size: '' });
-  //     } else {
-  //       setErrors({ ...errors, customerror: 'Please enter a valid size ratio' });
-  //     }
-  //   }
-  // };
+  const handleSizes = (selectedOptions) => {
+    console.log(selectedOptions);
+    const maximumselection = 2;
+    if (selectedOptions?.length === 0) {
+      setErrors({ ...errors, size: 'Please Select your size' });
+      return;
+    }
+
+    if (selectedOptions?.length > maximumselection) {
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      size: selectedOptions,
+    });
+    setErrors({ ...errors, size: '' });
+  };
 
   const handleCustomSizeChange = (e) => {
     const { name, value } = e.target;
@@ -211,7 +210,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       { name: 'requestype', validation: (value) => value === '' ? 'Select your Request Type' : '' },
       { name: 'description', validation: (value) => value === '' ? 'Description is Required' : '' },
       { name: 'fileType', validation: (value) => value === '' ? 'Select your filetype' : '' },
-      { name: 'size', validation: (value) => value === '' ? 'Select your size' : '' },
+      { name: 'size', validation: (value) => value?.length === 0 ? 'Select your size' : '' },
       { name: 'references', validation: (value) => value === '' ? 'Reference is Required' : '' },
       { name: 'uploadFiles', validation: (value) => value === '' ? 'Upload your file' : '' },
       { name: 'transparency', validation: (value) => value === '' ? 'Transparency is Required' : '' },
@@ -238,7 +237,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       brandProfile: formData.brandProfile,
       requestype: formData.requestype,
       fileType: formData.fileType,
-      size: formData.size,
+      size: formData.size.map(s=>s.value),
       references: formData.references,
       transparency: formData.transparency,
       status: status
@@ -257,6 +256,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (isValid && newrequest?.uploadFiles?.length >= 3) {
         setIspop(true);
         setNewData(newrequest);
+        console.log(newrequest);
       } else if ((isValid) && !(newrequest?.uploadFiles?.length >= 3)) {
         toast.error('Please Upload Atleast 3 files');
       }
@@ -264,6 +264,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (formData.requestName === '') {
         toast.error('Atleast specify your Request Name!')
       } else if (formData.requestName !== '') {
+        console.log(newrequest);
         await newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }
@@ -279,6 +280,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       }));
       setFiles(requestData?.file?.map(path => path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
+    
       setFormData(prev => {
         return ({
           ...prev,
@@ -287,7 +289,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
           requestype: requestData?.request_type || '',
           description: requestData?.description || '',
           fileType: requestData?.file_type || '',
-          size: requestData?.size || '',
+          size: requestData?.size.map((val) => {
+            const matchingSize = sizesupTo.find((size) => size.value === val);
+            return matchingSize || { label: val, value: val };
+          }),
           customsize: "",
           customsizes: [],
           references: requestData?.references || '',
@@ -314,6 +319,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       change_add_edit(dispatch);
     }
   }, [isAddEdit]);
+
   const getNextBillingDate = () => {
     let date;
     if (user && user?.next_billing_date) {
@@ -322,18 +328,32 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
     return format(new Date(date), 'MMM dd');
   }
+
   const handleDelete = async (imgpath, requestId, index) => {
-    await image_delete(dispatch, imgpath, requestId);
-    setFiles((prevImages) => {
-      const newImages = [...prevImages];
-      newImages.splice(index, 1);
-      return newImages;
-    });
-    setImages((prevpath) => {
-      const newPath = [...prevpath];
-      newPath.splice(index, 1);
-      return newPath;
-    });
+    if (requestData) {
+      await image_delete(dispatch, imgpath, requestId);
+      setFiles((prevImages) => {
+        const newImages = [...prevImages];
+        newImages.splice(index, 1);
+        return newImages;
+      });
+      setImages((prevpath) => {
+        const newPath = [...prevpath];
+        newPath.splice(index, 1);
+        return newPath;
+      });
+    } else if (!requestData) {
+      setUploadFiles((prevImages) => {
+        const newImages = [...prevImages];
+        newImages.splice(index, 1);
+        return newImages;
+      });
+      setImages((prevpath) => {
+        const newPath = [...prevpath];
+        newPath.splice(index, 1);
+        return newPath;
+      });
+    }
   };
 
   return (
@@ -414,13 +434,15 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <select name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
-                            <option value="" disabled>Select</option>
-                            {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
-                            {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
-                            {formData.customsizes && formData.customsizes.map((customSize, index) => (<option key={index} value={customSize}>{customSize}</option>))}
-                            <option value="Custom">Custom</option>
-                          </select>
+                          <Select
+                            name="size"
+                            isMulti={true}
+                            options={sizesupTo}
+                            value={formData?.size}
+                            onChange={(selected) => handleSizes(selected)}
+                            placeholder="Select size"
+                            isClearable={false}  />
+
                           {(formData.size === 'Custom') && <>
                             <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
@@ -455,7 +477,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                     {images.map((image, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
                         {/* <img src={`${image?.preview}`} alt="img"  height="300" /> */}
-                        <span className="d-block brand-assets">{image?.preview}</span>
+                        <span className="d-block brand-assets">{image?.apipath}</span>
                         <button
                           type="button"
                           className="btn btn-sm rounded-pill upload-file-close position-absolute"

@@ -8,6 +8,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
     const cArr = Country.getAllCountries();
     setCountries(cArr);
   }, []);
+  console.log(card);
   return (
     <>
       <div className="col-md-6">
