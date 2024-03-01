@@ -85,7 +85,7 @@ const SubscriptionSteps = (props) => {
                   <br />Update your subscription to continue making requests today.
                 </>
                 :<>
-                  Your current plan includes <b>{user?.subscription?.quantity}</b> pieces per month. Need to change it?
+                  Your current plan includes <b>{user?.subscription?.quantity}</b> pieces per month. Need to change it for next period?
                 </>
                     : <>
                         Choose the number of Pieces you want to create monthly.
