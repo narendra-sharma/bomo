@@ -7,6 +7,7 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Select } from "chakra-react-select";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -19,11 +20,17 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const usertoken = user.token;
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
+  const sizesupTo = [
+    { label: '16:9', value: '16:9' },
+    { label: '9:6', value: '9:6' },
+    { label: '1:1', value: '1:1' },
+    { label: '4:5', value: '4:5' }
+  ];
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);
-  const [files,setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -109,15 +116,21 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         const uploadedFiles = [...Fileupload];
         if (!Fileupload) {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
-        }  else if (Fileupload) {
+        } else if (Fileupload) {
           fileInputRef.current.click();
           const newpath = await new_image_upload(dispatch, UploadImage);
           setUploadFiles(prevfile => [...prevfile, newpath]);
           setFormData({
             ...formData, uploadFiles: uploadFiles,
           });
-          const newImages = uploadedFiles?.map(file => URL.createObjectURL(file));
-          setImages(prevImages => [...prevImages, ...newImages]);
+          // const newImages = uploadedFiles?.map(file => URL.createObjectURL(file));
+          setImages(prevImages => [
+            ...prevImages,
+            {
+              preview: URL.createObjectURL(UploadImage),
+              apipath: newpath
+            }
+          ]);
           setErrors({ ...errors, uploadFiles: '' });
         }
         break;
@@ -222,12 +235,11 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     if (status === 'pending') {
       const isValid = validateForm();
 
-      if (isValid && newrequest?.uploadFiles?.length >=3) {
+      if (isValid && newrequest?.uploadFiles?.length >= 3) {
         setIspop(true);
         setNewData(newrequest);
-      } else if (!isValid && !newrequest?.uploadFiles?.length >=3) {
+      } else if ((isValid) && !(newrequest?.uploadFiles?.length >= 3)) {
         toast.error('Please Upload Atleast 3 files');
-        
       }
     } else if (status === 'draft') {
       if (formData.requestName === '') {
@@ -240,7 +252,12 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
-      setImages(requestData?.file?.map(path => LOGO_URL + path));
+      setImages(requestData?.file?.map((path) => {
+        return {
+          preview: LOGO_URL + path,
+          apipath: path
+        }
+      }));
       setFiles(requestData?.file?.map(path => path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
       setFormData(prev => {
@@ -287,8 +304,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     return format(new Date(date), 'MMM dd');
   }
   const handleDelete = async (imgpath, requestId, index) => {
-     await image_delete(dispatch,imgpath,requestId);
-     setFiles((prevImages) => {
+    await image_delete(dispatch, imgpath, requestId);
+    setFiles((prevImages) => {
       const newImages = [...prevImages];
       newImages.splice(index, 1);
       return newImages;
@@ -378,7 +395,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <select name="size" type="select" className="form-control" value={formData?.size} onChange={handleInputChange}>
+
+                          <select  name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
                             <option value="" disabled>Select</option>
                             {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                             {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
@@ -416,13 +434,14 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                 <div className="col-md-12 review-content">
                   <label htmlFor="Upload Files" className="ms-3 mb-2">Upload Files<span className="text-danger">*</span></label>
                   <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
-                    {images.map((preview, index) => (
+                    {images.map((image, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
-                        <img src={`${preview}`} alt='img' height="300" />  
+                        {/* <img src={`${image?.preview}`} alt="img"  height="300" /> */}
+                        <span className="d-block brand-assets">{image?.preview?.split('/').pop()}</span>
                         {requestData && <button
                           type="button"
                           className="btn btn-sm rounded-pill upload-file-close position-absolute"
-                          onClick={() => handleDelete(preview, requestData?._id,index)}>
+                          onClick={() => handleDelete(image?.apipath, requestData?._id, index)}>
                           <i class="fa-solid fa-xmark color-white"></i>
                         </button>}
                       </div>

@@ -48,7 +48,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-        {((user?.role === 'customer_admin')) && <SharedRequest />}
+        {((user?.role === 'customer_admin'||'customer')) && <SharedRequest />}
           <div className="review-main-content past-request-section mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
             <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
