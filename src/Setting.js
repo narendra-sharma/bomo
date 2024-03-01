@@ -46,66 +46,69 @@ const Setting = ({ userrole, profiledetails }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-          {((userrole === 'customer_admin') && user?.quantity && isSubscribe) && <SharedRequest />}
+          {((userrole === 'customer_admin' || userrole === 'customer') && user?.quantity && isSubscribe) && <SharedRequest />}
 
           <div className="review-main-content">
             <div className="mx-md-5 mx-sm-0 mb-4">
               <h3>Settings</h3>
             </div>
-            {((userrole === 'customer_admin') && isSubscribe) && <div className="d-flex justify-content-between align-item-center mb-5 rounded ps-5 px-4 py-4 subscribers">
+            {((userrole === 'customer_admin' || userrole === 'customer') && isSubscribe) && <div className="d-flex justify-content-between align-item-center mb-5 rounded ps-5 px-4 py-4 subscribers">
               <h5 className="mb-0"><strong>Subscribed for {user?.subscription?.quantity} pieces /month</strong></h5>
-              <div><Link to="/subscription" className="text-dark text-decoration-none">Modify my Subscription</Link></div>
+              <div>
+                {(userrole === 'customer_admin') && <Link to="/subscription" className="text-dark text-decoration-none">Modify my Subscription</Link>}
+              </div>
             </div>}
           </div>
           <div className="mb-5">
-            {((userrole === 'Designer') || (userrole === 'customer_admin')) ? <div className="row">
-              <div className={(userrole === 'customer_admin') ? 'col-lg-4' : 'col-lg-6'}>
-                <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
-                  <div className="d-flex text-right justify-content-between align-items-center">
-                    {((userrole === 'customer_admin') && (user?.colour)) ?
-                      <div
-                        style={{
-                          backgroundColor: user?.colour,
+            {((userrole === 'Designer') || (userrole === 'customer_admin'|| 'customer')) ?
+              <div className="row">
+                <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
+                  <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
+                    <div className="d-flex text-right justify-content-between align-items-center">
+                      {((userrole === 'customer_admin') && (user?.colour)) ?
+                        <div
+                          style={{
+                            backgroundColor: user?.colour,
+                            width: 30,
+                            height: 30,
+                            borderRadius: 25,
+                          }}
+                        ></div>
+                        : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
+
+                          backgroundColor: "black",
                           width: 30,
                           height: 30,
                           borderRadius: 25,
                         }}
-                      ></div>
-                      : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
-
-                        backgroundColor: "black",
-                        width: 30,
-                        height: 30,
-                        borderRadius: 25,
-                      }}
-                      ></div> :
-                        <img src={`${userImage}`} alt="img" />}
-                    <p className="mb-0 user-email  ms-1 ms-lg-2">
-                      <b className=" d-md-block">Name</b>
-                      <span className="d-block">{user?.name}</span></p>
-                  </div>
-                  <div className="d-flex text-right justify-content-between align-items-center">
-                    <p className="mb-0 user-email  ms-1 ms-lg-2">
-                      <b className="d-md-block">Role</b>
-                      <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : userrole}</span></p>
-                  </div>
-                  <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
-                </div>
-              </div>
-              <div className={(userrole === 'customer_admin') ? 'col-lg-3' : 'col-lg-6'}>
-                <div className="review-main-content bg-white px-4 py-4 rounded">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div><h6 className="mb-0">
-                      Password<span className="d-block">*********</span>
-                    </h6></div>
-                    <div><Link onClick={() => setShowchangePassword(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
+                        ></div> :
+                          <img src={`${userImage}`} alt="img" />}
+                      <p className="mb-0 user-email  ms-1 ms-lg-2">
+                        <b className=" d-md-block">Name</b>
+                        <span className="d-block">{user?.name}</span></p>
+                    </div>
+                    <div className="d-flex text-right justify-content-between align-items-center">
+                      <p className="mb-0 user-email  ms-1 ms-lg-2">
+                        <b className="d-md-block">Role</b>
+                        <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : userrole}</span></p>
+                    </div>
+                    <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
                   </div>
                 </div>
-              </div>
-              {(userrole === 'customer_admin') && <div className="col-lg-5">
-                <SubscriptionStatus user={user} isSetting={true} />
-              </div>}
-            </div> :
+                <div className={(userrole === 'customer_admin'||'customer') ? 'col-lg-3' : 'col-lg-6'}>
+                  <div className="review-main-content bg-white px-4 py-4 rounded">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div><h6 className="mb-0">
+                        Password<span className="d-block">*********</span>
+                      </h6></div>
+                      <div><Link onClick={() => setShowchangePassword(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
+                    </div>
+                  </div>
+                </div>
+                {(userrole === 'customer_admin'||'customer') && <div className="col-lg-5">
+                  <SubscriptionStatus user={user} isSetting={true} />
+                </div>}
+              </div> :
               <div className="row">
                 <div className='col-lg-12'>
                   <div className="review-main-content bg-white px-4 py-4 d-flex align-items-center justify-content-between align-items-center rounded">

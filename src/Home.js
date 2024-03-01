@@ -14,7 +14,9 @@ const Home = () => {
         <CustomerHome />
       ) : userrole === "Super admin" ? (
         <SuperAdminHome />
-      ) : (<p>No User Role Found!</p>)}
+      ) : userrole === "customer" ? (
+        <CustomerHome />
+      ): (<p>No User Role Found!</p>)}
     </>
   );
 };
