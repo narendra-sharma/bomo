@@ -61,7 +61,7 @@ const PaymentHistory = ({user,userrole,data,total,isPay,search,useFor}) => {
               <td>{format(new Date(item?.createdAt), 'dd/MM/yyyy')}</td>
               <td>{item.payment_status==='paid'?'COMPLETED':'PENDING'}</td>
               <td>${(item.amount/100)} </td>
-              <td>{item?.user_id?.name}</td>
+              <td>{item?.updated_by?.name}</td>
               <td className="text-end"><a href={item?.invoice_link} className="btn btn-outline-dark rounded-pill px-4 py-1">Invoice</a></td>
             </tr>)
               : <EmptyList name="Payment History" isTable/>}

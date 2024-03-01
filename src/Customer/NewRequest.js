@@ -7,7 +7,7 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Select } from "chakra-react-select";
+import Select from "react-select";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -24,7 +24,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     { label: '16:9', value: '16:9' },
     { label: '9:6', value: '9:6' },
     { label: '1:1', value: '1:1' },
-    { label: '4:5', value: '4:5' }
+    { label: '4:5', value: '4:5' },
+    { label: 'custom', value: 'custom' }
   ];
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
@@ -142,6 +143,25 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
   };
 
+  // const handleSizes = (selectedOptions) => {
+  //   const ratioRegex = /^\d+:\d*$/;
+  //   if (selectedOptions === null || selectedOptions.length === 0) {
+  //     setErrors({ ...errors, customerror: 'Please Select your size' });
+  //   } else {
+  //     const selectedValues = selectedOptions.map((option) => option.value);
+  
+  //     if (selectedValues.every((value) => ratioRegex.test(value))) {
+  //       setFormData({
+  //         ...formData,
+  //         size: selectedValues,
+  //       });
+  //       setErrors({ ...errors, size: '' });
+  //     } else {
+  //       setErrors({ ...errors, customerror: 'Please enter a valid size ratio' });
+  //     }
+  //   }
+  // };
+
   const handleCustomSizeChange = (e) => {
     const { name, value } = e.target;
     const ratioRegex = /^\d+:\d*$/;
@@ -199,7 +219,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     ];
 
     fieldsToValidate.forEach(({ name, validation }) => {
-      const value = formData[name];
+      const value = name === 'size' ? formData.size : formData[name];
       const error = validation(value);
       if (error) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
@@ -395,8 +415,15 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-
-                          <select  name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
+                          {/* <Select
+                            name="size"
+                            isMulti={true}
+                            options={sizesupTo}
+                            value={formData?.size}
+                            onChange={(e) => handleSizes(e)} 
+                            placeholder="Select size"
+                            isClearable={false}/> */}
+                          <select name="size" className="form-control" value={formData?.size} onChange={handleInputChange}>
                             <option value="" disabled>Select</option>
                             {sizeUpTo.map((option, index) => (<option key={index} value={option}>{option}</option>))}
                             {requestData?.size && !sizeUpTo.includes(requestData?.size) && (<option>{requestData?.size}</option>)}
@@ -437,13 +464,13 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                     {images.map((image, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
                         {/* <img src={`${image?.preview}`} alt="img"  height="300" /> */}
-                        <span className="d-block brand-assets">{image?.preview?.split('/').pop()}</span>
-                        {requestData && <button
+                        <span className="d-block brand-assets">{image?.preview}</span>
+                        <button
                           type="button"
                           className="btn btn-sm rounded-pill upload-file-close position-absolute"
                           onClick={() => handleDelete(image?.apipath, requestData?._id, index)}>
                           <i class="fa-solid fa-xmark color-white"></i>
-                        </button>}
+                        </button>
                       </div>
                     ))}
                   </div>
