@@ -57,7 +57,7 @@ export const get_admin_pending_requestlist = async (dispatch, token, page = 1, l
 export const get_accepted_request = async (dispatch, token, page = 1, limit = 10, search) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/req-list?page=${page}&limit=${limit}}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/req-list?page=${page}&limit=${limit}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
