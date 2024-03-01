@@ -421,7 +421,7 @@ nav {
   gap:10px;
 }
 .payment-info{
-  height: 428px;
+  height: 383px;
 }
 .user-email {
   line-height: 20px;
@@ -988,6 +988,13 @@ td.vertical-middle {
   padding: 5px 15px!important;
   border-radius: 4px;
   font-size: 14px;
+  height: 33px;
+
+}
+.billing-form form.form .form-control , .billing-form form.form .form-select{
+  padding: 5px 15px!important;
+  font-size: 14px;
+  height: 33px;
 }
 .new-request-form textarea.form-control {
   min-height: 220px;
