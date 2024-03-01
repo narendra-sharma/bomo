@@ -65,7 +65,7 @@ const Setting = ({ userrole, profiledetails }) => {
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                     <div className="d-flex text-right justify-content-between align-items-center">
-                      {((userrole === 'customer_admin') && (user?.colour)) ?
+                      {((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
                         <div
                           style={{
                             backgroundColor: user?.colour,
