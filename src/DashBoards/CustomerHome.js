@@ -44,7 +44,7 @@ const CustomerHome = ({ activerequest, user }) => {
     <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
       <div className="main-content-wraaper px-60 cutomer-home-page py-md-2 py-lg-5">
         <div className="mx-md-3 mx-lg-5 mb-4">
-        {((user?.role === 'customer_admin')) && <SharedRequest />}
+        {((user?.role === 'customer_admin' || user?.role === 'customer')) && <SharedRequest />}
         </div>
         <div className="review-main-content mb-5">
           <div className="mx-md-5 mx-sm-0 mb-4"><h3>Ready to Review</h3></div>
