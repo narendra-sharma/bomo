@@ -450,6 +450,9 @@ nav {
  .draft-table{
   border: solid 1px #000;
  }
+ .draft-table:hover {
+  background: #fbfbfb;
+}
  .draft-table tr{
   border-color:#000 ;
  }
@@ -871,6 +874,9 @@ table.feedback-queue tr:first-child td{
 }
 td.vertical-middle {
   vertical-align: middle!important;
+}
+td.vertical-end {
+  vertical-align: bottom!important;
 }
 .member-table tr td.update-btn , .member-table tr.members td  {
   vertical-align: middle;
@@ -1427,6 +1433,7 @@ ul.designer-list li{
 }
 .bg-medium-gray input.input-name , .bg-medium-gray button.add-btn.border-0{
   width: 90%;
+  text-align: left;
 }
 .bg-medium-gray.member-table .formcontrol  ,
 .bg-medium-gray.member-table select{
@@ -1586,6 +1593,9 @@ ul.designer-list li{
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
+.review-content .member-table select{
+  color: #777;
+}
 .member-table select{
   height: 24px;
   border-radius: 5px;
@@ -1724,6 +1734,17 @@ button.deliver-now-btn:hover{
 }
 nav p.user-email {
   font-size: 14px;
+}
+.header-user-profile:hover  p.user-email{
+  color:#6d3ff3;
+}
+.header-user-img{
+  transition: .25s ease-in-out;
+}
+.header-user-profile:hover .header-user-img {
+    width: 35px!important;
+    height: 35px!important;
+    transition: .25s ease-in-out;
 }
 .header-request-btn button , .poll-request-btn button{
   font-size: 13px;
@@ -2199,6 +2220,13 @@ width: auto;
     background: #000 !important;
     z-index: 9;
 }
+.uploadFile:hover{
+  background-color: black;
+}
+.uploadFile:hover i {
+  color: #fff!important;
+}
+
 @media (min-width: 576px){
 .main-content-wraaper{
     max-width: 540px;

@@ -217,7 +217,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             <TagsInput value={newbrand.tags} className="input-name" inputProps={{ placeholder: '5 tags describing your Brand (Hit enter)' }} onChange={handleTagsChange} />
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
-          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0'}>
+          <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0 align-self-end'}>
           
             <div className="d-flex justify-content-end gap-5">
 

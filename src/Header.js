@@ -74,9 +74,9 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                   </div>
                 </div>
               </>}
-            <div className="d-flex text-right justify-content-between align-items-center">
+            <div className="d-flex text-right justify-content-between header-user-profile align-items-center">
               {user?.role === 'customer' ?
-                <div className="cursor-pointer" onClick={() => navigate('/settings')}
+                <div className="cursor-pointer header-user-img" onClick={() => navigate('/settings')}
                   style={{
                     backgroundColor: user?.colour,
                     width: 30,
@@ -85,7 +85,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                   }}
                 ></div>
                 : ((userrole === 'customer_admin') && (user?.colour)) ?
-                  <div className="cursor-pointer" onClick={() => navigate('/settings')}
+                  <div className="cursor-pointer header-user-img" onClick={() => navigate('/settings')}
                     style={{
                       backgroundColor: user?.colour,
                       width: 30,
@@ -94,7 +94,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                     }}
                   ></div>
                   : ((userrole === 'customer_admin') && (!user?.colour)) ?
-                    <div className="cursor-pointer" onClick={() => navigate('/settings')}
+                    <div className="cursor-pointer header-user-img" onClick={() => navigate('/settings')}
                       style={{
                         backgroundColor: "black",
                         width: 30,
