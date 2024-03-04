@@ -76,7 +76,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               </>}
             <div className="d-flex text-right justify-content-between align-items-center">
               {user?.role === 'customer' ?
-                <div
+                <div className="cursor-pointer" onClick={() => navigate('/settings')}
                   style={{
                     backgroundColor: user?.colour,
                     width: 30,
@@ -85,7 +85,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                   }}
                 ></div>
                 : ((userrole === 'customer_admin') && (user?.colour)) ?
-                  <div
+                  <div className="cursor-pointer" onClick={() => navigate('/settings')}
                     style={{
                       backgroundColor: user?.colour,
                       width: 30,
@@ -93,17 +93,19 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                       borderRadius: 25,
                     }}
                   ></div>
-                  : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
-                    backgroundColor: "black",
-                    width: 30,
-                    height: 30,
-                    borderRadius: 25,
-                  }}
-                  ></div> :
-                  <img src={`${userImage}`} alt="img" />}
+                  : ((userrole === 'customer_admin') && (!user?.colour)) ?
+                    <div className="cursor-pointer" onClick={() => navigate('/settings')}
+                      style={{
+                        backgroundColor: "black",
+                        width: 30,
+                        height: 30,
+                        borderRadius: 25,
+                      }}
+                    ></div> :
+                    <img src={`${userImage}`} alt="img" />}
               <p className="mb-0 user-email ms-1 ms-lg-2">
-                <b className="d-none d-md-block">{cuser?.name}</b>
-                <span className="d-block">{(userrole === 'customer_admin') ? 'Admin' : (cuser?.parent ? roles.find(r => r.value === cuser?.role).label : userrole)}</span>
+                <b className="d-none d-md-block cursor-pointer" onClick={() => navigate('/settings')}>{cuser?.name}</b>
+                <span className="d-block cursor-pointer" onClick={() => navigate('/settings')}>{(userrole === 'customer_admin') ? 'Admin' : (cuser?.parent ? roles.find(r => r.value === cuser?.role).label : userrole)}</span>
               </p>
               {(userrole !== 'Designer') ? <div></div> : <>
                 <div className="header-request-btn position-relative">

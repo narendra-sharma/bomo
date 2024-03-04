@@ -65,7 +65,9 @@ const Setting = ({ userrole, profiledetails }) => {
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                     <div className="d-flex text-right justify-content-between align-items-center gap-3">
-                      {((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
+                      {((user?.role === 'superadmin')) ?
+                        <img src={`${userImage}`} alt="img" />
+                        :((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
                         <div
                           style={{
                             backgroundColor: user?.colour,
@@ -105,7 +107,7 @@ const Setting = ({ userrole, profiledetails }) => {
                     </div>
                   </div>
                 </div>
-                {(userrole === 'customer_admin'||'customer') && <div className="col-lg-5">
+                {((userrole === 'customer_admin'||'customer') && !(user?.role==='superadmin')) && <div className="col-lg-5">
                   <SubscriptionStatus user={user} isSetting={true} />
                 </div>}
               </div> :
