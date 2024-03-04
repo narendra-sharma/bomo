@@ -31,8 +31,9 @@ const RequestExpand = ({ user, deliverrequests }) => {
     };
     const formattedTime = (timeDate) => {
         const date = new Date(timeDate);
-        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-        return `${time}`;
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
     };
     const handleDownload = async (fileUrl) => {
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
