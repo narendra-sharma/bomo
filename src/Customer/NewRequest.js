@@ -536,8 +536,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       </div>
       <div className="ml-md-auto ms-md-auto rightside-wrapper">
         <div className="bg-gray-dark py-5">
-          <div className="d-flex justify-content-center align-items-center">
-            <p className="text-dark"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
+          <div className="d-flex justify-content-center align-items-center py-4" >
+            <p className="text-dark  mb-2 mb-md-0"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
             <button type="btn" className="py-1 px-4 border feedback-request ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button> </div>
 
         </div>
