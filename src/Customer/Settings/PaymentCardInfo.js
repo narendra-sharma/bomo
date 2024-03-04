@@ -135,9 +135,7 @@ const PaymentCardInfo = ({cards,user,isAddEdit}) => {
   },[isAddEdit])
   return (
     <>
-      <div className="mb-3">
-        <h3>Payment info</h3>
-      </div>
+      
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
         <div className="px-60 pt-4">
           <CardDetailShow 

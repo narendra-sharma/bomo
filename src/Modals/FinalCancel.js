@@ -21,8 +21,7 @@ const FinalCancel = (props) => {
       <Modal.Body>
         <div className="px-4 py-4">
           <h5 className="mb-3 text-dark fw-bold">This is a final reminder.</h5>
-          <p>Your account will be deleted in <strong>{getDifferece()} days</strong></p>
-          <p>
+          <p>Your account will be deleted in <strong>{getDifferece()} days</strong><br/>
             You will lose access to all files after that, you can subscribe back anytime.
             <br />
             <br/>

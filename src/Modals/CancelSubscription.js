@@ -22,7 +22,7 @@ const CancelSubscription = (props) => {
     <Modal show={show} onHide={handleClose} className="logout-popup cancel-popup">
       <Modal.Header className="border-0" closeButton></Modal.Header>
       <Modal.Body closeButton>
-        <div className="px-4 py-4">
+        <div className="px-4 pb-4">
         <h5 className="mb-0 color-black fw-bold">{user?.name},</h5>
           <p>do you really want to cancel the subscription?</p>
           <p>

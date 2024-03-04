@@ -64,7 +64,7 @@ const Setting = ({ userrole, profiledetails }) => {
               <div className="row">
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
-                    <div className="d-flex text-right justify-content-between align-items-center">
+                    <div className="d-flex text-right justify-content-between align-items-center gap-3">
                       {((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
                         <div
                           style={{
@@ -128,11 +128,25 @@ const Setting = ({ userrole, profiledetails }) => {
               </div>}
           </div>
           {((userrole === 'customer_admin') && user?.plan_id) ? <div className="review-main-content">
-            <div className="row review-main-content">
-              <div className="col-lg-6 col-md-6 d-flex flex-column">
+           <div className="row">
+            <div className="col-md-6">
+              <div className="mb-3">
+                <h3>Billing Information</h3>
+              </div>
+               
+            </div>
+            <div className="col-md-6">
+            <div className="mb-3">
+                <h3>Payment info</h3>
+              </div>
+            </div>
+           </div>
+            <div className="row review-main-content setting-card-info gap-3">
+              
+              <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
                 <BillingForm user={user} />
               </div>
-              <div className="col-lg-6 col-md-6 mt-4 mt-md-0 d-flex flex-column">
+              <div className="col-lg-6 col-md-6 bg-white rounded mt-4 mt-md-0 d-flex flex-column">
                 <PaymentCardInfo user={user} />
               </div>
             </div>
