@@ -274,7 +274,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
                             }
                             {user?.role == "customer_admin" &&
                               (isEdit && edit?.id === brand?._id) ?
-                              <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}><span className="fa fa-times"></span></Link>
+                              <Link className="text-dark text-decoration-none" onClick={() => { handleExit(); handleShowEditBrand(newBrand); }}></Link>
                               :
                               user?.role == "customer_admin" && <Link className="text-dark text-decoration-none" onClick={() => { handleShowEditBrand(brand); setHandleshow(false); }}>+ edit</Link>
                             }
