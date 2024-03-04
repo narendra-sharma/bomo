@@ -70,13 +70,13 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
+    if(user && (user.role!=='superadmin') && (user.role!=='designer')){
       get_customer_card(user?.token,dispatch);
     }
   }, [user]);
   const dispatch=useDispatch();
   useEffect(()=>{
-    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
+    if(user && (user.role!=='superadmin') && (user.role!=='designer')){
       get_user_subscription(user,dispatch);
     }
   },[])

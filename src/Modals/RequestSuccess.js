@@ -4,6 +4,7 @@ import pay_success from '../images/pay_success.png';
 import { connect } from 'react-redux';
 
 const RequestSuccess = ({view,viewClose,datadetail,newrequest}) => {
+    
     return (
         <Modal show={view} onHide={viewClose} className="logout-popup">
             <Modal.Body>

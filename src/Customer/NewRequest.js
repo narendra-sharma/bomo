@@ -24,9 +24,9 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const fileTypes = ['Mp4', 'Mov', 'gif'];
   const [sizes, setSizes] = useState([
     { label: '16:9', value: '16:9' },
-    { label: '6:3', value: '6:3' },
-    { label: '4:8', value: '4:8' },
+    { label: '9:16', value: '9:16' },
     { label: '1:1', value: '1:1' },
+    { label: '4:5', value: '4:5' },
     { label: 'custom', value: 'custom' }
   ]);
   const [addval, setAddval] = useState();
@@ -222,7 +222,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (error) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
         valid = false;
-        setIscheck(!ischeck);
+        setIscheck(true);
       }
     });
 
@@ -255,10 +255,9 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       const isValid = validateForm();
 
       if (isValid && (newrequest?.uploadFiles?.length <= 5)) {
-        setIscheck(!ischeck);
+        setIscheck(false);
         setIspop(true);
         setNewData(newrequest);
-        console.log(newrequest);
       } else if ((newrequest?.uploadFiles?.length === 0)) {
         toast.error('Atleast upload 1 File!');
       } else if ((isValid) && (newrequest?.uploadFiles?.length > 5)) {
@@ -269,7 +268,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         toast.error('Atleast specify your Request Name!')
       } else if (formData.requestName !== '') {
         await newRequest(newrequest, dispatch, usertoken, navigate);
-        console.log(newrequest);
       }
     }
   };
