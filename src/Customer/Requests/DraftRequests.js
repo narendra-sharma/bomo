@@ -11,6 +11,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [hoverindex,setHoverindex]=useState(null);
 
   useEffect(() => {
     get_draft_requestlist(dispatch, user?.token, 1, 10);
@@ -21,16 +22,22 @@ const DraftRequests = ({ draftrequests, user, total }) => {
         {(total > 0) ? <div className='bg-gray-light draft-table table-responsive'>
           <table className='table mb-0'>
             <tbody>
-              {draftrequests.map((request) => (
-                <tr key={request._id}>
+              {draftrequests.map((request,index) => (
+                <tr key={index} className={hoverindex === index ? 'hovered' : ''}>
                   <td className="text-center">
                     <ColorCode request={request} />
                   </td>
                   <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'draft' ? 'Draft' : '--'}</span></p></td>
                   <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                  <td className="text-center"><p>{request?.brand_profile?.brandname}</p></td>
-                  <td className="text-center"><p><Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>continue editing</Link></p></td>
+                  <td className="text-center"><p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p></td>
+                  <td className="text-center" onMouseEnter={() => {setHoverindex(index)}} onMouseLeave={() => setHoverindex(null)}>
+                    <p>
+                      <Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>
+                        {(hoverindex===index) ? 'continue editing, you got this' : 'continue editing'}
+                      </Link>
+                    </p>
+                  </td>
                 </tr>
               ))}
             </tbody>

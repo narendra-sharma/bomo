@@ -56,7 +56,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   const [errors, setErrors] = useState({
     requestName: '',
-    brandProfile: '',
     requestype: '',
     description: '',
     fileType: '',
@@ -100,11 +99,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       case 'size':
         setErrors({ ...errors, size: value?.length === 0 ? 'Please Select your size' : null });
         setFormData({ ...formData, size: value });
-        break;
-
-      case 'brandProfile':
-        setErrors({ ...errors, brandProfile: value === '' ? 'BrandProfile is Required' : null });
-        setFormData({ ...formData, brandProfile: value, });
         break;
 
       case 'transparency':
@@ -207,7 +201,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
     const fieldsToValidate = [
       { name: 'requestName', validation: (value) => value === '' ? 'Request Name is Required' : '' },
-      { name: 'brandProfile', validation: (value) => value === '' ? 'Brand Profile is Required' : '' },
       { name: 'requestype', validation: (value) => value === '' ? 'Select your Request Type' : '' },
       { name: 'description', validation: (value) => value === '' ? 'Description is Required' : '' },
       { name: 'fileType', validation: (value) => value === '' ? 'Select your filetype' : '' },
@@ -415,7 +408,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                           <option value="" disabled>Select</option>
                           {brands.map((brand) => (<option key={brand._id} value={brand?._id} >{brand?.brandname}</option>))}
                         </select>
-                        {errors.brandProfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandProfile}</p>}
                       </div>
                     </div>
                     <div className="col-md-12">

@@ -29,7 +29,7 @@ const SharedRequest = () => {
           const nextBillingDate = new Date(user?.next_billing_date);
           date = nextBillingDate;
         }
-        return format(new Date(date), 'MMM dd');
+        if(date) return format(new Date(date), 'MMM dd');
       }
 
     return (
