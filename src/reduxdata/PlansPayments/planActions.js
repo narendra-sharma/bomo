@@ -163,9 +163,14 @@ export const get_user_subscription_details = async (userId, token, dispatch) => 
     headers.headers['x-access-token'] = token;
     const res = await axios.get(url, headers);
     if (res.data && res.data.status) {
+      let user = res.data?.data;
+      if (user?.subscription && user?.subscription?.length > 0) {
+        let sub = user?.subscription?.find(r => r?.type === 'primary');
+        user.subscription = sub;
+      }
       dispatch({
         type: SUBSCRIPTION_INFO,
-        payload: res.data?.data
+        payload: user
       })
     } else {
       toast.error(res.data.message);

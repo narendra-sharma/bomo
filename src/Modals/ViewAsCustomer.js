@@ -24,7 +24,11 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
 
   const handleswitchto_customer = async (userId) => {
     await switch_to_designer(dispatch, userId, user?.token);
-};
+  };
+
+  const ViewAsCust = () => {
+    // handle view as customer
+  }
 
 
   return (
@@ -36,7 +40,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
               <p className="text-center mb-3">
                 <button
                   className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark"
-                  onClick={() => handleClose()}
+                  onClick={() => handleswitchto_customer(customerId)}
                 >
                   View as customer
                 </button>
@@ -59,7 +63,8 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
             <div className="customer-details mb-4">
               <div className="review-main-content bg-white px-4 px-md-3 py-4 d-flex justify-content-between align-items-center rounded">
                 <div className="d-flex text-right justify-content-between align-items-center">
-                  <img src={userImage} alt="Bomo logo" />
+                  <div style={{ width: 40, height: 40, backgroundColor: view?.colour ? view?.colour : "#000000", borderRadius: 20 }}>
+                  </div>
                 </div>
                 <div className="">
                   <p className="mb-0 user-email  ms-1 ms-lg-2">
@@ -109,7 +114,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                                     </div>
                                 </div>
                             </div> */}
-              <SubscriptionStatus user={view} subscribedUser={subscription} />
+              <SubscriptionStatus user={{ ...view, ...subscription, token: user.token }} />
             </div>
           </div>
 
@@ -150,7 +155,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
                     {singleUserData?.requests_in_feedback_queue?.length > 0 ?
-                    singleUserData?.requests_in_feedback_queue : '0'}
+                      singleUserData?.requests_in_feedback_queue : '0'}
                   </h2>
                 </div>
               </div>
@@ -181,7 +186,7 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
                     {singleUserData?.num_of_requests_finished?.length > 0 ?
-                    singleUserData?.num_of_requests_finished: '0'}
+                      singleUserData?.num_of_requests_finished : '0'}
                   </h2>
                 </div>
               </div>

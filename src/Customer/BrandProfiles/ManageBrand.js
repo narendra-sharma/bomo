@@ -202,12 +202,12 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="upload-zip">
-              <label htmlFor="Brand Assests">Brand Assets<span className="text-danger">*</span></label>
+              <label htmlFor="Brand Assets">Brand Assets<span className="text-danger">*</span></label>
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
-              {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
-              {(addzip) ? <p>{addzip.name}</p> : ''}
-               {!zipPreview && ('Upload your .zip')}
+                {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
+                {(addzip) ? <p>{addzip.name}</p> : ''}
+                {!zipPreview && ('Upload your .zip')}
               </button>
               {errors.brandassests && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.brandassests}</p>}
             </div>
@@ -218,7 +218,6 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
             {errors.tags && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0" >{errors.tags}</p>}
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-2 col-12 mb-3 mb-md-0 align-self-end'}>
-          
             <div className="d-flex justify-content-end gap-5">
 
               <button className="create-add-btn brands-add-btn rounded-pill w-auto fw-bold mb-0" type="submit" onClick={(e) => handleSubmit(e)}>

@@ -31,8 +31,9 @@ const RequestExpand = ({ user, deliverrequests }) => {
     };
     const formattedTime = (timeDate) => {
         const date = new Date(timeDate);
-        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-        return `${time}`;
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
     };
     const handleDownload = async (fileUrl) => {
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
@@ -211,10 +212,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
                         <div className="row justify-content-center">
                             <div className="col-md-4 justify-content-center align-self-center">
                                 <div className="delivery-status fw-bold mb-2">
-                                <i className="fa-solid fa-circle-minus minus"></i>  Delivery Expected
+                                <i className="fa-solid fa-circle-minus minus"></i>  Delivery {receivedData?.status==='production' ? 'expected':'on'}
                                 </div>
                                 <p className="status-date text-secondary mb-0">
-                                    17/03/2023 14:11
+                                   {format(new Date(receivedData?.delivery_date),'dd/MM/yyyy')} {formattedTime(receivedData?.delivery_date)}
                                 </p>
                             </div>
                             <div className="col-md-4 d-flex text-center justify-content-center">
