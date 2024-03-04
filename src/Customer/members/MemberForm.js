@@ -106,6 +106,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                         type="text"
                         className="formcontrol"
                         name="name"
+                        placeholder="Name"
                         value={formData?.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                       />
@@ -156,6 +157,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
                 noValidate
                 className="formcontrol"
                 name="email"
+                placeholder="Email"
                 value={formData?.email}
                 onChange={(e) => handleChange("email", e.target.value)}
               />
@@ -166,7 +168,7 @@ const MemberForm = ({ roles,setShowAddComp, isAddEdit, user }) => {
               )}
             </td>
             
-            <td className="vertical-middle member-last-column">
+            <td className="vertical-end member-last-column">
             
               <div className="d-flex justify-content-end gap-5">
                 
