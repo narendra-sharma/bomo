@@ -7,7 +7,7 @@ import { newRequest } from '../reduxdata/rootAction';
 import RequestSuccess from './RequestSuccess';
 import { SUBMIT_NOW } from '../reduxdata/Requests/requestTypes';
 
-const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
+const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit, user }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
                 <Modal show={show} onHide={handleClose} className="logout-popup">
                     <Modal.Body>
                         <div className="px-4 py-4">
-                            <h5 className="mb-0">{data?.requestName},</h5>
+                            <h5 className="mb-0">{user?.name},</h5>
                             <p >All the fields are filled correctly</p>
                             <p className="mt-2">Is the info provided accurate?<span className="d-block">
                             Are all the working files needed there?</span></p>
@@ -72,6 +72,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit }) => {
 
 const mapStateToProps = (state) => {
     return {
+        user: state.auth.user,
         isSubmit: state.requests.isSubmit
     }
 }

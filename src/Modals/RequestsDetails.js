@@ -29,7 +29,10 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                 jpeg: 'image/jpeg',
                 png: 'image/png',
                 gif: 'image/gif',
-            };
+                ai: 'application/postscript',
+                svg: 'image/svg+xml',
+                psd: 'image/vnd.adobe.photoshop',
+              };
             return mimeTypes[ext] || 'application/octet-stream';
         };
 

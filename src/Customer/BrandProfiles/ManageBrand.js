@@ -202,7 +202,7 @@ const BrandProfile = ({ zipfile_path, isAddEdit, brand, user, close }) => {
           </div>
           <div className={brand?.id ? 'col-12 mb-3' : 'col-lg-3 col-12 mb-3 mb-md-0'}>
             <div className="upload-zip">
-              <label htmlFor="Brand Assests">Brand Assests<span className="text-danger">*</span></label>
+              <label htmlFor="Brand Assests">Brand Assets<span className="text-danger">*</span></label>
               <input type="file" className="d-none" name="brandassests" accept=".zip" onChange={handleChange} ref={zipfileinputRef} />
               <button onClick={handleUploadZipFileClick}>
               {(brand?.id && !zipPreview) ? <p>{zipfilepath}</p> : (brand?.id && zipPreview) ? <p>{zipPreview}</p> : ''}
