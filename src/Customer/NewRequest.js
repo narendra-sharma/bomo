@@ -36,6 +36,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);
   const [files, setFiles] = useState([]);
+  const [ischeck,setIscheck]=useState(false);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -221,6 +222,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (error) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
         valid = false;
+        setIscheck(!ischeck);
       }
     });
 
@@ -520,10 +522,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>
-
                 </div>
                 <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
-                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
+                  {ischeck && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">Fill in the missing fields to continue</p>}
+                  <button type="submit" className={`btn border rounded-pill pause-btn w-25 py-2 ${ischeck ? 'btn-danger' : ''}`} onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
             </form>
