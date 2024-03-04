@@ -70,14 +70,14 @@ function App({ user }) {
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    if (user && (user.role !== 'superadmin') && (user.role !== 'Designer')) {
-      get_customer_card(user?.token, dispatch);
+    if(user && (user.role!=='superadmin') && (user.role!=='designer')){
+      get_customer_card(user?.token,dispatch);
     }
   }, [user]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (user && (user.role !== 'superadmin') && (user.role !== 'Designer')) {
-      get_user_subscription(user, dispatch);
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    if(user && (user.role!=='superadmin') && (user.role!=='designer')){
+      get_user_subscription(user,dispatch);
     }
   }, [])
   useEffect(() => {

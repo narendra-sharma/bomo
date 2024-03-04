@@ -7,7 +7,9 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Select } from "@mui/material";
+import ReactSelect from 'react-select';
+import downloadImage from "../images/download-thumbnail.png";
+import { saveAs } from 'file-saver';
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -20,18 +22,21 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const usertoken = user.token;
   const fileInputRef = useRef(null);
   const fileTypes = ['Mp4', 'Mov', 'gif'];
-  const sizesupTo = [
+  const [sizes, setSizes] = useState([
     { label: '16:9', value: '16:9' },
-    { label: '9:6', value: '9:6' },
+    { label: '9:16', value: '9:16' },
     { label: '1:1', value: '1:1' },
     { label: '4:5', value: '4:5' },
     { label: 'custom', value: 'custom' }
-  ];
+  ]);
+  const [addval, setAddval] = useState();
+  const [show, setShow] = useState(false);
   const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);
   const [files, setFiles] = useState([]);
+  const [ischeck,setIscheck]=useState(false);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -142,51 +147,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
   };
 
-  const handleSizes = (selectedOptions) => {
-    console.log(selectedOptions);
-    const maximumselection = 2;
-    if (selectedOptions?.length === 0) {
-      setErrors({ ...errors, size: 'Please Select your size' });
-      return;
-    }
-
-    if (selectedOptions?.length > maximumselection) {
-      return;
-    }
-
-    setFormData({
-      ...formData,
-      size: selectedOptions,
-    });
-    setErrors({ ...errors, size: '' });
-  };
-
-  const handleCustomSizeChange = (e) => {
-    const { name, value } = e.target;
-    const ratioRegex = /^\d+:\d*$/;
-    if (!ratioRegex.test(value)) {
-      setErrors({ ...errors, customerror: 'Please enter a valid size ratio' });
-    } else {
-      setErrors({ ...errors, customerror: null });
-    }
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleAddCustomSize = () => {
-    const { customsize, customsizes } = formData;
-    const ratioRegex = /^\d+:\d*$/;
-    if (customsize.trim() !== "" && (!customsizes.includes(customsize) && !sizeUpTo.includes(customsize)) && ratioRegex.test(customsize)) {
-      setFormData({
-        ...formData,
-        customsizes: [...customsizes, customsize],
-        customsize: "",
-      });
-    }
-  };
-
   const handlerequestType = (ele, index) => {
     if (ele === '') {
       setErrors({ ...errors, requestype: 'Select your Request Type' })
@@ -200,6 +160,45 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }));
     setSelectedRequestType(ele);
     setClickedIndex(index);
+  };
+
+  const handleChange = (options) => {
+    console.log(options)
+    if (options?.find((item) => item?.value === 'custom')) {
+      options.pop();
+      setShow(true);
+      return;
+    } else if (!options || options?.length === 0) {
+      setFormData({
+        ...formData
+        , size: []
+      });
+      setErrors({ ...errors, size: "Select your size" });
+    } else if (options.length > 2) {
+      options.pop();
+    } else {
+      setFormData({
+        ...formData,
+        size: options || []
+      });
+      setErrors({ size: '' });
+    }
+  };
+
+  const handleCustom = () => {
+    const inputValue = document.getElementById('customSizeInput').value;
+    if (inputValue) {
+      const sizedata = {
+        label: inputValue,
+        value: inputValue
+      };
+      const customIndex = sizes.findIndex(item => item.value === 'custom');
+      const newSizes = [...sizes];
+      newSizes.splice(customIndex, 0, sizedata);
+      setSizes(newSizes);
+      setShow(false);
+      document.getElementById('customSizeInput').value = '';
+    }
   };
 
   const validateForm = () => {
@@ -223,6 +222,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (error) {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
         valid = false;
+        setIscheck(true);
       }
     });
 
@@ -254,18 +254,19 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     if (status === 'pending') {
       const isValid = validateForm();
 
-      if (isValid && newrequest?.uploadFiles?.length >= 3) {
+      if (isValid && (newrequest?.uploadFiles?.length <= 5)) {
+        setIscheck(false);
         setIspop(true);
         setNewData(newrequest);
-        console.log(newrequest);
-      } else if ((isValid) && !(newrequest?.uploadFiles?.length >= 3)) {
-        toast.error('Please Upload Atleast 3 files');
+      } else if ((newrequest?.uploadFiles?.length === 0)) {
+        toast.error('Atleast upload 1 File!');
+      } else if ((isValid) && (newrequest?.uploadFiles?.length > 5)) {
+        toast.error('Maximum 5 files allowed');
       }
     } else if (status === 'draft') {
       if (formData.requestName === '') {
         toast.error('Atleast specify your Request Name!')
       } else if (formData.requestName !== '') {
-        console.log(newrequest);
         await newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }
@@ -291,7 +292,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
           description: requestData?.description || '',
           fileType: requestData?.file_type || '',
           size: requestData?.size.map((val) => {
-            const matchingSize = sizesupTo.find((size) => size.value === val);
+            const matchingSize = sizes.find((size) => size.value === val);
             return matchingSize || { label: val, value: val };
           }),
           customsize: "",
@@ -329,6 +330,35 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     }
     return format(new Date(date), 'MMM dd');
   }
+
+  const handleDownload = async (details) => {
+    const fileUrl = details?.apipath;
+    console.log(fileUrl);
+    const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+    const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+    const getMimeType = (ext) => {
+      const mimeTypes = {
+        txt: 'text/plain',
+        pdf: 'application/pdf',
+        zip: 'application/zip',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        png: 'image/png',
+        gif: 'image/gif',
+        ai: 'application/postscript',
+        svg: 'image/svg+xml',
+        psd: 'image/vnd.adobe.photoshop',
+      };
+      return mimeTypes[ext] || 'application/octet-stream';
+    };
+
+    const response = await fetch(fileContent);
+    const blobFile = await response.blob();
+    const fileExtension = fileName.split(".").pop().toLowerCase();
+    const mimeType = getMimeType(fileExtension);
+    const blobwithtype = new Blob([blobFile], { type: mimeType });
+    saveAs(blobwithtype, fileName);
+  };
 
   const handleDelete = async (imgpath, requestId, index) => {
     if (requestData) {
@@ -435,20 +465,18 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                       <div className="col-md-6">
                         <div className="form-group">
                           <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
-                          <Select
-                            name="size"
+                          <ReactSelect
                             isMulti={true}
-                            options={sizesupTo}
+                            options={sizes}
+                            name='size'
                             value={formData?.size}
-                            onChange={(selected) => handleSizes(selected)}
-                            placeholder="Select size"
-                            isClearable={false} />
-
-                          {(formData.size === 'Custom') && <>
-                            <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />
-                            <button type="button" className="btn btn-primary mt-2" onClick={handleAddCustomSize}>Add Custom Size</button>
-                            {errors.customerror && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.customerror}</p>}
-                          </>}
+                            onChange={(selected) => handleChange(selected)}
+                            isClearable={true}
+                            placeholder="Select your size" />
+                          {show && <div>
+                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" onChange={(e) => setAddval(e.target.value)} />
+                            <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
+                          </div>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
                         </div>
                       </div>
@@ -477,8 +505,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   <div className="d-flex flex-wrap align-items-center justify-content-start mb-4">
                     {images.map((image, index) => (
                       <div key={index} className="d-flex align-item-center justify-content-center position-relative me-3 mb-3">
-                        {/* <img src={`${image?.preview}`} alt="img"  height="300" /> */}
-                        <span className="d-block brand-assets">{image?.apipath}</span>
+                        <img src={downloadImage} alt="Thumbnail Imag" height="100" onClick={() => handleDownload(image)}/>
                         <button
                           type="button"
                           className="btn btn-sm rounded-pill upload-file-close position-absolute"
@@ -494,10 +521,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>
-
                 </div>
                 <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
-                  <button type="submit" className="btn border rounded-pill pause-btn w-25 py-2" onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
+                  {ischeck && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">Fill in the missing fields to continue</p>}
+                  <button type="submit" className={`btn border rounded-pill pause-btn w-25 py-2 ${ischeck ? 'btn-danger' : ''}`} onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
             </form>
@@ -507,8 +534,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       </div>
       <div className="ml-md-auto ms-md-auto rightside-wrapper">
         <div className="bg-gray-dark py-5">
-          <div className="d-flex justify-content-center align-items-center">
-            <p className="text-dark"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
+          <div className="d-flex justify-content-center align-items-center py-4" >
+            <p className="text-dark  mb-2 mb-md-0"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
             <button type="btn" className="py-1 px-4 border feedback-request ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button> </div>
 
         </div>

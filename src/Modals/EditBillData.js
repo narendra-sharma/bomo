@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 
 const EditBillData = ({show,handleClose,heading,onConfirm}) => {
     return (
-        <Modal show={show} onHide={handleClose} className="logout-popup">
+        <Modal show={show} onHide={handleClose} className="logout-popup modal-border">
       <Modal.Body>
         <div className="px-4 py-4">
         <h4 className="mb-0">{heading}.</h4>
