@@ -255,6 +255,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       const isValid = validateForm();
 
       if (isValid && (newrequest?.uploadFiles?.length <= 5)) {
+        setIscheck(!ischeck);
         setIspop(true);
         setNewData(newrequest);
         console.log(newrequest);
