@@ -37,6 +37,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const [uploadFiles, setUploadFiles] = useState([]);
   const [files, setFiles] = useState([]);
   const [ischeck,setIscheck]=useState(false);
+  const [ishover,setIshover] = useState(false);
 
   const [formData, setFormData] = useState({
     requestName: '',
@@ -516,8 +517,18 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                     ))}
                   </div>
                   <label class="uploadFile">
-                    <span class="filename"><img src={plusImage} alt="" /></span>
-                    <input name="uploadFiles" type="file" className="inputfile form-control" ref={fileInputRef} onChange={handleInputChange} multiple />
+                    <span class="filename">
+                      {ishover ? <i class="fas fa-angle-down color-white"></i> : <img src={plusImage} alt="" />}
+                      </span>
+                    <input 
+                     name="uploadFiles" 
+                     type="file" 
+                     className="inputfile form-control"
+                     onMouseEnter={() => setIshover(true)}
+                     onMouseLeave={() =>  setIshover(false)} 
+                     ref={fileInputRef} 
+                     onChange={handleInputChange} 
+                     multiple />
                   </label>
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                   <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>
