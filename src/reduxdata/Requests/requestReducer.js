@@ -3,6 +3,7 @@ const initialState = {
   isSubmit: false,
   pendingRequests: [],
   pendingTotal: 0,
+  activeTotal: 0,
   totaldrafts: 0,
   totalpastrequest: 0,
   draftrequests: [],

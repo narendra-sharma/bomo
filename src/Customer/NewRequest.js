@@ -7,6 +7,7 @@ import plusImage from '../images/plus-img.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Select } from "@mui/material";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -237,7 +238,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       brandProfile: formData.brandProfile,
       requestype: formData.requestype,
       fileType: formData.fileType,
-      size: formData.size.map(s=>s.value),
+      size: formData.size.map(s => s.value),
       references: formData.references,
       transparency: formData.transparency,
       status: status
@@ -280,7 +281,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       }));
       setFiles(requestData?.file?.map(path => path));
       setClickedIndex(requestTypes.findIndex(r => r.value === requestData?.request_type));
-    
+
       setFormData(prev => {
         return ({
           ...prev,
@@ -441,7 +442,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                             value={formData?.size}
                             onChange={(selected) => handleSizes(selected)}
                             placeholder="Select size"
-                            isClearable={false}  />
+                            isClearable={false} />
 
                           {(formData.size === 'Custom') && <>
                             <input type="text" name="customsize" className="form-control mt-2" placeholder="Enter Custom Size" value={formData.customsize} onChange={handleCustomSizeChange} />

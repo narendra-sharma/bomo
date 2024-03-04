@@ -62,24 +62,24 @@ function App({ user }) {
       $("input[type=file]").change(function (e) {
         $(this).parents(".uploadFile").find(".filename").text(e.target.files[0].name);
       });
-     
+
     });
-    
+
 
   }, []);
 
   useEffect(() => {
     setIsAuth(user ? true : false);
-    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
-      get_customer_card(user?.token,dispatch);
+    if (user && (user.role !== 'superadmin') && (user.role !== 'Designer')) {
+      get_customer_card(user?.token, dispatch);
     }
   }, [user]);
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    if(user && (user.role!=='Super admin') && (user.role!=='Designer')){
-      get_user_subscription(user,dispatch);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user && (user.role !== 'superadmin') && (user.role !== 'Designer')) {
+      get_user_subscription(user, dispatch);
     }
-  },[])
+  }, [])
   useEffect(() => {
     const handleEndConcert = () => {
       localStorage.setItem("path", window.location.pathname);
@@ -123,21 +123,21 @@ function App({ user }) {
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/deleiver-request", element: <DelieverRequest /> },
       { path: "/acceptance-request", element: <DesignerRequest /> },
-      { path: "/request-expand", element: <RequestExpand/> },
+      { path: "/request-expand", element: <RequestExpand /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);
   return (
     <BrowserRouter>
-    <ToastContainer />
-    <LoadingSpinner />
-    {isAuth ? <>
+      <ToastContainer />
+      <LoadingSpinner />
+      {isAuth ? <>
         <Sidebar />
         <Header />
         <AfterLoginCustomerRoutes />
-        </>  : (
+      </> : (
         <AuthRoutes />
-    )}
-  </BrowserRouter>
+      )}
+    </BrowserRouter>
   );
 }
 const mapStateToProps = (state) => {

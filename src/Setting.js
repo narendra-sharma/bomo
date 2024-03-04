@@ -60,12 +60,12 @@ const Setting = ({ userrole, profiledetails }) => {
             </div>}
           </div>
           <div className="mb-5">
-            {((userrole === 'Designer') || (userrole === 'customer_admin'|| 'customer')) ?
+            {((userrole === 'Designer') || (userrole === 'customer_admin' || 'customer')) ?
               <div className="row">
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                     <div className="d-flex text-right justify-content-between align-items-center">
-                      {((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
+                      {((userrole === 'customer_admin' || 'customer') && (user?.colour)) ?
                         <div
                           style={{
                             backgroundColor: user?.colour,
@@ -95,7 +95,7 @@ const Setting = ({ userrole, profiledetails }) => {
                     <div><Link onClick={() => setShowchangeProfile(true)} className="text-secondary mb-0 text-decoration-none">edit</Link></div>
                   </div>
                 </div>
-                <div className={(userrole === 'customer_admin'||'customer') ? 'col-lg-3' : 'col-lg-6'}>
+                <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-3' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 rounded">
                     <div className="d-flex justify-content-between align-items-center">
                       <div><h6 className="mb-0">
@@ -105,7 +105,7 @@ const Setting = ({ userrole, profiledetails }) => {
                     </div>
                   </div>
                 </div>
-                {(userrole === 'customer_admin'||'customer') && <div className="col-lg-5">
+                {(userrole === 'customer_admin') || (userrole === 'customer') && <div className="col-lg-5">
                   <SubscriptionStatus user={user} isSetting={true} />
                 </div>}
               </div> :
