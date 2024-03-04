@@ -2302,14 +2302,6 @@ button.accordion-button.collapsed .late-request-section {
 }
 
 @media (min-width: 576px){
-.main-content-wraaper{
-  right: -9px;
-  width: 30px;
-  height: 30px;
-  background: #000 !important;
-  z-index: 9;
-}
-@media (min-width: 576px) {
   .main-content-wraaper {
     max-width: 540px;
   }
@@ -2327,7 +2319,7 @@ button.accordion-button.collapsed .late-request-section {
     width: 15%;
   }
   .main-content-wraaper {
-    max-width: 960px;
+    max-width: 960px;}
   .setting-card-info .col-lg-6{
     width: 48%;
   }
