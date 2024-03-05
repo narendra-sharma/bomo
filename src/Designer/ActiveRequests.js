@@ -7,6 +7,7 @@ import ColorCode from "../Common/ColorCode";
 import { useNavigate } from "react-router-dom";
 import EmptyList from "../Common/EmptyList";
 import CountdownTimer from "../Common/CountdownTimer";
+import { saveAs } from 'file-saver';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -31,6 +32,33 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     const handleDeliever = (requestdata) => {
         navigate('/deleiver-request');
         dispatch(deliever_request_details(requestdata));
+    };
+
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: 'text/plain',
+                pdf: 'application/pdf',
+                zip: 'application/zip',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+                ai: 'application/postscript',
+                svg: 'image/svg+xml',
+                psd: 'image/vnd.adobe.photoshop',
+              };
+            return mimeTypes[ext] || 'application/octet-stream';
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
     };
 
     return (
@@ -60,8 +88,8 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                             <div className="col-md-12">
                                                 <div className="d-flex align-items-center">
                                                     <ColorCode request={request} />
-                                                    <p className="brand-assets-btn rounded">
-                                                        <a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${request?.brand_profile?.brandassests}`} >Brand Assets</a>
+                                                    <p className="brand-assets-btn rounded" onClick={() => handleDownload(`${request?.brand_profile?.brandassests}`)}>
+                                                       Brand Assets
                                                     </p>
                                                 </div>
                                                 <div className="table-responsive">
@@ -91,10 +119,8 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center">
-                                                    <a className="text-decoration-none" href={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`}>
+                                                <div className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${request?.brand_profile?.logo}`)}>
                                                         Project Assets
-                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

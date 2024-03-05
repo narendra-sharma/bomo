@@ -122,7 +122,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                     <div className="review-content mt-3">
                                         <div className="d-flex">
                                             <ColorCode request={requestData} />
-                                            <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname}</p>
+                                            <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p>
                                             <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                         </div>
                                     </div>
