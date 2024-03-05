@@ -143,8 +143,10 @@ export const get_user_subscription = async (user, dispatch) => {
         let sub = u?.subscription?.find(r => r.type === 'primary');
         u.next_billing_date = sub?.next_billing_date;
         pay = false;
+        localStorage.setItem('paySubscription',JSON.stringify({ ...u, token: user.token }))
+      }else{
+        dispatch(set_update_user({ ...u, token: user.token }));
       }
-      dispatch(set_update_user({ ...u, token: user.token }));
     } else {
       toast.error(res.data.message);
     }

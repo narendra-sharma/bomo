@@ -3,11 +3,12 @@ import { connect, useDispatch } from "react-redux";
 import DoPayment from "./DoPayment";
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
+import { PAY_NOW, PAY_NOW_SUCCESS } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
 import { format, add } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { set_update_user } from "../../reduxdata/User/userActions";
 const { REACT_APP_STRIPE_PUBLIC_KEY } = process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -38,7 +39,13 @@ const SubscriptionSteps = (props) => {
     dispatch({
       type: PAY_NOW
     });
-    navigate('/settings');
+    const u=JSON.parse(localStorage.getItem('paySubscription'));
+    dispatch(set_update_user({ ...u}));
+    localStorage.removeItem('paySubscription')
+    dispatch({
+      type: PAY_NOW_SUCCESS
+    });
+    setChangeFor(null);
   }
   const getRenew=()=>{
     const currentDate = new Date();

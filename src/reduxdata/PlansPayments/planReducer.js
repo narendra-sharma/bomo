@@ -1,4 +1,4 @@
-import { CUSTOMER_CARD, GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW, SUBSCRIPTION_INFO } from "./planTypes";
+import { CUSTOMER_CARD, GET_PAYMENT_HISTORY, GET_PLANS, PAY_NOW, PAY_NOW_SUCCESS, SUBSCRIPTION_INFO } from "./planTypes";
 
 const initialState = {
   plans: [],
@@ -8,7 +8,8 @@ const initialState = {
   dpayments: [],
   subscription: [],
   total: 0,
-  cards: null
+  cards: null,
+  is_pay_success:false
 };
 
 const planReducer = (state = initialState, action) => {
@@ -23,6 +24,11 @@ const planReducer = (state = initialState, action) => {
         ...state,
         isPay: !state.isPay
       };
+    case PAY_NOW_SUCCESS:
+    return {
+      ...state,
+      is_pay_success: !state.is_pay_success
+    };
     case GET_PAYMENT_HISTORY:
       return {
         ...state,

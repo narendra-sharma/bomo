@@ -83,19 +83,18 @@ const AllDrafts = ({ user, drafts, total,search }) => {
                     {(total > 0) && <CustomPagination total={total} onPageChange={(newPage, newLimit) => {
                         get_all_draft_requests(dispatch, user?.token, newPage, newLimit);
                     }} />}
-                </div>
-            </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.auth.user,
-        drafts: state.requests.alldrafts,
-        total: state.requests.totalalldraft
-    };
+  return {
+    user: state.auth.user,
+    drafts: state.requests.alldrafts,
+    total: state.requests.totalalldraft,
+  };
 };
 
 export default connect(mapStateToProps)(AllDrafts);
-
