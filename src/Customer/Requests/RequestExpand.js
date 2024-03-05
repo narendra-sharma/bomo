@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import aepdesign from "../../images/aep-image.png";
@@ -65,43 +65,35 @@ const RequestExpand = ({ user, deliverrequests }) => {
     saveAs(blobwithtype, fileName);
   };
 
-  return (
-    <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
-      <div className="main-content-wraaper px-60 pt-md-2 pt-lg-5 pb-0">
-        <div className="mx-md-0 mx-lg-4 px-60 ">
-          <div className="order-completed px-5 py-4 rounded mb-5">
-            <p className="mb-0 extra-dark-green">
-              {receivedData?.status === "completed"
-                ? "Order completed"
-                : receivedData?.status === "production"
-                ? "Order in Production"
-                : "Delivered"}
-              <span className="d-block fw-bold">
-                {receivedData?.status === "completed"
-                  ? "All good! You approved this order and files are ready to be used"
-                  : receivedData?.status === "production"
-                  ? `Delivery Scheduled for ${formatDate(
-                      receivedData?.delivery_date
-                    )}`
-                  : "Waiting for your review. Approve it to download the files or request feedback to modify the delivery"}
-              </span>
-            </p>
-          </div>
-          <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
-            <div className="row">
-              <div className="col-md-7 col-lg-6 mb-4">
-                <h3>{receivedData?.request_name}</h3>
-                <div className="review-content mt-3">
-                  <div className="d-flex">
-                    <ColorCode request={receivedData} />
-                    <p className="short0ad dor rounded-pill ms-2">
-                      {receivedData?.brandname}
-                    </p>
-                    <p className="short0ad project-assets ms-2 px-4">
-                      Project Assets
-                    </p>
-                  </div>
-                </div>
+    return (
+        <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
+            <div className="main-content-wraaper px-60 pt-md-2 pt-lg-5 pb-0">
+                <div className="mx-md-0 mx-lg-4 px-60 ">
+                    {receivedData?.status ?
+                        <div className="order-completed px-5 py-4 rounded mb-5">
+                            <p className="mb-0 extra-dark-green">{receivedData?.status === 'completed' ? 'Order completed' : receivedData?.status === 'production' ? 'Order in Production' : 'Delivered'}
+                                <span className="d-block fw-bold">
+                                    {receivedData?.status === 'completed' ? 'All good! You approved this order and files are ready to be used'
+                                        : receivedData?.status === 'production' ? `Delivery Scheduled for ${formatDate(receivedData?.delivery_date)}`
+                                            : 'Waiting for your review. Approve it to download the files or request feedback to modify the delivery'}
+                                </span>
+                            </p>
+                        </div> :
+                        <div className="delivery-status-section active-request p-5 rounded mt-4">
+                            <h1>Queued</h1>
+                        </div>
+                    }
+                    <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
+                        <div className="row">
+                            <div className="col-md-7 col-lg-6 mb-4">
+                                <h3>{receivedData?.request_name}</h3>
+                                <div className="review-content mt-3">
+                                    <div className="d-flex">
+                                        <ColorCode request={receivedData} />
+                                        <p className="short0ad dor rounded-pill ms-2">{receivedData?.brandname ? receivedData?.brandname : '-'}</p>
+                                        <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
+                                    </div>
+                                </div>
               </div>
               <div className="col-md-5 col-lg-6 mb-3">
                 <div className="d-flex  justify-content-end">

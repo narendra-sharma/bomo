@@ -18,17 +18,13 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit, user }) 
         }
     };
 
-    useEffect(() => {
-        if (isSubmit) {
-            setTimeout(() => {
-                navigate('/');
-                dispatch({
-                    type: SUBMIT_NOW,
-                    payload: false
-                })
-            }, 7000);
-        }
-    }, [dispatch]);
+    const SuccessClose = () => {
+        navigate('/');
+        dispatch({ 
+            type: SUBMIT_NOW, 
+            payload: false
+        });
+    };
 
     return (
         <div>
@@ -65,7 +61,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit, user }) 
                     </Modal.Body>
                 </Modal>
             </div>
-            <RequestSuccess view={isSubmit} viewClose={() => { dispatch({ type: SUBMIT_NOW, payload: false}); }} datadetail={userdetail} />
+            <RequestSuccess view={isSubmit} viewClose={SuccessClose} datadetail={userdetail} />
         </div>
     )
 };

@@ -46,7 +46,6 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
       transparency: request?.transparency,
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
-      status: 'rejected'
     };
     navigate('/request-expand', { state: data});
   };
@@ -72,7 +71,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                           <td><p className="serial-number">{request?.priority}</p></td>
                           <td className="text-center"><ColorCode request={request} /></td>
                           <td>
-                            <p>{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p>
+                            <p>{request?.brand_profile ? request?.brand_profile?.brandname : '-'}</p>
                           </td>
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
