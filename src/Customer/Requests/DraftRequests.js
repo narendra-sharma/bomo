@@ -35,7 +35,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                   <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                   <td className="text-center"><p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p></td>
-                  <td className="text-center" onMouseEnter={() => {setHoverindex(index)}} onMouseLeave={() => setHoverindex(null)}>
+                  <td className="text-center col-md-3" onMouseEnter={() => {setHoverindex(index)}} onMouseLeave={() => setHoverindex(null)}>
                     <p>
                       <Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>
                         {(hoverindex===index) ? 'continue editing, you got this' : 'continue editing'}
