@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import bomoLogo from "./images/bomo-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { isSubscription, logout} from "./reduxdata/rootAction";
+import { isSubscription, logout } from "./reduxdata/rootAction";
 import Logout from "./Modals/Logout";
 import { PAY_NOW_SUCCESS } from "./reduxdata/PlansPayments/planTypes";
 const Sidebar = () => {
@@ -14,28 +14,28 @@ const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem('userDetails');
-    localStorage.removeItem('USERTYPE');
+    localStorage.removeItem("userDetails");
+    localStorage.removeItem("USERTYPE");
     localStorage.clear();
     dispatch(logout());
-    navigate('/');
-  }
+    navigate("/");
+  };
   const [items, setItems] = useState([]);
   const [isSubscribe, setIsSubscribe] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const getSubscription = async () => {
-    await isSubscription(user).then(r => {
-      if (!r && (userrole === 'customer_admin')) {
+    await isSubscription(user).then((r) => {
+      if (!r && userrole === "customer_admin") {
         setRedirect(true);
-        navigate('/settings');
+        navigate("/settings");
       }
       setIsSubscribe(r);
     });
   };
   useEffect(() => {
-    if (userrole === 'customer_admin') {
+    if (userrole === "customer_admin") {
       getSubscription();
-    } else if (userrole === 'Designer') {
+    } else if (userrole === "Designer") {
       setIsSubscribe(user?.isDesignerApproved ? true : false);
     }
   }, [user]);
@@ -78,19 +78,35 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = ((isSubscribe && isPay) || ((userrole !== 'Super admin') && !isSubscribe && redirect)) ? '/settings' : ((n - time) < 25000) ? localStorage.getItem('path') :location.pathname;
-    if(isPay){
+    location.pathname =
+      (isSubscribe && isPay) ||
+      (userrole !== "Super admin" && !isSubscribe && redirect) ||
+      (userrole === "Designer" && user?.isDesignerApproved === false)
+        ? "/settings"
+        : n - time < 25000
+        ? localStorage.getItem("path")
+        : location.pathname;
+    if (isPay) {
       dispatch({
-        type: PAY_NOW_SUCCESS
+        type: PAY_NOW_SUCCESS,
       });
     }
     navigate(location.pathname);
-  }, [userrole, isSubscribe,isPay]);
+  }, [userrole, isSubscribe, isPay]);
 
   const [show, setShow] = useState(false);
   const getSubscribe = (item) => {
-    return ((userrole === 'Designer') && !isSubscribe) || (((userrole === 'customer_admin') && (!isSubscribe) && user?.next_billing_date && (item.to !== '/subscription')) || ((userrole === 'customer_admin') && (!isSubscribe) && !user?.next_billing_date))
-  }
+    return (
+      (userrole === "Designer" && !isSubscribe) ||
+      (userrole === "customer_admin" &&
+        !isSubscribe &&
+        user?.next_billing_date &&
+        item.to !== "/subscription") ||
+      (userrole === "customer_admin" &&
+        !isSubscribe &&
+        !user?.next_billing_date)
+    );
+  };
   return (
     <div>
       <div
@@ -106,12 +122,17 @@ const Sidebar = () => {
             <img src={bomoLogo} alt="Bomo logo" />
           </div>
           <div className="list-group pt-5">
-            {items.map(item => <Link
-              to={`${(getSubscribe(item) ? '#' : item.to)}`}
-              key={item.name}
-              className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${(location.pathname === item.to ? 'active' : '')} ${getSubscribe(item) ? 'disable' : ''}`}>
-              <span className="ml-2">{item.name}</span>
-            </Link>)}
+            {items.map((item) => (
+              <Link
+                to={`${getSubscribe(item) ? "#" : item.to}`}
+                key={item.name}
+                className={`list-group-item list-group-item-action border-0 d-flex align-items-center ${
+                  location.pathname === item.to ? "active" : ""
+                } ${getSubscribe(item) ? "disable" : ""}`}
+              >
+                <span className="ml-2">{item.name}</span>
+              </Link>
+            ))}
           </div>
         </div>
         <div className="list-group">
