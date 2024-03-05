@@ -4,7 +4,11 @@ import { format } from "date-fns";
 import pay_success from '../images/pay_success.png';
 const PaymentSuccess = (props) => {
   const { show, changeFor, handleClose } = props;
-  const user=JSON.parse(localStorage.getItem('userDetails'));
+  const user=JSON.parse(localStorage.getItem('paySubscription'));
+  if (user?.subscription && user?.subscription?.length > 0) {
+    let sub = user?.subscription?.find(r => r?.type === 'primary');
+    user.subscription = sub;
+  }
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (show && event.target.classList.contains("modal-backdrop")) {
