@@ -117,9 +117,9 @@ export const pause_subscription_superadmin = async (user, dispatch, subId, token
     const url = `${REACT_APP_BOMO_URL}superAdmin/pause_subscription/${subId}`;
     let headers = HEADERS;
     headers.headers['x-access-token'] = token;
-    const res = await axios.post(url, { pause: getSubscriptionId[0]?.status === 'paused' ? false : true, user_id: user?._id }, headers);
+    const res = await axios.post(url, { pause: getSubscriptionId?.status === 'paused' ? false : true, user_id: user?._id }, headers);
     if (res.data && res.data.status) {
-      toast.success('Successfully ' + (user?.subscription[0]?.status === 'paused' ? 'resumed' : 'paused') + ' subscription.');
+      toast.success('Successfully ' + (getSubscriptionId?.status === 'paused' ? 'resumed' : 'paused') + ' subscription.');
       get_user_subscription_details(user?._id, token, dispatch);
     } else {
       toast.error(res.data.message);
