@@ -623,10 +623,8 @@ const NewRequest = ({
                         </div>
                       </div>
                       <div className="col-md-6">
-                        <div className="form-group">
-                          <label htmlFor="Size Up to 2" className="ms-3 mb-2">
-                            (Size Up to 2)<span className="text-danger">*</span>
-                          </label>
+                        <div className="form-group select-size">
+                          <label htmlFor="Size Up to 2" className="ms-3 mb-2">(Size Up to 2)<span className="text-danger">*</span></label>
                           <ReactSelect
                             isMulti={true}
                             options={sizes}
@@ -635,30 +633,12 @@ const NewRequest = ({
                             onChange={(selected) => handleChange(selected)}
                             isClearable={true}
                             placeholder="Select"
-                          />
-                          {show && (
-                            <div>
-                              <input
-                                type="ratio"
-                                id="customSizeInput"
-                                className="form-control mt-2"
-                                placeholder="Enter Custom Size"
-                                onChange={(e) => setAddval(e.target.value)}
-                              />
-                              <button
-                                type="button"
-                                className="btn btn-primary mt-2"
-                                onClick={handleCustom}
-                              >
-                                Add Custom Size
-                              </button>
-                            </div>
-                          )}
-                          {errors.size && (
-                            <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
-                              {errors.size}
-                            </p>
-                          )}
+                            classs="form-control" />
+                          {show && <div>
+                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" onChange={(e) => setAddval(e.target.value)} />
+                            <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
+                          </div>}
+                          {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -777,20 +757,8 @@ const NewRequest = ({
                   </p>
                 </div>
                 <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
-                  {ischeck && (
-                    <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
-                      Fill in the missing fields to continue
-                    </p>
-                  )}
-                  <button
-                    type="submit"
-                    className={`btn border rounded-pill pause-btn w-25 py-2 ${
-                      ischeck ? "btn-danger" : ""
-                    }`}
-                    onClick={(e) => handleSubmit(e, "pending")}
-                  >
-                    Submit
-                  </button>
+                  {ischeck && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0 justify-content-center">Fill in the missing fields to continue</p>}
+                  <button type="submit" className={`btn border rounded-pill pause-btn w-25 py-2 ${ischeck ? 'btn-danger' : ''}`} onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
                 </div>
               </div>
             </form>
