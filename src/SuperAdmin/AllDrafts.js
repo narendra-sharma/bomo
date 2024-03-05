@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
-import { get_all_draft_requests } from "../reduxdata/rootAction";
+import { get_all_draft_requests, get_edit_request_data } from "../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
+import { useNavigate } from "react-router-dom";
 
 const AllDrafts = ({ user, drafts, total,search }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
         get_all_draft_requests(dispatch, user?.token,1,10,search);
     }, [user?.token,search]);
+
+    const handleEdit = (request) => {
+        dispatch(get_edit_request_data(request));
+        navigate('/new-request')
+      };
+
     return (
         <div class="accordion-item mb-5">
             <h3 class="accordion-header" id="panelsStayOpen-headingFour">
@@ -22,7 +31,7 @@ const AllDrafts = ({ user, drafts, total,search }) => {
                 <div class="accordion-body p-0">
                     <div className="row g-0 bg-white">
                         {drafts?.map((request) => (
-                            <div className="col-md-6">
+                            <div className="col-md-6" onClick={() => handleEdit(request)}>
                                 <div className="review-content px-4  mb-3">
                                     <div className="table-responsive">
                                         <table className="table table-borderless mb-0">

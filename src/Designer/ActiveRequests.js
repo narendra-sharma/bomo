@@ -81,7 +81,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                                             <div className="col-md-5 col-12">
                                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                                                    <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
+                                                    <p class="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                                                     <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={request?.req_mail_date} /></span></span>
                                                 </div>
                                             </div>
