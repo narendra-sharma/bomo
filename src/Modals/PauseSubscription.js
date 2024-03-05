@@ -1,17 +1,12 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
-import { pause_subscription } from "../reduxdata/rootAction";
-import { pause_subscription_superadmin } from "../reduxdata/PlansPayments/planActions";
+import { pause_subscription } from "../reduxdata/PlansPayments/planActions";
 const PauseSubscription = (props) => {
   const { user, show, handleClose, subscribedUser } = props;
   const dispatch = useDispatch();
   const pause = async () => {
-    if (subscribedUser) {
-      pause_subscription_superadmin(user, dispatch, user?.subscription?._id, user?.token, user?.subscription)
-    } else {
-      await pause_subscription(user, dispatch);
-    }
+    pause_subscription(user, dispatch)
     handleClose();
   }
   return (
