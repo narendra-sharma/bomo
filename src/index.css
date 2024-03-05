@@ -58,6 +58,9 @@ p {
 .extra-dark-green {
   color: #012801 !important;
 }
+.fw-500{
+ font-weight: 500;
+}
 .display-inline {
   display: inline;
 }
