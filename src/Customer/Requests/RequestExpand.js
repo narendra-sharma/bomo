@@ -17,6 +17,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const receivedData = location?.state;
+    console.log(receivedData);
 
     useEffect(() => {
         get_delivered_requests(dispatch, user?.token, receivedData?._id);
@@ -87,7 +88,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             <div className="col-md-5 col-lg-6 mb-3">
                                 <div className="d-flex  justify-content-end">
                                     <div className="delivery-date text-end ps-5">
-                                        <div className="fw-bold h6">Delivered {receivedData?.status==='production' ? 'expected':'on'}<span className="d-block h6">{formatDate(receivedData?.delivery_date)}</span></div>
+                                        <div className="fw-bold h6">Delivered {receivedData?.status === 'production' ? 'expected' : 'on'}<span className="d-block h6">{formatDate(receivedData?.delivery_date)}</span></div>
                                     </div>
                                 </div>
 
@@ -107,7 +108,9 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                         <tbody>
                                             <tr>
                                                 <td><span className="d-block">{receivedData?.description}</span></td>
-                                                <td><span className="d-block">{receivedData?.size}</span></td>
+                                                <td>
+                                                    {receivedData?.size?.map((value) => <span className="d-block">{value}</span>)}
+                                                </td>
                                                 <td>{receivedData?.file_type}</td>
                                                 <td>{receivedData?.transparency}</td>
                                                 <td className="text-center">{receivedData?.references}</td>
@@ -208,37 +211,37 @@ const RequestExpand = ({ user, deliverrequests }) => {
                         // <div className="col-md-12">
                         //     <span>Deliver Expected</span>
                         // </div>
-                    <div className="delivery-status-section active-request p-5 rounded mt-4"> 
-                        <div className="row justify-content-center">
-                            <div className="col-md-4 justify-content-center align-self-center">
-                                <div className="delivery-status fw-bold mb-2">
-                                <i className="fa-solid fa-circle-minus minus"></i>  Delivery {receivedData?.status==='production' ? 'expected':'on'}
-                                </div>
-                                <p className="status-date text-secondary mb-0">
-                                   {format(new Date(receivedData?.delivery_date),'dd/MM/yyyy')} {formattedTime(receivedData?.delivery_date)}
-                                </p>
-                            </div>
-                            <div className="col-md-4 d-flex text-center justify-content-center">
-                                <div className="statusbar-section d-flex flex-column justify-content-between">
-                                    <div className="delivery-status fw-bold">9:16</div>
-                                    <div className="">
-                                    <img src={designImage3} alt="Image" />
+                        <div className="delivery-status-section active-request p-5 rounded mt-4">
+                            <div className="row justify-content-center">
+                                <div className="col-md-4 justify-content-center align-self-center">
+                                    <div className="delivery-status fw-bold mb-2">
+                                        <i className="fa-solid fa-circle-minus minus"></i>  Delivery {receivedData?.status === 'production' ? 'expected' : 'on'}
                                     </div>
-                                    
+                                    <p className="status-date text-secondary mb-0">
+                                        {format(new Date(receivedData?.delivery_date), 'dd/MM/yyyy')} {formattedTime(receivedData?.delivery_date)}
+                                    </p>
                                 </div>
-                            </div>
-                            <div className="col-md-4 d-flex text-center justify-content-center">
-                                <div className="statusbar-section d-flex flex-column justify-content-evenly">
-                                    <div className="delivery-status fw-bold">16:9</div>
-                                    <div className="">
-                                    <img src={designImage4} alt="Image" />
-                                    </div>
-                                    
+                                <div className="col-md-4 d-flex text-center justify-content-center">
+                                    <div className="statusbar-section d-flex flex-column justify-content-between">
+                                        <div className="delivery-status fw-bold">9:16</div>
+                                        <div className="">
+                                            <img src={designImage3} alt="Image" />
+                                        </div>
 
+                                    </div>
+                                </div>
+                                <div className="col-md-4 d-flex text-center justify-content-center">
+                                    <div className="statusbar-section d-flex flex-column justify-content-evenly">
+                                        <div className="delivery-status fw-bold">16:9</div>
+                                        <div className="">
+                                            <img src={designImage4} alt="Image" />
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>}
+                        </div>}
                 </div>
             </div>
         </div>
