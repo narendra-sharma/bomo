@@ -74,7 +74,7 @@ const CustomerHome = ({ activerequest, user }) => {
                         <tr onClick={() => handleView(request)}>
                           <td className="text-center" style={{width:"119px"}}><ColorCode request={request} /></td>
                           <td>
-                            <p>{request?.brand_profile?.brandname}</p>
+                            <p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                           </td>
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                           <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>

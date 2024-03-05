@@ -59,7 +59,7 @@ const PollRequests = ({ user, pollrequests }) => {
                                 <div className="col-md-11 col-lg-10 d-flex align-items-center">
                                     <div className="d-flex align-items-center">
                                         <ColorCode request={request} />
-                                        <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname}</p>
+                                        <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                                     </div>
                                     <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => {setToggle(true);setSelectedData(request);}}>+ Show full Brief</a></p></div>
                                 </div>

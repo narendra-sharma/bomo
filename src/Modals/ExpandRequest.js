@@ -19,8 +19,9 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
     const formattedTime = (timeDate) => {
         const date = new Date(timeDate);
-        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-        return `${time}`;
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
     };
 
     return (
@@ -80,6 +81,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                             formattedTime(expanddetails?.req_data?.req_mail_date)
                                             : '----'}</span></p>
                             </div>
+                            { }
                             <div class="step">
                                 <p className="brief-content">Assigned to </p>
                                 <div class="deliver-status delivery-check">
@@ -87,21 +89,27 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                 </div>
                                 <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
                             </div>
-                            <div class="step">
-                                <p className="brief-content">Delivery Rejected</p>
-                                <div class="deliver-status delivery-cancel">
-                                    <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
-
-                            <div class="step">
-                                <p className="brief-content">Delivery Approved</p>
-                                <div class="deliver-status delivery-check">
-                                    <span><i class="fa-solid fa-circle-check"></i></span>
-                                </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
+                            {!expanddetails?.req_data?.is_approved_by_customer ?
+                                <div class="step">
+                                    <p className="brief-content">Delivery Rejected</p>
+                                    <div class="deliver-status delivery-cancel">
+                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                    </div>
+                                    <p className="brief-date">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                        format(new Date(expanddetails?.req_data?.design_rejected_at_by_customer), 'dd/MM/yyyy')
+                                        : '-'}
+                                        <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                            formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
+                                            : '-'}</span>
+                                    </p>
+                                </div> :
+                                <div class="step">
+                                    <p className="brief-content">Delivery Approved</p>
+                                    <div class="deliver-status delivery-check">
+                                        <span><i class="fa-solid fa-circle-check"></i></span>
+                                    </div>
+                                    <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
+                                </div>}
                         </div>
                     </div>
                 </div>
