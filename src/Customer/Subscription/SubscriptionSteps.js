@@ -58,7 +58,7 @@ const SubscriptionSteps = (props) => {
         {step === 0 && <>
           <SubscriptionCalculator change={(val) => changeQuantityData(val)} isSubscribe />
           <div className="mb-5 text-center">
-            <button type="button" className="btn update-btn rounded-pill px-4 fw-bold" disabled={((user?.quantity>0) && (user?.next_subscription?.length>0))} onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
+            <button type="button" className="btn update-btn rounded-pill px-4 fw-bold" onClick={() => setStep(1)}>{user?.plan_id ? 'Update' : 'Go to Payment'}</button>
           </div>
           <p className="text-center">
             {user?.plan_id
