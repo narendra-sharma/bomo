@@ -88,7 +88,7 @@ const BankInfo = ({ user, imagepath }) => {
         const imagePath = await uploadImage(file, dispatch, type);
         setBankInfo({ ...bankInfo, documentfront: imagePath });
         setErrors({ ...errors, documentfront: '' });
-      } else if(!allowedFileTypes.includes(file.type)) {
+      } else if (!allowedFileTypes.includes(file.type)) {
         setErrors({ ...errors, documentfront: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         setBankInfo({ ...bankInfo, documentfront: '' });
       }
@@ -97,7 +97,7 @@ const BankInfo = ({ user, imagepath }) => {
         const imagePath = await uploadImage(file, dispatch, type);
         setBankInfo({ ...bankInfo, documentback: imagePath });
         setErrors({ ...errors, documentback: '' });
-      } else if(!allowedFileTypes.includes(file.type)){
+      } else if (!allowedFileTypes.includes(file.type)) {
         setErrors({ ...errors, documentback: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
         setBankInfo({ ...bankInfo, documentback: '' });
       }
@@ -165,7 +165,6 @@ const BankInfo = ({ user, imagepath }) => {
       };
       await add_user_account(dispatch, accountdetail, user?.token);
       setIsShow(false);
-      console.log(accountdetail);
     }
   };
 

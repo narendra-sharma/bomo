@@ -143,7 +143,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   };
 
   const handleSizes = (selectedOptions) => {
-    console.log(selectedOptions);
     const maximumselection = 2;
     if (selectedOptions?.length === 0) {
       setErrors({ ...errors, size: 'Please Select your size' });
@@ -257,7 +256,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (isValid && newrequest?.uploadFiles?.length >= 3) {
         setIspop(true);
         setNewData(newrequest);
-        console.log(newrequest);
       } else if ((isValid) && !(newrequest?.uploadFiles?.length >= 3)) {
         toast.error('Please Upload Atleast 3 files');
       }
@@ -265,7 +263,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       if (formData.requestName === '') {
         toast.error('Atleast specify your Request Name!')
       } else if (formData.requestName !== '') {
-        console.log(newrequest);
         await newRequest(newrequest, dispatch, usertoken, navigate);
       }
     }

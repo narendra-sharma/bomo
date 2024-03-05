@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Country } from 'country-state-city';
 import AutocompleteInput from "./AutocompleteInput";
 const BillingInfo = ({ card, errors, handleCardElementChange }) => {
-  const {name,company,address,city,postalCode,country,vatNumber}=errors;
+  const { name, company, address, city, postalCode, country, vatNumber } = errors;
   const [countries, setCountries] = useState([])
   useEffect(() => {
     const cArr = Country.getAllCountries();
     setCountries(cArr);
   }, []);
-  console.log(card);
   return (
     <>
       <div className="col-md-6">
@@ -16,11 +15,11 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
           <label htmlFor="cc-name">Name<span className="text-danger">*</span></label>
           <input id="cc-name" defaultValue={card.name} type="text" name="name" className="form-control" onChange={(e) => handleCardElementChange(e.target.value, 'name')} />
           {name &&
-          name.type === "required" && (
-            <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
-              Enter the Name
-            </p>
-          )}
+            name.type === "required" && (
+              <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
+                Enter the Name
+              </p>
+            )}
         </div>
       </div>
       <div className="col-md-6">
@@ -44,7 +43,7 @@ const BillingInfo = ({ card, errors, handleCardElementChange }) => {
       <div className="col-md-6">
         <div className="form-group">
           <label>Address<span className="text-danger">*</span></label>
-          <AutocompleteInput address={card?.address} handleCardElementChange={(value,label) => handleCardElementChange(value, label)}/>
+          <AutocompleteInput address={card?.address} handleCardElementChange={(value, label) => handleCardElementChange(value, label)} />
           {address &&
             address.type === "required" && (
               <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
