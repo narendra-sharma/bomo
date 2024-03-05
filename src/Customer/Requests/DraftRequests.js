@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CustomPagination from "../../Common/CustomPagination";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import { get_draft_requestlist, get_edit_request_data } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
@@ -9,9 +9,13 @@ import { format } from "date-fns";
 
 const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const navigate = useNavigate();
   const [hoverindex,setHoverindex]=useState(null);
+
+  const handleEdit = (request) => {
+    dispatch(get_edit_request_data(request));
+    navigate('/new-request')
+  };
 
   useEffect(() => {
     get_draft_requestlist(dispatch, user?.token, 1, 10);
@@ -23,7 +27,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
           <table className='table mb-0'>
             <tbody>
               {draftrequests.map((request,index) => (
-                <tr key={index} className={hoverindex === index ? 'hovered' : ''}>
+                <tr key={index} className={`${hoverindex === index ? 'hovered' : ''} cursor-pointer`} onClick={() => handleEdit(request)}>
                   <td className="text-center">
                     <ColorCode request={request} />
                   </td>

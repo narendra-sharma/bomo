@@ -403,7 +403,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                     </div>
                     <div className="col-md-7">
                       <div className="form-group">
-                        <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger">*</span></label>
+                        <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger"></span></label>
                         <select type="select" name="brandProfile" className="form-control" value={formData?.brandProfile} onChange={handleInputChange} >
                           <option value="" disabled>Select</option>
                           {brands.map((brand) => (<option key={brand._id} value={brand?._id} >{brand?.brandname}</option>))}
@@ -465,7 +465,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                             value={formData?.size}
                             onChange={(selected) => handleChange(selected)}
                             isClearable={true}
-                            placeholder="Select your size" />
+                            placeholder="Select" />
                           {show && <div>
                             <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" onChange={(e) => setAddval(e.target.value)} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
@@ -510,7 +510,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   </div>
                   <label class="uploadFile">
                     <span class="filename">
-                      {ishover ? <i class="fas fa-angle-down color-white"></i> : <img src={plusImage} alt="" />}
+                      {ishover ? <i class="fas fa-angle-up color-white"></i> : <img src={plusImage} alt="" />}
                       </span>
                     <input 
                      name="uploadFiles" 
