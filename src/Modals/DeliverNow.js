@@ -30,17 +30,14 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
         handleClose();
     };
 
-    useEffect(() => {
-        if (isSubmit) {
-            setTimeout(() => {
-                navigate('/');
-                dispatch({
-                    type: SUBMIT_NOW,
-                    payload: false
-                })
-            }, 5000);
-        };
-    }, [isSubmit]);
+    const SuccessClose = () => {
+        navigate('/');
+        dispatch({ 
+            type: SUBMIT_NOW, 
+            payload: false
+        });
+    };
+
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
@@ -71,7 +68,7 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
                     </div>
                 </Modal.Body>
             </Modal>
-            <DeliverSuccess show={isSubmit} handleClose={() => { dispatch({ type: SUBMIT_NOW, payload: false}); }} data={currentdata} />
+            <DeliverSuccess show={isSubmit} handleClose={SuccessClose} data={currentdata} />
         </div>
     )
 };

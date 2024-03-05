@@ -45,7 +45,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
-                                <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname}</p>
+                                <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname ? data?.brand_profile?.brandname : '-'}</p>
                                 <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                     Brand Assets
                                 </p>

@@ -10,7 +10,7 @@ import { format } from "date-fns";
 const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [hoverindex,setHoverindex]=useState(null);
+  const [hoverindex, setHoverindex] = useState(null);
 
   const handleEdit = (request) => {
     dispatch(get_edit_request_data(request));
@@ -26,8 +26,14 @@ const DraftRequests = ({ draftrequests, user, total }) => {
         {(total > 0) ? <div className='bg-gray-light draft-table table-responsive'>
           <table className='table mb-0'>
             <tbody>
-              {draftrequests.map((request,index) => (
-                <tr key={index} className={`${hoverindex === index ? 'hovered' : ''} cursor-pointer`} onClick={() => handleEdit(request)}>
+              {draftrequests.map((request, index) => (
+                <tr
+                  key={index}
+                  className={`${hoverindex === index ? 'hovered' : ''} cursor-pointer`}
+                  onClick={() => handleEdit(request)}
+                  onMouseEnter={() => { setHoverindex(index) }}
+                  onMouseLeave={() => setHoverindex(null)}
+                >
                   <td className="text-center">
                     <ColorCode request={request} />
                   </td>
@@ -35,10 +41,10 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                   <td><p><span className="fw-bold">Delivery</span> <span className="d-block">-</span></p></td>
                   <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                   <td className="text-center"><p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p></td>
-                  <td className="text-center col-md-3" onMouseEnter={() => {setHoverindex(index)}} onMouseLeave={() => setHoverindex(null)}>
+                  <td className="text-center col-md-3">
                     <p>
                       <Link to='/new-request' className="text-decoration-none" onClick={() => dispatch(get_edit_request_data(request))}>
-                        {(hoverindex===index) ? 'continue editing, you got this' : 'continue editing'}
+                        {(hoverindex === index) ? 'continue editing, you got this' : 'continue editing'}
                       </Link>
                     </p>
                   </td>
