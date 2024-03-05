@@ -128,7 +128,7 @@ function App({ user }) {
     ]);
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer limit={1}/>
       <LoadingSpinner />
       {isAuth ? <>
         <Sidebar />

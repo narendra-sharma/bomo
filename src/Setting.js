@@ -60,31 +60,31 @@ const Setting = ({ userrole, profiledetails }) => {
             </div>}
           </div>
           <div className="mb-5">
-            {((userrole === 'Designer') || (userrole === 'customer_admin' || 'customer')) ?
+            {(userrole !=='Super admin') ?
               <div className="row">
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
                     <div className="d-flex text-right justify-content-between align-items-center gap-3">
                       {((user?.role === 'superadmin')) ?
                         <img src={`${userImage}`} alt="img" />
-                        :((userrole === 'customer_admin'||'customer') && (user?.colour)) ?
-                        <div
-                          style={{
-                            backgroundColor: user?.colour,
+                        : ((userrole === 'customer_admin' || 'customer') && (user?.colour)) ?
+                          <div
+                            style={{
+                              backgroundColor: user?.colour,
+                              width: 30,
+                              height: 30,
+                              borderRadius: 25,
+                            }}
+                          ></div>
+                          : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
+
+                            backgroundColor: "black",
                             width: 30,
                             height: 30,
                             borderRadius: 25,
                           }}
-                        ></div>
-                        : ((userrole === 'customer_admin') && (!user?.colour)) ? <div style={{
-
-                          backgroundColor: "black",
-                          width: 30,
-                          height: 30,
-                          borderRadius: 25,
-                        }}
-                        ></div> :
-                          <img src={`${userImage}`} alt="img" />}
+                          ></div> :
+                            <img src={`${userImage}`} alt="img" />}
                       <p className="mb-0 user-email  ms-1 ms-lg-2">
                         <b className=" d-md-block">Name</b>
                         <span className="d-block">{user?.name}</span></p>
@@ -107,7 +107,7 @@ const Setting = ({ userrole, profiledetails }) => {
                     </div>
                   </div>
                 </div>
-                {(userrole === 'customer_admin') || (userrole === 'customer') && <div className="col-lg-5">
+                {((userrole === 'customer_admin') || (userrole === 'customer')) && <div className="col-lg-5">
                   <SubscriptionStatus user={user} isSetting={true} />
                 </div>}
               </div> :
@@ -130,21 +130,21 @@ const Setting = ({ userrole, profiledetails }) => {
               </div>}
           </div>
           {((userrole === 'customer_admin') && user?.plan_id) ? <div className="review-main-content">
-           <div className="row">
-            <div className="col-md-6">
-              <div className="mb-3">
-                <h3>Billing Information</h3>
+            <div className="row">
+              <div className="col-md-6">
+                <div className="mb-3">
+                  <h3>Billing Information</h3>
+                </div>
+
               </div>
-               
-            </div>
-            <div className="col-md-6">
-            <div className="mb-3">
-                <h3>Payment info</h3>
+              <div className="col-md-6">
+                <div className="mb-3">
+                  <h3>Payment info</h3>
+                </div>
               </div>
             </div>
-           </div>
             <div className="row review-main-content setting-card-info gap-3">
-              
+
               <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
                 <BillingForm user={user} />
               </div>

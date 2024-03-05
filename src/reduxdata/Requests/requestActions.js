@@ -65,7 +65,7 @@ export const get_accepted_request = async (dispatch, token, page = 1, limit = 10
     };
     const res = await axios.get(url, HEADERS);
     if (res.data && res?.data.status) {
-      dispatch({ type: GET_ADMIN_ACCEPTED_LIST, payload: res.data?.data });
+      dispatch({ type: GET_ADMIN_ACCEPTED_LIST, payload: res.data });
     } else {
       toast.error(res.data?.message);
     }

@@ -15,13 +15,17 @@ export const logout = () => {
 };
 export const catch_errors_handle = (error, dispatch) => {
   if (error.response) {
-    toast.error(error.response.data.message);
-    if (error.response.status === 401) {
-      localStorage.removeItem("userDetails");
-      dispatch(set_update_user(''));
-    }
-  } else {
-    toast.error(error.message);
+    toast.error(error.response.data.message, {
+      toastId: 'errors1',
+    });
+      if (error.response.status === 401) {
+        localStorage.removeItem("userDetails");
+        dispatch(set_update_user(''));
+      }
+    } else {
+      toast.error(error.message, {
+        toastId: 'errors1',
+    });
   }
 };
 

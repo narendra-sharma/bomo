@@ -7,6 +7,7 @@ import { PAY_NOW } from "../../reduxdata/PlansPayments/planTypes";
 import PaymentSuccess from "../../Modals/PaymentSuccess";
 import SubscriptionCalculator from "../../Common/SubscriptionCalculator";
 import { format, add } from "date-fns";
+import { useNavigate } from "react-router-dom";
 const { REACT_APP_STRIPE_PUBLIC_KEY } = process.env;
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const SubscriptionSteps = (props) => {
@@ -17,6 +18,8 @@ const SubscriptionSteps = (props) => {
   const [prize, setPrize] = useState(250);
   const [save, setSave] = useState(0);
   const [step, setStep] = useState(0);
+  const [changeFor,setChangeFor]=useState(null);
+  const navigate=useNavigate();
   const changeQuantityData = (val) => {
     setPieces(val.pieces);
     setPrize(val.price);
@@ -27,9 +30,6 @@ const SubscriptionSteps = (props) => {
     if (props.isPay) {
       setShow(true);
       setStep(0);
-      setTimeout(() => {
-        closeSuccessPopup();
-      }, 3000);
     }
   }, [props.isPay, dispatch]);
 
@@ -38,6 +38,7 @@ const SubscriptionSteps = (props) => {
     dispatch({
       type: PAY_NOW
     });
+    navigate('/settings');
   }
   const getRenew=()=>{
     const currentDate = new Date();
@@ -75,12 +76,12 @@ const SubscriptionSteps = (props) => {
         {step === 1 && <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ stripe, elements }) => (
-              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} cards={props.cards} />
+              <DoPayment stripe={stripe} elements={elements} user={user} pieces={pieces} prize={prize} save={save} cards={props.cards} changeFor={setChangeFor}/>
             )}
           </ElementsConsumer>
         </Elements>}
       </div>
-      <PaymentSuccess show={show} handleClose={() => closeSuccessPopup()} />
+      <PaymentSuccess show={show} changeFor={changeFor} handleClose={() => closeSuccessPopup()} />
     </>
   )
 }

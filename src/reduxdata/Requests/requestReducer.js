@@ -3,7 +3,7 @@ const initialState = {
   isSubmit: false,
   pendingRequests: [],
   pendingTotal: 0,
-  activeTotal: 0,
+  acceptedTotal: 0,
   totaldrafts: 0,
   totalpastrequest: 0,
   draftrequests: [],
@@ -140,7 +140,8 @@ const requestReducer = (state = initialState, action) => {
     case GET_ADMIN_ACCEPTED_LIST:
       return {
         ...state,
-        acceptedRequests: action.payload
+        acceptedRequests: action.payload.data,
+        acceptedTotal: action.payload.total
       }
     case GET_NEW_REQUEST:
       return {

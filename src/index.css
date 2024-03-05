@@ -456,7 +456,10 @@ nav {
 .draft-table {
   border: solid 1px #000;
  }
- .draft-table:hover {
+ .draft-table tr{
+  background: #f2f2f2;
+ }
+ .draft-table tr:hover {
   background: #fbfbfb;
 }
  .draft-table tr{
@@ -1720,6 +1723,9 @@ p.user-email.date span.d-block {
   font-size: 16px;
   font-weight: 700;
 }
+.new-request-section .status-btn .pause-btn.btn-danger{
+  background-color: red;
+}
 .uploadFile {
   width: 100%;
   background-color: white;
@@ -2300,7 +2306,28 @@ button.accordion-button.collapsed .late-request-section {
 .uploadFile:hover i {
   color: #fff!important;
 }
-
+.select-size .css-13cymwt-control {
+  min-height: 33px !important;
+  border-color:#000;
+}
+.select-size .css-qbdosj-Input{
+  margin: 0;
+}
+.select-size .css-b62m3t-container .css-1fdsijx-ValueContainer {
+  padding: 0px 15px;
+}
+.select-size .css-1xc3v61-indicatorContainer{
+  padding: 4px 2px 4px 8px;
+  color:#000;
+}
+.select-size .css-1jqq78o-placeholder {
+  color:#000;
+  font-size: 14px;
+}
+.select-size .css-tj5bde-Svg {
+    width: 16px;
+    height: 16px;
+}
 @media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;
@@ -2663,3 +2690,4 @@ input:checked + .slider:before {
   left: unset;
   right: 6px;
 }
+
