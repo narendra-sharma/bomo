@@ -500,7 +500,6 @@ export const switch_to_designer = async (dispatch, userId, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    console.log(error);
     dispatch(catch_errors_handle(error, dispatch))
   } finally {
     dispatch(stop_loading());
@@ -533,7 +532,6 @@ export const switch_to_superadmin = async (dispatch, token) => {
       toast.error(res.data.message);
     }
   } catch (error) {
-    console.log(error);
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading());

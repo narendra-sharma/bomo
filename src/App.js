@@ -1,5 +1,5 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useRoutes } from "react-router-dom";
+import React, { useEffect, lazy } from "react";
+import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'react-tagsinput/react-tagsinput.css';
@@ -41,22 +41,15 @@ const DesignerRequest = lazy(() => import("./Customer/Requests/DesignerRequest")
 const RequestExpand = lazy(() => import("./Customer/Requests/RequestExpand"));
 
 function App({ user }) {
-  const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
     $(document).ready(() => {
       $("#open-sidebar").click(() => {
-        // add class active on #sidebar
         $("#sidebar").addClass("active");
-
-        // show sidebar overlay
         $("#sidebar-overlay").removeClass("d-none");
       });
 
       $("#sidebar-overlay").click(function () {
-        // add class active on #sidebar
         $("#sidebar").removeClass("active");
-
-        // show sidebar overlay
         $(this).addClass("d-none");
       });
       $("input[type=file]").change(function (e) {
@@ -64,12 +57,9 @@ function App({ user }) {
       });
 
     });
-
-
   }, []);
 
   useEffect(() => {
-    setIsAuth(user ? true : false);
     if(user && (user.role!=='superadmin') && (user.role!=='designer')){
       get_customer_card(user?.token,dispatch);
     }
@@ -130,7 +120,7 @@ function App({ user }) {
     <BrowserRouter>
       <ToastContainer limit={1}/>
       <LoadingSpinner />
-      {isAuth ? <>
+      {user ? <>
         <Sidebar />
         <Header />
         <AfterLoginCustomerRoutes />

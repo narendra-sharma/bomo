@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import bomoLogo from "./images/bomo-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { isSubscription, logout } from "./reduxdata/rootAction";
+import { isSubscription, logout} from "./reduxdata/rootAction";
 import Logout from "./Modals/Logout";
+import { PAY_NOW_SUCCESS } from "./reduxdata/PlansPayments/planTypes";
 const Sidebar = () => {
-  const userrole = useSelector((state) => state.auth.role || "");
-  const user = useSelector((state) => state.auth.user || "");
+  const userrole = useSelector((state) => state.auth.role);
+  const user = useSelector((state) => state.auth.user);
+  const isPay = useSelector((state) => state.plan.is_pay_success);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -76,9 +78,14 @@ const Sidebar = () => {
     let time = localStorage.getItem("time") || 0;
     time = new Date(time).getTime();
     const n = new Date().getTime();
-    location.pathname = (((userrole !== 'Super admin') && !isSubscribe && redirect)) ? '/settings' : ((n - time) < 25000) ? localStorage.getItem('path') : '/'
+    location.pathname = ((isSubscribe && isPay) || ((userrole !== 'Super admin') && !isSubscribe && redirect)) ? '/settings' : ((n - time) < 25000) ? localStorage.getItem('path') :location.pathname;
+    if(isPay){
+      dispatch({
+        type: PAY_NOW_SUCCESS
+      });
+    }
     navigate(location.pathname);
-  }, [userrole, isSubscribe]);
+  }, [userrole, isSubscribe,isPay]);
 
   const [show, setShow] = useState(false);
   const getSubscribe = (item) => {
