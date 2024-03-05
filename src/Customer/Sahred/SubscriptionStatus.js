@@ -12,7 +12,6 @@ const SubscriptionStatus = ({ user, isSetting }) => {
   const [final, setFinal] = useState(false);
   const [isSubscribe, setIsSubscribe] = useState(false);
   const getSubscription = async () => {
-    console.log("ABCDEFGH", user);
     await isSubscription(user).then(r => {
       setIsSubscribe(r);
     });

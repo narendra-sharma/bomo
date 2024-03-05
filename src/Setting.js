@@ -60,7 +60,7 @@ const Setting = ({ userrole, profiledetails }) => {
             </div>}
           </div>
           <div className="mb-5">
-            {((userrole === 'Designer') || (userrole === 'customer_admin' || 'customer')) ?
+            {(userrole !=='Super admin') ?
               <div className="row">
                 <div className={(userrole === 'customer_admin' || 'customer') ? 'col-lg-4' : 'col-lg-6'}>
                   <div className="review-main-content bg-white px-4 py-4 d-flex justify-content-between align-items-center rounded">
@@ -107,7 +107,7 @@ const Setting = ({ userrole, profiledetails }) => {
                     </div>
                   </div>
                 </div>
-                {(userrole === 'customer_admin') || (userrole === 'customer') && <div className="col-lg-5">
+                {((userrole === 'customer_admin') || (userrole === 'customer')) && <div className="col-lg-5">
                   <SubscriptionStatus user={user} isSetting={true} />
                 </div>}
               </div> :

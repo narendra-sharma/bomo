@@ -7,7 +7,7 @@ import { pay_now } from "../../reduxdata/PlansPayments/planActions";
 import { useDispatch } from "react-redux";
 import visa from '../../images/visa.png';
 import CardDetailShow from "../Sahred/CardDetail";
-const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
+const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards,changeFor }) => {
   const dispatch = useDispatch();
   const [cardDetails, setCardDetails] = useState(null);
   const [isDefault, setIsDefault] = useState(false);
@@ -184,9 +184,12 @@ const DoPayment = ({ stripe, elements, user, pieces, prize, save, cards }) => {
   const doPay=(token,data)=>{
     if(user?.plan_id && (user.quantity===0)){
       data.current_month=1;
-    }
-    if(user?.plan_id && (user.quantity>0)){
+      changeFor('current')
+    }else if(user?.plan_id && (user.quantity>0)){
       data.next_month=1;
+      changeFor('next')
+    }else{
+      changeFor(null);
     }
     pay_now(user?.token, token, data, dispatch);
   }
