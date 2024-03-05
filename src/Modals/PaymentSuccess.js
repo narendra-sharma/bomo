@@ -23,7 +23,7 @@ const PaymentSuccess = (props) => {
           <div className="d-flex align-items-center justify-content-end mb-3">
             <img src={pay_success} onClick={()=>handleClose()}/>
           </div>
-          <h5 className="mb-0 fw-bold text-dark">{user?.name},{changeFor}{console.log(user)}</h5>
+          <h5 className="mb-0 fw-bold text-dark">{user?.name},</h5>
           <h6 className="mb-5 text-dark">you have succesfully subscribed for {(changeFor && (changeFor==='next'))?user?.next_subscription[0]?.quantity:user?.subscription?.quantity} pieces.</h6>
           <p className="text-mute">
             Your subscription will renew on {(user && changeFor && (changeFor==='next'))?user?.next_subscription[0]?.next_billing_date && format(new Date(user?.next_subscription[0]?.next_billing_date), 'MMMM d, yyy'):user?.subscription?.next_billing_date && format(new Date(user?.subscription?.next_billing_date), 'MMMM d, yyy')}.
