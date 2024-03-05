@@ -51,10 +51,12 @@ const ViewAsCustomer = ({ view, token, show, handleClose, singleUserData, subscr
                   <span className="fw-bold d-block">Workspace</span>
                 </h4>
                 <div className="text-right">
-                  <p className="fw-bold mb-0">
-                    Subscription renews{" "}
-                    {getFormattedDate(singleUserData?.subscription_renew_date)}
-                  </p>
+                  {
+                    subscription?.subscription?.status == "active" && <p className="fw-bold mb-0">
+                      Subscription renews{" "}
+                      {getFormattedDate(singleUserData?.subscription_renew_date)}
+                    </p>
+                  }
                 </div>
               </div>
             </div>
