@@ -77,9 +77,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 </span>
                             </p>
                         </div> :
-                        <div className="delivery-status-section active-request p-5 rounded mt-4">
-                            <h1>Queued</h1>
-                        </div>
+                        <div class="border border-dark px-5 py-4 rounded mb-5">
+                            <p class="mb-0 dark-green fw-500">QUEUED <span class="d-block">Up next: Your request is <span class=" fw-bold">3rd</span> in the Feedback Queue and will be addressed after the currentone is approved.</span></p></div>
                     }
                     <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
                         <div className="row">
@@ -134,7 +133,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                 </td>
                                                 <td>{receivedData?.file_type}</td>
                                                 <td>{receivedData?.transparency}</td>
-                                                <td className="text-center">
+                                                <td className="text-end">
                                                     {receivedData?.references}
                                                 </td>
                                             </tr>
