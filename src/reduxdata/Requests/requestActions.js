@@ -7,7 +7,7 @@ import {
   get_user_subscription,
 } from "../rootAction";
 import { toast } from "react-toastify";
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE, GET_ADMIN_ACCEPTED_LIST } from "./requestTypes";
+import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, SUBMIT_NOW, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE, GET_ADMIN_ACCEPTED_LIST, GET_LATE_REQUESTS } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
 export const get_draft_requestlist = async (dispatch, token, page = 1, limit = 10) => {
@@ -630,7 +630,27 @@ export const image_delete = async (dispatch, imgpath, requestId) => {
   } finally {
     dispatch(stop_loading());
   }
-}
+};
+
+export const get_late_requests_superadmin = async (dispatch,token) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/late_active_requests`;
+    const HEADERS = {
+      headers:{
+        "x-access-token":token
+      }
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_LATE_REQUESTS, payload: res.data });
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
 
 export const newRequest = async (requestdata, dispatch, token, navigate) => {
   dispatch(start_loading());

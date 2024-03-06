@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { connect, useDispatch } from "react-redux";
 import { get_customer_card, get_user_subscription } from "./reduxdata/rootAction";
 import LoadingSpinner from "./LoadingSpinner";
+import Details from "./Customer/Requests/Details";
 
 const Signup = lazy(() => import("./auth/Signup"));
 const Login = lazy(() => import("./auth/Login"));
@@ -114,6 +115,7 @@ function App({ user }) {
       { path: "/deleiver-request", element: <DelieverRequest /> },
       { path: "/acceptance-request", element: <DesignerRequest /> },
       { path: "/request-expand", element: <RequestExpand /> },
+      { path: "/details", element: <Details/> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);
   return (

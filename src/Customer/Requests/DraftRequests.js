@@ -24,7 +24,6 @@ const DraftRequests = ({ draftrequests, user, total }) => {
     get_draft_requestlist(dispatch, user?.token, 1, 10);
   }, []);
 
-  console.log("Check");
   return (
     <>
       <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
