@@ -58,6 +58,11 @@ const requestReducer = (state = initialState, action) => {
         draftrequests: action.payload.data,
         totaldrafts: action.payload.request_length,
       };
+    case SUBMIT_NOW:
+      return {
+        ...state,
+        isSubmit: action.payload
+      };
     case GET_ADMIN_PENDING_REQUEST_LIST:
       return {
         ...state,
@@ -111,11 +116,6 @@ const requestReducer = (state = initialState, action) => {
         ...state,
         pastrequests: action.payload.data,
         totalpastrequest: action.payload.total
-      };
-    case SUBMIT_NOW:
-      return {
-        ...state,
-        isSubmit: action.payload
       };
     case GET_FEEDBACK_QUE:
       return {

@@ -63,6 +63,13 @@ const RequestExpand = ({ user, deliverrequests }) => {
         saveAs(blobwithtype, fileName);
     };
 
+    const getPrioritySuffix = (priority) => {
+        const suffixes = ['th', 'st', 'nd', 'rd'];
+        const lastDigit = priority % 10;
+        const suffix = lastDigit >= 1 && lastDigit <= 3 ? suffixes[lastDigit] : suffixes[0];
+        return `${priority}${suffix}`;
+      };
+
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 pt-md-2 pt-lg-5 pb-0">
@@ -78,7 +85,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             </p>
                         </div> :
                         <div class="border border-dark px-5 py-4 rounded mb-5">
-                            <p class="mb-0 dark-green fw-500">QUEUED <span class="d-block">Up next: Your request is <span class=" fw-bold">3rd</span> in the Feedback Queue and will be addressed after the currentone is approved.</span></p></div>
+                            <p class="mb-0 dark-green fw-500">QUEUED <span class="d-block">Up next: Your request is <span class=" fw-bold">{getPrioritySuffix(receivedData?.priority)}</span> in the Feedback Queue and will be addressed after the currentone is approved.</span></p></div>
                     }
                     <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
                         <div className="row">
