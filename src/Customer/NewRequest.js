@@ -4,6 +4,7 @@ import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_i
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
+import downarrowImage from '../images/down-arrow.png';
 import SubmitRequest from "../Modals/SubmitRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -268,7 +269,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
-      console.log(requestData);
       setImages(requestData?.file?.map((path) => {
         return {
           preview: LOGO_URL + path,
@@ -510,7 +510,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   </div>
                   <label class="uploadFile">
                     <span class="filename">
-                      {ishover ? <i class="fas fa-angle-up color-white"></i> : <img src={plusImage} alt="" />}
+                      {ishover ? <img src={downarrowImage} alt="" width="18px" /> : <img src={plusImage} alt="" />}
                       </span>
                     <input 
                      name="uploadFiles" 

@@ -78,18 +78,14 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                           <td>
                             <p>
                               <span className="fw-bold">Delivery</span>{" "}
-                              <span className="d-block">
-                                {/* {request?.delivery_date ?
-                                                                    format(new Date(request?.delivery_date), 'dd/MM/yyyyy') : 'No Date'} */}
-                                -
-                              </span>
+                              <span className="d-block">-</span>
                             </p>
                           </td>
                           <td>
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">
-                                {request?.user_id?.name == "Super Admin"
+                                {request?.isEditedByAdmin == true
                                   ? "BOMO team"
                                   : request?.user_id?.name}
                               </span>

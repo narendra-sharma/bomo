@@ -23,7 +23,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
   useEffect(() => {
     get_draft_requestlist(dispatch, user?.token, 1, 10);
   }, []);
-
+  
   return (
     <>
       <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
