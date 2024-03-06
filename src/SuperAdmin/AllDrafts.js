@@ -51,6 +51,7 @@ const AllDrafts = ({ user, drafts, total, search }) => {
           <div className="row g-0 bg-white">
             {drafts?.map((request) => (
               <div className="col-md-6" onClick={() => handleEdit(request)}>
+                {console.log(request?.isEditedByAdmin)}
                 <div className="review-content px-4  mb-3">
                   <div className="table-responsive">
                     <table className="table table-borderless mb-0">
@@ -78,18 +79,14 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                           <td>
                             <p>
                               <span className="fw-bold">Delivery</span>{" "}
-                              <span className="d-block">
-                                {/* {request?.delivery_date ?
-                                                                    format(new Date(request?.delivery_date), 'dd/MM/yyyyy') : 'No Date'} */}
-                                -
-                              </span>
+                              <span className="d-block">-</span>
                             </p>
                           </td>
                           <td>
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">
-                                {request?.user_id?.name == "Super Admin"
+                                {request?.isEditedByAdmin == true
                                   ? "BOMO team"
                                   : request?.user_id?.name}
                               </span>
