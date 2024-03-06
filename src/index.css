@@ -58,8 +58,8 @@ p {
 .extra-dark-green {
   color: #012801 !important;
 }
-.fw-500{
- font-weight: 500;
+.fw-500 {
+  font-weight: 500;
 }
 .display-inline {
   display: inline;
@@ -94,9 +94,9 @@ p {
 }
 .form-control {
   outline: none;
-  box-shadow: none!important;
-  font-size: 14px!important;
-  padding: 5px 15px!important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  padding: 5px 15px !important;
 }
 .signup-form {
   background-color: var(--dark-green);
@@ -458,26 +458,26 @@ nav {
 }
 .draft-table {
   border: solid 1px #000;
- }
- .draft-table tr{
+}
+.draft-table tr {
   background: #f2f2f2;
- }
- .draft-table tr:hover {
+}
+.draft-table tr:hover {
   background: #fbfbfb;
 }
- .draft-table tr{
-  border-color:#000 ;
- }
- .draft-table tr:last-child ,  .draft-table tr:last-child td{
-  border:none
-
- }
- .draft-table table>:not(caption)>*>*{
-  background-color: transparent!important;
-  }
-  .draft-table p a{
-    color: #000;
-  }
+.draft-table tr {
+  border-color: #000;
+}
+.draft-table tr:last-child,
+.draft-table tr:last-child td {
+  border: none;
+}
+.draft-table table > :not(caption) > * > * {
+  background-color: transparent !important;
+}
+.draft-table p a {
+  color: #000;
+}
 .draft-table tr {
   border-color: #000;
 }
@@ -692,7 +692,7 @@ table.feedback-queue tr:first-child td {
 }
 .subscription-heading img {
   width: 110px;
-  margin-left:5px;
+  margin-left: 5px;
 }
 .subscription-data .savings {
   border: solid 1px var(--mid-green);
@@ -838,7 +838,7 @@ table.feedback-queue tr:first-child td {
 .modify-subscription form select {
   border-color: #838383;
   padding: 5px 15px !important;
-  font-size:14px;
+  font-size: 14px;
 }
 .modify-subscription .sub-heading {
   font-size: 15px;
@@ -928,9 +928,10 @@ td.vertical-middle {
   vertical-align: middle !important;
 }
 td.vertical-end {
-  vertical-align: bottom!important;
+  vertical-align: bottom !important;
 }
-.member-table tr td.update-btn , .member-table tr.members td  {
+.member-table tr td.update-btn,
+.member-table tr.members td {
   vertical-align: middle;
 }
 .member-table tr.members td:nth-child(1) {
@@ -1656,10 +1657,10 @@ ul.designer-list li {
   margin-bottom: 0;
   letter-spacing: -0.48px;
 }
-.review-content .member-table select{
+.review-content .member-table select {
   color: #777;
 }
-.member-table select{
+.member-table select {
   height: 24px;
   border-radius: 5px;
 }
@@ -1726,7 +1727,7 @@ p.user-email.date span.d-block {
   font-size: 16px;
   font-weight: 700;
 }
-.new-request-section .status-btn .pause-btn.btn-danger{
+.new-request-section .status-btn .pause-btn.btn-danger {
   background-color: red;
 }
 .uploadFile {
@@ -1800,16 +1801,16 @@ button.deliver-now-btn:hover {
 nav p.user-email {
   font-size: 14px;
 }
-.header-user-profile:hover  p.user-email{
-  color:#6d3ff3;
+.header-user-profile:hover p.user-email {
+  color: #6d3ff3;
 }
-.header-user-img{
-  transition: .25s ease-in-out;
+.header-user-img {
+  transition: 0.25s ease-in-out;
 }
 .header-user-profile:hover .header-user-img {
-    width: 35px!important;
-    height: 35px!important;
-    transition: .25s ease-in-out;
+  width: 35px !important;
+  height: 35px !important;
+  transition: 0.25s ease-in-out;
 }
 .header-request-btn button,
 .poll-request-btn button {
@@ -2241,9 +2242,9 @@ button.accordion-button.collapsed .late-request-section {
 /* .modal .modal-content{
   border: none;
 } */
-.modal-border .modal-content{
+.modal-border .modal-content {
   border: solid 1px;
-  border-radius: 5px
+  border-radius: 5px;
 }
 .review-submit-popup {
   width: 50%;
@@ -2297,41 +2298,41 @@ button.accordion-button.collapsed .late-request-section {
 }
 .upload-file-close {
   top: -10px;
-    right: -9px;
-    width: 30px;
-    height: 30px;
-    background: #000 !important;
-    z-index: 9;
+  right: -9px;
+  width: 30px;
+  height: 30px;
+  background: #000 !important;
+  z-index: 9;
 }
-.uploadFile:hover{
+.uploadFile:hover {
   background-color: black;
 }
 .uploadFile:hover i {
-  color: #fff!important;
+  color: #fff !important;
 }
 .select-size .css-13cymwt-control {
   min-height: 33px !important;
-  border-color:#000;
+  border-color: #000;
 }
-.select-size .css-qbdosj-Input{
+.select-size .css-qbdosj-Input {
   margin: 0;
 }
 .select-size .css-b62m3t-container .css-1fdsijx-ValueContainer {
   padding: 0px 15px;
 }
-.select-size .css-1xc3v61-indicatorContainer{
+.select-size .css-1xc3v61-indicatorContainer {
   padding: 4px 2px 4px 8px;
-  color:#000;
+  color: #000;
 }
 .select-size .css-1jqq78o-placeholder {
-  color:#000;
+  color: #000;
   font-size: 14px;
 }
 .select-size .css-tj5bde-Svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
-@media (min-width: 576px){
+@media (min-width: 576px) {
   .main-content-wraaper {
     max-width: 540px;
   }
@@ -2349,8 +2350,9 @@ button.accordion-button.collapsed .late-request-section {
     width: 15%;
   }
   .main-content-wraaper {
-    max-width: 960px;}
-  .setting-card-info .col-lg-6{
+    max-width: 960px;
+  }
+  .setting-card-info .col-lg-6 {
     width: 48%;
   }
 }
@@ -2390,7 +2392,9 @@ button.accordion-button.collapsed .late-request-section {
   .status-btn button {
     padding: 6px 20px;
   }
-  .billing-form label , .billing-form input.form-control , .billing-form  select {
+  .billing-form label,
+  .billing-form input.form-control,
+  .billing-form select {
     font-size: 14px;
   }
   .billing-form .px-60 {
@@ -2694,3 +2698,9 @@ input:checked + .slider:before {
   right: 6px;
 }
 
+.designer-red {
+  background-color: #f92b34;
+}
+.designer-green {
+  background-color: #71dd37;
+}
