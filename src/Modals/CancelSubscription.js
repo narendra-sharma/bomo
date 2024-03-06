@@ -27,7 +27,7 @@ const CancelSubscription = (props) => {
     return daysDifference;
   }
   return (
-    <Modal show={show} onHide={handleClose} className="logout-popup cancel-popup">
+    <Modal show={show} onHide={handleClose}  className={(userRole !== 'Super admin') ? 'logout-popup cancel-popup' : 'logout-popup cancel-popup customer-list-popup'}>
       <Modal.Header className="border-0" closeButton></Modal.Header>
       <Modal.Body closeButton>
         <div className="px-4 pb-4">

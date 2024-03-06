@@ -20,7 +20,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
   return (
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
-        <div className="main-content-wraaper admin-payments customer-all px-60 py-md-2 py-lg-3">
+        <div className="main-content-wraaper admin-payments designer-all customer-all px-60 py-md-2 py-lg-3">
           <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">{total+inactiveTotal > 0 && <span className="rounded-circle bg-white mr-2">{total+inactiveTotal}</span>} Designers</h3>
           <SearchInput placeholder="Browse Designers..." handleSearch={(val) => setSearch(val)} />
           <div className="mt-5 review-main-content">

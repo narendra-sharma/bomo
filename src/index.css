@@ -2199,6 +2199,9 @@ button.accordion-button.collapsed .late-request-section {
   padding: 20px 20px;
   background: #fff !important;
 }
+.customer-all .review-content table td:first-child {
+  padding-left:25px;
+}
 .customer-all table.table.table-borderless.mb-0 {
   border-collapse: separate;
   border-spacing: 0px 13px;
@@ -2310,29 +2313,32 @@ button.accordion-button.collapsed .late-request-section {
 .uploadFile:hover i {
   color: #fff !important;
 }
-.select-size .css-13cymwt-control {
+.form-group .css-13cymwt-control {
   min-height: 33px !important;
   border-color: #000;
 }
-.select-size .css-qbdosj-Input {
+.form-group .css-qbdosj-Input{
   margin: 0;
 }
-.select-size .css-b62m3t-container .css-1fdsijx-ValueContainer {
+.form-group .css-b62m3t-container .css-1fdsijx-ValueContainer {
   padding: 0px 15px;
 }
-.select-size .css-1xc3v61-indicatorContainer {
+.form-group .css-1xc3v61-indicatorContainer{
   padding: 4px 2px 4px 8px;
   color: #000;
 }
-.select-size .css-1jqq78o-placeholder {
-  color: #000;
+.form-group .css-1jqq78o-placeholder {
+  color:#000;
   font-size: 14px;
 }
-.select-size .css-tj5bde-Svg {
-  width: 16px;
-  height: 16px;
+.form-group .css-tj5bde-Svg {
+    width: 16px;
+    height: 16px;
 }
-@media (min-width: 576px) {
+.logout-popup.cancel-popup.customer-list-popup.modal.show {
+  background: #000000b8;
+}
+@media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;
   }
