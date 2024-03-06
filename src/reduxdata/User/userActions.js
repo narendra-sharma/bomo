@@ -221,7 +221,6 @@ export const update_password = async (
 
 export const profile_update = async (data, token, dispatch, navigate, user) => {
   dispatch(start_loading());
-  console.log(user);
   try {
     const url = `${REACT_APP_BOMO_URL}profile/update`;
     const HEADERS = {
