@@ -268,7 +268,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
-      console.log(requestData);
       setImages(requestData?.file?.map((path) => {
         return {
           preview: LOGO_URL + path,

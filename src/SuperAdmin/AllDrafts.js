@@ -51,7 +51,6 @@ const AllDrafts = ({ user, drafts, total, search }) => {
           <div className="row g-0 bg-white">
             {drafts?.map((request) => (
               <div className="col-md-6" onClick={() => handleEdit(request)}>
-                {console.log(request?.isEditedByAdmin)}
                 <div className="review-content px-4  mb-3">
                   <div className="table-responsive">
                     <table className="table table-borderless mb-0">

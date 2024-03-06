@@ -171,7 +171,7 @@ const Setting = ({ userrole, profiledetails }) => {
                       </div>
                     </div>
                   </div>
-                  {userrole == "designer" && (
+                  {userrole == "Designer" && (
                     <div className="review-main-content bg-white px-4 py-4 rounded">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
