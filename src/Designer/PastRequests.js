@@ -35,7 +35,7 @@ const PastRequest = ({ designerpastrequests, user }) => {
                   <table className="table table-borderless mb-0">
                     <tbody>
                       {designerpastrequests?.data?.map((request, i) => 
-                      <tr>
+                      <tr onClick={() => { setShow(true); setData(request); }}>
                         <td className="text-center"><ColorCode request={request} /></td>
                         <td><p>{request?.request_name}</p></td>
                         <td><p className="fw-bold">{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p></td>

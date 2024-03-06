@@ -103,7 +103,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                             </td>
                                             <td>
                                                 <p>
-                                                    <span onClick={() => setExpand(true)}>Expand Request</span>{" "}
+                                                    <span onClick={() => {setExpand(true); setReqdata(request);}}>Expand Request</span>{" "}
                                                 </p>
                                             </td>
                                             <td>
@@ -159,7 +159,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     </div>
                 </div>
             )) : <EmptyList name="Assign Request" />}
-            <ExpandRequest show={expand} handleClose={() => setExpand(false)} />
+            <ExpandRequest show={expand} handleClose={() => setExpand(false)} requestdata={reqdata}/>
             {totalassigns > 0 && (
                 <CustomPagination
                     total={totalassigns}
