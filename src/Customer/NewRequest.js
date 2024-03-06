@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import ReactSelect from 'react-select';
 import downloadImage from "../images/download-thumbnail.png";
 import { saveAs } from 'file-saver';
+import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -231,7 +232,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       brandProfile: formData.brandProfile,
       requestype: formData.requestype,
       fileType: formData.fileType,
-      size: formData.size.map(s => s.value),
+      size: formData?.size?.map(s => s.value),
       references: formData.references,
       transparency: formData.transparency,
       status: status
@@ -267,6 +268,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   useEffect(() => {
     if (requestData) {
+      console.log(requestData);
       setImages(requestData?.file?.map((path) => {
         return {
           preview: LOGO_URL + path,
@@ -284,8 +286,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
           requestype: requestData?.request_type || '',
           description: requestData?.description || '',
           fileType: requestData?.file_type || '',
-          size: requestData?.size.map((val) => {
-            const matchingSize = sizes.find((size) => size.value === val);
+          size: requestData?.size?.map((val) => {
+            const matchingSize = sizes?.find((size) => size.value === val);
             return matchingSize || { label: val, value: val };
           }),
           customsize: "",
@@ -541,7 +543,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
         </div>
       </div>
-      <SubmitRequest show={ispop} handleClose={() => setIspop(false)} data={newdata} userdetail={user} />
+      <SubmitRequest show={ispop} data={newdata} handleClose={() => setIspop(false)} userdetail={user} />
     </>
   )
 }
