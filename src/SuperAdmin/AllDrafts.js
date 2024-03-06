@@ -26,6 +26,9 @@ const AllDrafts = ({ user, drafts, total, search }) => {
   return (
     <div class="accordion-item mb-5">
       <h3 class="accordion-header" id="panelsStayOpen-headingFour">
+        <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+          <span className="rounded-circle bg-white mr-2">{total}</span>
+        </h3>
         <button
           class="accordion-button collapsed"
           type="button"
