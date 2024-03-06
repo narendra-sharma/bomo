@@ -89,7 +89,9 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">
-                                {request?.user_id?.name}
+                                {request?.user_id?.name == "Super Admin"
+                                  ? "BOMO team"
+                                  : request?.user_id?.name}
                               </span>
                             </p>
                           </td>
