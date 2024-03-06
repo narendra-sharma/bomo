@@ -525,10 +525,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                   {errors.uploadFiles && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.uploadFiles}</p>}
                  {user?.next_billing_date && <p className="mt-3">You have created <b>{user?.subscription?.quantity - user?.quantity} pieces </b>this month. You can create {user?.quantity} more pieces.<br /> Subscription renews on {getNextBillingDate()}</p>}
                 </div>
-                <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
+                {user?.role ==='customer_admin' && <div className="col-md-12 mt-2 mt-md-4 pt-3 pt-md-5 text-center status-btn ">
                   {ischeck && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0 justify-content-center">Fill in the missing fields to continue</p>}
                   <button type="submit" className={`btn border rounded-pill pause-btn w-25 py-2 ${ischeck ? 'btn-danger' : ''}`} onClick={(e) => handleSubmit(e, 'pending')}>Submit</button>
-                </div>
+                </div>}
               </div>
             </form>
           </div>
@@ -538,7 +538,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       <div className="ml-md-auto ms-md-auto rightside-wrapper">
         <div className="bg-gray-dark py-5">
           <div className="d-flex justify-content-center align-items-center py-4" >
-            <p className="text-dark  mb-2 mb-md-0"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>
+           {user?.role ==='customer_admin' && <p className="text-dark  mb-2 mb-md-0"><b>Not ready yet? </b><span className="d-block">Draft it and finish later</span></p>}
             <button type="btn" className="py-1 px-4 border feedback-request ms-3 rounded-pill" onClick={(e) => handleSubmit(e, 'draft')}> Save as a <span className="fw-bold">Draft</span></button> </div>
 
         </div>

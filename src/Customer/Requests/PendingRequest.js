@@ -7,13 +7,36 @@ import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
 import ColorCode from "../../Common/ColorCode";
 import { get_accepted_request } from "../../reduxdata/Requests/requestActions";
+import { useNavigate } from "react-router-dom";
 const PendingRequest = ({ user, allRequest, total, search }) => {
   const [showAcceptModal, setshowAcceptModal] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     get_admin_pending_requestlist(dispatch, user?.token, 1, 10, search);
     get_accepted_request(dispatch, user?.token, 1, 10, search);
   }, [dispatch, search]);
+
+  const handleView = (request) => {
+    console.log(request);
+    const data = {
+      _id: request?._id,
+      request_name: request?.request_name,
+      request_type: request?.request_type, 
+      delivery_date: request?.delivery_date,
+      description: request?.description,
+      size: request?.size,
+      file_type: request?.file_type,
+      transparency: request?.transparency,
+      references: request?.references,
+      brandname: request?.brand_profile?.brandname,
+      file: request?.file
+    };
+    console.log(data);
+    navigate('/details', { state: data});
+  };
+
+
   return (
     <div className="row mb-4">
       <h3 className="mb-3">Pending Requests</h3>
@@ -27,7 +50,7 @@ const PendingRequest = ({ user, allRequest, total, search }) => {
                     <table className="table table-borderless mb-0">
                       <tbody>
                         <tr>
-                          <td className="text-center">
+                          <td className="text-center" onClick={() => handleView(item)}>
                             <ColorCode request={item} />
                           </td>
                           <td style={{ width: "170px", paddingLeft: "25px" }}>
