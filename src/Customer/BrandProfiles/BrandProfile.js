@@ -190,7 +190,7 @@ const BrandProfile = ({ brands, total, user, zipfile_path }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper brand-profile-section px-60 py-md-2 py-lg-5">
-          <div className="mx-md-3 mx-lg-5 mb-4">
+          <div className="">
           {((user?.role === 'customer_admin'||'customer')) && <SharedRequest />}
           </div>
           <div className="review-main-content mx-md-3 mx-lg-5 mb-4">

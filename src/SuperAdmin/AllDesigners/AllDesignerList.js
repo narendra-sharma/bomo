@@ -29,9 +29,9 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
 
           <tr key={item?._id}> 
             <td>
-              <p>
+              
                 <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => handleswitchto_designer(item?._id)}>View as designer</button>
-              </p>
+              
             </td>
             <td><p className="fw-bold">{item?.name}</p></td>
             <td><p><span className="fw-bold">Date added</span> <span className="d-block">{item?.createdAt && format(new Date(item?.createdAt), 'dd/MM/yyyy')}</span></p></td>
