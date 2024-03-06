@@ -665,8 +665,8 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
 
     const res = await axios.post(url, JSON.stringify(requestdetails), { headers });
     if (res.data && res.data.status) {
-      get_user_subscription({ token: token }, dispatch);
-      get_draft_requestlist(dispatch, token);
+       await get_user_subscription({ token: token }, dispatch);
+      await get_draft_requestlist(dispatch, token);
       change_add_edit(dispatch);
       toast.success(`Request ${requestdata?.request_id ? 'updated' : requestdata?.status === 'draft' ? 'drafted' : 'Created'} Successfully`);
       dispatch({ type: SUBMIT_NOW, payload: requestdata?.status === 'pending' ? true : false });

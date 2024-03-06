@@ -46,6 +46,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
       transparency: request?.transparency,
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
+      priority: request?.priority
     };
     navigate('/request-expand', { state: data});
   };
@@ -61,7 +62,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                   items.map((request, index) => (
                     <Draggable key={request?._id} draggableId={request?._id} index={index}>
                       {(provided) => (
-                        <body>
+                        <body onClick={() => handleView(request)}>
                           <tr
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
