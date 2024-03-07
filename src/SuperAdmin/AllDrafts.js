@@ -48,10 +48,10 @@ const AllDrafts = ({ user, drafts, total, search }) => {
         aria-labelledby="panelsStayOpen-headingFour"
       >
         <div class="accordion-body p-0">
-          <div className="row g-0 bg-white">
+          <div className="row g-0 pt-3 bg-white">
             {drafts?.map((request) => (
               <div className="col-md-6" onClick={() => handleEdit(request)}>
-                <div className="review-content px-4  mb-3">
+                <div className="review-content px-3  mb-3">
                   <div className="table-responsive">
                     <table className="table table-borderless mb-0">
                       <tbody>
@@ -59,10 +59,10 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                           <td className="text-center">
                             <p className="">edit</p>{" "}
                           </td>
-                          <td className="text-center">
+                          <td style={{width:'120px'}} className="text-center">
                             <ColorCode request={request} />
                           </td>
-                          <td>
+                          <td className="text-center" style={{width:'110px'}}> 
                             <p>
                               {request?.brand_profile?.brandname
                                 ? request?.brand_profile?.brandname
