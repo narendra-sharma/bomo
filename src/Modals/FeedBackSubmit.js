@@ -38,7 +38,8 @@ const FeedBackSubmit = ({ show, handleClose, details, user }) => {
     };
 
     const handleRequest = () => {
-        navigate('/request-expand', { state: data });
+        localStorage.setItem('requestData', JSON.stringify(data));
+        navigate('/request-expand');
     };
 
     const handleFeedback = (e,status) => {

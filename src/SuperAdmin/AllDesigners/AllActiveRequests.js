@@ -15,6 +15,11 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
             <div className="row">
                 <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+                            <span className="rounded-circle bg-white mr-2">
+                                {allactiverequests?.less_than_12_hours?.length + allactiverequests?.more_than_12_hours?.length}
+                            </span>
+                        </h3>
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                             <span className="mb-4 d-inline-block position-relative">Active Requests</span>
                             <div className="late-request-section">

@@ -1,50 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import { get_approve_delivery_list, superadmin_approve_delivery } from '../../reduxdata/rootAction';
-import designImage from "../../images/nine-sixteen.png";
-import designImage2 from "../../images/sixteen-nine.png";
-import designImage3 from "../../images/sixteen-nine2.png";
-import { format } from 'date-fns';
+import { get_admin_pending_requestlist } from '../../reduxdata/rootAction';
 import ExpandRequest from '../../Modals/ExpandRequest';
 import RejectRequest from '../../Modals/RejectRequest';
 import ColorCode from '../../Common/ColorCode';
 import EmptyList from '../../Common/EmptyList';
+import AcceptRequest from '../../Modals/AcceptRequest';
+import CustomPagination from '../../Common/CustomPagination';
 
-const ApproveRequest = ({ user, approvelist }) => {
+const ApproveRequest = ({ user, allRequest, total }) => {
     const [show, setShow] = useState(false);
-    const [isapprove, setIsapprove] = useState({});
     const [isreject, setIsreject] = useState(false);
+    const [showAcceptModal, setshowAcceptModal] = useState([]);
     const [reqdata, setReqdata] = useState({});
     const dispatch = useDispatch();
 
-    const handleApprove = (e, data, status) => {
+    useEffect(() => {
+        get_admin_pending_requestlist(dispatch, user?.token, 1, 10);
+    }, [dispatch, user?.token]);
+
+    const handleReject = (e,data,status) => {
         e.preventDefault();
-        const requestId = data?._id;
-        if ((status === 'accepted') && data) {
-            const approvedata = {
-                _id: requestId,
-                deliverystatus: status
-            };
-            setIsapprove((prev) => ({ ...prev, [requestId]: 'accepted' }));
-            superadmin_approve_delivery(dispatch, user?.token, approvedata);
-        } else if ((status === 'rejected') && data) {
+       if((status === 'rejected')&&data){
             setIsreject(true);
             setReqdata(data);
         }
     };
 
-    useEffect(() => {
-        get_approve_delivery_list(user?.token, dispatch);
-    }, [dispatch, user?.token]);
-
     return (
         <div className="row g-0">
             <div className="col-lg-12">
                 <small className="text-muted fw-bold">
-                    {approvelist?.length} requests left{" "}
+                    {total} requests left{" "}
                 </small>
             </div>
-            {approvelist?.length > 0 ? approvelist?.map((request) => (
+            {total > 0 ? allRequest?.map((request) => (
                 <div className="col-lg-6">
                     <div className="table-responsive">
                         <table className="table table-borderless">
@@ -58,8 +48,10 @@ const ApproveRequest = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="fw-bold">Cratat</span>{" "}
-                                            <span className="d-block">Dior</span>
+                                            <span className="fw-bold">{request?.user_id?.company}</span>{" "}
+                                            <span className="d-block">
+                                                {request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}
+                                            </span>
                                         </p>
                                     </td>
                                     <td>
@@ -73,14 +65,19 @@ const ApproveRequest = ({ user, approvelist }) => {
                                         </p>
                                     </td>
                                     <td>
-                                        <div className="d-flex align-items-center">
-                                            <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e, request, 'accepted')}>
-                                                {isapprove[request?._id] === 'accepted' ? 'Approve' : 'Pay Now'}
-                                            </button>
-                                            {isapprove[request?._id] === 'accepted' ?
-                                                <i className="fa-solid fa-check-circle text-success"></i> :
-                                                <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
-                                        </div>
+                                        <i className="fa-solid fa-check-circle text-success" onClick={() => setshowAcceptModal(request?._id)}></i>
+                                        {showAcceptModal === request?._id && (
+                                            <AcceptRequest
+                                                heading={request?.request_name}
+                                                showAcceptModal={showAcceptModal}
+                                                setshowAcceptModal={setshowAcceptModal}
+                                                id={request?._id}
+                                                token={user?.token}
+                                            />
+                                        )}
+                                    </td>
+                                    <td>
+                                        <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleReject(e,request,'rejected')}></i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -88,8 +85,16 @@ const ApproveRequest = ({ user, approvelist }) => {
                     </div>
                 </div>
             )) : (<EmptyList name="Approve Request" />)}
+            {total > 0 && (
+                <CustomPagination
+                    total={total}
+                    onPageChange={(newPage, newLimit) => {
+                        get_admin_pending_requestlist(dispatch, user?.token, newPage, newLimit);
+                    }}
+                />
+            )}
             <ExpandRequest show={show} handleClose={() => setShow(false)} requestdata={reqdata} />
-            <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
+            <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} reqstatus='draft' />
         </div>
     )
 };
@@ -98,6 +103,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         approvelist: state.requests.superadminapprovelist,
+        allRequest: state.requests.pendingRequests,
+        total: state.requests.pendingTotal,
     };
 };
 export default connect(mapStateToProps)(ApproveRequest);

@@ -7,16 +7,19 @@ import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 
 
-const AllReviews = ({ user, reviews, total }) => {
+const AllReviews = ({ user, reviews, total, search }) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        get_all_review_requests(dispatch, user?.token, 1, 10);
-    }, []);
+        get_all_review_requests(dispatch, user?.token, 1, 10, search);
+    }, [dispatch,search]);
     return (
         <div class="accordion-item mb-5">
             <h3 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+                    <span className="rounded-circle bg-white mr-2">{reviews?.length}</span>
+                </h3>
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    <span className="mb-4 d-inline-block position-relative">Ready to Review Request</span>
+                 <span className="mb-4 d-inline-block position-relative">Ready to Review Request</span>
                 </button>
             </h3>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">

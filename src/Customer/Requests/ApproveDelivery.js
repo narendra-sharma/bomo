@@ -72,7 +72,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span onClick={() => setShow(true)}>Expand Request</span>{" "}
+                                            <span onClick={() => {setShow(true);  setReqdata(request);}}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>
@@ -121,7 +121,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     </table>
                 </div>
             </div>
-            <ExpandRequest show={show} handleClose={() => setShow(false)} />
+            <ExpandRequest show={show} handleClose={() => setShow(false)} requestdata={reqdata}/>
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )

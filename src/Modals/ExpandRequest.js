@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 import { get_expanded_request_detail } from '../reduxdata/rootAction';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
+import { saveAs } from 'file-saver';
+
+const { REACT_APP_BOMO_URL } = process.env;
 
 const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
     const dispatch = useDispatch();
@@ -22,6 +25,30 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         return `${hours}:${minutes}`;
+    };
+
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: "text/plain",
+                pdf: "application/pdf",
+                zip: "application/zip",
+                jpg: "image/jpeg",
+                jpeg: "image/jpeg",
+                png: "image/png",
+                gif: "image/gif",
+            };
+            return mimeTypes[ext] || "application/octet-stream";
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
     };
 
     return (
@@ -74,42 +101,49 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                 </div>
                                 <p className="brief-date">
                                     {expanddetails?.req_data?.req_mail_date ?
-                                        format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')
-                                        : '----'}
-                                    <span className="d-block">{
-                                        expanddetails?.req_data?.req_mail_date ?
-                                            formattedTime(expanddetails?.req_data?.req_mail_date)
-                                            : '----'}</span></p>
+                                        <p className="brief-date">
+                                            {(format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy'))}
+                                            <span className="d-block">
+                                                {formattedTime(expanddetails?.req_data?.req_mail_date)}
+                                            </span>
+                                        </p>
+                                        : '-'}
+                                </p>
                             </div>
-                            { }
-                            <div class="step">
+                             {expanddetails?.req_data?.req_mail_date && <div class="step">
                                 <p className="brief-content">Assigned to </p>
                                 <div class="deliver-status delivery-check">
                                     <span><i class="fa-solid fa-circle-check"></i></span>
                                 </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
+                                <p className="brief-date">{format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')} 
+                                <span className="d-block">{formattedTime(expanddetails?.req_data?.req_mail_date)}</span></p>
+                            </div>}
+
+                            <div class="step">
+                                {((!expanddetails?.req_data?.is_approved_by_customer)) && (
+                                    <div>
+                                        <p className="brief-content">Delivery Rejected</p>
+                                        <div class="deliver-status delivery-cancel">
+                                            <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                        </div>
+                                        <p className="brief-date">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                            format(new Date(expanddetails?.req_data?.design_rejected_at_by_customer), 'dd/MM/yyyy')
+                                            : '-'}
+                                            <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                                formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
+                                                : '-'}</span>
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-                            {!expanddetails?.req_data?.is_approved_by_customer ?
-                                <div class="step">
-                                    <p className="brief-content">Delivery Rejected</p>
-                                    <div class="deliver-status delivery-cancel">
-                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                    </div>
-                                    <p className="brief-date">{expanddetails?.req_data?.design_rejected_at_by_customer ?
-                                        format(new Date(expanddetails?.req_data?.design_rejected_at_by_customer), 'dd/MM/yyyy')
-                                        : '-'}
-                                        <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
-                                            formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
-                                            : '-'}</span>
-                                    </p>
-                                </div> :
-                                <div class="step">
-                                    <p className="brief-content">Delivery Approved</p>
-                                    <div class="deliver-status delivery-check">
-                                        <span><i class="fa-solid fa-circle-check"></i></span>
-                                    </div>
-                                    <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                                </div>}
+
+                            {expanddetails?.req_data?.is_approved_by_customer && <div class="step">
+                                <p className="brief-content">Delivery Approved</p>
+                                <div class="deliver-status delivery-check">
+                                    <span><i class="fa-solid fa-circle-check"></i></span>
+                                </div>
+                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
+                            </div>}
                         </div>
                     </div>
                 </div>
@@ -129,7 +163,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                             <div class=" d-flex align-items-center review-content ">
                                 <ColorCode request={expanddetails?.req_data} />
                                 <p class="short0ad dor rounded-pill">DOR</p>
-                                <p class="short0ad project-assets rounded-pill">Project Assets</p>
+                                <p class="short0ad project-assets rounded-pill" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
                             </div>
                         </div>
                         <div className="col-md-10 mt-3">
@@ -232,7 +266,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                             </div>)}
                     </div>
 
-                    <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
+                    {expanddetails?.req_data?.feedback_message && <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
                         <p><span className="fw-bold">Ready to Deliver?</span> Place each file in its corresponding folder</p>
                         <div className="row align-items-center">
                             <div className="col-md-3 d-flex flex-column">
@@ -282,7 +316,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                             </div>
 
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </Modal.Body>
         </Modal>
