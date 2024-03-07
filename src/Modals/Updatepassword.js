@@ -23,8 +23,6 @@ const Updatepassword = ({ isLoading, show, handleClose }) => {
 
     if (formData.oldpassword === '') {
       setPassworderror('Old Password is Required');
-    } else if (formData.oldpassword.length < 6) {
-      setNewpassworderror("Old Password must be at least 6 characters")
     } else {
       setPassworderror(null)
     }
@@ -68,7 +66,7 @@ const Updatepassword = ({ isLoading, show, handleClose }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === 'oldpassword') {
-      setPassworderror(value === '' ? 'Old Password is Required' : value.length < 6 ? 'Old Password must be at least 6 characters' : null);
+      setPassworderror(value === '' ? 'Old Password is Required': null);
     } else if (name === 'newpassword') {
       setNewpassworderror(value === '' ? 'New Password is Required' : null);
       if (value === formData.oldpassword) {

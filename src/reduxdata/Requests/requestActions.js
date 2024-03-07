@@ -32,10 +32,10 @@ export const get_draft_requestlist = async (dispatch, token, page = 1, limit = 1
   }
 };
 
-export const get_admin_pending_requestlist = async (dispatch, token, page = 1, limit = 10, search) => {
+export const get_admin_pending_requestlist = async (dispatch, token, page = 1, limit = 10) => {
   dispatch(start_loading);
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/request-listing?page=${page}&limit=${limit}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -57,7 +57,7 @@ export const get_admin_pending_requestlist = async (dispatch, token, page = 1, l
 export const get_accepted_request = async (dispatch, token, page = 1, limit = 10, search) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/req-list?page=${page}&limit=${limit}`;
+    const url = `${REACT_APP_BOMO_URL}superAdmin/req-list?page=${page}&limit=${limit}${search ? '&search=' + search : ''}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,
@@ -184,7 +184,8 @@ export const change_request_status = async (dispatch, token, id, status) => {
     const res = await axios.put(url, { status: status, request_id: id }, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_admin_pending_requestlist(dispatch, token);
+      await get_admin_pending_requestlist(dispatch, token);
+      await get_admin_assign_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }
@@ -328,10 +329,10 @@ export const get_approve_delivery_list = async (token, dispatch) => {
   }
 };
 
-export const superadmin_approve_delivery = async (dispatch, token, approvedata) => {
+export const superadmin_approve_delivery = async (dispatch, token, approvedata, reqstatus) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}superAdmin/design_action`;
+    const url = reqstatus==='draft' ? `${REACT_APP_BOMO_URL}superAdmin/request-action`:`${REACT_APP_BOMO_URL}superAdmin/design_action`;
     const HEADERS = {
       headers: {
         "Content-Type": "application/json",
@@ -348,7 +349,11 @@ export const superadmin_approve_delivery = async (dispatch, token, approvedata) 
     const res = await axios.put(url, JSON.stringify(requestdetails), HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_approve_delivery_list(token, dispatch);
+      if (!reqstatus==='draft'){
+        await get_approve_delivery_list(token, dispatch);
+      }
+      await get_admin_pending_requestlist(dispatch,token);
+      await get_admin_assign_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }

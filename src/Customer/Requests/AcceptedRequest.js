@@ -19,9 +19,17 @@ const AcceptedRequest = ({
     get_accepted_request(dispatch, user?.token, 1, 10, search);
   }, [dispatch, search]);
 
+  const handleView = (request) => {
+    localStorage.setItem('requestData', JSON.stringify(request));
+    navigate('/details');
+  };
+
   return (
-    <div className="row mb-5">
-      <h3 className="">Accepted Request</h3>
+    <div className="row mb-4">
+      <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+        <span className="rounded-circle bg-white mr-2">{acceptedRequests?.length}</span>
+      </h3>
+      <h3 className="mb-3">Accepted Request</h3>
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
           <div className="review-content">
@@ -30,7 +38,7 @@ const AcceptedRequest = ({
                 return (
                   <div className="table-responsive" key={index}>
                     <table className="table table-borderless mb-0">
-                      <tbody>
+                      <tbody onClick={() => handleView(item)}>
                         <tr>
                           <td  style={{ width: "120px" }} className="text-center">
                             <ColorCode request={item} />

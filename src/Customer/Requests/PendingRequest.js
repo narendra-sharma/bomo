@@ -22,10 +22,12 @@ const PendingRequest = ({ user, allRequest, total, search }) => {
     navigate('/details');
   };
 
-
   return (
     <div className="row mb-4">
-      <h3 className="">Pending Requests</h3>
+      <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+        <span className="rounded-circle bg-white mr-2">{allRequest?.length}</span>
+      </h3>
+      <h3 className="mb-3">Pending Requests</h3>
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
           <div className="review-content pending-request">

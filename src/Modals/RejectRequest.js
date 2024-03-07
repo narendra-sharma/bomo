@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { superadmin_approve_delivery } from "../reduxdata/rootAction";
 
-const RejectRequest = ({ show, handleClose, detail, user }) => {
+const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
     const dispatch = useDispatch();
     const [formdata,setFormdata] = useState({
         message:''
@@ -19,7 +19,7 @@ const RejectRequest = ({ show, handleClose, detail, user }) => {
         setFormdata({...formdata, [name]:value});
     };
 
-    const handleSubmit = (e,status) => {
+    const handleSubmit = async (e,status) => {
         e.preventDefault();
         const checkerrors={};
         Object.keys(formdata).forEach((name)=> {
@@ -36,7 +36,7 @@ const RejectRequest = ({ show, handleClose, detail, user }) => {
             deliverystatus: status,
             message: formdata.message
         };
-        superadmin_approve_delivery(dispatch,user?.token,specifyData);
+        await superadmin_approve_delivery(dispatch,user?.token,specifyData,reqstatus);
         handleClose();
     };
 

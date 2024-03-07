@@ -20,7 +20,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
 
     const showFeedback = () => {
         setFeed(true);
-        viewClose();
+        // viewClose();
     };
 
     return (

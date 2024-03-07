@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchInput from "../Common/SearchInput";
-import { useDispatch, connect } from "react-redux";
-import PendingRequest from "../Customer/Requests/PendingRequest";
+import { connect } from "react-redux";
 import AllActiveRequests from "./AllDesigners/AllActiveRequests";
 import AllDrafts from "./AllDrafts";
 import AllReviews from "./AllReviews";
 import AcceptedRequest from "../Customer/Requests/AcceptedRequest";
 import LateRequests from "./LateRequests";
 const AllRequests = ({ user }) => {
-  const dispatch = useDispatch();
   const [search, setSearch] = useState(null)
 
   return (
@@ -25,11 +23,10 @@ const AllRequests = ({ user }) => {
             
             <AcceptedRequest search={search} />
 
-            <PendingRequest search={search} />
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <AllActiveRequests />
-              <AllReviews />
-              <div class="accordion-item mb-5">
+              <AllReviews search={search}/>
+              <div class="accordion-item mb-3">
                 <div className="row">
                   <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingThree">
