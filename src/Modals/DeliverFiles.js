@@ -18,7 +18,8 @@ const DeliverFiles = ({show,onClose,requestdata}) => {
         status: 'completed'
     });
     const handleRequest = () => {
-        navigate('/request-expand', { state: data });
+        localStorage.setItem('requestData', JSON.stringify(data));
+        navigate('/request-expand');
     };
     return (
         <Modal show={show} onHide={onClose} size="xl" className="logout-popup">

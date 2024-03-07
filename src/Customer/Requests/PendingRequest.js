@@ -18,22 +18,8 @@ const PendingRequest = ({ user, allRequest, total, search }) => {
   }, [dispatch, search]);
 
   const handleView = (request) => {
-    console.log(request);
-    const data = {
-      _id: request?._id,
-      request_name: request?.request_name,
-      request_type: request?.request_type, 
-      delivery_date: request?.delivery_date,
-      description: request?.description,
-      size: request?.size,
-      file_type: request?.file_type,
-      transparency: request?.transparency,
-      references: request?.references,
-      brandname: request?.brand_profile?.brandname,
-      file: request?.file
-    };
-    console.log(data);
-    navigate('/details', { state: data});
+    localStorage.setItem('requestData', JSON.stringify(request));
+    navigate('/details');
   };
 
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import aepdesign from "../../images/aep-image.png";
-import { useLocation } from "react-router-dom";
 import { get_delivered_requests } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
@@ -15,12 +14,21 @@ const { REACT_APP_BOMO_URL } = process.env;
 
 const RequestExpand = ({ user, deliverrequests }) => {
     const dispatch = useDispatch();
-    const location = useLocation();
-    const receivedData = location?.state;
+    const [receivedData, setReceivedData] = useState();
 
     useEffect(() => {
-        get_delivered_requests(dispatch, user?.token, receivedData?._id);
-    }, [user?.token, dispatch, receivedData?._id]);
+        let requestdetails = JSON.parse(localStorage.getItem('requestData'));
+        setReceivedData(requestdetails);
+        return () => {
+            localStorage.removeItem('requestData');
+        }
+    },[]);
+
+    useEffect(() => {
+        if (receivedData?._id){
+            get_delivered_requests(dispatch, user?.token, receivedData?._id);
+        }
+    }, [receivedData?._id]);
 
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
@@ -68,7 +76,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
         const lastDigit = priority % 10;
         const suffix = lastDigit >= 1 && lastDigit <= 3 ? suffixes[lastDigit] : suffixes[0];
         return `${priority}${suffix}`;
-      };
+    };
 
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
@@ -186,7 +194,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {((request?.request_id?.feedback_message)&& !(receivedData?.status === "production")) && (
+                                                        {((request?.request_id?.feedback_message) && !(receivedData?.status === "production")) && (
                                                             <div className="col-md-12">
                                                                 <div className="feedback-request  p-4 mt-4 rounded">
                                                                     <h5 className="fw-bold">

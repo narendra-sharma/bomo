@@ -5,6 +5,7 @@ import CustomPagination from "../../Common/CustomPagination";
 import { format } from "date-fns";
 import ColorCode from "../../Common/ColorCode";
 import { get_accepted_request } from "../../reduxdata/Requests/requestActions";
+import { useNavigate } from "react-router-dom";
 const AcceptedRequest = ({
   user,
   acceptedRequests,
@@ -13,9 +14,11 @@ const AcceptedRequest = ({
   acceptedTotal,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     get_accepted_request(dispatch, user?.token, 1, 10, search);
   }, [dispatch, search]);
+
   return (
     <div className="row mb-4">
       <h3 className="mb-3">Accepted Request</h3>
