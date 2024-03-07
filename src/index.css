@@ -1821,9 +1821,17 @@ nav p.user-email {
   background-color: #000;
 }
 .request-count {
-  position: absolute;
-  right: 3px;
-  top: -14px;
+    position: absolute;
+    right: 4px;
+    top: -9px;
+    background: #F92B34;
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
 }
 .counter-digit {
   background-color: #f92b34;
@@ -1986,6 +1994,11 @@ button.accordion-button .late-request-section {
 button.accordion-button.collapsed .late-request-section {
   display: block;
 }
+.accordion-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .accordion .accordion-item,
 .review-main-content .accordion {
   background: transparent;
@@ -2007,21 +2020,25 @@ button.accordion-button.collapsed .late-request-section {
 .accordion-button::after {
   display: none;
 }
-.accordion-button span::after {
+.accordion-button > span::after {
   content: "";
   position: absolute;
-  top: 5px;
-  right: -33px;
   background-size: 0.8rem !important;
-}
-.accordion-button span::after {
   flex-shrink: 0;
   width: 1.25rem;
   height: 1.25rem;
   margin-left: auto;
-  content: "";
   background-image: var(--bs-accordion-btn-icon);
   background-repeat: no-repeat;
+  transform: rotate(180deg);
+  right: -45px;
+  top:-3px
+}
+
+.accordion-button.collapsed >span::after{
+  transform: rotate(0deg);
+  top: 5px;
+  right:-53px;
 }
 .accordion-header p {
   font-size: 16px;
@@ -2337,6 +2354,9 @@ button.accordion-button.collapsed .late-request-section {
 }
 .logout-popup.cancel-popup.customer-list-popup.modal.show {
   background: #000000b8;
+}
+.design-status{
+  padding: 27px 0;
 }
 @media (min-width: 576px){
   .main-content-wraaper {

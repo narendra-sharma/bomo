@@ -59,7 +59,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                         <div className="row g-0 light-gray">
                             {allactiverequests?.less_than_12_hours?.map((request) =>
                                 <div className="col-md-6">
-                                    <div className="review-content px-4  mb-3">
+                                    <div className="review-content px-3  mb-3">
                                         <div className="table-responsive">
                                             <table className="table table-borderless mb-0">
                                                 <tbody>
@@ -67,7 +67,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         <td className="text-center">
                                                             <p className="">edit</p>{" "}
                                                         </td>
-                                                        <td className="text-center">
+                                                        <td className="text-center" style={{width:'120px'}}>
                                                             <ColorCode request={request} />
                                                         </td>
                                                         <td>

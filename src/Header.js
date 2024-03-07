@@ -174,7 +174,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                     >
                       Requests
                     </Button>
-                    <p>0</p>
+                    <p className="request-count mb-o">0</p>
                     {totalassigns > 0 && (
                       <div className="request-count">
                         <span className="counter-digit">{totalassigns}</span>
