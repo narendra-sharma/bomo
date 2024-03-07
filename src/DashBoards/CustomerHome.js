@@ -72,8 +72,8 @@ const CustomerHome = ({ activerequest, user }) => {
                     <table className="table table-borderless">
                       <tbody>
                         <tr onClick={() => handleView(request)}>
-                          <td className="text-center" style={{width:"119px"}}><ColorCode request={request} /></td>
-                          <td>
+                          <td className="text-center" style={{width:"100px"}}><ColorCode request={request} /></td>
+                          <td style={{width:'120px'}} className="text-center">
                             <p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                           </td>
                           <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>

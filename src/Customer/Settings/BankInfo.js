@@ -244,9 +244,7 @@ const BankInfo = ({ user, imagepath }) => {
 
   return (
     <>
-      <div className="mb-3">
-        <h3>Bank Info</h3>
-      </div>
+      
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
         {user?.account_id && !isShow && (
           <div className="px-4 py-4 ms-5">

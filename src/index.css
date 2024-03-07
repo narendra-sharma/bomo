@@ -1821,9 +1821,17 @@ nav p.user-email {
   background-color: #000;
 }
 .request-count {
-  position: absolute;
-  right: 3px;
-  top: -14px;
+    position: absolute;
+    right: 4px;
+    top: -9px;
+    background: #F92B34;
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
 }
 .counter-digit {
   background-color: #f92b34;
@@ -2337,6 +2345,9 @@ button.accordion-button.collapsed .late-request-section {
 }
 .logout-popup.cancel-popup.customer-list-popup.modal.show {
   background: #000000b8;
+}
+.design-status{
+  padding: 27px 0;
 }
 @media (min-width: 576px){
   .main-content-wraaper {

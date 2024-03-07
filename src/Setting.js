@@ -171,22 +171,26 @@ const Setting = ({ userrole, profiledetails }) => {
                       </div>
                     </div>
                   </div>
+                  </div>
                   {userrole == "Designer" && (
-                    <div className="review-main-content bg-white px-4 py-4 rounded">
+                    <div className="col-lg-5">
+                    <div className="review-main-content bg-white px-4 design-status rounded">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
-                          <h6 className="mb-0">Status</h6>
+                        
+                          <p class="mb-0 user-email "><b class=" d-md-block">Status</b></p>
+
                         </div>
-                        <div className="mt-3 d-flex gap-1">
+                        <div className="d-flex gap-2 align-items-center py-2">
                           <div
                             className={
                               user?.isDesignerApproved == true
-                                ? "designer-green mt-1"
-                                : "designer-red mt-1"
+                                ? "designer-green"
+                                : "designer-red "
                             }
                             style={{ width: 10, height: 10, borderRadius: 5 }}
                           ></div>
-                          <p>
+                          <p className="mb-0">
                             {user?.isDesignerApproved == true
                               ? "Active"
                               : "InActive"}
@@ -194,8 +198,9 @@ const Setting = ({ userrole, profiledetails }) => {
                         </div>
                       </div>
                     </div>
+                    </div>
                   )}
-                </div>
+                
                 {(userrole === "customer_admin" || userrole === "customer") && (
                   <div className="col-lg-5">
                     <SubscriptionStatus user={user} isSetting={true} />
@@ -231,7 +236,7 @@ const Setting = ({ userrole, profiledetails }) => {
           </div>
           {userrole === "customer_admin" && user?.plan_id ? (
             <div className="review-main-content">
-              <div className="row">
+              <div className="row ">
                 <div className="col-md-6">
                   <div className="mb-3">
                     <h3>Billing Information</h3>
@@ -323,14 +328,24 @@ const Setting = ({ userrole, profiledetails }) => {
                   </div>
                 </div>
               </div>
-              <div className="row mt-3">
+              <div className="row mt-5 review-main-content">
                 <div className="col-md-6">
-                  <div className="mb-3">
+                <div className="mb-3">
                     <h3>Billing Information</h3>
                   </div>
-                  <BillingForm user={user} />
                 </div>
                 <div className="col-md-6">
+                  <div className="mb-3">
+                    <h3>Bank Info</h3>
+                  </div>
+                </div>
+                </div>
+              <div className="row setting-card-info gap-3">
+                <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
+                  
+                  <BillingForm user={user} />
+                </div>
+                <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
                   <BankInfo />
                 </div>
               </div>
@@ -341,7 +356,7 @@ const Setting = ({ userrole, profiledetails }) => {
           {(userrole === "Designer" ||
             (userrole === "customer_admin" && user?.plan_id)) && (
             <>
-              <div className="mt-2 bg-white p-3">
+              <div className="mt-2 bg-white rounded p-3 mt-4">
                 <p>
                   All payments are made 3 days after the order and source files
                   are properly delivered
