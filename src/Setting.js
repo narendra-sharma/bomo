@@ -338,8 +338,7 @@ const Setting = ({ userrole, profiledetails }) => {
           ) : (
             <div></div>
           )}
-          {(userrole === "Designer" ||
-            (userrole === "customer_admin" && user?.plan_id)) && (
+          {userrole === "Designer" && (
             <>
               <div className="mt-2 bg-white p-3">
                 <p>
