@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ColorCode from "../../Common/ColorCode";
 import fileImage from "../../images/file-thumbnail.png";
 import { saveAs } from 'file-saver';
@@ -7,8 +7,15 @@ import { saveAs } from 'file-saver';
 const { REACT_APP_BOMO_URL } = process.env;
 
 const Details = () => {
-    const location = useLocation();
-    const requestData = location?.state;
+    const [requestData,setRequestData] = useState();
+
+    useEffect(() => {
+        let requestdetails = JSON.parse(localStorage.getItem('requestData'));
+        setRequestData(requestdetails);
+        return () => {
+            localStorage.removeItem('requestData');
+        }
+    },[]);
 
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);

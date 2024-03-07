@@ -41,7 +41,8 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
       brandname: request?.brand_profile?.brandname,
       status: 'completed'
     };
-    navigate('/request-expand', { state: data});
+    localStorage.setItem('requestData', JSON.stringify(data));
+    navigate('/request-expand');
   };
 
   return (

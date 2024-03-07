@@ -47,7 +47,7 @@ const Signup = (props) => {
     if (formData.password === '') {
       setPassworderror('Password is Required');
     } else if (formData.password.length < 6) {
-      setPassworderror("Password length should be more than 6 characters")
+      setPassworderror("Password length should be more than 5 characters")
     } else {
       setPassworderror(null)
     }
@@ -95,7 +95,7 @@ const Signup = (props) => {
         setEmailerror(value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null);
         break;
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required' : value.length < 6 ? 'Password length should be more than 6 characters' : null);
+        setPassworderror(value === '' ? 'Password is Required' : value.length < 6 ? 'Password length should be more than 5 characters' : null);
         break;
       case 'company':
         setCompanyerror(value === '' ? 'Company is Required' : null);

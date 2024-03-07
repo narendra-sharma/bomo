@@ -52,7 +52,7 @@ const Login = (props) => {
         setEmailerror(value === '' ? 'Email is Required' : !emailRegex.test(value) ? 'Email is Invalid' : null);
         break;
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
+        setPassworderror(value === '' ? 'Password is Required' : value.length < 6 ? 'Password length should be more than 5 characters' : null);
         break;
       default:
         break;

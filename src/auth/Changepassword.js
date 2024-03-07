@@ -29,7 +29,7 @@ const Changepassword = (props) => {
 
     if (formData.password === '') {
       setPassworderror('Password is Required');
-    } else if (formData.password.length < 5) {
+    } else if (formData.password.length < 6) {
       setPassworderror("Password length should be more than 5 characters");
     } else {
       setPassworderror(null)
@@ -56,7 +56,7 @@ const Changepassword = (props) => {
   
     switch (name) {
       case 'password':
-        setPassworderror(value === '' ? 'Password is Required' : value.length < 5 ? 'Password length should be more than 5 characters' : null);
+        setPassworderror(value === '' ? 'Password is Required' : value.length < 6 ? 'Password length should be more than 5 characters' : null);
         break;
       case 'confirmpassword':
         setconfirmPassworderror(value === '' ? 'Confirm password is required' : value !== formData.password ? "Confirm Password doesn't match" : null);
