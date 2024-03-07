@@ -29,7 +29,7 @@ const AllRequests = ({ user }) => {
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <AllActiveRequests />
               <AllReviews />
-              <div class="accordion-item mb-3">
+              <div class="accordion-item mb-5">
                 <div className="row">
                   <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingThree">

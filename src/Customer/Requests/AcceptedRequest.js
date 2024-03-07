@@ -20,11 +20,11 @@ const AcceptedRequest = ({
   }, [dispatch, search]);
 
   return (
-    <div className="row mb-4">
-      <h3 className="mb-3">Accepted Request</h3>
+    <div className="row mb-5">
+      <h3 className="">Accepted Request</h3>
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
-          <div className="review-content pending-request">
+          <div className="review-content">
             {acceptedRequests.length > 0 ? (
               acceptedRequests.map((item, index) => {
                 return (
@@ -32,7 +32,7 @@ const AcceptedRequest = ({
                     <table className="table table-borderless mb-0">
                       <tbody>
                         <tr>
-                          <td className="text-center">
+                          <td  style={{ width: "120px" }} className="text-center">
                             <ColorCode request={item} />
                           </td>
                           <td style={{ width: "170px", paddingLeft: "25px" }}>
