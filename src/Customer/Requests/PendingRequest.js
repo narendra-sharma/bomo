@@ -25,7 +25,7 @@ const PendingRequest = ({ user, allRequest, total, search }) => {
 
   return (
     <div className="row mb-4">
-      <h3 className="mb-3">Pending Requests</h3>
+      <h3 className="">Pending Requests</h3>
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
           <div className="review-content pending-request">
