@@ -26,10 +26,15 @@ const AcceptedRequest = ({
 
   return (
     <div className="row mb-4">
-      <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
-        <span className="rounded-circle bg-white mr-2">{acceptedRequests?.length}</span>
-      </h3>
-      <h3 className="mb-3">Accepted Request</h3>
+      <div className="d-flex align-items-center gap-3">
+        <div>
+            <h3 className="fw-bold mb-0 counter-circle d-flex align-items-center gap-2">
+            <span className="rounded-circle bg-white mr-2">{acceptedRequests?.length}</span>
+          </h3>
+        </div>
+        <div>  <h3 className="mb-0">Accepted Request</h3></div>
+      </div>
+    
       <div className="col-md-12">
         <div className="bg-white rounded mt-4 p-4">
           <div className="review-content">

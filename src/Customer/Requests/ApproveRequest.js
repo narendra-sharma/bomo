@@ -40,7 +40,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                         <table className="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td style={{width:'37px'}}>
                                         <p>12h</p>
                                     </td>
                                     <td className="text-center" style={{width:'122px'}}>
@@ -64,7 +64,9 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                             </span>{" "}
                                         </p>
                                     </td>
-                                    <td style={{width:'40px'}}>
+                                    <td style={{width:'80px'}}>
+                                       <div class="d-flex gap-2">
+                                        <div>
                                         <i className="fa-solid fa-check-circle active-request-status cursor-pointer" onClick={() => setshowAcceptModal(request?._id)}></i>
                                         {showAcceptModal === request?._id && (
                                             <AcceptRequest
@@ -75,10 +77,16 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                                 token={user?.token}
                                             />
                                         )}
-                                    </td>
-                                    <td style={{width:'40px'}}> 
+                                        </div>
+                                        <div>
                                         <i className="fa-solid fa-circle-xmark cancel cursor-pointer" onClick={(e) => handleReject(e,request,'rejected')}></i>
+                                   
+                                        </div>
+                                        </div>
+
                                     </td>
+                                  
+                                       
                                 </tr>
                             </tbody>
                         </table>

@@ -68,7 +68,7 @@ const PollRequests = ({ user, pollrequests }) => {
     <>
       {pollData?.length > 0 ? pollData?.map((request) => (
         <div className="col-md-6 col-lg-4 col-12 mb-3">
-          <div className="bg-white px-2 px-md-3 py-3 rounded">
+          <div className="bg-white px-2 px-md-3 py-3 rounded position-relative">
             <div className="d-flex justify-content-between">
               <h6 className="fw-bold">{request?.request_name}</h6>
               <p className="text-end"><span className="fw-bold">Expected Delivery</span>
@@ -82,8 +82,10 @@ const PollRequests = ({ user, pollrequests }) => {
                   <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
-                <div>
-                  {request?.applied && <i className="fa-solid fa-check-circle text-success"></i>}
+                <div className="poll-apply-sucess">
+                  <div className="poll-request-popup d-flex justify-content-center align-items-center h-100">
+                  {request?.applied && <i className="fa-solid fa-check"></i>}
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,7 +109,7 @@ const PollRequests = ({ user, pollrequests }) => {
               </div>
               <div className="col-md-5 col-lg-4">
                 <div className="status-btn">
-                  <button className="btn pause-btn rounded-pill py-1 w-100"
+                  <button className="btn pause-btn rounded-pill py-1 px-3 w-100"
                     onClick={() => handleApplyRequest(request)}
                     disabled={request?.applied}>{request?.applied ? 'APPLIED' : 'APPLY'}</button>
                 </div>

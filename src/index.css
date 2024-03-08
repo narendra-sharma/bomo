@@ -2362,6 +2362,24 @@ button.accordion-button.collapsed .late-request-section {
   background-color: #F5F5F5!important;
   height: 130px;
 }
+.poll-apply-sucess{
+  position: absolute;
+  left: 0;
+  background: #fffafaab;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+.poll-request-popup i{
+  background-color: #000;
+  color:#fff;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 50%;
+}
 @media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;
