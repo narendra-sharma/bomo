@@ -38,23 +38,31 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     dispatch(deliever_request_details(requestdata));
   };
 
-  const handleDownload = async (fileUrl) => {
-    const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-    const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-    const getMimeType = (ext) => {
-      const mimeTypes = {
-        txt: "text/plain",
-        pdf: "application/pdf",
-        zip: "application/zip",
-        jpg: "image/jpeg",
-        jpeg: "image/jpeg",
-        png: "image/png",
-        gif: "image/gif",
-        ai: "application/postscript",
-        svg: "image/svg+xml",
-        psd: "image/vnd.adobe.photoshop",
-      };
-      return mimeTypes[ext] || "application/octet-stream";
+    const handleDownload = async (fileUrl) => {
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: 'text/plain',
+                pdf: 'application/pdf',
+                zip: 'application/zip',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+                ai: 'application/postscript',
+                svg: 'image/svg+xml',
+                psd: 'image/vnd.adobe.photoshop',
+              };
+            return mimeTypes[ext] || 'application/octet-stream';
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
     };
 
     const response = await fetch(fileContent);

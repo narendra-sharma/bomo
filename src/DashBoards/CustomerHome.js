@@ -38,7 +38,6 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
       brandname: request?.brand_profile?.brandname,
       status: "production",
     };
-    console.log(data);
     localStorage.setItem("requestData", JSON.stringify(data));
     navigate("/request-expand");
   };

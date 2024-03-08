@@ -68,98 +68,99 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
 
     return (
         <>
-            {totalassigns > 0 ? assignData?.map((request, index) => (
-                <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section" key={index}>
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <small className="text-muted fw-bold">
-                                {totalassigns} requests left{" "}
-                            </small>
-                        </div>
-                        <div className="col-lg-5 g-0">
-                            <div className="table-responsive">
-                                <table className="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <p>12h</p>
-                                            </td>
-                                            <td className="text-center">
-                                                <ColorCode request={request} />
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <span className="fw-bold">Delivery</span>{" "}
-                                                    <span className="d-block">{!request?.delivery_date
-                                                        ? "No Date"
-                                                        : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <span className="fw-bold">{request?.request_name}</span>{" "}
-                                                    <span className="d-block">{request?.status}</span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    <span onClick={() => {setExpand(true); setReqdata(request);}}>Expand Request</span>{" "}
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>
-                                                    Assign Request{" "}
-                                                    <i className="fa-solid fa-chevron-right"></i>
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+            <div className="review-content bg-white px-3 px-md-4 py-3 rounded mb-3 design-list-section">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <small className="text-muted fw-bold">
+                            {totalassigns} requests left{" "}
+                        </small>
+                    </div>
+                    {totalassigns > 0 ? assignData?.map((request, index) => (
+                        <div className="row" key={index}>
+                            <div className="col-lg-5 g-0">
+                                <div className="table-responsive">
+                                    <table className="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>12h</p>
+                                                </td>
+                                                <td className="text-center">
+                                                    <ColorCode request={request} />
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span className="fw-bold">Delivery</span>{" "}
+                                                        <span className="d-block">{!request?.delivery_date
+                                                            ? "No Date"
+                                                            : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span className="fw-bold">{request?.user_id?.company}</span>{" "}
+                                                        <span className="d-block">{request?.request_name}</span>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <span onClick={() => { setExpand(true); setReqdata(request); }}>Expand Request</span>{" "}
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        Assign Request{" "}
+                                                        <i className="fa-solid fa-chevron-right"></i>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-lg-2">
-                            <p className="text-center mb-1">Top 6 Talent</p>
-                            <ul className="talented-designer  rounded list-unstyled">
-                                {request?.top_designers?.map((item) =>
-                                (<li className="mb-1" key={item._id}>
-                                    <Link className="text-decoration-none text-dark fw-bold">
-                                        <p onClick={() => { setView(item); setShow(true); }}>
-                                            <i className="fa-solid fa-check-circle text-success" onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
-                                            {item?.name}
-                                        </p>
-                                    </Link>
-                                </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="col-lg-5 g-0">
-                            <ul className="talented-designer designer-list rounded list-unstyled">
-                                {request.designer_list.map((item) => (
-                                    <li className="mb-1">
+                            <div className="col-lg-2">
+                                <p className="text-center mb-1">Top 6 Talent</p>
+                                <ul className="talented-designer  rounded list-unstyled">
+                                    {request?.top_designers?.map((item) =>
+                                    (<li className="mb-1" key={item._id}>
                                         <Link className="text-decoration-none text-dark fw-bold">
-                                            <p onClick={() => { setView(item); setShow(true); }}>
-                                                <i className={request?.top_designers?.some(d => d._id === item._id) ? "fa-solid fa-check-circle text-success" : "fa-solid fa-circle-minus"}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        e.stopPropagation();
-                                                        handleDesignerClick(item, request._id)
-                                                    }}></i>{" "}
-                                                {item?.name}
+                                            <p>
+                                                <i className="fa-solid fa-check-circle text-success" onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
+                                                <span onClick={() => { setView(item); setShow(true); }}>{item?.name}</span>
                                             </p>
                                         </Link>
                                     </li>
-                                ))}
-                            </ul>
-                        </div>
-                        {request?.top_designers?.length > 0 ? <div className="col-lg-1 align-self-center">
-                            <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request)}>
-                                Assign
-                            </button>
-                        </div> : ""}
-                    </div>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="col-lg-5 g-0">
+                                <ul className="talented-designer designer-list rounded list-unstyled">
+                                    {request.designer_list.map((item) => (
+                                        <li className="mb-1">
+                                            <Link className="text-decoration-none text-dark fw-bold">
+                                                <p onClick={() => { setView(item); setShow(true); }}>
+                                                    <i className={request?.top_designers?.some(d => d._id === item._id) ? "fa-solid fa-check-circle text-success" : "fa-solid fa-circle-minus"}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            handleDesignerClick(item, request._id)
+                                                        }}></i>{" "}
+                                                    {item?.name}
+                                                </p>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            {request?.top_designers?.length > 0 ? <div className="col-lg-1 align-self-center">
+                                <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request)}>
+                                    Assign
+                                </button>
+                            </div> : ""}
+                        </div>)) : <EmptyList name="Assign Request" />}
                 </div>
-            )) : <EmptyList name="Assign Request" />}
-            <ExpandRequest show={expand} handleClose={() => setExpand(false)} requestdata={reqdata}/>
+            </div>
+            <ExpandRequest show={expand} handleClose={() => setExpand(false)} requestdata={reqdata} />
             {totalassigns > 0 && (
                 <CustomPagination
                     total={totalassigns}

@@ -9,7 +9,7 @@ import { add_user_account, uploadImage } from "../../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
 const { REACT_APP_BOMO_URL } = process.env;
 
-const BankInfo = ({ user, imagepath }) => {
+const BankInfo = ({ user, imagepath, profiledetails }) => {
   const [bankInfo, setBankInfo] = useState({
     accountHolderName: "",
     accountNumber: "",
@@ -246,7 +246,7 @@ const BankInfo = ({ user, imagepath }) => {
     <>
       
       <div className="bg-white billing-form payment-info pt-3 py-5 rounded">
-        {user?.account_id && !isShow && (
+        {profiledetails?.account_id && !isShow && (
           <div className="px-4 py-4 ms-5">
             <div className="d-flex align-items-center mb-2">
               {arr?.map((r, i) => (
@@ -256,7 +256,7 @@ const BankInfo = ({ user, imagepath }) => {
             <div className="border py-3 mb-2  px-2 mb-4 rounded">
               <div className="row d-flex align-items-center">
                 <div className="col-1">
-                  <input type="checkbox" checked={user?.account_id} />
+                  <input type="checkbox" checked={profiledetails?.account_id} />
                 </div>
                 <div className="col-10">
                   <p className="mb-0">
@@ -276,7 +276,7 @@ const BankInfo = ({ user, imagepath }) => {
             </div>
           </div>
         )}
-        {!user?.account_id || isShow ? (
+        {!profiledetails?.account_id || isShow ? (
           <div>
             <form>
               <div className="text-end">
@@ -488,6 +488,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     imagepath: state.auth.image_path,
+    profiledetails: state.auth.profiledetails,
   };
 };
 
