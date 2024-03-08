@@ -187,15 +187,15 @@ const Setting = ({ userrole, profiledetails }) => {
                       </div>
                     </div>
                   </div>
-                  </div>
-                  {userrole == "Designer" && (
-                    <div className="col-lg-5">
+                </div>
+                {userrole == "Designer" && (
+                  <div className="col-lg-5">
                     <div className="review-main-content bg-white px-4 design-status rounded">
                       <div className="d-flex justify-content-between align-items-center">
                         <div>
-                        
-                          <p class="mb-0 user-email "><b class=" d-md-block">Status</b></p>
-
+                          <p class="mb-0 user-email ">
+                            <b class=" d-md-block">Status</b>
+                          </p>
                         </div>
                         <div className="d-flex gap-2 align-items-center py-2">
                           <div
@@ -214,9 +214,9 @@ const Setting = ({ userrole, profiledetails }) => {
                         </div>
                       </div>
                     </div>
-                    </div>
-                  )}
-                
+                  </div>
+                )}
+
                 {(userrole === "customer_admin" || userrole === "customer") && (
                   <div className="col-lg-5">
                     <SubscriptionStatus user={user} isSetting={true} />
@@ -346,7 +346,7 @@ const Setting = ({ userrole, profiledetails }) => {
               </div>
               <div className="row mt-5 review-main-content">
                 <div className="col-md-6">
-                <div className="mb-3">
+                  <div className="mb-3">
                     <h3>Billing Information</h3>
                   </div>
                 </div>
@@ -355,10 +355,9 @@ const Setting = ({ userrole, profiledetails }) => {
                     <h3>Bank Info</h3>
                   </div>
                 </div>
-                </div>
+              </div>
               <div className="row setting-card-info gap-3">
                 <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
-                  
                   <BillingForm user={user} />
                 </div>
                 <div className="col-lg-6 col-md-6 d-flex bg-white rounded flex-column">
@@ -381,15 +380,17 @@ const Setting = ({ userrole, profiledetails }) => {
                   you receive your first payment
                 </p>
               </div>
-              <div className="delete-account status-btn text-end mt-3">
-                <button
-                  className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1"
-                  onClick={() => setShow(true)}
-                >
-                  Delete account
-                </button>
-              </div>
             </>
+          )}
+          {userrole == "customer_admin" && (
+            <div className="delete-account status-btn text-end mt-3">
+              <button
+                className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1"
+                onClick={() => setShow(true)}
+              >
+                Delete account
+              </button>
+            </div>
           )}
         </div>
       </div>
