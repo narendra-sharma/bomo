@@ -9,12 +9,11 @@ import {
 import ColorCode from "../../Common/ColorCode";
 import EmptyList from "../../Common/EmptyList";
 import { format } from "date-fns";
-
 const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverindex, setHoverindex] = useState(null);
-
+  console.log("ABC");
   const handleEdit = (request) => {
     dispatch(get_edit_request_data(request));
     navigate("/new-request");
