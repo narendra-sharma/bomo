@@ -45,7 +45,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                         <table className="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td style={{width:'37px'}}>
                                         <p>12h</p>
                                     </td>
                                     <td className="text-center" style={{ width: '122px' }}>
@@ -69,14 +69,20 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                             </span>{" "}
                                         </p>
                                     </td>
-                                    <td style={{ width: '40px' }}>
+                                     <td style={{width:'80px'}}>
+                                       <div class="d-flex gap-2">
+                                        <div>
                                         {isapprove[request?._id] === 'accepted' ?
                                             <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">Approved</button>
                                             : <i className="fa-solid fa-check-circle active-request-status cursor-pointer" onClick={() => handleAccept(request?._id)}></i>}
-                                    </td>
-                                    <td style={{ width: '40px' }}>
+                                    </div>
+                                       <div>
                                         {isapprove[request?._id] !== 'accepted' && <i className="fa-solid fa-circle-xmark cancel cursor-pointer" onClick={(e) => handleReject(e, request, 'rejected')}></i>}
+                                        </div>
+                                        </div>
                                     </td>
+                                  
+                                       
                                 </tr>
                             </tbody>
                         </table>

@@ -59,7 +59,7 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                           <td className="text-center">
                             <p className="">edit</p>{" "}
                           </td>
-                          <td style={{width:'120px'}} className="text-center">
+                          <td style={{width:'122px'}} className="text-center">
                             <ColorCode request={request} />
                           </td>
                           <td className="text-center" style={{width:'110px'}}> 
@@ -69,19 +69,19 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                                 : "-"}
                             </p>
                           </td>
-                          <td>
+                          <td style={{width:'65px'}}>
                             <p>
                               <span className="fw-bold">Status</span>{" "}
                               <span className="d-block">{request?.status}</span>
                             </p>
                           </td>
-                          <td>
+                          <td style={{width:'67px'}}>
                             <p>
                               <span className="fw-bold">Delivery</span>{" "}
                               <span className="d-block">-</span>
                             </p>
                           </td>
-                          <td>
+                          <td  style={{width:'112px'}}>
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">

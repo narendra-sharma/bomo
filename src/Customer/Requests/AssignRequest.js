@@ -77,7 +77,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     </div>
                     {totalassigns > 0 ? assignData?.map((request, index) => (
                         <div className="row" key={index}>
-                            <div className="col-lg-5 g-0">
+                            <div className="col-lg-6 g-0">
                                 <div className="table-responsive">
                                     <table className="table table-borderless">
                                         <tbody>
@@ -85,10 +85,10 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 <td>
                                                     <p>12h</p>
                                                 </td>
-                                                <td className="text-center">
+                                                <td className="text-center" style={{width:"120px"}}>
                                                     <ColorCode request={request} />
                                                 </td>
-                                                <td>
+                                                <td style={{width:"77px"}}>
                                                     <p>
                                                         <span className="fw-bold">Delivery</span>{" "}
                                                         <span className="d-block">{!request?.delivery_date
@@ -96,7 +96,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                             : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span>
                                                     </p>
                                                 </td>
-                                                <td>
+                                                <td style={{width:"120px"}}>
                                                     <p>
                                                         <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                                         <span className="d-block">{request?.request_name}</span>
@@ -133,7 +133,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                     ))}
                                 </ul>
                             </div>
-                            <div className="col-lg-5 g-0">
+                            <div className="col-lg-4 g-0">
                                 <ul className="talented-designer designer-list rounded list-unstyled">
                                     {request.designer_list.map((item) => (
                                         <li className="mb-1">
