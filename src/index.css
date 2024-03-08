@@ -2358,6 +2358,10 @@ button.accordion-button.collapsed .late-request-section {
 .design-status{
   padding: 27px 0;
 }
+.rejected-popup .bg-light-white{
+  background-color: #F5F5F5!important;
+  height: 130px;
+}
 @media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;

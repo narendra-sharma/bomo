@@ -81,7 +81,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
                           <tr onClick={() => handleView(request)}>
                             <td
                               className="text-center"
-                              style={{ width: "100px" }}
+                              style={{width:"125px"}}
                             >
                               <ColorCode request={request} />
                             </td>

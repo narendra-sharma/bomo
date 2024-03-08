@@ -45,18 +45,18 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
     },[show]);
     
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}  className="logout-popup rejected-popup modal-border">
             <Modal.Body>
                 <div className="px-4 py-4">
-                    <h4 className="mb-0">Specify what needs to be adjusted</h4>
+                    <h5 className="mb-0 fw-bold">Specify what needs to be adjusted</h5>
                     <div className="form-group col-md-12 mt-2">
-                        <input type="text" name="message" className="form-control" value={formdata.message} onChange={handleInputChange} />
+                        <input type="text" name="message" className="form-control bg-light-white" value={formdata.message} onChange={handleInputChange} />
                         {errors.message && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.message}</p>}
                     </div>
                     <div className="d-flex gap-2 mt-3">
                         <div className="col-md-6">
                             <Button
-                                variant="success"
+                                variant="light"
                                 className="w-100 rounded-pill btn-outline-dark"
                                 onClick={(e) => handleSubmit(e,'rejected')}
                             >

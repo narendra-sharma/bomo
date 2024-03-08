@@ -43,10 +43,10 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                     <td>
                                         <p>12h</p>
                                     </td>
-                                    <td className="text-center">
+                                    <td className="text-center" style={{width:'122px'}}>
                                         <ColorCode request={request} />
                                     </td>
-                                    <td>
+                                    <td style={{width:'100px'}}>
                                         <p>
                                             <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                             <span className="d-block">
@@ -54,18 +54,18 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                             </span>
                                         </p>
                                     </td>
-                                    <td>
+                                    <td style={{width:'78px'}}>
                                         <p>{request?.request_name}</p>
                                     </td>
-                                    <td>
+                                    <td style={{width:'112px'}}>
                                         <p>
                                             <span className="fw-bold" onClick={() => { setShow(true); setReqdata(request) }}>
                                                 Expand Request
                                             </span>{" "}
                                         </p>
                                     </td>
-                                    <td>
-                                        <i className="fa-solid fa-check-circle text-success" onClick={() => setshowAcceptModal(request?._id)}></i>
+                                    <td style={{width:'40px'}}>
+                                        <i className="fa-solid fa-check-circle active-request-status cursor-pointer" onClick={() => setshowAcceptModal(request?._id)}></i>
                                         {showAcceptModal === request?._id && (
                                             <AcceptRequest
                                                 heading={request?.request_name}
@@ -76,8 +76,8 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                             />
                                         )}
                                     </td>
-                                    <td>
-                                        <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleReject(e,request,'rejected')}></i>
+                                    <td style={{width:'40px'}}> 
+                                        <i className="fa-solid fa-circle-xmark cancel cursor-pointer" onClick={(e) => handleReject(e,request,'rejected')}></i>
                                     </td>
                                 </tr>
                             </tbody>
