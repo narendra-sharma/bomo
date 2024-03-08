@@ -29,7 +29,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
     const handleDownload = async (fileUrl) => {
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-        const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        const fileName = fileUrl?.substring(fileUrl.lastIndexOf("/") + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
                 txt: "text/plain",
@@ -45,7 +45,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
         const response = await fetch(fileContent);
         const blobFile = await response.blob();
-        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
         saveAs(blobwithtype, fileName);
@@ -110,13 +110,13 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                         : '-'}
                                 </p>
                             </div>
-                             {expanddetails?.req_data?.req_mail_date && <div class="step">
+                            {expanddetails?.req_data?.req_mail_date && <div class="step">
                                 <p className="brief-content">Assigned to </p>
                                 <div class="deliver-status delivery-check">
                                     <span><i class="fa-solid fa-circle-check"></i></span>
                                 </div>
-                                <p className="brief-date">{format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')} 
-                                <span className="d-block">{formattedTime(expanddetails?.req_data?.req_mail_date)}</span></p>
+                                <p className="brief-date">{format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')}
+                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.req_mail_date)}</span></p>
                             </div>}
 
                             <div class="step">
@@ -162,7 +162,11 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                         <div class="col-md-12 col-lg-12">
                             <div class=" d-flex align-items-center review-content ">
                                 <ColorCode request={expanddetails?.req_data} />
-                                <p class="short0ad dor rounded-pill">DOR</p>
+                                <p class="short0ad dor rounded-pill">
+                                    {expanddetails?.req_data?.brand_profile?.brandname ?
+                                        expanddetails?.req_data?.brand_profile?.brandname
+                                        : '-'}
+                                </p>
                                 <p class="short0ad project-assets rounded-pill" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
                             </div>
                         </div>
@@ -211,7 +215,10 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                                         <img src={designImage} alt="Image" />
                                                     </div>
                                                     <div className="download-btn">
-                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0"
+                                                            onClick={() => handleDownload(`designe/landscape/${request?.landscape}`)}>
+                                                            Download
+                                                        </button>
                                                     </div>
 
                                                 </div>
@@ -223,7 +230,10 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                                         <img src={designImage2} alt="Image" />
                                                     </div>
                                                     <div className="download-btn">
-                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0"
+                                                            onClick={() => handleDownload(`designe/portrait/${request?.portrait}`)}>
+                                                            Download
+                                                        </button>
                                                     </div>
 
                                                 </div>
@@ -235,16 +245,20 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                                         <img src={aepdesign} alt="Image" />
                                                     </div>
                                                     <div className="download-btn">
-                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0">Download</button>
+                                                        <button className="rounded-pill px-3 py-1 fw-bold border-0"
+                                                            onClick={() => handleDownload(`${request?.zip}`)}>
+                                                            Download
+                                                        </button>
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div className="col-md-3 align-self-center">
                                                 <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                                    <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i>
+                                                    {request?.is_approved_by_super_admin ?
+                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i></div>
+                                                        : <h6 class="fw-bold">Needs approval by ADMIN</h6>}
                                                 </div>
-
                                             </div>
                                         </div>
 

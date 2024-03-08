@@ -1,4 +1,31 @@
-import { GET_EDIT_REQUEST_DATA, GET_REQUEST_LIST, GET_ADMIN_PENDING_REQUEST_LIST, GET_POLL_REQUEST_LIST, GET_ADMIN_ASSIGN_REQUEST_LIST, GET_DESIGNER_ASSIGNED_REQUEST_LIST, GET_DESIGNER_ACTIVE_REQUEST_LIST, DELIEVER_REQUEST_DATA, GET_CUSTOMER_ACTIVE_REQUEST_LIST, GET_SUPER_ADMIN_APPROVE_REQUEST_LIST, SUBMIT_NOW, GET_FEEDBACK_QUE, GET_ALL_ACTIVE_REQUEST_LIST, GET_ALL_PAST_REQUEST_LIST, GET_DELIVER_REQUEST, GET_DESIGNER_PAST_REQUEST_LIST, GET_NEW_REQUEST, GET_EXPAND_REQUEST_DETAILS, GET_CUSTOMERS_PAYMENT_HISTORY, GET_DESIGNERS_PAYMENT_HISTORY, GET_DOWNLOAD_PATH, GET_ALL_DRAFTS, GET_ALL_REVIEW_REQUESTS, UPLOAD_NEW_IMAGE, GET_ADMIN_ACCEPTED_LIST, GET_LATE_REQUESTS } from "./requestTypes";
+import {
+  GET_EDIT_REQUEST_DATA,
+  GET_REQUEST_LIST,
+  GET_ADMIN_PENDING_REQUEST_LIST,
+  GET_POLL_REQUEST_LIST,
+  GET_ADMIN_ASSIGN_REQUEST_LIST,
+  GET_DESIGNER_ASSIGNED_REQUEST_LIST,
+  GET_DESIGNER_ACTIVE_REQUEST_LIST,
+  DELIEVER_REQUEST_DATA,
+  GET_CUSTOMER_ACTIVE_REQUEST_LIST,
+  GET_SUPER_ADMIN_APPROVE_REQUEST_LIST,
+  SUBMIT_NOW,
+  GET_FEEDBACK_QUE,
+  GET_ALL_ACTIVE_REQUEST_LIST,
+  GET_ALL_PAST_REQUEST_LIST,
+  GET_DELIVER_REQUEST,
+  GET_DESIGNER_PAST_REQUEST_LIST,
+  GET_NEW_REQUEST,
+  GET_EXPAND_REQUEST_DETAILS,
+  GET_CUSTOMERS_PAYMENT_HISTORY,
+  GET_DESIGNERS_PAYMENT_HISTORY,
+  GET_DOWNLOAD_PATH,
+  GET_ALL_DRAFTS,
+  GET_ALL_REVIEW_REQUESTS,
+  UPLOAD_NEW_IMAGE,
+  GET_ADMIN_ACCEPTED_LIST,
+  GET_LATE_REQUESTS,
+} from "./requestTypes";
 const initialState = {
   isSubmit: false,
   pendingRequests: [],
@@ -13,19 +40,20 @@ const initialState = {
   totalassigns: 0,
   designerassignedrequests: [],
   activerequest: [],
+  activeTotal: 0,
   requestTypes: [
-    { type: 'logo', color: '#6D3FF3', value: 'logo' },
-    { type: 'short ad', color: '#B185F2', value: 'short_ad' },
-    { type: 'web animation', color: '#EDAFFE', value: 'web_animation' },
-    { type: 'icon', color: '#2DB985', value: 'icon' },
-    { type: 'typography', color: '#D6C10B', value: 'typography' },
-    { type: 'brand element', color: '#0657EB', value: 'brand_element' },
-    { type: 'intro', color: '#FE58AE', value: 'intro' },
-    { type: 'outro', color: 'brown', value: 'outro' },
-    { type: 'transition', color: '#F92B34', value: 'transition' },
-    { type: 'UI animation', color: '#7C96FE', value: 'ui_animation' },
-    { type: 'loop', color: '#FA812A', value: 'loop' },
-    { type: 'custom', color: 'black', value: 'custom' }
+    { type: "logo", color: "#6D3FF3", value: "logo" },
+    { type: "short ad", color: "#B185F2", value: "short_ad" },
+    { type: "web animation", color: "#EDAFFE", value: "web_animation" },
+    { type: "icon", color: "#2DB985", value: "icon" },
+    { type: "typography", color: "#D6C10B", value: "typography" },
+    { type: "brand element", color: "#0657EB", value: "brand_element" },
+    { type: "intro", color: "#FE58AE", value: "intro" },
+    { type: "outro", color: "brown", value: "outro" },
+    { type: "transition", color: "#F92B34", value: "transition" },
+    { type: "UI animation", color: "#7C96FE", value: "ui_animation" },
+    { type: "loop", color: "#FA812A", value: "loop" },
+    { type: "custom", color: "black", value: "custom" },
   ],
   editrequestData: null,
   delieverRequestdetails: null,
@@ -48,7 +76,7 @@ const initialState = {
   allreviews: [],
   totalallreviews: 0,
   imagePath: null,
-  lateRequests: []
+  lateRequests: [],
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -62,7 +90,7 @@ const requestReducer = (state = initialState, action) => {
     case SUBMIT_NOW:
       return {
         ...state,
-        isSubmit: action.payload
+        isSubmit: action.payload,
       };
     case GET_ADMIN_PENDING_REQUEST_LIST:
       return {
@@ -90,7 +118,7 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         designerassignedrequests: action.payload.data,
-        totalassigns: action.payload.total
+        totalassigns: action.payload.total,
       };
     case GET_DESIGNER_ACTIVE_REQUEST_LIST:
       return {
@@ -106,6 +134,7 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         customerActiverequests: action.payload.data,
+        activeTotal: action.payload.total,
       };
     case GET_SUPER_ADMIN_APPROVE_REQUEST_LIST:
       return {
@@ -116,60 +145,60 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         pastrequests: action.payload.data,
-        totalpastrequest: action.payload.total
+        totalpastrequest: action.payload.total,
       };
     case GET_FEEDBACK_QUE:
       return {
         ...state,
-        feedbacklists: action.payload
+        feedbacklists: action.payload,
       };
     case GET_ALL_ACTIVE_REQUEST_LIST:
       return {
         ...state,
-        allactiverequests: action.payload
+        allactiverequests: action.payload,
       };
     case GET_DELIVER_REQUEST:
       return {
         ...state,
-        deliverrequests: action.payload
+        deliverrequests: action.payload,
       };
     case GET_DESIGNER_PAST_REQUEST_LIST:
       return {
         ...state,
-        designerpastrequests: action.payload
+        designerpastrequests: action.payload,
       };
     case GET_ADMIN_ACCEPTED_LIST:
       return {
         ...state,
         acceptedRequests: action.payload.data,
-        acceptedTotal: action.payload.total
-      }
+        acceptedTotal: action.payload.total,
+      };
     case GET_NEW_REQUEST:
       return {
         ...state,
-        newrequest: action.payload
+        newrequest: action.payload,
       };
     case GET_EXPAND_REQUEST_DETAILS:
       return {
         ...state,
-        expandedrequest: action.payload
+        expandedrequest: action.payload,
       };
     case GET_CUSTOMERS_PAYMENT_HISTORY:
       return {
         ...state,
         customersPayments: action.payload.data,
-        customerTotal: action.payload.total
+        customerTotal: action.payload.total,
       };
     case GET_DESIGNERS_PAYMENT_HISTORY:
       return {
         ...state,
         designerPayments: action.payload.data,
-        designerTotal: action.payload.total
+        designerTotal: action.payload.total,
       };
     case GET_DOWNLOAD_PATH:
       return {
         ...state,
-        filePath: action.payload
+        filePath: action.payload,
       };
     case GET_ALL_DRAFTS:
       return {
@@ -186,12 +215,12 @@ const requestReducer = (state = initialState, action) => {
     case UPLOAD_NEW_IMAGE:
       return {
         ...state,
-        imagePath: action.payload
+        imagePath: action.payload,
       };
     case GET_LATE_REQUESTS:
       return {
         ...state,
-        lateRequests: action.payload
+        lateRequests: action.payload,
       };
     default:
       return state;

@@ -18,7 +18,6 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userRole = user?.role === "designer" ? user?.role : "";
-
   let local = localStorage.getItem("userDetails");
   local = local ? JSON.parse(local) : null;
   const ischeck = localStorage.getItem("SWITCHTYPE");
@@ -43,7 +42,6 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
       return request;
     }
   });
-
   const handleSwitch = async () => {
     await switch_to_superadmin(dispatch, user?.token);
   };
@@ -96,7 +94,9 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               </>
             )}
             <div className="d-flex text-right justify-content-between header-user-profile align-items-center">
-              {user?.role === "customer" ? (
+              {user?.role === "customer" ||
+              user?.role == "designer" ||
+              userRole == "Designer" ? (
                 <div
                   className="cursor-pointer header-user-img"
                   onClick={() => navigate("/settings")}
@@ -130,15 +130,21 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                   }}
                 ></div>
               ) : (
-                <div
-                  style={{
-                    backgroundColor: user?.colour ? user?.colour : "#000000",
-                    width: 30,
-                    height: 30,
-                    borderRadius: 15,
-                  }}
-                ></div>
+                userrole == "Super admin" && (
+                  <img src={`${userImage}`} alt="Superadmin" />
+                )
               )}
+              {userrole == "Designer" ||
+                (userrole == "designer" && (
+                  <div
+                    style={{
+                      width: 30,
+                      height: 30,
+                      backgroundColor: user?.colour ? user?.colour : "#000000",
+                      borderRadius: 15,
+                    }}
+                  ></div>
+                ))}
               <p className="mb-0 user-email ms-1 ms-lg-2">
                 <b
                   className="d-none d-md-block cursor-pointer"

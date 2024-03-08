@@ -9,6 +9,7 @@ import { saveAs } from "file-saver";
 const { REACT_APP_BOMO_URL } = process.env;
 
 const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
+    console.log(data);
     const dispatch = useDispatch();
     const handleApplyRequest = (requestdata) => {
         let applyrequest = requestdata._id;
@@ -19,7 +20,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
 
     const handleDownload = async (fileUrl) => {
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
                 txt: 'text/plain',
@@ -38,7 +39,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
 
         const response = await fetch(fileContent);
         const blobFile = await response.blob();
-        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
         saveAs(blobwithtype, fileName);
@@ -105,7 +106,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                                                 </p>
                                             </td>
                                             <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
-                                            <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
+                                            <td><p> {data?.size?.map((item => <span className="fw-bold d-block">{item}</span>))}</p></td>
                                             <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
                                             <td><p>{data?.transparency}</p></td>
                                         </tr>
@@ -114,7 +115,9 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                             </div>
                             <div className="mt-4 row justify-content-between">
                                 <div className="col-md-8 status-btn">
-                                    <button className="btn pause-btn rounded py-1 w-100" onClick={() => handleApplyRequest(data)}>APPLY</button>
+                                    <button className="btn pause-btn rounded py-1 w-100" 
+                                    onClick={() => handleApplyRequest(data)}
+                                    disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
                                 </div>
                                 <div className="col-md-4"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
                             </div>
