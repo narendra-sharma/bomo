@@ -21,7 +21,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
 
     const handleDownload = async (fileUrl) => {
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-        const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
                 txt: 'text/plain',
@@ -40,7 +40,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
 
         const response = await fetch(fileContent);
         const blobFile = await response.blob();
-        const fileExtension = fileName.split(".").pop().toLowerCase();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
         saveAs(blobwithtype, fileName);
