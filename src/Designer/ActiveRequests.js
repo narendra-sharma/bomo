@@ -65,14 +65,6 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
         saveAs(blobwithtype, fileName);
     };
 
-    const response = await fetch(fileContent);
-    const blobFile = await response.blob();
-    const fileExtension = fileName.split(".").pop().toLowerCase();
-    const mimeType = getMimeType(fileExtension);
-    const blobwithtype = new Blob([blobFile], { type: mimeType });
-    saveAs(blobwithtype, fileName);
-  };
-
   return (
     <>
       {isLoading && <LoadingSpinner />}
