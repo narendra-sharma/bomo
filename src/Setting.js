@@ -20,6 +20,7 @@ import PaymentCardInfo from "./Customer/Settings/PaymentCardInfo";
 import BankInfo from "./Customer/Settings/BankInfo";
 import { format } from "date-fns";
 import SharedRequest from "./Common/SharedRequest";
+import { set_update_user } from "./reduxdata/User/userActions";
 
 const Setting = ({ userrole, profiledetails }) => {
   const user = JSON.parse(localStorage.getItem("userDetails"));
@@ -38,6 +39,21 @@ const Setting = ({ userrole, profiledetails }) => {
     getSubscription();
   }, []);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (
+      profiledetails &&
+      profiledetails?.isDesignerApproved &&
+      !user.isDesignerApproved
+    ) {
+      dispatch(
+        set_update_user({
+          ...user,
+          isDesignerApproved: profiledetails?.isDesignerApproved,
+        })
+      );
+    }
+  }, [dispatch, profiledetails]);
 
   useEffect(() => {
     if (user?.token) {
