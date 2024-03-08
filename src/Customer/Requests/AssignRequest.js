@@ -104,7 +104,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 </td>
                                                 <td>
                                                     <p>
-                                                        <span onClick={() => { setExpand(true); setReqdata(request); }}>Expand Request</span>{" "}
+                                                        <span className="cursor-pointer" onClick={() => { setExpand(true); setReqdata(request); }}>Expand Request</span>{" "}
                                                     </p>
                                                 </td>
                                                 <td>
