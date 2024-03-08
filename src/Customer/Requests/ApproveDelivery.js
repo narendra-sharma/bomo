@@ -72,7 +72,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span onClick={() => {setShow(true);  setReqdata(request);}}>Expand Request</span>{" "}
+                                            <span className="cursor-pointer" onClick={() => {setShow(true);  setReqdata(request);}}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>

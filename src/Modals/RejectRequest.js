@@ -15,7 +15,7 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
 
     const handleInputChange = (e) => {
         const {name,value}=e.target;
-        setErrors({...errors, [name]:value===''?'Specify your Needs':null});
+        setErrors({...errors, [name]:value===''?'Specify your needs':null});
         setFormdata({...formdata, [name]:value});
     };
 
@@ -24,7 +24,7 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
         const checkerrors={};
         Object.keys(formdata).forEach((name)=> {
             if(formdata[name]===''){
-                checkerrors[name]='Specify your Needs';
+                checkerrors[name]='Specify your needs';
             }
         });
         setErrors(checkerrors);
@@ -50,7 +50,7 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
                 <div className="px-4 py-4">
                     <h5 className="mb-0 fw-bold">Specify what needs to be adjusted</h5>
                     <div className="form-group col-md-12 mt-2">
-                        <input type="text" name="message" className="form-control bg-light-white" value={formdata.message} onChange={handleInputChange} />
+                        <textarea type="text" name="message" className="form-control bg-light-white" value={formdata.message} onChange={handleInputChange}></textarea>
                         {errors.message && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.message}</p>}
                     </div>
                     <div className="d-flex gap-2 mt-3">

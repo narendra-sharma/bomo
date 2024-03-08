@@ -242,8 +242,10 @@ export const change_request_status = async (dispatch, token, id, status) => {
     );
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      await get_admin_pending_requestlist(dispatch, token);
-      await get_admin_assign_requestlist(dispatch, token);
+      setTimeout(() => {
+         get_admin_pending_requestlist(dispatch, token);
+         get_admin_assign_requestlist(dispatch, token);
+      },4000);
     } else {
       toast.error(res.data?.message);
     }

@@ -462,6 +462,7 @@ export const add_user_account = async (dispatch, accountdata, token) => {
     const res = await axios.post(url, accountdetail, HEADERS);
     if (res.data && res.data.status) {
       toast.success(res?.data?.message);
+      get_user_profile_details(token, dispatch);
     } else {
       toast.error(res.data.message);
     }
