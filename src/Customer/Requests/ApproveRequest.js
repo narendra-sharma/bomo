@@ -5,23 +5,28 @@ import ExpandRequest from '../../Modals/ExpandRequest';
 import RejectRequest from '../../Modals/RejectRequest';
 import ColorCode from '../../Common/ColorCode';
 import EmptyList from '../../Common/EmptyList';
-import AcceptRequest from '../../Modals/AcceptRequest';
 import CustomPagination from '../../Common/CustomPagination';
+import { change_request_status } from '../../reduxdata/Requests/requestActions';
 
 const ApproveRequest = ({ user, allRequest, total }) => {
     const [show, setShow] = useState(false);
     const [isreject, setIsreject] = useState(false);
-    const [showAcceptModal, setshowAcceptModal] = useState([]);
     const [reqdata, setReqdata] = useState({});
+    const [isapprove, setIsapprove] = useState({});
     const dispatch = useDispatch();
 
     useEffect(() => {
         get_admin_pending_requestlist(dispatch, user?.token, 1, 10);
     }, [dispatch, user?.token]);
 
-    const handleReject = (e,data,status) => {
+    const handleAccept = (id) => {
+        setIsapprove((prev) => ({ ...prev, [id]: 'accepted' }));
+        change_request_status(dispatch, user?.token, id, "active");
+    };
+
+    const handleReject = (e, data, status) => {
         e.preventDefault();
-       if((status === 'rejected')&&data){
+        if ((status === 'rejected') && data) {
             setIsreject(true);
             setReqdata(data);
         }
@@ -43,10 +48,10 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                     <td>
                                         <p>12h</p>
                                     </td>
-                                    <td className="text-center" style={{width:'122px'}}>
+                                    <td className="text-center" style={{ width: '122px' }}>
                                         <ColorCode request={request} />
                                     </td>
-                                    <td style={{width:'100px'}}>
+                                    <td style={{ width: '100px' }}>
                                         <p>
                                             <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                             <span className="d-block">
@@ -54,30 +59,23 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                             </span>
                                         </p>
                                     </td>
-                                    <td style={{width:'78px'}}>
+                                    <td style={{ width: '78px' }}>
                                         <p>{request?.request_name}</p>
                                     </td>
-                                    <td style={{width:'112px'}}>
+                                    <td style={{ width: '112px' }}>
                                         <p>
-                                            <span className="fw-bold" onClick={() => { setShow(true); setReqdata(request) }}>
+                                            <span className="fw-bold cursor-pointer" onClick={() => { setShow(true); setReqdata(request) }}>
                                                 Expand Request
                                             </span>{" "}
                                         </p>
                                     </td>
-                                    <td style={{width:'40px'}}>
-                                        <i className="fa-solid fa-check-circle active-request-status cursor-pointer" onClick={() => setshowAcceptModal(request?._id)}></i>
-                                        {showAcceptModal === request?._id && (
-                                            <AcceptRequest
-                                                heading={request?.request_name}
-                                                showAcceptModal={showAcceptModal}
-                                                setshowAcceptModal={setshowAcceptModal}
-                                                id={request?._id}
-                                                token={user?.token}
-                                            />
-                                        )}
+                                    <td style={{ width: '40px' }}>
+                                        {isapprove[request?._id] === 'accepted' ?
+                                            <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">Approved</button>
+                                            : <i className="fa-solid fa-check-circle active-request-status cursor-pointer" onClick={() => handleAccept(request?._id)}></i>}
                                     </td>
-                                    <td style={{width:'40px'}}> 
-                                        <i className="fa-solid fa-circle-xmark cancel cursor-pointer" onClick={(e) => handleReject(e,request,'rejected')}></i>
+                                    <td style={{ width: '40px' }}>
+                                        {isapprove[request?._id] !== 'accepted' && <i className="fa-solid fa-circle-xmark cancel cursor-pointer" onClick={(e) => handleReject(e, request, 'rejected')}></i>}
                                     </td>
                                 </tr>
                             </tbody>
