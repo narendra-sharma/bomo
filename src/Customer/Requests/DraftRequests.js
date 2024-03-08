@@ -9,12 +9,11 @@ import {
 import ColorCode from "../../Common/ColorCode";
 import EmptyList from "../../Common/EmptyList";
 import { format } from "date-fns";
-
 const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverindex, setHoverindex] = useState(null);
-
+  console.log("ABC");
   const handleEdit = (request) => {
     dispatch(get_edit_request_data(request));
     navigate("/new-request");
@@ -23,7 +22,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
   useEffect(() => {
     get_draft_requestlist(dispatch, user?.token, 1, 10);
   }, []);
-  
+
   return (
     <>
       <div className="review-content bg-white px-4 px-md-5 py-5 rounded">
@@ -64,7 +63,9 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                       <p>
                         <span className="fw-bold">Request by</span>{" "}
                         <span className="d-block">
-                          {request?.user_id?.name}
+                          {request?.isEditedByAdmin == true
+                            ? "BOMO team"
+                            : request?.user_id?.name}
                         </span>
                       </p>
                     </td>
