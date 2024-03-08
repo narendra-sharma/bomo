@@ -48,7 +48,8 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
       brandname: request?.brand_profile?.brandname,
       priority: request?.priority
     };
-    navigate('/request-expand', { state: data});
+    localStorage.setItem('requestData', JSON.stringify(data));
+    navigate('/request-expand');
   };
 
   return (
