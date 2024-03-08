@@ -82,7 +82,9 @@ const PollRequests = ({ user, pollrequests }) => {
                   <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
-                <div>{request?.applied && <i className="fa-solid fa-check-circle text-success"></i>}</div>
+                <div>
+                  {request?.applied && <i className="fa-solid fa-check-circle text-success"></i>}
+                </div>
               </div>
             </div>
             <div className="row my-3">

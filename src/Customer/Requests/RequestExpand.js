@@ -22,10 +22,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
         return () => {
             localStorage.removeItem('requestData');
         }
-    },[]);
+    }, []);
 
     useEffect(() => {
-        if (receivedData?._id){
+        if (receivedData?._id) {
             get_delivered_requests(dispatch, user?.token, receivedData?._id);
         }
     }, [receivedData?._id]);
@@ -220,13 +220,13 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                                 <i className="fa-solid fa-circle-minus minus"></i> Delivery{" "}
                                                                                 Expected
                                                                             </div>
-                                                                            <p className="status-date text-secondary mb-0">
+                                                                            {receivedData?.delivery_date ? <p className="status-date text-secondary mb-0">
                                                                                 {format(
                                                                                     new Date(receivedData?.delivery_date),
                                                                                     "dd/MM/yyyy"
                                                                                 )}{" "}
                                                                                 {formattedTime(receivedData?.delivery_date)}
-                                                                            </p>
+                                                                            </p> : <p></p>}
                                                                         </div>
                                                                         <div className="col-md-4 d-flex text-center justify-content-center">
                                                                             <div className="statusbar-section d-flex flex-column justify-content-between">
