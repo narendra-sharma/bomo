@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import reelImage from "../images/reel-image.png";
+import briefImage from "../images/brief-request-img.png";
 import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
 import { poll_request_apply } from "../reduxdata/rootAction";
@@ -46,9 +46,9 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
     };
 
     return (
-        <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
+        <Modal show={show} onHide={handleClose} size="lg" className="brief-request-popup">
             <Modal.Body>
-                <div className=" px-5 py-5 px-md-5 review-content ">
+                <div className=" px-5 py-5 review-content ">
                     <div className="row align-items-center">
                         <div className="col-md-7 col-12 mb-4 designer-active-request">
                             <span class="deadline-date status position-relative ps-3">Selection in <span class="fw-bold"><span>14 hour</span></span></span>
@@ -68,7 +68,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
                                 <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname ? data?.brand_profile?.brandname : '-'}</p>
-                                <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>Brand Assets</p>
+                                <p className="brand-assets-btn rounded bg-white request-poll-active d-none" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>Brand Assets</p>
                             </div>
                         </div>
                         <div className="col-md-6 delivery-date-content">
@@ -82,21 +82,21 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                         </div>
                         <div className="col-md-12">
                             <div className="mb-3 position-relative">
-                                <img src={reelImage} alt="reel imag" width="100%" />
-                                <div className="project-btn">
+                                <img src={briefImage} alt="brief image" />
+                                {/* <div className="project-btn">
                                     <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${data?.brand_profile?.logo}`)}>
                                         Project Assets
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="table-responsive">
                                 <table className="table table-borderless mb-0">
                                     <thead>
-                                        <th style={{ width: "240px" }}><p>Description</p></th>
-                                        <th style={{ width: "105px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                        <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                        <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Format</span></p> </th>
-                                        <th><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                        <th><p>Description</p></th>
+                                        <th style={{ width: "95px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
+                                        <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
+                                        <th ><p><span className="fw-bold d-block">Format</span></p> </th>
+                                        <th style={{ width: "135px" }}><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
                                     </thead>
                                     <tbody>
                                         <tr>

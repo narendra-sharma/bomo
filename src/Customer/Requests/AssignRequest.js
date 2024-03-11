@@ -85,7 +85,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 <td>
                                                     <p>12h</p>
                                                 </td>
-                                                <td className="text-center" style={{width:"120px"}}>
+                                                <td className="text-center" style={{width:"130px"}}>
                                                     <ColorCode request={request} />
                                                 </td>
                                                 <td style={{width:"77px"}}>

@@ -68,7 +68,7 @@ const PollRequests = ({ user, pollrequests }) => {
     <>
       {pollData?.length > 0 ? pollData?.map((request) => (
         <div className="col-md-6 col-lg-4 col-12 mb-3">
-          <div className="bg-white px-2 px-md-3 py-3 rounded position-relative">
+          <div className="bg-white poll-request-content px-2 px-md-3 py-3 rounded position-relative">
             <div className="d-flex justify-content-between">
               <h6 className="fw-bold">{request?.request_name}</h6>
               <p className="text-end"><span className="fw-bold">Expected Delivery</span>

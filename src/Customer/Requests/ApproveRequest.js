@@ -48,7 +48,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                                     <td style={{width:'37px'}}>
                                         <p>12h</p>
                                     </td>
-                                    <td className="text-center" style={{ width: '122px' }}>
+                                    <td className="text-center" style={{ width: '130px' }}>
                                         <ColorCode request={request} />
                                     </td>
                                     <td style={{ width: '100px' }}>
