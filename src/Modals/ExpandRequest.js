@@ -14,6 +14,7 @@ const { REACT_APP_BOMO_URL } = process.env;
 
 const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
     const dispatch = useDispatch();
+
     useEffect(() => {
         if (requestdata?._id) {
             get_expanded_request_detail(dispatch, user?.token, requestdata?._id);
@@ -67,24 +68,40 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                     <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
                             </div>
 
-                            {expanddetails?.req_data?.brief_rejected_at === null ?
-                                <div class="step">
-                                    <p className="brief-content">Brief Approved</p>
-                                    <div class="deliver-status delivery-check">
-                                        <span><i class="fa-solid fa-circle-check"></i></span>
-                                    </div>
-                                    <p className="brief-date">
-                                        {format(new Date(expanddetails?.req_data?.brief_approved_at), 'dd/MM/yyyy')}
-                                        <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span></p>
-                                </div> :
-                                <div class="step">
-                                    <p className="brief-content">Brief Rejected</p>
-                                    <div class="deliver-status delivery-cancel">
-                                        <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                    </div>
-                                    <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                                </div>
-                            }
+                            <div class="step">
+                                {expanddetails?.req_data?.brief_rejected_at &&
+                                    <div>
+                                        <p className="brief-content">Brief Rejected</p>
+                                        <div class="deliver-status delivery-cancel">
+                                            <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                        </div>
+                                        <p className="brief-date">
+                                            {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
+                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
+                                    </div>}
+
+                                {((!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at)) &&
+                                    <div>
+                                        <p className="brief-content">Brief Pending</p>
+                                        <div class="deliver-status delivery-cancel">
+                                            <span><i class="fa-exclamation"></i></span>
+                                        </div>
+                                        <p className="brief-date"><span className="d-block"></span></p>
+                                    </div>}
+                            </div>
+                            <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>
+                                {expanddetails?.req_data?.brief_approved_at &&
+                                    <div>
+                                        <p className="brief-content">Brief Approved</p>
+                                        <div class="deliver-status delivery-check">
+                                            <span><i class="fa-solid fa-circle-check"></i></span>
+                                        </div>
+                                        <p className="brief-date">
+                                            {format(new Date(expanddetails?.req_data?.brief_approved_at), 'dd/MM/yyyy')}
+                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span>
+                                        </p>
+                                    </div>}
+                            </div>
 
                             <div class="step">
                                 <p className="brief-content invisible">Brief Rejected</p>
@@ -131,7 +148,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                             : '-'}
                                             <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
                                                 formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
-                                                : '-'}</span>
+                                                : ''}</span>
                                         </p>
                                     </div>
                                 )}
@@ -189,7 +206,10 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                                     {/* <span className="d-block">Where is this going to appear?</span> */}
                                                 </p>
                                             </td>
-                                            <td><p>{expanddetails?.req_data?.size}</p></td>
+                                            <td><p>{expanddetails?.req_data?.size?.map((item) => (
+                                                <span className="d-block">{item} </span>
+                                            ))}</p>
+                                            </td>
                                             <td><p>{expanddetails?.req_data?.file_type}</p></td>
                                             <td><p>{expanddetails?.req_data?.transparency}</p> </td>
                                             <td><p>{expanddetails?.req_data?.references}</p></td>
@@ -264,14 +284,14 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
                                     </div>
                                 </div>
-                                {request?.feedback_message ? <div className="col-md-12">
+                                {(request?.landscape_feedback_message || request?.portrait_feedback_message) ? <div className="col-md-12">
                                     <div className="feedback-request  p-4 mt-4 rounded">
 
                                         <h5 className="fw-bold">
                                             Feedback {index + 1} Requested {format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)}
                                         </h5>
                                         <p>
-                                            <span className="d-block">{request?.feedback_message}</span>
+                                           {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}
                                         </p>
 
                                     </div>
@@ -280,7 +300,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                             </div>)}
                     </div>
 
-                    {expanddetails?.req_data?.feedback_message && <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
+                    {(expanddetails?.req_data?.landscape_feedback_message || expanddetails?.req_data?.portrait_feedback_message) && <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
                         <p><span className="fw-bold">Ready to Deliver?</span> Place each file in its corresponding folder</p>
                         <div className="row align-items-center">
                             <div className="col-md-3 d-flex flex-column">

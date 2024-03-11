@@ -517,12 +517,14 @@ export const review_delivery_request_customer_admin = async (
       status: reviewdata.reviewstatus,
     };
     if (reviewdetails.status === "rejected") {
-      reviewdetails.message = reviewdata.message;
+      reviewdetails.landscape_feedback = reviewdata.landscapefeedback;
+      reviewdetails.portrait_feedback = reviewdata.portraitfeedback;
     }
     const res = await axios.put(url, JSON.stringify(reviewdetails), HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      dispatch({ type: SUBMIT_NOW, payload: true });
+       await get_feedback_review_requestlist(dispatch,token);
+      // dispatch({ type: SUBMIT_NOW, payload: true });
     } else {
       toast.error(res.data?.message);
     }

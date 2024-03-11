@@ -13,7 +13,6 @@ const DraftRequests = ({ draftrequests, user, total }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hoverindex, setHoverindex] = useState(null);
-  console.log("ABC");
   const handleEdit = (request) => {
     dispatch(get_edit_request_data(request));
     navigate("/new-request");
