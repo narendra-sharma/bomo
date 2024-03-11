@@ -40,11 +40,11 @@ const ApproveRequest = ({ user, allRequest, total }) => {
       {total > 0 ? (
         allRequest?.map((request) => (
           <div className="col-lg-6">
-            <div className="table-responsive">
+            <div className="table-responsive mt-2">
               <table
                 className={
                   isapprove[request?._id] === "accepted"
-                    ? "table table-borderless table-green"
+                    ? "table table-borderless table-green rounded"
                     : "table table-borderless"
                 }
               >
