@@ -35,6 +35,7 @@ import {
   getbrandlist,
   deleteBrand,
   change_add_edit,
+  superadmin_brandlist
 } from "./Brand/brandActions";
 import { newRequest,
   get_draft_requestlist, 
@@ -98,6 +99,7 @@ export {
   getbrandlist,
   deleteBrand,
   change_add_edit,
+  superadmin_brandlist,
   catch_errors_handle,
   newRequest,
   get_draft_requestlist,

@@ -524,7 +524,6 @@ export const review_delivery_request_customer_admin = async (
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
        await get_feedback_review_requestlist(dispatch,token);
-      // dispatch({ type: SUBMIT_NOW, payload: true });
     } else {
       toast.error(res.data?.message);
     }

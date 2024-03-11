@@ -26,6 +26,28 @@ export const getbrandlist = async (dispatch, token, page=1, limit=10) => {
   }
 };
 
+export const superadmin_brandlist = async (dispatch,token,request_id) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}superAdmin/brand-list?request_id=${request_id}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      }
+    }
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: BRAND_LIST, payload: res.data });
+    } else {
+      toast.error(res.data.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error,dispatch))
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
 export const uploadZip = async (zipFile, dispatch) => {
   dispatch(start_loading());
   try {

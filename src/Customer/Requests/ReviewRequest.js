@@ -30,7 +30,7 @@ const ReviewRequest = ({ feedbacklists }) => {
                     )) : (<EmptyList name="Ready to Review" heading="list" />)}
                 </table>
             </div>
-            <ReviewDelivery show={isshow} handleClose={()=> setIsshow(false)} detail={data}/>
+            <ReviewDelivery show={isshow} handleClose={()=> {setIsshow(false);}} detail={data}/>
         </div>
     )
 };
