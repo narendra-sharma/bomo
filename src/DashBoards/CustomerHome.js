@@ -72,23 +72,18 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
           </div>
           <div className="row designer-active-request-section">
             <div className="col-lg-6 col-md-12 bg-white rounded mb-5">
-              <div className="review-content bg-white px-3 py-5 rounded">
+              <div className="review-content bg-white px-1 py-5 rounded">
                 <div className="table-responsive">
-                  {activerequests?.length > 0 ? (
-                    activerequests?.map((request) => (
+                 
                       <table className="table table-borderless">
                         <tbody>
-                          <tr onClick={() => handleView(request)}>
-                            <td
-                              className="text-center"
-                              style={{width:"125px"}}
-                            >
+                        {activerequests?.length > 0 ? (
+                          activerequests?.map((request) => (
+                          <tr className="cursor-pointer" onClick={() => handleView(request)}>
+                            <td className="text-center" style={{width:'135px'}}>
                               <ColorCode request={request} />
                             </td>
-                            <td
-                              style={{ width: "120px" }}
-                              className="text-center"
-                            >
+                            <td className="text-center" style={{paddingRight:'15px' , paddingLeft:'15px'}} >
                               <p>
                                 {request?.brand_profile?.brandname
                                   ? request?.brand_profile?.brandname
@@ -125,12 +120,13 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
                               </p>
                             </td>
                           </tr>
+                           ))
+                           ) : (
+                             <EmptyList name="Active Request" heading="list" />
+                           )}
                         </tbody>
                       </table>
-                    ))
-                  ) : (
-                    <EmptyList name="Active Request" heading="list" />
-                  )}
+                   
                 </div>
               </div>
               <CustomPagination

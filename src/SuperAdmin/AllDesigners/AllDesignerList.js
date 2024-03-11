@@ -33,7 +33,7 @@ const AllDesignerList = ({ active, user, users, total, search }) => {
                 <button className="rounded-pill rounded-pill py-1 px-2 btn btn-outline-dark" onClick={() => handleswitchto_designer(item?._id)}>View as designer</button>
               
             </td>
-            <td><p className="fw-bold">{item?.name}</p></td>
+            <td style={{width:'120px'}}><p className="fw-bold">{item?.name}</p></td>
             <td><p><span className="fw-bold">Date added</span> <span className="d-block">{item?.createdAt && format(new Date(item?.createdAt), 'dd/MM/yyyy')}</span></p></td>
             <td><p><span className="fw-bold">Contact </span> <span className="d-block">{item?.email}</span></p></td>
             <td><p><span className="fw-bold">Active Requests</span> <span className="d-block">{item?.active_requests}</span></p></td>
