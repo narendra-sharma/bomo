@@ -120,7 +120,11 @@ const PaymentHistory = ({
                     {item.payment_status === "paid" ? "COMPLETED" : "PENDING"}
                   </td>
                   <td>${item.amount / 100} </td>
-                  <td>{item?.updated_by?.name}</td>
+                  <td>
+                    {item?.updated_by?.name
+                      ? item?.updated_by?.name
+                      : item?.user_id?.name}
+                  </td>
                   <td className="text-end">
                     <a
                       href={item?.invoice_link}
