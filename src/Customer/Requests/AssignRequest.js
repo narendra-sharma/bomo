@@ -109,7 +109,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 </td>
                                                 <td>
                                                     <p>
-                                                        Assign Request{" "}
+                                                        Assign Designers{" "}
                                                         <i className="fa-solid fa-chevron-right"></i>
                                                     </p>
                                                 </td>
