@@ -382,7 +382,7 @@ const Setting = ({ userrole, profiledetails }) => {
               </div>
             </>
           )}
-          {userrole == "customer_admin" && (
+          {(userrole == "customer_admin" || userrole == "Designer") && (
             <div className="delete-account status-btn text-end mt-3">
               <button
                 className="text-decoration-none btn border rounded-pill cancel-btn px-5 py-1"
