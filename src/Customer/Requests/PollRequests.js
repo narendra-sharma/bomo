@@ -83,13 +83,14 @@ const PollRequests = ({ user, pollrequests }) => {
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
                 {request?.applied && <div className="poll-apply-sucess">
-                 <div className="poll-request-popup d-flex justify-content-center align-items-center h-100">
-                    <i className="fa-solid fa-check"></i>
+                 <div className="poll-request-popup d-flex justify-content-center align-items-start h-100">
+                    <div className="poll-request-checked">
+                    <i className="fa-solid fa-check"></i></div>
                   </div>
                 </div>}
               </div>
             </div>
-            <div className="row my-3">
+            <div className="row my-2">
               <div className="col-md-9 col-lg-8 d-flex align-items-center">
                 <img src={poolImage} alt="not found" />
               </div>
