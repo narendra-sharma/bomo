@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-const ColorCode = ({ request, requestTypes }) => {
+const ColorCode = ({ request, requestTypes, reqtype }) => {
 
   const [isHovered, setIsHovered] = useState(null);
 
@@ -27,10 +27,12 @@ const ColorCode = ({ request, requestTypes }) => {
           )}`}
           style={{
             color:
+              reqtype ? "white" :
               isHovered === request?._id
                 ? "white"
                 : findColorByType(request?.request_type?.replace(/_/g, " ")),
-            background:
+            background: 
+            reqtype ? findColorByType(request?.request_type?.replace(/_/g, " ")) :
               isHovered === request?._id
                 ? findColorByType(request?.request_type?.replace(/_/g, " "))
                 : "white",

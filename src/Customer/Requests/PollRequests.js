@@ -78,7 +78,7 @@ const PollRequests = ({ user, pollrequests }) => {
             <div className="row">
               <div className="col-md-11 col-lg-10 d-flex align-items-center">
                 <div className="d-flex align-items-center" onClick={() => handleView(request)}>
-                  <ColorCode request={request} />
+                  <ColorCode request={request} reqtype='poll' />
                   <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
@@ -121,6 +121,7 @@ const PollRequests = ({ user, pollrequests }) => {
       )) : (<EmptyList name="Requests Poll" />)}
       <div className="d-flex justify-content-center align-items-center">
         <div className="poll-request-btn">
+          <span>Hit the end? Scoot back to the top for a refresh</span>
           <button className="rounded-pill btn btn-outline-dark mt-4 py-1 w-100" onClick={scrollToTop}>
             Go to the Top
           </button>

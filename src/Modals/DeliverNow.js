@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { designer_deliever_request } from "../reduxdata/rootAction";
+import { designer_deliever_request, get_approve_delivery_list } from "../reduxdata/rootAction";
 import DeliverSuccess from "./DeliverSuccess";
 import Draggable from "react-draggable";
 import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
 
 
 const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) => {
-    // const [isDeliver, setIsDeliver] = useState(false);
     const [isdrag, setIsdrag] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -25,8 +24,11 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
         }
     };
 
-    const handleSubmit = () => {
-        designer_deliever_request(dispatch, user?.token, detail);
+    const handleSubmit = async () => {
+        await designer_deliever_request(dispatch, user?.token, detail);
+        if(user?.role==='superadmin'){
+           await get_approve_delivery_list(user?.token, dispatch);
+        };
         handleClose();
     };
 
