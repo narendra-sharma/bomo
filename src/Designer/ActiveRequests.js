@@ -130,8 +130,9 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                       <span className="fw-bold d-block">
                                         Status
                                       </span>
-                                    </p>
+                                    
                                     {request?.status}
+                                    </p>
                                   </td>
                                   <td>
                                     <p>

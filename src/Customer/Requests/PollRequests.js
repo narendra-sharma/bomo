@@ -121,9 +121,9 @@ const PollRequests = ({ user, pollrequests }) => {
         </div>
       )) : (<EmptyList name="Requests Poll" />)}
       <div className="d-flex justify-content-center align-items-center">
-        <div className="poll-request-btn">
-          <span>Hit the end? Scoot back to the top for a refresh</span>
-          <button className="rounded-pill btn btn-outline-dark mt-4 py-1 w-100" onClick={scrollToTop}>
+        <div className="poll-request-btn mt-5 text-center">
+          <p>Hit the end? Scoot back to the top for a refresh</p>
+          <button className="rounded-pill btn mt-4 py-2 fw-bold w-100" onClick={scrollToTop}>
             Go to the Top
           </button>
         </div>

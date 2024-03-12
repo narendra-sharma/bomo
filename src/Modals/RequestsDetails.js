@@ -114,7 +114,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                             </div>
                             <div className="mt-4 row justify-content-between">
                                 <div className="col-md-8 status-btn">
-                                    <button className="btn pause-btn rounded py-1 w-100" 
+                                    <button className="btn pause-btn rounded py-2 w-100" 
                                     onClick={() => handleApplyRequest(data)}
                                     disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
                                 </div>
