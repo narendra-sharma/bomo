@@ -29,7 +29,7 @@ const ReviewDelivery = ({ show, handleClose, detail }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <ConfirmDeliver isshow={isconfirm} viewClose={() => {setIsconfirm(false); dispatch(get_edit_request_data(null));}} requestdata={detail} />
+            <ConfirmDeliver isshow={isconfirm} viewClose={() => {setIsconfirm(false);}} requestdata={detail} />
         </div>
     )
 }

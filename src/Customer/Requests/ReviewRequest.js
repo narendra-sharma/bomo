@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import ReviewDelivery from '../../Modals/ReviewDelivery';
 import EmptyList from '../../Common/EmptyList';
 import { useDispatch } from 'react-redux';
-import { get_edit_request_data } from '../../reduxdata/rootAction';
+import { get_edit_request_data, get_review_request_data } from '../../reduxdata/rootAction';
 
 const ReviewRequest = ({ feedbacklists }) => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const ReviewRequest = ({ feedbacklists }) => {
                              <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
                              <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : format(new Date(request?.delivery_date),'dd/MM/yyyy')}</span></p></td>
                              <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                             <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none" onClick={()=>{setIsshow(true);setData(request); dispatch(get_edit_request_data(request));}}>Review Delivery</Link></div></td>
+                             <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none" onClick={()=>{setIsshow(true);setData(request); dispatch(get_review_request_data(request));}}>Review Delivery</Link></div></td>
                          </tr>
                      </tbody>
                     )) : (<EmptyList name="Ready to Review" heading="list" />)}

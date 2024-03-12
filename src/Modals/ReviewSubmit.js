@@ -16,7 +16,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
             reviewstatus: status,
         };
        await review_delivery_request_customer_admin(dispatch,user?.token,reviewdata);
-       dispatch({ type: SUBMIT_NOW, payload: true });
+    //    dispatch({ type: SUBMIT_NOW, payload: true });
        setIsreview(true);       
        handleClose();
     };
@@ -46,7 +46,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
                     </div>
                 </Modal.Body>
             </Modal>
-           {isreview && <DeliverFiles show={isSubmit} onClose={() => { dispatch({type: SUBMIT_NOW, payload: false })}} requestdata={details}/>}
+            <DeliverFiles show={isreview} onClose={() => {setIsreview(false);}} requestdata={details}/>
         </div>
     )
 }

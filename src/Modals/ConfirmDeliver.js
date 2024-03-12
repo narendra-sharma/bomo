@@ -28,6 +28,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
     const handleCheck = () => {
         if(deliveryStage===2 && (getPortrait || getLandscape)) {
             setIsFeed(true);
+            viewClose();
         } else {
             setIssucess(true);
         }
@@ -104,7 +105,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
             </Modal>
             <FeedBackSubmit show={feed} handleClose={() => setFeed(false)} details={requestdata} designName={deliveryname} stage={deliveryStage} />
             <ReviewSubmit show={issucess} handleClose={() => setIssucess(false)} details={requestdata}/>
-            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}  details={requestdata} closeall={viewClose} />
+            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}  details={requestdata}/>
         </div>
     )
 };

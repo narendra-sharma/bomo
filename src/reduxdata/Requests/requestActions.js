@@ -35,6 +35,7 @@ import {
   GET_ADMIN_ACCEPTED_LIST,
   GET_LATE_REQUESTS,
   GET_COMPLETED_REQUEST,
+  GET_REVIEW_REQUEST_DATA,
 } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -892,4 +893,8 @@ export const get_edit_request_data = (requestdetails) => {
 
 export const deliever_request_details = (requestdata) => {
   return { type: DELIEVER_REQUEST_DATA, payload: requestdata };
+};
+
+export const get_review_request_data = (requestdetail) => {
+  return { type: GET_REVIEW_REQUEST_DATA, payload: requestdetail };
 };

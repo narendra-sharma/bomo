@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const DeliverFiles = ({show,onClose,requestdata}) => {
     const navigate = useNavigate();
-    const [data,setData] = useState({
-        _id: requestdata?._id,
-        request_name: requestdata?.request_name,
-        request_type: requestdata?.request_type, 
-        delivery_date: requestdata?.delivery_date,
-        description: requestdata?.description,
-        size: requestdata?.size,
-        file_type: requestdata?.file_type,
-        transparency: requestdata?.transparency,
-        references: requestdata?.references,
-        brandname: requestdata?.brand_profile?.brandname,
-        status: 'completed'
-    });
     const handleRequest = () => {
+        const data = {
+            _id: requestdata?._id,
+            request_name: requestdata?.request_name,
+            request_type: requestdata?.request_type, 
+            delivery_date: requestdata?.delivery_date,
+            description: requestdata?.description,
+            size: requestdata?.size,
+            file_type: requestdata?.file_type,
+            transparency: requestdata?.transparency,
+            references: requestdata?.references,
+            brandname: requestdata?.brand_profile?.brandname,
+            status: 'completed' 
+        };
         localStorage.setItem('requestData', JSON.stringify(data));
         navigate('/request-expand');
     };
@@ -38,6 +38,6 @@ const DeliverFiles = ({show,onClose,requestdata}) => {
             </Modal.Body>
         </Modal>
     )
-}
+};
 
 export default DeliverFiles;

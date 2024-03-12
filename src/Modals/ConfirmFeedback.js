@@ -67,7 +67,7 @@ const ConfirmFeedback = ({ user, show, handleClose,requestData }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        requestData: state.requests.editrequestData,
+        requestData: state.requests.reviewrequestData,
     };
 };
 export default connect(mapStateToProps)(ConfirmFeedback);
