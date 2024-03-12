@@ -307,7 +307,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     } else if(user?.role==='superadmin'){
       superadmin_brandlist(dispatch,user?.token,requestData?._id);
     }
-
+    
     return () => {
       dispatch(get_edit_request_data(null));
     }
