@@ -68,7 +68,7 @@ const PollRequests = ({ user, pollrequests }) => {
     <>
       {pollData?.length > 0 ? pollData?.map((request) => (
         <div className="col-md-6 col-lg-4 col-12 mb-3">
-          <div className="bg-white px-2 px-md-3 py-3 rounded position-relative">
+          <div className="bg-white poll-request-content px-2 px-md-3 py-3 rounded position-relative">
             <div className="d-flex justify-content-between">
               <h6 className="fw-bold">{request?.request_name}</h6>
               <p className="text-end"><span className="fw-bold">Expected Delivery</span>
@@ -78,18 +78,19 @@ const PollRequests = ({ user, pollrequests }) => {
             <div className="row">
               <div className="col-md-11 col-lg-10 d-flex align-items-center">
                 <div className="d-flex align-items-center" onClick={() => handleView(request)}>
-                  <ColorCode request={request} />
+                  <ColorCode request={request} reqtype='poll' />
                   <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
                 {request?.applied && <div className="poll-apply-sucess">
-                 <div className="poll-request-popup d-flex justify-content-center align-items-center h-100">
-                    <i className="fa-solid fa-check"></i>
+                 <div className="poll-request-popup d-flex justify-content-center align-items-start h-100">
+                    <div className="poll-request-checked">
+                    <i className="fa-solid fa-check"></i></div>
                   </div>
                 </div>}
               </div>
             </div>
-            <div className="row my-3">
+            <div className="row my-2">
               <div className="col-md-9 col-lg-8 d-flex align-items-center">
                 <img src={poolImage} alt="not found" />
               </div>
@@ -121,6 +122,7 @@ const PollRequests = ({ user, pollrequests }) => {
       )) : (<EmptyList name="Requests Poll" />)}
       <div className="d-flex justify-content-center align-items-center">
         <div className="poll-request-btn">
+          <span>Hit the end? Scoot back to the top for a refresh</span>
           <button className="rounded-pill btn btn-outline-dark mt-4 py-1 w-100" onClick={scrollToTop}>
             Go to the Top
           </button>

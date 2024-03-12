@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import FeedBackSubmit from "./FeedBackSubmit";
 import ReviewSubmit from "./ReviewSubmit";
 import designImage5 from "../images/large-nine-sixteen.png";
 import ColorCode from "../Common/ColorCode";
+import FeedbackFiles from "./FeedbackFiles";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
 const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
+
     const [feed, setFeed] = useState(false);
     const [issucess, setIssucess] = useState(false);
+    const [deliveryname,setDeliveryname]=useState('');
     const [deliveryStage, setDeliveryStage] = useState(1);
+    const [isFeed,setIsFeed]=useState(false);
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
         const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -19,7 +23,14 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
     };
 
     const showFeedback = () => {
-        setFeed(true);
+        if(deliveryStage===1){
+            setFeed(true);
+            setDeliveryname('landscape');
+        } else if(deliveryStage===2) {
+            setFeed(true);
+            setDeliveryname('portrait');
+            viewClose();
+        }
         // viewClose();
     };
 
@@ -80,8 +91,9 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <FeedBackSubmit show={feed} handleClose={() => setFeed(false)} details={requestdata}/>
+            <FeedBackSubmit show={feed} handleClose={() => setFeed(false)} details={requestdata} designName={deliveryname} stage={deliveryStage} />
             <ReviewSubmit show={issucess} handleClose={() => setIssucess(false)} details={requestdata}/>
+            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}  details={requestdata} />
         </div>
     )
 };

@@ -45,10 +45,10 @@ const AcceptedRequest = ({
                     <table className="table table-borderless mb-0">
                       <tbody onClick={() => handleView(item)}>
                         <tr>
-                          <td  style={{ width: "120px" }} className="text-center">
+                          <td  style={{ width: "130px" }} className="text-center">
                             <ColorCode request={item} />
                           </td>
-                          <td style={{ width: "170px", paddingLeft: "25px" }}>
+                          <td style={{ width: "170px", paddingLeft: "30px" }}>
                             <p>
                               <span className="fw-bold">
                                 {item?.user_id?.company}

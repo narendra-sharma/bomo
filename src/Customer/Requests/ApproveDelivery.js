@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import { get_approve_delivery_list, superadmin_approve_delivery } from '../../reduxdata/rootAction';
+import { deliever_request_details, get_approve_delivery_list, superadmin_approve_delivery } from '../../reduxdata/rootAction';
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import designImage3 from "../../images/sixteen-nine2.png";
@@ -72,7 +72,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="cursor-pointer" onClick={() => {setShow(true);  setReqdata(request);}}>Expand Request</span>{" "}
+                                            <span className="cursor-pointer" onClick={() => {setShow(true);  setReqdata(request);  dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>

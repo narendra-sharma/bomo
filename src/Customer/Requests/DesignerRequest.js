@@ -47,12 +47,12 @@ const DesignerRequest = ({designerassignedrequests, user}) => {
                                     <td className="text-center shortad"><ColorCode request={request} /></td>
                                     <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'pending' : ''}</span></p></td>
                                     <td><p><span className="fw-bold">Expected Delivery Time</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span></p></td>
-                                    <td><p><span className="fw-bold">Size</span> <span className="d-block">{request?.size}</span></p></td>
+                                    <td><p><span className="fw-bold">Size</span> {request?.size?.map((item) => <span className="d-block">{item}</span>)}</p></td>
                                     <td className="text-end ps-0">
                                         <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request,'accepted')}>Accept</Button>
                                     </td>
                                     <td className="text-end ps-0">
-                                        <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request,'rejected')}>Delete</Button>
+                                        <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request,'rejected')}>Decline</Button>
                                     </td>
                                 </tr>
                             

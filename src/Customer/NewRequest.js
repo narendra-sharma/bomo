@@ -16,7 +16,7 @@ const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
 const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imagePath }) => {
-
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const now = new Date();
@@ -307,6 +307,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     } else if(user?.role==='superadmin'){
       superadmin_brandlist(dispatch,user?.token,requestData?._id);
     }
+    
     return () => {
       dispatch(get_edit_request_data(null));
     }
@@ -410,7 +411,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                         <label htmlFor="Brand Profile" className="ms-3 mb-2">Brand Profile<span className="text-danger"></span></label>
                         <select type="select" name="brandProfile" className="form-control" value={formData?.brandProfile} onChange={handleInputChange} >
                           <option value="" disabled>Select</option>
-                          {brands.map((brand) => (<option key={brand._id} value={brand?._id} >{brand?.brandname}</option>))}
+                          {brands?.map((brand) => (<option key={brand?._id} value={brand?._id} >{brand?.brandname}</option>))}
                         </select>
                       </div>
                     </div>

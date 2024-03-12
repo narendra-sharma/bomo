@@ -16,6 +16,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
             reviewstatus: status,
         };
        await review_delivery_request_customer_admin(dispatch,user?.token,reviewdata);
+       dispatch({ type: SUBMIT_NOW, payload: true });
        setIsreview(true);       
        handleClose();
     };

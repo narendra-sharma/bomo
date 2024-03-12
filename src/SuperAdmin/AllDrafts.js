@@ -50,16 +50,16 @@ const AllDrafts = ({ user, drafts, total, search }) => {
         <div class="accordion-body p-0">
           <div className="row g-0 pt-3 bg-white">
             {drafts?.map((request) => (
-              <div className="col-md-6" onClick={() => handleEdit(request)}>
+              <div className="col-md-6 " onClick={() => handleEdit(request)}>
                 <div className="review-content px-3  mb-3">
                   <div className="table-responsive">
                     <table className="table table-borderless mb-0">
                       <tbody>
-                        <tr>
+                        <tr className="cursor-pointer">
                           <td className="text-center">
                             <p className="">edit</p>{" "}
                           </td>
-                          <td style={{width:'122px'}} className="text-center">
+                          <td style={{width:'130px'}} className="text-center">
                             <ColorCode request={request} />
                           </td>
                           <td className="text-center" style={{width:'110px'}}> 
