@@ -59,7 +59,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                         <tr>
                           <td
                             className="text-center"
-                            style={{ width: "100px" }}
+                            style={{ width: "130px" }}
                           >
                             <ColorCode request={request} />
                           </td>

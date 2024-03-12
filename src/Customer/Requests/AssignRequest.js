@@ -75,9 +75,10 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                             {totalassigns} requests left{" "}
                         </small>
                     </div>
+                    </div>
                     {totalassigns > 0 ? assignData?.map((request, index) => (
                         <div className="row" key={index}>
-                            <div className="col-lg-6 g-0">
+                            <div className="col-lg-6">
                                 <div className="table-responsive">
                                     <table className="table table-borderless">
                                         <tbody>
@@ -96,22 +97,26 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                             : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span>
                                                     </p>
                                                 </td>
-                                                <td style={{width:"120px"}}>
+                                                <td style={{width:"90px"}}>
                                                     <p>
                                                         <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                                         <span className="d-block">{request?.request_name}</span>
                                                     </p>
                                                 </td>
-                                                <td>
+                                                <td style={{width:"120px"}}>
                                                     <p>
                                                         <span className="cursor-pointer" onClick={() => { setExpand(true); setReqdata(request); }}>Expand Request</span>{" "}
                                                     </p>
                                                 </td>
-                                                <td>
+                                                <td style={{width:"120px"}}>
+                                                    <div className="d-flex align-items-center gap-1">
                                                     <p>
                                                         Assign Designers{" "}
-                                                        <i className="fa-solid fa-chevron-right"></i>
+                                                        
                                                     </p>
+                                                    <p><i className="fa-solid fa-chevron-right pr-0"></i></p>
+                                                    </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -133,7 +138,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                     ))}
                                 </ul>
                             </div>
-                            <div className="col-lg-4 g-0">
+                            <div className="col-lg-3">
                                 <ul className="talented-designer designer-list rounded list-unstyled">
                                     {request.designer_list.map((item) => (
                                         <li className="mb-1">
@@ -158,7 +163,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 </button>
                             </div> : ""}
                         </div>)) : <EmptyList name="Assign Request" />}
-                </div>
+              
             </div>
             <ExpandRequest show={expand} handleClose={() => setExpand(false)} requestdata={reqdata} />
             {totalassigns > 0 && (

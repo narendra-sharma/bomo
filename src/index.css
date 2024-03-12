@@ -658,6 +658,7 @@ table.feedback-queue tr:first-child td {
 }
 .status-btn .pause-btn {
   background-color: #000000;
+  line-height: normal;
 }
 .status-btn .pause-btn:hover {
   border-color: #000;
@@ -904,6 +905,9 @@ table.feedback-queue tr:first-child td {
 .past-request-section .review-content .short0ad {
   width: 78px;
   padding: 4px 2px;
+}
+.designer-past-request.past-request-section .review-content .short0ad {
+  width: 105px;
 }
 .past-request-section .review-content .logo {
   background: rgba(6, 87, 235, 0.1);
@@ -1249,9 +1253,12 @@ ul.designer-list {
   padding: 10px 5px;
 }
 ul.designer-list li {
-  width: 24%;
+  width: 30%;
   display: inline-block;
   margin-right: 2px;
+}
+ul.designer-list li p{
+  font-size: 12px;
 }
 .admin-payments .form-control {
   background: var(--gray-dark-color);
@@ -1816,14 +1823,11 @@ nav p.user-email {
   height: 35px !important;
   transition: 0.25s ease-in-out;
 }
-.header-request-btn button,
-.poll-request-btn button {
+.header-request-btn button {
   font-size: 13px;
   padding: 3px 17px;
 }
-.poll-request-btn button:hover {
-  background-color: #000;
-}
+
 .request-count {
     position: absolute;
     right: 4px;
@@ -2331,10 +2335,19 @@ button.accordion-button.collapsed .late-request-section {
   transform: scale(1);
   transition: .2s ease-in-out;
 }
-.poll-request-content:hover img{
+/* .poll-request-content:hover img{
   transform: scale(1.1);
   transition: .2s ease-in-out;
+} */
+.poll-request-btn button{
+ background-color: #fff;
+ font-size: 14px;
+ color: #000;
 }
+.poll-request-btn button:hover{
+  background-color: #000;
+  color: #fff;
+ }
 .upload-file-close {
   top: -10px;
   right: -9px;
@@ -2412,6 +2425,13 @@ button.accordion-button.collapsed .late-request-section {
 }
 table.table-green{
   background-color: #ECF7EE;
+}
+.design-list-section.review-content table td {
+  padding: 13px 5px;
+}
+.design-list-section.review-content td p {
+  font-size: 12px;
+  padding: 4px 0px;
 }
 
 @media (min-width: 576px){
