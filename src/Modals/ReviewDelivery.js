@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap';
 import ConfirmDeliver from './ConfirmDeliver';
+import { get_edit_request_data } from '../reduxdata/rootAction';
+import { useDispatch } from 'react-redux';
 
 const ReviewDelivery = ({ show, handleClose, detail }) => {
+    const dispatch = useDispatch();
     const [isconfirm, setIsconfirm] = useState(false);
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
@@ -26,7 +29,7 @@ const ReviewDelivery = ({ show, handleClose, detail }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <ConfirmDeliver isshow={isconfirm} viewClose={() => setIsconfirm(false)} requestdata={detail} />
+            <ConfirmDeliver isshow={isconfirm} viewClose={() => {setIsconfirm(false); dispatch(get_edit_request_data(null));}} requestdata={detail} />
         </div>
     )
 }

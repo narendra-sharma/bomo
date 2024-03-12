@@ -19,6 +19,7 @@ const UploadPieces = ({ requestData }) => {
     const [show, setShow] = useState(false);
     const [deliverdetail, setDeliverdetail] = useState();
     const [data, setData] = useState();
+
     const handleInputChange = async (e) => {
         const { name, files } = e.target;
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
@@ -106,7 +107,7 @@ const UploadPieces = ({ requestData }) => {
                             <div className="d-flex align-item-center justify-content-center mb-4">
                                 <label class="uploadFile">
                                     {!filepreview ? <span class="filename"><i className="fa fa-plus"></i></span> : <i className="fa-solid fa-check-circle text-success"></i>}
-                                    <input name="firstFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.firstFile} onChange={handleInputChange} />
+                                    <input name="firstFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.firstFile} onChange={handleInputChange}  onInput={handleInputChange}/>
                                     {errors.firstFile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.firstFile}</p>}
                                 </label>
                             </div>

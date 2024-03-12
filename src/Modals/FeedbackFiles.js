@@ -3,7 +3,8 @@ import { Button, Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ConfirmFeedback from "./ConfirmFeedback";
 
-const FeedbackFiles = ({ show, handleClose,details }) => {
+const FeedbackFiles = ({ show, handleClose,details, closeall }) => {
+
     const getPortrait = JSON.parse(localStorage.getItem('portrait'));
     const getLandscape = JSON.parse(localStorage.getItem('landscape'));
     const [isShow,setIsShow]=useState(false);
@@ -32,7 +33,7 @@ const FeedbackFiles = ({ show, handleClose,details }) => {
                         </div>
                         <div className="d-flex gap-3 justify-content-center mt-3 pt-4">
                             <div className="col-md-3">
-                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={() => {setIsShow(true);handleClose();}}>
+                                <Button variant="light" className="w-100 rounded-pill btn-outline-dark" onClick={() => {setIsShow(true);handleClose(); closeall();}}>
                                     Send Feedback
                                 </Button>
                             </div>

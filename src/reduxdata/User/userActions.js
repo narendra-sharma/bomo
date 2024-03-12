@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  APPROVE_DESIGNER,
   GET_OVERALL_STATS,
   GET_PROFILE_DETAILS,
   GET_SINGLE_DESIGNER_DETAILS,
