@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { get_edit_request_data } from "../reduxdata/rootAction";
+import { get_review_request_data } from "../reduxdata/rootAction";
 import { useDispatch } from "react-redux";
 
 const FeedbackSuccess = ({show,handleClose}) => {
@@ -9,7 +9,7 @@ const FeedbackSuccess = ({show,handleClose}) => {
     const handleNavigate = () => {
         localStorage.removeItem('landscape');
         localStorage.removeItem('portrait');
-        dispatch(get_edit_request_data(null));
+        dispatch(get_review_request_data(null));
         handleClose();
     };
 

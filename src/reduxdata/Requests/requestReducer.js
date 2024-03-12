@@ -26,6 +26,7 @@ import {
   GET_ADMIN_ACCEPTED_LIST,
   GET_LATE_REQUESTS,
   GET_COMPLETED_REQUEST,
+  GET_REVIEW_REQUEST_DATA,
 } from "./requestTypes";
 const initialState = {
   isSubmit: false,
@@ -104,6 +105,11 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         editrequestData: action.payload,
+      };
+    case GET_REVIEW_REQUEST_DATA:
+      return {
+        ...state,
+        reviewrequestData: action.payload,
       };
     case GET_POLL_REQUEST_LIST:
       return {

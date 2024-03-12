@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import aepdesign from "../../images/aep-image.png";
-import { get_delivered_requests } from "../../reduxdata/rootAction";
+import { get_delivered_requests, get_edit_request_data } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
@@ -21,6 +21,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
         setReceivedData(requestdetails);
         return () => {
             localStorage.removeItem('requestData');
+            dispatch(get_edit_request_data(null));
         }
     }, []);
 
@@ -162,11 +163,11 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     {deliverrequests ? (
                                         deliverrequests?.data?.map((request) => (
                                             <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                                {request?.request_id?.feedback_message && (
+                                                {((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && (
                                                     <div className="row justify-content-center">
                                                         <div className="col-md-3 align-self-center">
                                                             <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                                                {request?.request_id?.feedback_message && (
+                                                                {((request?.request_id?.landscape_feedback_message) || (request?.request_id?.portrait_feedback_message)) && (
                                                                     <div>
                                                                         <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
                                                                         <span> Delivery Rejected</span>
@@ -194,7 +195,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {((request?.request_id?.feedback_message) && !(receivedData?.status === "production")) && (
+                                                        {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
                                                             <div className="col-md-12">
                                                                 <div className="feedback-request  p-4 mt-4 rounded">
                                                                     <h5 className="fw-bold">
@@ -208,43 +209,9 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                         {formattedTime(request?.createdAt)}
                                                                     </h5>
                                                                     <p>
-                                                                        <span className="d-block">
-                                                                            {request?.request_id?.feedback_message}
-                                                                        </span>
+                                                                        {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}
+                                                                        {request?.portrait_feedback_message && <span className="d-block">{request?.portrait_feedback_message}</span>}
                                                                     </p>
-                                                                </div>
-                                                                <div className="delivery-status-section active-request p-5 rounded mt-4">
-                                                                    <div className="row justify-content-center">
-                                                                        <div className="col-md-4 justify-content-center align-self-center">
-                                                                            <div className="delivery-status fw-bold mb-2">
-                                                                                <i className="fa-solid fa-circle-minus minus"></i> Delivery{" "}
-                                                                                Expected
-                                                                            </div>
-                                                                            {receivedData?.delivery_date ? <p className="status-date text-secondary mb-0">
-                                                                                {format(
-                                                                                    new Date(receivedData?.delivery_date),
-                                                                                    "dd/MM/yyyy"
-                                                                                )}{" "}
-                                                                                {formattedTime(receivedData?.delivery_date)}
-                                                                            </p> : <p></p>}
-                                                                        </div>
-                                                                        <div className="col-md-4 d-flex text-center justify-content-center">
-                                                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                                                <div className="delivery-status fw-bold">9:16</div>
-                                                                                <div className="">
-                                                                                    <img src={designImage3} alt="Image" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-md-4 d-flex text-center justify-content-center">
-                                                                            <div className="statusbar-section d-flex flex-column justify-content-evenly">
-                                                                                <div className="delivery-status fw-bold">16:9</div>
-                                                                                <div className="">
-                                                                                    <img src={designImage4} alt="Image" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -317,6 +284,40 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     ) : (
                                         <div></div>
                                     )}
+                                    {((!receivedData?.status)) &&
+                                        <div className="delivery-status-section active-request p-5 rounded mt-4">
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-4 justify-content-center align-self-center">
+                                                    <div className="delivery-status fw-bold mb-2">
+                                                        <i className="fa-solid fa-circle-minus minus"></i> Delivery{" "}
+                                                        Expected
+                                                    </div>
+                                                    {receivedData?.delivery_date ? <p className="status-date text-secondary mb-0">
+                                                        {format(
+                                                            new Date(receivedData?.delivery_date),
+                                                            "dd/MM/yyyy"
+                                                        )}{" "}
+                                                        {formattedTime(receivedData?.delivery_date)}
+                                                    </p> : <p></p>}
+                                                </div>
+                                                <div className="col-md-4 d-flex text-center justify-content-center">
+                                                    <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                        <div className="delivery-status fw-bold">9:16</div>
+                                                        <div className="">
+                                                            <img src={designImage3} alt="Image" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-4 d-flex text-center justify-content-center">
+                                                    <div className="statusbar-section d-flex flex-column justify-content-evenly">
+                                                        <div className="delivery-status fw-bold">16:9</div>
+                                                        <div className="">
+                                                            <img src={designImage4} alt="Image" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>}
                                 </div>
                             </div>
                         </div>
