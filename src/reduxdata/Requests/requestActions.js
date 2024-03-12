@@ -34,6 +34,7 @@ import {
   UPLOAD_NEW_IMAGE,
   GET_ADMIN_ACCEPTED_LIST,
   GET_LATE_REQUESTS,
+  GET_COMPLETED_REQUEST,
 } from "./requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -578,6 +579,28 @@ export const get_past_requests_for_designer = async (
     const res = await axios.get(url, HEADERS);
     if (res.data && res.data.status) {
       dispatch({ type: GET_DESIGNER_PAST_REQUEST_LIST, payload: res?.data });
+    } else {
+      toast.error(res.data?.message);
+    }
+  } catch (error) {
+    dispatch(catch_errors_handle(error, dispatch));
+  } finally {
+    dispatch(stop_loading());
+  }
+};
+
+export const get_completed_request_forcusotmer_admin = async (dispatch, token, requestId) => {
+  dispatch(start_loading());
+  try {
+    const url = `${REACT_APP_BOMO_URL}customer/single_completed_request?request_id=${requestId}`;
+    const HEADERS = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    const res = await axios.get(url, HEADERS);
+    if (res.data && res.data.status) {
+      dispatch({ type: GET_COMPLETED_REQUEST, payload: res?.data });
     } else {
       toast.error(res.data?.message);
     }

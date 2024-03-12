@@ -66,7 +66,8 @@ import { newRequest,
   get_all_review_requests,
   new_image_upload,
   image_delete,
-  get_late_requests_superadmin
+  get_late_requests_superadmin,
+  get_completed_request_forcusotmer_admin
  } from "./Requests/requestActions";
 import {
   get_all_members,
@@ -142,5 +143,6 @@ export {
   switch_to_superadmin,
   new_image_upload,
   image_delete,
-  get_late_requests_superadmin 
+  get_late_requests_superadmin,
+  get_completed_request_forcusotmer_admin 
 };
