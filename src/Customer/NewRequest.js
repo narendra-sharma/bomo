@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload, superadmin_brandlist } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
@@ -302,7 +302,11 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   }, [requestData]);
 
   useEffect(() => {
-    getbrandlist(dispatch, usertoken);
+    if (user?.role==='customer_admin'){
+      getbrandlist(dispatch, usertoken);
+    } else if(user?.role==='superadmin'){
+      superadmin_brandlist(dispatch,user?.token,requestData?._id);
+    }
     return () => {
       dispatch(get_edit_request_data(null));
     }
