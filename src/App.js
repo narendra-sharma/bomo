@@ -10,6 +10,7 @@ import { connect, useDispatch } from "react-redux";
 import { get_customer_card, get_user_subscription } from "./reduxdata/rootAction";
 import LoadingSpinner from "./LoadingSpinner";
 import Details from "./Customer/Requests/Details";
+import CompletedRequest from "./Customer/Requests/CompletedRequest";
 
 const Signup = lazy(() => import("./auth/Signup"));
 const Login = lazy(() => import("./auth/Login"));
@@ -115,6 +116,7 @@ function App({ user }) {
       { path: "/deleiver-request", element: <DelieverRequest /> },
       { path: "/acceptance-request", element: <DesignerRequest /> },
       { path: "/request-expand", element: <RequestExpand /> },
+      { path: "/completed-request", element: <CompletedRequest/> },
       { path: "/details", element: <Details/> },
       { path: "*", element: <Navigate to="/" replace /> },
     ]);

@@ -6,7 +6,6 @@ import {
 import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import ColorCode from "../Common/ColorCode";
-import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 import { useNavigate } from "react-router-dom";
 
@@ -85,7 +84,7 @@ const AllDrafts = ({ user, drafts, total, search }) => {
                             <p>
                               <span className="fw-bold">Request by</span>{" "}
                               <span className="d-block">
-                                {request?.isEditedByAdmin == true
+                                {request?.isEditedByAdmin === true
                                   ? "BOMO team"
                                   : request?.user_id?.name}
                               </span>

@@ -25,6 +25,7 @@ import {
   UPLOAD_NEW_IMAGE,
   GET_ADMIN_ACCEPTED_LIST,
   GET_LATE_REQUESTS,
+  GET_COMPLETED_REQUEST,
 } from "./requestTypes";
 const initialState = {
   isSubmit: false,
@@ -77,6 +78,7 @@ const initialState = {
   totalallreviews: 0,
   imagePath: null,
   lateRequests: [],
+  completeddetails: []
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -161,6 +163,11 @@ const requestReducer = (state = initialState, action) => {
       return {
         ...state,
         deliverrequests: action.payload,
+      };
+    case GET_COMPLETED_REQUEST:
+      return {
+        ...state,
+        completeddetails: action.payload,
       };
     case GET_DESIGNER_PAST_REQUEST_LIST:
       return {
