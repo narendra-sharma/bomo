@@ -69,6 +69,17 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                     <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
                             </div>
 
+                            <div class={`${(!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at) ? 'step' : ''}`}>
+                                {((!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at)) &&
+                                    <div>
+                                        <p className="brief-content">Brief Pending</p>
+                                        <div class="deliver-status delivery-cancel">
+                                            <span> <i className="fa-solid fa-exclamation-circle cancel"></i></span>
+                                        </div>
+                                        <p className="brief-date"><span className="d-block"></span></p>
+                                    </div>}
+                            </div>
+
                             <div class={`${expanddetails?.req_data?.brief_rejected_at ? "step" : ''}`}>
                                 {expanddetails?.req_data?.brief_rejected_at &&
                                     <div>
@@ -79,15 +90,6 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                         <p className="brief-date">
                                             {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
                                             <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
-                                    </div>}
-
-                                {((!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at)) &&
-                                    <div class="step">
-                                        <p className="brief-content">Brief Pending</p>
-                                        <div class="deliver-status delivery-cancel">
-                                            <span><i class="fa-exclamation"></i></span>
-                                        </div>
-                                        <p className="brief-date"><span className="d-block"></span></p>
                                     </div>}
                             </div>
 
@@ -304,8 +306,8 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                     </div>
 
                     {(expanddetails?.req_data?.is_approved_by_super_admin) &&
-                       <UploadPieces />
-                       }
+                        <UploadPieces />
+                    }
                 </div>
             </Modal.Body>
         </Modal>

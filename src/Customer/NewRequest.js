@@ -33,7 +33,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   ]);
   const [addval, setAddval] = useState();
   const [show, setShow] = useState(false);
-  const sizeUpTo = ['16:9', '9:6', '1:1', '4:5'];
   const transparencies = ['Yes', 'No'];
   const [images, setImages] = useState([]);
   const [uploadFiles, setUploadFiles] = useState([]);

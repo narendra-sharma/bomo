@@ -121,7 +121,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     </table>
                 </div>
             </div>
-            <ExpandRequest show={show} handleClose={() => setShow(false)} requestdata={reqdata}/>
+            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}} requestdata={reqdata}/>
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )

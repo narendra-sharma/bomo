@@ -15,11 +15,22 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
     const [deliveryname,setDeliveryname]=useState('');
     const [deliveryStage, setDeliveryStage] = useState(1);
     const [isFeed,setIsFeed]=useState(false);
+    const getPortrait = JSON.parse(localStorage.getItem('portrait'));
+    const getLandscape = JSON.parse(localStorage.getItem('landscape'));
+
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
         const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
         return `${monthDay}th ${time}`;
+    };
+
+    const handleCheck = () => {
+        if(deliveryStage===2 && (getPortrait || getLandscape)) {
+            setIsFeed(true);
+        } else {
+            setIssucess(true);
+        }
     };
 
     const showFeedback = () => {
@@ -74,7 +85,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                     <span className="delivery-status">
                                         {deliveryStage === 1 ?
                                             <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => setDeliveryStage(deliveryStage + 1)}></i>
-                                            : <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => setIssucess(true)}></i>
+                                            : <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => handleCheck()}></i>
                                         }
                                     </span>
                                     <span className="delivery-status delivery-cancel bg-white p-1 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={showFeedback}></i></span>
@@ -93,7 +104,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
             </Modal>
             <FeedBackSubmit show={feed} handleClose={() => setFeed(false)} details={requestdata} designName={deliveryname} stage={deliveryStage} />
             <ReviewSubmit show={issucess} handleClose={() => setIssucess(false)} details={requestdata}/>
-            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}  details={requestdata} />
+            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}  details={requestdata} closeall={viewClose} />
         </div>
     )
 };

@@ -6,7 +6,6 @@ import { MEMBERS_LIST, USERS_LIST, SINGLE_USER_DATA } from "./mmebersTypes";
 import { IS_ADD_EDIT } from "../Brand/brandTypes";
 import { catch_errors_handle } from "../rootAction";
 import { USER_UPDATE } from "../User/userTypes";
-import { set_update_user } from "../User/userActions";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
