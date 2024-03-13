@@ -234,7 +234,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                    <div className="delivery-status fw-bold">9:16</div>
+                                                    <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[0]}</div>
                                                     <div className="">
                                                         <img src={designImage} alt="Image" />
                                                     </div>
@@ -249,7 +249,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                             </div>
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                    <div className="delivery-status fw-bold">16:9</div>
+                                                    <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[1]}</div>
                                                     <div className="">
                                                         <img src={designImage2} alt="Image" />
                                                     </div>
@@ -264,7 +264,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                             </div>
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                    <div className="delivery-status fw-bold">.AEP</div>
+                                                    <div className="delivery-status fw-bold">{expanddetails?.req_data?.file_type}</div>
                                                     <div className="">
                                                         <img src={aepdesign} alt="Image" />
                                                     </div>

@@ -78,7 +78,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     <td>
                                         <div className="statusbar-section d-flex align-items-center justify-content-between">
                                             <div className="delivery-status fw-bold">
-                                                <p>9:16</p>
+                                                <p>{request?.size[0]}</p>
                                             </div>
                                             <div className="bar-code">
                                                 <img src={designImage} alt="Image" />
@@ -88,7 +88,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     <td>
                                         <div className="statusbar-section d-flex align-items-center justify-content-between">
                                             <div className="delivery-status fw-bold">
-                                                <p>16:9</p>
+                                                <p>{request?.size[1]}</p>
                                             </div>
                                             <div className="bar-code">
                                                 <img src={designImage2} alt="Image" />
