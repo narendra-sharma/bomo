@@ -103,7 +103,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 <div className="review-content mt-3">
                                     <div className="d-flex">
                                         <ColorCode request={receivedData} />
-                                        <p className="short0ad dor rounded-pill ms-2">{receivedData?.brandname ? receivedData?.brandname : '-'}</p>
+                                        {/* <p className="short0ad dor rounded-pill ms-2"></p> */}
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="33"/>
                                         <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                     </div>
                                 </div>
@@ -163,7 +164,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     {deliverrequests ? (
                                         deliverrequests?.data?.map((request) => (
                                             <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                                {((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && (
+                                                {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
                                                     <div className="row justify-content-center">
                                                         <div className="col-md-3 align-self-center">
                                                             <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">

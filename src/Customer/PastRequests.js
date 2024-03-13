@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 import EmptyList from "../Common/EmptyList";
 import SharedRequest from "../Common/SharedRequest";
+
 const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   }, {});
 
   const handleView = (request) => {
+    console.log(request);
     const data = {
       _id: request?._id,
       request_name: request?.request_name,
@@ -38,7 +40,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
       file_type: request?.file_type,
       transparency: request?.transparency,
       references: request?.references,
-      brandname: request?.brand_profile?.brandname,
+      brand_details: request?.brand_profile,
       status: 'completed'
     };
     localStorage.setItem('requestData', JSON.stringify(data));

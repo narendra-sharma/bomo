@@ -48,8 +48,8 @@ const AllReviews = ({ user, reviews, total, search }) => {
                                                     </td>
                                                     <td>
                                                         <p>
-                                                            <span className="fw-bold">{request?.request_name}</span>{" "}
-                                                            <span className="d-block">DIOR</span>
+                                                            <span className="fw-bold">{request?.user_id?.company}</span>{" "}
+                                                            <span className="d-block">{request?.request_name}</span>
                                                         </p>
                                                     </td>
                                                     <td>

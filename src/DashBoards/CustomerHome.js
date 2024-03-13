@@ -36,6 +36,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
       transparency: request?.transparency,
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
+      brand_details: request?.brand_profile,
       status: "production",
     };
     localStorage.setItem("requestData", JSON.stringify(data));

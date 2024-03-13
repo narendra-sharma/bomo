@@ -31,12 +31,12 @@ const AllRequests = ({ user }) => {
                   <div className="col-md-12">
                     <h3 class="accordion-header" id="panelsStayOpen-headingThree">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                        <span className="mb-4 d-inline-block position-relative">Active Requests</span>
+                        <span className="mb-4 d-inline-block position-relative">Feedback Queue</span>
                         <div className="late-request-section">
                           <div className="light-gray py-3 px-4 rounded d-flex mb-3">
                             <p className="request-status fw-bold mb-0">4 Request</p>
                             <div className="ms-4">
-                              <p className="mb-0 fw-bold">Delivery <span className="fas fa-angle-left arrow" ></span> 12h - Priority</p>
+                              <p className="mb-0 fw-bold">In production</p>
                             </div>
                           </div>
                           <div className="bg-white py-3 px-4 rounded d-flex">
@@ -44,7 +44,7 @@ const AllRequests = ({ user }) => {
                               8 Request
                             </p>
                             <div className="ms-4">
-                              <p className="mb-0 fw-bold">Delivery <span className="fas fa-angle-right arrow" ></span> 12h - Priority</p>
+                              <p className="mb-0 fw-bold">In Queue</p>
                             </div>
                           </div>
                         </div>
