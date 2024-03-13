@@ -75,7 +75,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
               <div className="review-content bg-white px-1 py-5 rounded">
                 <div className="table-responsive">
                  
-                      <table className="table table-borderless">
+                      <table className="table table-borderless customer-active-request">
                         <tbody>
                         {activerequests?.length > 0 ? (
                           activerequests?.map((request) => (
