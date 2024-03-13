@@ -1213,7 +1213,7 @@ select.form-control {
 }
 .review-content .monthly-revenue-section {
   flex: 0 0 27%;
-  width:27%;
+  width: 27%;
   background-color: #fff;
   margin-right: 15px;
 }
@@ -1230,7 +1230,6 @@ select.form-control {
   font-size: 19px;
   font-weight: 600;
   word-wrap: break-word;
-
 }
 .bar-code img {
   width: 90px;
@@ -1257,7 +1256,7 @@ ul.designer-list li {
   display: inline-block;
   margin-right: 2px;
 }
-ul.designer-list li p{
+ul.designer-list li p {
   font-size: 12px;
 }
 .admin-payments .form-control {
@@ -1829,17 +1828,17 @@ nav p.user-email {
 }
 
 .request-count {
-    position: absolute;
-    right: 4px;
-    top: -9px;
-    background: #F92B34;
-    width: 18px;
-    height: 18px;
-    border-radius: 50px;
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
-    line-height: 18px;
+  position: absolute;
+  right: 4px;
+  top: -9px;
+  background: #f92b34;
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
 }
 .counter-digit {
   background-color: #f92b34;
@@ -2002,7 +2001,7 @@ button.accordion-button .late-request-section {
 button.accordion-button.collapsed .late-request-section {
   display: block;
 }
-.accordion-header{
+.accordion-header {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2040,13 +2039,13 @@ button.accordion-button.collapsed .late-request-section {
   background-repeat: no-repeat;
   transform: rotate(180deg);
   right: -45px;
-  top:-3px
+  top: -3px;
 }
 
-.accordion-button.collapsed >span::after{
+.accordion-button.collapsed > span::after {
   transform: rotate(0deg);
   top: 5px;
-  right:-53px;
+  right: -53px;
 }
 .accordion-header p {
   font-size: 16px;
@@ -2225,7 +2224,7 @@ button.accordion-button.collapsed .late-request-section {
   background: #fff !important;
 }
 .customer-all .review-content table td:first-child {
-  padding-left:25px;
+  padding-left: 25px;
 }
 .customer-all table.table.table-borderless.mb-0 {
   border-collapse: separate;
@@ -2331,23 +2330,23 @@ button.accordion-button.collapsed .late-request-section {
   background-color: #d2cece;
   color: #fff;
 }
-.poll-request-content img{
+.poll-request-content img {
   transform: scale(1);
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 /* .poll-request-content:hover img{
   transform: scale(1.1);
   transition: .2s ease-in-out;
 } */
-.poll-request-btn button{
- background-color: #fff;
- font-size: 14px;
- color: #000;
+.poll-request-btn button {
+  background-color: #fff;
+  font-size: 14px;
+  color: #000;
 }
-.poll-request-btn button:hover{
+.poll-request-btn button:hover {
   background-color: #000;
   color: #fff;
- }
+}
 .upload-file-close {
   top: -10px;
   right: -9px;
@@ -2366,35 +2365,35 @@ button.accordion-button.collapsed .late-request-section {
   min-height: 33px !important;
   border-color: #000;
 }
-.form-group .css-qbdosj-Input{
+.form-group .css-qbdosj-Input {
   margin: 0;
 }
 .form-group .css-b62m3t-container .css-1fdsijx-ValueContainer {
   padding: 0px 15px;
 }
-.form-group .css-1xc3v61-indicatorContainer{
+.form-group .css-1xc3v61-indicatorContainer {
   padding: 4px 2px 4px 8px;
   color: #000;
 }
 .form-group .css-1jqq78o-placeholder {
-  color:#000;
+  color: #000;
   font-size: 14px;
 }
 .form-group .css-tj5bde-Svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 .logout-popup.cancel-popup.customer-list-popup.modal.show {
   background: #000000b8;
 }
-.design-status{
+.design-status {
   padding: 27px 0;
 }
-.rejected-popup .bg-light-white{
-  background-color: #F5F5F5!important;
+.rejected-popup .bg-light-white {
+  background-color: #f5f5f5 !important;
   height: 130px;
 }
-.poll-apply-sucess{
+.poll-apply-sucess {
   position: absolute;
   left: 0;
   background: #fffafaab;
@@ -2413,9 +2412,9 @@ button.accordion-button.collapsed .late-request-section {
   justify-content: center;
   position: relative;
 }
-.poll-request-popup i{
+.poll-request-popup i {
   background-color: #000;
-  color:#fff;
+  color: #fff;
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -2423,8 +2422,8 @@ button.accordion-button.collapsed .late-request-section {
   text-align: center;
   border-radius: 50%;
 }
-table.table-green{
-  background-color: #ECF7EE;
+table.table-green {
+  background-color: #ecf7ee;
 }
 .design-list-section.review-content table td {
   padding: 13px 5px;
@@ -2434,7 +2433,7 @@ table.table-green{
   padding: 4px 0px;
 }
 
-@media (min-width: 576px){
+@media (min-width: 576px) {
   .main-content-wraaper {
     max-width: 540px;
   }
@@ -2457,8 +2456,8 @@ table.table-green{
   .setting-card-info .col-lg-6 {
     width: 48%;
   }
-  .brief-request-popup .modal-lg{
-    width:855px;
+  .brief-request-popup .modal-lg {
+    width: 855px;
   }
 }
 @media (min-width: 1200px) {
@@ -2808,4 +2807,9 @@ input:checked + .slider:before {
 }
 .designer-green {
   background-color: #71dd37;
+}
+.logo-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
 }
