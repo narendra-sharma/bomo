@@ -292,7 +292,7 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                                     <div className="feedback-request  p-4 mt-4 rounded">
 
                                         <h5 className="fw-bold">
-                                            Feedback {index + 1} Requested {format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)}
+                                            Feedback {index + 1} Requested {format(new Date(request?.design_rejected_at_by_customer), 'dd/MM/yyyy')} {formattedTime(request?.design_rejected_at_by_customer)}
                                         </h5>
                                         <p>
                                             {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}

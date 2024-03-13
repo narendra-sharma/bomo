@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload, superadmin_brandlist } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload, superadmin_brandlist, uploadImage } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
@@ -114,6 +114,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
       case 'uploadFiles':
         const UploadImage = files[0];
+        console.log(UploadImage);
         const Fileupload = [UploadImage];
         const uploadedFiles = [...Fileupload];
         if (!Fileupload) {
@@ -187,6 +188,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         label: inputValue,
         value: inputValue
       };
+      setFormData({
+        ...formData,
+        size: [sizedata] || []
+      });
       const customIndex = sizes.findIndex(item => item.value === 'custom');
       const newSizes = [...sizes];
       newSizes.splice(customIndex, 0, sizedata);
@@ -334,6 +339,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     const fileUrl = details?.apipath;
     const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
     const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
+    console.log(fileName);
     const getMimeType = (ext) => {
       const mimeTypes = {
         txt: 'text/plain',
@@ -353,6 +359,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     const response = await fetch(fileContent);
     const blobFile = await response.blob();
     const fileExtension = fileName?.split(".").pop().toLowerCase();
+    console.log(fileExtension);
+    console.log(fileExtension);
     const mimeType = getMimeType(fileExtension);
     const blobwithtype = new Blob([blobFile], { type: mimeType });
     saveAs(blobwithtype, fileName);
