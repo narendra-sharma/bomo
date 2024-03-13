@@ -71,21 +71,25 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               </div>
             ) : (
               <>
-                <div className="designer-header">
+                <div className="designer-header w-50">
                   <div className="row d-flex justify-content-between align-items-center">
                     {requestsWithEarliestDeadlines?.map((request) => (
-                      <div className="col-md-3">
-                        <div className="d-flex justify-content-between align-items-center">
-                          <Link>{request?.request_name}</Link>
-                          <Button
-                            variant="unset"
-                            className="btn w-100 rounded-pill deliver-now-btn ms-2 "
-                          >
-                            Deliver in{" "}
-                            <CountdownTimer
-                              requestDate={request?.req_mail_date}
-                            />
-                          </Button>
+                      <div className="col-md-6">
+                        <div className="d-flex justify-content-between ga-2 align-items-center">
+                          <div className="col-md-6"><p className="mb-0 w-100">
+                            <Link>{request?.request_name}</Link></p>
+                          </div>
+                          <div className="col-md-6">
+                            <Button
+                              variant="unset"
+                              className="btn w-100 rounded-pill deliver-now-btn"
+                            >
+                              Deliver in{" "}
+                              <CountdownTimer
+                                requestDate={request?.req_mail_date}
+                              />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     ))}
