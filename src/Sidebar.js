@@ -10,6 +10,7 @@ const Sidebar = () => {
   const userrole = useSelector((state) => state.auth.role);
   const user = useSelector((state) => state.auth.user);
   const isPay = useSelector((state) => state.plan.is_pay_success);
+  const isSwitch = useSelector((state) => state.auth.isSwitch);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -85,6 +86,8 @@ const Sidebar = () => {
         ? "/settings"
         : n - time < 25000
         ? localStorage.getItem("path")
+        : isSwitch
+        ? "/"
         : location.pathname;
     if (isPay) {
       dispatch({
@@ -92,7 +95,7 @@ const Sidebar = () => {
       });
     }
     navigate(location.pathname);
-  }, [userrole, isSubscribe, isPay]);
+  }, [userrole, isSubscribe, isPay, isSwitch]);
 
   const [show, setShow] = useState(false);
   const getSubscribe = (item) => {

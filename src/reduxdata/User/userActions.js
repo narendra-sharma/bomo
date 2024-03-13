@@ -494,7 +494,7 @@ export const get_overall_stats = async (dispatch, token) => {
   }
 };
 
-export const switch_to_designer = async (dispatch, userId, token) => {
+export const switch_to_designer = async (dispatch, userId, token, naviagte) => {
   dispatch(start_loading());
   try {
     const url = `${REACT_APP_BOMO_URL}superAdmin/switch_to_designer?id=${userId}`;
@@ -509,6 +509,7 @@ export const switch_to_designer = async (dispatch, userId, token) => {
         if (res?.data?.data?.role === "designer") {
           dispatch(set_user_type("Designer"));
           localStorage.setItem("USERTYPE", JSON.stringify("Designer"));
+          localStorage.setItem("path", "/");
         }
         toast.success("Successfully switch to designer");
         dispatch(set_update_user(res.data.data));
@@ -522,6 +523,7 @@ export const switch_to_designer = async (dispatch, userId, token) => {
           dispatch(set_user_type("customer_admin"));
           localStorage.setItem("USERTYPE", JSON.stringify("customer_admin"));
         }
+        localStorage.setItem("path", "/");
         toast.success("Successfully switch to customer");
         dispatch(set_update_user(res.data.data));
         localStorage.setItem("SWITCHTYPE", res.data.data.superadminToCustomer);
@@ -529,6 +531,7 @@ export const switch_to_designer = async (dispatch, userId, token) => {
           type: SET_SWITCH_TYPE,
           payload: res.data.data.superadminToCustomer,
         });
+        naviagte("/");
       } else {
         toast.error("Invalid Data.");
       }

@@ -4,15 +4,16 @@ import { connect, useDispatch } from "react-redux";
 import { get_all_users } from "../../reduxdata/rootAction";
 import AllDesignerList from "./AllDesignerList";
 import userImage from "../../images/user-img.png";
-import reelImage from "../../images/reel-image.png" 
-import { Link } from "react-router-dom";
+import reelImage from "../../images/reel-image.png";
+import { Link, useNavigate } from "react-router-dom";
 
 const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
   const dispatch = useDispatch();
-  const role = 'designer';
-  const [search, setSearch] = useState(null)
+  const role = "designer";
+  const navigate = useNavigate();
+  const [search, setSearch] = useState(null);
   useEffect(() => {
-    if(user?.role ==='superadmin'){
+    if (user?.role === "superadmin") {
       get_all_users(dispatch, user?.token, role, 1, 10, search, true);
       get_all_users(dispatch, user?.token, role, 1, 10, search, false);
     }
@@ -21,17 +22,43 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper admin-payments designer-all customer-all px-60 py-md-2 py-lg-3">
-          <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">{total+inactiveTotal > 0 && <span className="rounded-circle bg-white mr-2">{total+inactiveTotal}</span>} Designers</h3>
-          <SearchInput placeholder="Browse Designers..." handleSearch={(val) => setSearch(val)} />
+          <h3 className="fw-bold mb-3 counter-circle d-flex align-items-center gap-2">
+            {total + inactiveTotal > 0 && (
+              <span className="rounded-circle bg-white mr-2">
+                {total + inactiveTotal}
+              </span>
+            )}{" "}
+            Designers
+          </h3>
+          <SearchInput
+            placeholder="Browse Designers..."
+            handleSearch={(val) => setSearch(val)}
+          />
           <div className="mt-5 review-main-content">
-            <AllDesignerList active user={user} users={users} total={total} search={search} />
-            <AllDesignerList user={user} users={inactiveUsers} total={inactiveTotal} search={search} />
+            <AllDesignerList
+              active
+              user={user}
+              users={users}
+              total={total}
+              search={search}
+            />
+            <AllDesignerList
+              user={user}
+              users={inactiveUsers}
+              total={inactiveTotal}
+              search={search}
+            />
           </div>
-         
         </div>
-       
       </div>
-      <div className="modal view-as-customer-popup fade" id="view-design-popup" tabindex="-1" role="dialog" aria-labelledby="view-design-popupLabel" aria-hidden="true">
+      <div
+        className="modal view-as-customer-popup fade"
+        id="view-design-popup"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="view-design-popupLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-body">
@@ -40,7 +67,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                   <div className="col-md-12 col-12">
                     <p className="text-center">
                       <button className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark">
-                          view as designer
+                        view as designer
                       </button>
                     </p>
                   </div>
@@ -50,7 +77,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                     <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Active Request</p>
                       <div className="monthly-revenue-price text-center py-4">
-                          <h2 className="text-mute fw-bold mb-0">2</h2>
+                        <h2 className="text-mute fw-bold mb-0">2</h2>
                       </div>
                     </div>
                   </div>
@@ -58,7 +85,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                     <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Total Paid</p>
                       <div className="monthly-revenue-price text-center py-4">
-                          <h2 className="text-mute mb-0">$1750</h2>
+                        <h2 className="text-mute mb-0">$1750</h2>
                       </div>
                     </div>
                   </div>
@@ -66,7 +93,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                     <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Pending to be Paid</p>
                       <div className="monthly-revenue-price text-center py-4">
-                          <h2 className="text-mute mb-0">$250</h2>
+                        <h2 className="text-mute mb-0">$250</h2>
                       </div>
                     </div>
                   </div>
@@ -74,7 +101,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                     <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Number of Requests Failed</p>
                       <div className="monthly-revenue-price text-center py-4">
-                          <h2 className="text-mute mb-0">2</h2>
+                        <h2 className="text-mute mb-0">2</h2>
                       </div>
                     </div>
                   </div>
@@ -84,7 +111,7 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                     <div className="bg-white p-2 rounded">
                       <p className="fw-bold">Number of aplications</p>
                       <div className="monthly-revenue-price text-center py-4">
-                          <h2 className="text-mute mb-0">120</h2>
+                        <h2 className="text-mute mb-0">120</h2>
                       </div>
                     </div>
                   </div>
@@ -129,27 +156,35 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                       </div>
                       <div>
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
-                        <b className=" d-md-block">Name</b> <span className="d-block">Designerito</span></p>
+                          <b className=" d-md-block">Name</b>{" "}
+                          <span className="d-block">Designerito</span>
+                        </p>
                       </div>
                       <div>
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
-                        <b className=" d-md-block">Email</b> <span className="d-block">designerito@como.com</span></p>
+                          <b className=" d-md-block">Email</b>{" "}
+                          <span className="d-block">designerito@como.com</span>
+                        </p>
                       </div>
                       <div>
                         <p className="mb-0 user-email  ms-1 ms-lg-2">
-                        <b className=" d-md-block">Country</b> <span className="d-block">USA</span></p>
+                          <b className=" d-md-block">Country</b>{" "}
+                          <span className="d-block">USA</span>
+                        </p>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-7">
                     <p className="mb-0 user-email  ms-1 ms-lg-2 text-end">
-                    <b className=" d-md-block">Signup Date</b> <span className="d-block">22/07/2023m</span></p>
+                      <b className=" d-md-block">Signup Date</b>{" "}
+                      <span className="d-block">22/07/2023m</span>
+                    </p>
                   </div>
                 </div>
                 <div className="row review-main-content bg-white px-4 px-md-3 py-4 align-items-center rounded">
                   <div className="col-md-7 col-lg-7">
                     <p className="fw-bold">REEL</p>
-                    <img src={reelImage}/>
+                    <img src={reelImage} />
                   </div>
                   <div className="col-md-5 col-lg-5">
                     <div className="row reel-data review-content">
@@ -157,25 +192,42 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
                         <p className="text-dark fw-bold">Bio</p>
                       </div>
                       <div className="col-md-9 col-lg-9">
-                        <p className="text-mute">Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, turpis nibh etiam per hendrerit nisi mauris duis, nisl lacus massa consequat porttitor fringilla convallis</p>
+                        <p className="text-mute">
+                          Lorem ipsum dolor sit amet consectetur adipiscing elit
+                          sollicitudin, turpis nibh etiam per hendrerit nisi
+                          mauris duis, nisl lacus massa consequat porttitor
+                          fringilla convallis
+                        </p>
                       </div>
                       <div className="col-md-3 col-lg-3">
                         <p className="text-dark">Website</p>
-                        </div>
+                      </div>
                       <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum</Link> </p>
+                        <p className="">
+                          <Link className="text-decoration-none">
+                            Lorem ipsum
+                          </Link>{" "}
+                        </p>
                       </div>
                       <div className="col-md-3 col-lg-3">
                         <p className="text-dark">Instagram</p>
-                        </div>
+                      </div>
                       <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                        <p className="">
+                          <Link className="text-decoration-none">
+                            Lorem ipsum{" "}
+                          </Link>
+                        </p>
                       </div>
                       <div className="col-md-3 col-lg-3">
                         <p className="text-dark">Behance</p>
-                        </div>
+                      </div>
                       <div className="col-md-9 col-lg-9">
-                        <p className=""><Link className="text-decoration-none">Lorem ipsum </Link></p>
+                        <p className="">
+                          <Link className="text-decoration-none">
+                            Lorem ipsum{" "}
+                          </Link>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -186,15 +238,15 @@ const AllDesigners = ({ user, users, inactiveUsers, total, inactiveTotal }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     users: state.member.users,
     inactiveUsers: state.member.inactiveUsers,
     total: state.member.total,
-    inactiveTotal: state.member.inactiveTotal
+    inactiveTotal: state.member.inactiveTotal,
   };
 };
 export default connect(mapStateToProps)(AllDesigners);

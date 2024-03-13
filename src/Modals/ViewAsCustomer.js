@@ -8,6 +8,7 @@ import { get_single_data } from "../reduxdata/members/memberAction";
 import { format } from "date-fns";
 import { get_user_subscription_details } from "../reduxdata/PlansPayments/planActions";
 import { switch_to_designer } from "../reduxdata/rootAction";
+import { useNavigate } from "react-router-dom";
 const ViewAsCustomer = ({
   view,
   token,
@@ -19,6 +20,7 @@ const ViewAsCustomer = ({
 }) => {
   const customerId = view?._id;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (customerId) {
       get_single_data(dispatch, customerId, token);
@@ -31,7 +33,9 @@ const ViewAsCustomer = ({
   };
 
   const handleswitchto_customer = async (userId) => {
-    await switch_to_designer(dispatch, userId, user?.token);
+    console.log("N2312312AVV", navigate);
+    console.log("ABCDDEFFFF");
+    await switch_to_designer(dispatch, userId, user?.token, navigate);
   };
 
   const ViewAsCust = () => {
@@ -52,7 +56,9 @@ const ViewAsCustomer = ({
               <p className="text-center mb-3">
                 <button
                   className="rounded-pill rounded-pill py-2 px-3 btn btn-outline-dark"
-                  onClick={() => handleswitchto_customer(customerId)}
+                  onClick={() => {
+                    handleswitchto_customer(customerId);
+                  }}
                 >
                   View as customer
                 </button>
