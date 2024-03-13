@@ -2472,7 +2472,8 @@ table.table-green{
 .design-list-section .review-content table td {
   padding: 13px 7px;
 }
-.past-request-section table tr td select {
+.past-request-section table tr td select , 
+.feedback-queue tr td select {
   text-align: center;
   width: 16px;
   border-radius: 50%;
