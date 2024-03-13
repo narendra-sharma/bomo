@@ -903,7 +903,7 @@ table.feedback-queue tr:first-child td {
   width: 200px;
 }
 .past-request-section .review-content .short0ad {
-  width: 78px;
+  width: 85px;
   padding: 4px 2px;
 }
 .designer-past-request.past-request-section .review-content .short0ad {
@@ -1757,7 +1757,6 @@ p.user-email.date span.d-block {
 .uploadFile [type="file"] {
   cursor: pointer !important;
   display: block;
-  font-size: 999px;
   filter: alpha(opacity=0);
   min-height: 100%;
   min-width: 100%;
@@ -1766,7 +1765,6 @@ p.user-email.date span.d-block {
   right: 0px;
   text-align: right;
   top: 0px;
-  z-index: 1;
 }
 span.filename i {
   font-size: 16px;
@@ -1795,7 +1793,7 @@ button.deliver-now-btn:hover {
   color: #000;
 }
 .designer-header button.deliver-now-btn {
-  padding: 0px 25px;
+  padding: 0px 18px;
   font-size: 12px;
   font-weight: 600;
   color: #000;
@@ -2311,8 +2309,8 @@ button.accordion-button.collapsed .late-request-section {
   background: #00000094;
 }
 .designer-active-request-section .col-lg-6 {
-  width: 48%;
-  margin-right: 20px;
+  width: 48.2%;
+  margin-right: 18px;
 }
 .poll-request-content {
   border: solid 1px transparent;
@@ -2472,6 +2470,45 @@ table.table-green {
 }
 .design-list-section .review-content table td {
   padding: 13px 7px;
+}
+.past-request-section table tr td select , 
+.feedback-queue tr td select {
+  text-align: center;
+  width: 16px;
+  border-radius: 50%;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 9px;
+  background: #f2f2f2;
+}
+.past-request-section table tr td p{
+  font-size:12px;
+}
+.past-request-section table tr td:first-child{
+  width: 95px;
+}
+.past-request-section table tr td:nth-child(2) {
+  width: 95px;
+}
+.past-request-section table tr td:nth-child(3) {
+  width: 68px;
+}
+.past-request-section table tr td:nth-child(4) {
+  width: 69px;
+}
+.past-request-section table tr td:nth-child(5) {
+  width: 30px;
+}
+.customer-active-request tr:hover , .customer-active-request tr:hover td{
+  background-color:#fbfbfb;
+}
+.customer-active-request tr:hover td:nth-child(1) {
+  border-radius:  20px 0 0 20px; 
+} 
+ .customer-active-request tr:hover td:last-child{
+  border-radius: 0 20px 20px 0;
 }
 @media (max-width: 1900px) {
   .registration-form {

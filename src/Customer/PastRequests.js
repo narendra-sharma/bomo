@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import CustomPagination from "../Common/CustomPagination";
 import EmptyList from "../Common/EmptyList";
 import SharedRequest from "../Common/SharedRequest";
+
 const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   }, {});
 
   const handleView = (request) => {
+    console.log(request);
     const data = {
       _id: request?._id,
       request_name: request?.request_name,
@@ -38,7 +40,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
       file_type: request?.file_type,
       transparency: request?.transparency,
       references: request?.references,
-      brandname: request?.brand_profile?.brandname,
+      brand_details: request?.brand_profile,
       status: 'completed'
     };
     localStorage.setItem('requestData', JSON.stringify(data));
@@ -67,8 +69,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                             <tbody>
                               <tr>
                                 <td className="text-center"><ColorCode request={request} /></td>
-                                <td><p>{request?.brand_profile?.brandname}</p></td>
-                                <td><p><span className="fw-bold">Status</span><span className="d-block">{request?.status}</span></p></td>
+                                <td><p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p></td>
                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
                                   {!request?.delivery_date ? 'No Date' : format(new Date(request?.design_approved_at_by_customer), 'dd/MM/yyyy')}
                                 </span></p></td>

@@ -93,7 +93,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         <td>
                                                             <p>
                                                                 <span className="fw-bold">Request by</span>{" "}
-                                                                <span className="d-block">Pepín Noob</span>
+                                                                <span className="d-block">{request?.user_id?.name}</span>
                                                             </p>
                                                         </td>
                                                     </tr>
@@ -149,7 +149,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         <td>
                                                             <p>
                                                                 <span className="fw-bold">Request by</span>{" "}
-                                                                <span className="d-block">Pepín Noob</span>
+                                                                <span className="d-block">{request?.user_id?.name}</span>
                                                             </p>
                                                         </td>
                                                     </tr>

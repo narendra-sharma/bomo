@@ -57,7 +57,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="fw-bold">Cratat</span>{" "}
+                                            <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                             <span className="d-block">{request?.request_name}</span>
                                         </p>
                                     </td>

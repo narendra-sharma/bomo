@@ -36,6 +36,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
       transparency: request?.transparency,
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
+      brand_details: request?.brand_profile,
       status: "production",
     };
     localStorage.setItem("requestData", JSON.stringify(data));
@@ -75,7 +76,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
               <div className="review-content bg-white px-1 py-5 rounded">
                 <div className="table-responsive">
                  
-                      <table className="table table-borderless">
+                      <table className="table table-borderless customer-active-request">
                         <tbody>
                         {activerequests?.length > 0 ? (
                           activerequests?.map((request) => (
