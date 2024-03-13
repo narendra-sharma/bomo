@@ -46,6 +46,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
       transparency: request?.transparency,
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
+      brand_details: request?.brand_profile,
       priority: request?.priority
     };
     localStorage.setItem('requestData', JSON.stringify(data));
@@ -63,12 +64,12 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                   items.map((request, index) => (
                     <Draggable key={request?._id} draggableId={request?._id} index={index}>
                       {(provided) => (
-                        <body onClick={() => handleView(request)}>
+                        <tbody>
                           <tr
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
-
+                          onClick={() => handleView(request)}
                         >
                           <td><p className="serial-number">{request?.priority}</p></td>
                           <td className="text-center"><ColorCode request={request} /></td>
@@ -87,7 +88,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                             </select>
                           </td>
                         </tr>
-                        </body>
+                        </tbody>
                       )}
                     </Draggable>
                   ))

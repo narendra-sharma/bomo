@@ -188,14 +188,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         label: inputValue,
         value: inputValue
       };
-      setFormData({
-        ...formData,
-        size: [sizedata] || []
-      });
-      const customIndex = sizes.findIndex(item => item.value === 'custom');
-      const newSizes = [...sizes];
-      newSizes.splice(customIndex, 0, sizedata);
-      setSizes(newSizes);
+      setFormData((prevdata) => ({
+        ...prevdata,
+        size: [...prevdata?.size, sizedata]
+      }));
       setShow(false);
       document.getElementById('customSizeInput').value = '';
     }

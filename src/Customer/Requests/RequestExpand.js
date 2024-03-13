@@ -104,7 +104,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     <div className="d-flex">
                                         <ColorCode request={receivedData} />
                                         {/* <p className="short0ad dor rounded-pill ms-2"></p> */}
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="33"/>
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36"/>
                                         <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                     </div>
                                 </div>
@@ -164,62 +164,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     {deliverrequests ? (
                                         deliverrequests?.data?.map((request) => (
                                             <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                                {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
-                                                    <div className="row justify-content-center">
-                                                        <div className="col-md-3 align-self-center">
-                                                            <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
-                                                                {((request?.request_id?.landscape_feedback_message) || (request?.request_id?.portrait_feedback_message)) && (
-                                                                    <div>
-                                                                        <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
-                                                                        <span> Delivery Rejected</span>
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-md-3 d-flex text-center justify-content-center">
-                                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                                <div className="delivery-status fw-bold">
-                                                                    9:16
-                                                                </div>
-                                                                <div className="">
-                                                                    <img src={designImage} alt="Imag" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-md-3 d-flex text-center justify-content-center">
-                                                            <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                                <div className="delivery-status fw-bold">
-                                                                    16:9
-                                                                </div>
-                                                                <div className="">
-                                                                    <img src={designImage2} alt="Imag" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
-                                                            <div className="col-md-12">
-                                                                <div className="feedback-request  p-4 mt-4 rounded">
-                                                                    <h5 className="fw-bold">
-                                                                        Feedback Requested{" "}
-                                                                        {request?.createdAt
-                                                                            ? format(
-                                                                                new Date(request?.createdAt),
-                                                                                "dd/MM/yyyy"
-                                                                            )
-                                                                            : "No Date"}{" "}
-                                                                        {formattedTime(request?.createdAt)}
-                                                                    </h5>
-                                                                    <p>
-                                                                        {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}
-                                                                        {request?.portrait_feedback_message && <span className="d-block">{request?.portrait_feedback_message}</span>}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                )}
-
-                                                {request?.request_id?.status === "completed" && (
+                                                {(request?.request_id?.status === "completed" && (request?.is_approved_by_customer) && (request?.is_approved_by_super_admin)) && (
                                                     <div className="row justify-content-center">
                                                         <div className="col-md-3 align-self-center">
                                                             <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
@@ -280,12 +225,66 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                         </div>
                                                     </div>
                                                 )}
+                                                {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
+                                                    <div className="row justify-content-center">
+                                                        <div className="col-md-3 align-self-center">
+                                                            <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
+                                                                {((request?.request_id?.landscape_feedback_message) || (request?.request_id?.portrait_feedback_message)) && (
+                                                                    <div>
+                                                                        <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
+                                                                        <span> Delivery Rejected</span>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                                            <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                                <div className="delivery-status fw-bold">
+                                                                    9:16
+                                                                </div>
+                                                                <div className="">
+                                                                    <img src={designImage} alt="Imag" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                                            <div className="statusbar-section d-flex flex-column justify-content-between">
+                                                                <div className="delivery-status fw-bold">
+                                                                    16:9
+                                                                </div>
+                                                                <div className="">
+                                                                    <img src={designImage2} alt="Imag" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
+                                                            <div className="col-md-12">
+                                                                <div className="feedback-request  p-4 mt-4 rounded">
+                                                                    <h5 className="fw-bold">
+                                                                        Feedback Requested{" "}
+                                                                        {request?.createdAt
+                                                                            ? format(
+                                                                                new Date(request?.createdAt),
+                                                                                "dd/MM/yyyy"
+                                                                            )
+                                                                            : "No Date"}{" "}
+                                                                        {formattedTime(request?.createdAt)}
+                                                                    </h5>
+                                                                    <p>
+                                                                        {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}
+                                                                        {request?.portrait_feedback_message && <span className="d-block">{request?.portrait_feedback_message}</span>}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                         ))
                                     ) : (
                                         <div></div>
                                     )}
-                                    {((!receivedData?.status)) &&
+                                    {((!receivedData?.status==='completed')) &&
                                         <div className="delivery-status-section active-request p-5 rounded mt-4">
                                             <div className="row justify-content-center">
                                                 <div className="col-md-4 justify-content-center align-self-center">
