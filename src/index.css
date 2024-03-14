@@ -1244,10 +1244,17 @@ ul.talented-designer {
   overflow-y: scroll;
   height: 80px;
 }
-
+.design-list-section ul li p{
+ font-size: 12px; 
+ position: relative;
+ padding-left: 15px;
+}
 ul.talented-designer li i {
-  margin-right: 5px;
   color: #838383;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 ul.designer-list {
   background-color: #fbfbfb;
@@ -1258,10 +1265,7 @@ ul.designer-list {
 ul.designer-list li {
   width: 30%;
   display: inline-block;
-  margin-right: 2px;
-}
-ul.designer-list li p{
-  font-size: 12px;
+  margin-right: 6px;
 }
 .admin-payments .form-control {
   background: var(--gray-dark-color);
@@ -2433,7 +2437,7 @@ table.table-green{
   font-size: 12px;
   padding: 4px 0px;
 }
-.expand-request table tr td , .expand-request tr th
+.expand-request table tr td , .expand-request tr th ,
 .designer-request-status tr td , .designer-request-status tr th, 
 .designer-request-poll  table tr td, .designer-request-poll  table tr th
 {
@@ -2458,11 +2462,12 @@ table.table-green{
   }
 }
 @media (min-width: 992px) {
-  .design-list-section .col-lg-5 {
-    width: 37.666667%;
-  }
+  
   .design-list-section .col-lg-2 {
-    width: 15%;
+    width: 14.5%;
+  }
+  .design-list-section .col-lg-3 {
+    width: 27%;
   }
   .main-content-wraaper {
     max-width: 960px;
