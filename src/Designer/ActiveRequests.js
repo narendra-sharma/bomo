@@ -150,7 +150,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                           )}
                                     </p>
                                   </td>
-                                  <td>
+                                  <td className="pr-0">
                                     <p>
                                       <span className="fw-bold d-block">
                                         Alpha Background
@@ -160,7 +160,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>
+                                  <td width="200px">
                                     <p>
                                       <span className="fw-bold d-block">
                                         Description
@@ -188,15 +188,15 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                       <br />
                                     </p>
                                   </td>
-                                  <td>
+                                  <td >
                                     <p>
-                                      <span className="fw-bold d-block">
+                                      <span className="fw-bold d-block pr-0">
                                         Format
                                       </span>
                                     </p>{" "}
                                     {request?.file_type}
                                   </td>
-                                  <td>-</td>
+                                 
                                 </tr>
                               </tbody>
                             </table>

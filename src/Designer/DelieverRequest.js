@@ -125,7 +125,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                 <div className="col-md-7 col-lg-6 mb-4">
                                     <h3>{requestData?.request_name}</h3>
                                     <div className="review-content mt-3">
-                                        <div className="d-flex">
+                                        <div className="d-flex align-items-center">
                                             <ColorCode request={requestData} />
                                             <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
                                             {/* <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p> */}
