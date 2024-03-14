@@ -108,7 +108,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     <td>
                                         <div className="d-flex align-items-center">
                                             <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e,request,'accepted')}>
-                                               {isapprove[request?._id] === 'accepted' ? 'Approve' : 'Approve Delivery'}
+                                               {isapprove[request?._id] === 'accepted' ? 'Approved' : 'Approve Delivery'}
                                             </button>
                                             {isapprove[request?._id] === 'accepted' ? 
                                             <i className="fa-solid fa-check-circle text-success"></i> :

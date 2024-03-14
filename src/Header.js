@@ -87,6 +87,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                               Deliver in{" "}
                               <CountdownTimer
                                 requestDate={request?.req_mail_date}
+                                duration={20 * 60 * 60 * 1000}
                               />
                             </Button>
                           </div>

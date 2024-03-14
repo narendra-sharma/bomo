@@ -62,7 +62,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-5 col-12">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={data?.req_mail_date} /> </span></span>
+                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={data?.req_mail_date} duration={20 * 60 * 60 * 1000} /> </span></span>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -101,7 +101,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                             <th><p><span className="fw-bold d-block">Reference</span> </p></th>
                                             <th><p><span className="fw-bold d-block">Deliverables</span></p></th>
                                             <th><p><span className="fw-bold d-block">Format</span></p> </th>
-                                            <th><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                            <th><p><span className="fw-bold d-block">Transparency</span></p> </th>
                                         </thead>
                                         <tbody>
                                             <tr>
