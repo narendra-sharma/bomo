@@ -10,17 +10,18 @@ import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
 import UploadPieces from '../Common/UploadPieces';
+import ApproveStatus from '../Customer/Requests/ApproveStatus';
+import AssignStatus from '../Customer/Requests/AssignStatus';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) => {
+const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails, reqtype }) => {
     const dispatch = useDispatch();
-
     useEffect(() => {
-        if (requestdata?._id) {
-            get_expanded_request_detail(dispatch, user?.token, requestdata?._id);
+        if (requestdetails?._id) {
+            get_expanded_request_detail(dispatch, user?.token, requestdetails?._id);
         }
-    }, [dispatch, user?.token, requestdata?._id]);
+    }, [dispatch, user?.token, requestdetails?._id]);
 
     const formattedTime = (timeDate) => {
         const date = new Date(timeDate);
@@ -30,7 +31,9 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
     };
 
     const handleDownload = async (fileUrl) => {
-        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf("/") + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -58,114 +61,120 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
             <Modal.Body className="p-3 px-md-5 py-3">
                 <div className="row mb-3">
                     <div className="col-md-12 col-12">
-                        <div class="progress_bar">
-                            <div class="step">
-                                <p className="brief-content invisible">0</p>
-                                <div class="deliver-status">
-                                    <p className="brief-content">Brief Published</p>
-                                </div>
-                                <p className="brief-date">
-                                    {expanddetails?.req_data?.createdAt ? format(new Date(expanddetails?.req_data?.createdAt), 'dd/MM/yyyy') : 'No Date'}
-                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
-                            </div>
-
-                            <div class={`${(!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at) ? 'step' : ''}`}>
-                                {((!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at)) &&
-                                    <div>
-                                        <p className="brief-content">Brief Pending</p>
-                                        <div class="deliver-status delivery-cancel">
-                                            <span> <i className="fa-solid fa-exclamation-circle cancel"></i></span>
-                                        </div>
-                                        <p className="brief-date"><span className="d-block"></span></p>
-                                    </div>}
-                            </div>
-
-                            <div class={`${expanddetails?.req_data?.brief_rejected_at ? "step" : ''}`}>
-                                {expanddetails?.req_data?.brief_rejected_at &&
-                                    <div>
-                                        <p className="brief-content">Brief Rejected</p>
-                                        <div class="deliver-status delivery-cancel">
-                                            <span><i class="fa-solid fa-circle-xmark"></i></span>
+                        {reqtype === 'approve' ?
+                            <ApproveStatus expanddetails={expanddetails} />
+                            : reqtype === 'assign' ?
+                                <AssignStatus expanddetails={expanddetails} />
+                                :
+                                <div class="progress_bar">
+                                    <div class="step">
+                                        <p className="brief-content invisible">0</p>
+                                        <div class="deliver-status">
+                                            <p className="brief-content">Brief Published</p>
                                         </div>
                                         <p className="brief-date">
-                                            {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
-                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
-                                    </div>}
-                            </div>
+                                            {expanddetails?.req_data?.createdAt ? format(new Date(expanddetails?.req_data?.createdAt), 'dd/MM/yyyy') : 'No Date'}
+                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
+                                    </div>
 
-                            <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>
-                                {expanddetails?.req_data?.brief_approved_at &&
-                                    <div>
-                                        <p className="brief-content">Brief Approved</p>
+                                    <div class={`${(!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at) ? 'step' : ''}`}>
+                                        {((!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at)) &&
+                                            <div>
+                                                <p className="brief-content">Brief Pending</p>
+                                                <div class="deliver-status delivery-cancel">
+                                                    <span> <i className="fa-solid fa-exclamation-circle cancel"></i></span>
+                                                </div>
+                                                <p className="brief-date"><span className="d-block"></span></p>
+                                            </div>}
+                                    </div>
+
+                                    <div class={`${expanddetails?.req_data?.brief_rejected_at ? "step" : ''}`}>
+                                        {expanddetails?.req_data?.brief_rejected_at &&
+                                            <div>
+                                                <p className="brief-content">Brief Rejected</p>
+                                                <div class="deliver-status delivery-cancel">
+                                                    <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                                </div>
+                                                <p className="brief-date">
+                                                    {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
+                                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
+                                            </div>}
+                                    </div>
+
+                                    <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>
+                                        {expanddetails?.req_data?.brief_approved_at &&
+                                            <div>
+                                                <p className="brief-content">Brief Approved</p>
+                                                <div class="deliver-status delivery-check">
+                                                    <span><i class="fa-solid fa-circle-check"></i></span>
+                                                </div>
+                                                <p className="brief-date">
+                                                    {format(new Date(expanddetails?.req_data?.brief_approved_at), 'dd/MM/yyyy')}
+                                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span>
+                                                </p>
+                                            </div>}
+                                    </div>
+
+                                    <div class="step">
+                                        <p className="brief-content invisible">Brief Rejected</p>
+                                        <div class="deliver-status delivery-request-count">
+                                            <span class="bg-white rounded-pill px-1">{expanddetails?.req_data?.designer_list?.length} applicants</span>
+                                        </div>
+                                        <p className="brief-date invisible">16/03/2023 <span className="d-block">12:44</span></p>
+                                    </div>
+
+                                    <div class="step">
+                                        <p className="brief-content">Assigned to </p>
                                         <div class="deliver-status delivery-check">
                                             <span><i class="fa-solid fa-circle-check"></i></span>
                                         </div>
                                         <p className="brief-date">
-                                            {format(new Date(expanddetails?.req_data?.brief_approved_at), 'dd/MM/yyyy')}
-                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_approved_at)}</span>
-                                        </p>
-                                    </div>}
-                            </div>
-
-                            <div class="step">
-                                <p className="brief-content invisible">Brief Rejected</p>
-                                <div class="deliver-status delivery-request-count">
-                                    <span class="bg-white rounded-pill px-1">{expanddetails?.req_data?.designer_list?.length} applicants</span>
-                                </div>
-                                <p className="brief-date invisible">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>
-
-                            <div class="step">
-                                <p className="brief-content">Assigned to </p>
-                                <div class="deliver-status delivery-check">
-                                    <span><i class="fa-solid fa-circle-check"></i></span>
-                                </div>
-                                <p className="brief-date">
-                                    {expanddetails?.req_data?.req_mail_date ?
-                                        <p className="brief-date">
-                                            {(format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy'))}
-                                            <span className="d-block">
-                                                {formattedTime(expanddetails?.req_data?.req_mail_date)}
-                                            </span>
-                                        </p>
-                                        : '-'}
-                                </p>
-                            </div>
-                            {expanddetails?.req_data?.req_mail_date && <div class="step">
-                                <p className="brief-content">Assigned to </p>
-                                <div class="deliver-status delivery-check">
-                                    <span><i class="fa-solid fa-circle-check"></i></span>
-                                </div>
-                                <p className="brief-date">{format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')}
-                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.req_mail_date)}</span></p>
-                            </div>}
-
-                            <div class="step">
-                                {((!expanddetails?.req_data?.is_approved_by_customer)) && (
-                                    <div>
-                                        <p className="brief-content">Delivery Rejected</p>
-                                        <div class="deliver-status delivery-cancel">
-                                            <span><i class="fa-solid fa-circle-xmark"></i></span>
-                                        </div>
-                                        <p className="brief-date">{expanddetails?.req_data?.design_rejected_at_by_customer ?
-                                            format(new Date(expanddetails?.req_data?.design_rejected_at_by_customer), 'dd/MM/yyyy')
-                                            : '-'}
-                                            <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
-                                                formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
-                                                : ''}</span>
+                                            {expanddetails?.req_data?.req_mail_date ?
+                                                <p className="brief-date">
+                                                    {(format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy'))}
+                                                    <span className="d-block">
+                                                        {formattedTime(expanddetails?.req_data?.req_mail_date)}
+                                                    </span>
+                                                </p>
+                                                : '-'}
                                         </p>
                                     </div>
-                                )}
-                            </div>
+                                    {expanddetails?.req_data?.req_mail_date && <div class="step">
+                                        <p className="brief-content">Assigned to </p>
+                                        <div class="deliver-status delivery-check">
+                                            <span><i class="fa-solid fa-circle-check"></i></span>
+                                        </div>
+                                        <p className="brief-date">{format(new Date(expanddetails?.req_data?.req_mail_date), 'dd/MM/yyyy')}
+                                            <span className="d-block">{formattedTime(expanddetails?.req_data?.req_mail_date)}</span></p>
+                                    </div>}
 
-                            {expanddetails?.req_data?.is_approved_by_customer && <div class="step">
-                                <p className="brief-content">Delivery Approved</p>
-                                <div class="deliver-status delivery-check">
-                                    <span><i class="fa-solid fa-circle-check"></i></span>
+                                    <div class="step">
+                                        {((!expanddetails?.req_data?.is_approved_by_customer)) && (
+                                            <div>
+                                                <p className="brief-content">Delivery Rejected</p>
+                                                <div class="deliver-status delivery-cancel">
+                                                    <span><i class="fa-solid fa-circle-xmark"></i></span>
+                                                </div>
+                                                <p className="brief-date">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                                    format(new Date(expanddetails?.req_data?.design_rejected_at_by_customer), 'dd/MM/yyyy')
+                                                    : '-'}
+                                                    <span className="d-block">{expanddetails?.req_data?.design_rejected_at_by_customer ?
+                                                        formattedTime(expanddetails?.req_data?.design_rejected_at_by_customer)
+                                                        : ''}</span>
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {expanddetails?.req_data?.is_approved_by_customer && <div class="step">
+                                        <p className="brief-content">Delivery Approved</p>
+                                        <div class="deliver-status delivery-check">
+                                            <span><i class="fa-solid fa-circle-check"></i></span>
+                                        </div>
+                                        <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
+                                    </div>}
                                 </div>
-                                <p className="brief-date">16/03/2023 <span className="d-block">12:44</span></p>
-                            </div>}
-                        </div>
+                        }
                     </div>
                 </div>
                 <div className="px-60 py-5 mx-3 review-main-content bg-white">
@@ -183,11 +192,12 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
                         <div class="col-md-12 col-lg-12">
                             <div class=" d-flex align-items-center review-content ">
                                 <ColorCode request={expanddetails?.req_data} />
-                                <p class="short0ad dor rounded-pill">
+                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${expanddetails?.req_data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                {/* <p class="short0ad dor rounded-pill">
                                     {expanddetails?.req_data?.brand_profile?.brandname ?
                                         expanddetails?.req_data?.brand_profile?.brandname
                                         : '-'}
-                                </p>
+                                </p> */}
                                 <p class="short0ad project-assets rounded-pill" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
                             </div>
                         </div>
@@ -317,7 +327,8 @@ const ExpandRequest = ({ show, handleClose, requestdata, user, expanddetails }) 
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        expanddetails: state.requests.expandedrequest
+        expanddetails: state.requests.expandedrequest,
+        requestdetails: state.requests.delieverRequestdetails
     };
 };
 

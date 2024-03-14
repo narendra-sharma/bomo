@@ -20,7 +20,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
     };
 
     const handleDownload = async (fileUrl) => {
-        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -66,7 +68,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             <div className="col-md-6">
                                 <div className="d-flex align-items-center mb-3">
                                     <ColorCode request={data} />
-                                    <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname ? data?.brand_profile?.brandname: '-'}</p>
+                                    <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
                                     <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                         Brand Assets
                                     </p>
@@ -109,7 +111,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                                     </p>
                                                 </td>
                                                 <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
-                                                <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
+                                                <td><p>{data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></td>
                                                 <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
                                                 <td><p>{data?.transparency}</p></td>
                                             </tr>

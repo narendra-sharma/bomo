@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DeliverNow from "../Modals/DeliverNow";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 const UploadPieces = ({ requestData }) => {
     const [formdata, setFormdata] = useState({
@@ -79,7 +80,8 @@ const UploadPieces = ({ requestData }) => {
 
     const handleDeliver = (e) => {
         e.preventDefault();
-        if (formdata.firstFile === '' || formdata.secondFile === '' || !formdata.zipfile === '') {
+        if (formdata.firstFile === '' || formdata.secondFile === '' || formdata.zipfile === '') {
+            toast.error('Upload all pieces!');
             return;
         }
         if (Object.values(errors).some(error => error !== '')) {
@@ -101,7 +103,7 @@ const UploadPieces = ({ requestData }) => {
                 <div className="row align-items-center">
                     <div className="col-md-3 d-flex flex-column">
                         <h5 className="text-center mb-2"> <span className="uplaod-dimension border border-dark d-inline-block"></span>
-                            Upload 9:16 .mp4
+                            Upload {requestData?.size[0]} .mp4
                         </h5>
                         <div className="upload-nine-mp4">
                             <div className="d-flex align-item-center justify-content-center mb-4">
@@ -116,7 +118,7 @@ const UploadPieces = ({ requestData }) => {
 
                     <div className="col-md-3 d-flex flex-column">
                         <h5 className="text-center mb-2">
-                            <span className="uplaod-dimension sixteen-nine border border-dark d-inline-block"></span>  Upload 16:9 .mp4
+                            <span className="uplaod-dimension sixteen-nine border border-dark d-inline-block"></span>  Upload {requestData?.size[1]} .mp4
                         </h5>
                         <div className="upload-nine-mp4">
 

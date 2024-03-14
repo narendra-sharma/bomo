@@ -39,7 +39,9 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
   };
 
     const handleDownload = async (fileUrl) => {
-        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+      const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+      const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -91,11 +93,12 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                         <div className="col-md-5 col-12">
                           <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                            <p class="short0ad dor rounded-pill">
+                          <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
+                            {/* <p class="short0ad dor rounded-pill">
                               {request?.brand_profile?.brandname
                                 ? request?.brand_profile?.brandname
                                 : "-"}
-                            </p>
+                            </p> */}
                             <span class="deadline-date status position-relative deliver-now-btn">
                               Deadline in{" "}
                               <span class="fw-bold">
@@ -153,7 +156,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                         Alpha Background
                                       </span>
                                     </p>{" "}
-                                    No
+                                    {request?.transparency}
                                   </td>
                                 </tr>
                                 <tr>
@@ -180,7 +183,8 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                       <span className="fw-bold d-block">
                                         Deliverables
                                       </span>
-                                      {request?.size}
+                                      {request?.size?.map((item) => <span className="d-block">{item}</span>)}
+                                      
                                       <br />
                                     </p>
                                   </td>

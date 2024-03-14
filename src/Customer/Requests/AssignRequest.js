@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { assign_admin_request, get_admin_assign_requestlist } from "../../reduxdata/rootAction";
+import { assign_admin_request, deliever_request_details, get_admin_assign_requestlist } from "../../reduxdata/rootAction";
 import EmptyList from "../../Common/EmptyList";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
@@ -105,7 +105,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 </td>
                                                 <td style={{width:"120px"}}>
                                                     <p>
-                                                        <span className="cursor-pointer" onClick={() => { setExpand(true); setReqdata(request); }}>Expand Request</span>{" "}
+                                                        <span className="cursor-pointer" onClick={() => { setExpand(true); dispatch(deliever_request_details(request)); }}>Expand Request</span>{" "}
                                                     </p>
                                                 </td>
                                                 <td style={{width:"120px"}}>
@@ -165,7 +165,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                         </div>)) : <EmptyList name="Assign Request" />}
               
             </div>
-            <ExpandRequest show={expand} handleClose={() => setExpand(false)} requestdata={reqdata} />
+            <ExpandRequest show={expand} handleClose={() =>{ setExpand(false); dispatch(deliever_request_details(null));}} reqtype='assign' />
             {totalassigns > 0 && (
                 <CustomPagination
                     total={totalassigns}

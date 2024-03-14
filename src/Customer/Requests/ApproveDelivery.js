@@ -72,7 +72,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="cursor-pointer" onClick={() => {setShow(true);  setReqdata(request);  dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
+                                            <span className="cursor-pointer" onClick={() => {setShow(true); dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>
@@ -121,7 +121,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     </table>
                 </div>
             </div>
-            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}} requestdata={reqdata}/>
+            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}}/>
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )
