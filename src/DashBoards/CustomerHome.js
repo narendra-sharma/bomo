@@ -94,8 +94,8 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
                             <td>
                               <p>
                                 <span className="fw-bold">Status</span>{" "}
-                                <span className="d-block">
-                                  {request?.status}
+                                <span className="d-block"> Production
+                                  {/* {request?.status} */}
                                 </span>
                               </p>
                             </td>

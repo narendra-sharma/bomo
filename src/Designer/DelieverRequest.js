@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import ColorCode from "../Common/ColorCode";
 import DeliverNow from "../Modals/DeliverNow";
 import CountdownTimer from "../Common/CountdownTimer";
+import { toast } from "react-toastify";
+
+const { REACT_APP_BOMO_URL } = process.env;
+
 const DelieverRequest = ({ requestData, user }) => {
     const [formdata, setFormdata] = useState({
         firstFile: '',
@@ -80,7 +84,8 @@ const DelieverRequest = ({ requestData, user }) => {
 
     const handleDeliver = (e) => {
         e.preventDefault();
-        if (formdata.firstFile === '' || formdata.secondFile === '' || !formdata.zipfile === '') {
+        if (formdata.firstFile === '' || formdata.secondFile === '' || formdata.zipfile === '') {
+            toast.error('Upload all pieces!');
             return;
         }
         if (Object.values(errors).some(error => error !== '')) {
@@ -122,7 +127,8 @@ const DelieverRequest = ({ requestData, user }) => {
                                     <div className="review-content mt-3">
                                         <div className="d-flex">
                                             <ColorCode request={requestData} />
-                                            <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p>
+                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
+                                            {/* <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p> */}
                                             <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                         </div>
                                     </div>
@@ -152,7 +158,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                                 <tr>
                                                     <td className="ps-0" width="300px"><span className="d-block">{requestData?.description}</span>
                                                     </td>
-                                                    <td>{requestData?.size}<span className="d-block"></span></td>
+                                                    <td>{requestData?.size?.map((item) => <span className="d-block">{item}</span>)}</td>
                                                     <td>{requestData?.file_type}</td>
                                                     <td>{requestData?.transparency}</td>
                                                     <td className="text-end">{requestData?.references}</td>
@@ -167,7 +173,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                 <div className="row align-items-center">
                                     <div className="col-md-3 d-flex flex-column">
                                         <h5 className="text-center mb-2"> <span className="uplaod-dimension border border-dark d-inline-block"></span>
-                                            Upload 9:16 .mp4
+                                            Upload {requestData?.size[0]} .mp4
                                         </h5>
                                         <div className="upload-nine-mp4">
                                             <div className="d-flex align-item-center justify-content-center mb-4">
@@ -182,7 +188,7 @@ const DelieverRequest = ({ requestData, user }) => {
 
                                     <div className="col-md-3 d-flex flex-column">
                                         <h5 className="text-center mb-2">
-                                            <span className="uplaod-dimension sixteen-nine border border-dark d-inline-block"></span>  Upload 16:9 .mp4
+                                            <span className="uplaod-dimension sixteen-nine border border-dark d-inline-block"></span>  Upload {requestData?.size[1]} .mp4
                                         </h5>
                                         <div className="upload-nine-mp4">
 

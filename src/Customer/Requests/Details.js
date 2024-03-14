@@ -30,7 +30,9 @@ const Details = () => {
     };
 
     const handleDownload = async (fileUrl) => {
-        const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {

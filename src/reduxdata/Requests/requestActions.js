@@ -434,8 +434,10 @@ export const superadmin_approve_delivery = async (
     const res = await axios.put(url, JSON.stringify(requestdetails), HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      if (!reqstatus === "draft") {
-        await get_approve_delivery_list(token, dispatch);
+      if (approvedata?.deliverystatus==='accepted') {
+        setTimeout(() => {
+           get_approve_delivery_list(token, dispatch);
+        },3000);
       }
       await get_admin_pending_requestlist(dispatch, token);
       await get_admin_assign_requestlist(dispatch, token);

@@ -21,7 +21,7 @@ const AllRequests = ({ user }) => {
           <div className="mt-5 review-main-content">
             <LateRequests />
             
-            <AcceptedRequest search={search} />
+            {/* <AcceptedRequest search={search} /> */}
 
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <AllActiveRequests />

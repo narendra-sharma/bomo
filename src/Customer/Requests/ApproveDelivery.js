@@ -16,7 +16,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
     const [reqdata,setReqdata]=useState({});
     const dispatch = useDispatch();
 
-    const handleApprove = (e,data,status) => {
+    const handleApprove = async (e,data,status) => {
         e.preventDefault();
         const requestId = data?._id;
         if((status === 'accepted')&&data){
@@ -24,8 +24,8 @@ const ApproveDelivery = ({ user, approvelist }) => {
                 _id:requestId,
                 deliverystatus:status
             };
+            await superadmin_approve_delivery(dispatch,user?.token,approvedata);
             setIsapprove((prev) => ({...prev, [requestId]: 'accepted'}));
-            superadmin_approve_delivery(dispatch,user?.token,approvedata);
         } else if((status === 'rejected')&&data){
             setIsreject(true);
             setReqdata(data);
@@ -72,7 +72,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="cursor-pointer" onClick={() => {setShow(true);  setReqdata(request);  dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
+                                            <span className="cursor-pointer" onClick={() => {setShow(true); dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>
@@ -121,7 +121,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     </table>
                 </div>
             </div>
-            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}} requestdata={reqdata}/>
+            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}}/>
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )
