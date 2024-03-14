@@ -103,7 +103,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             <div className="col-md-7 col-lg-6 mb-4">
                                 <h3>{receivedData?.request_name}</h3>
                                 <div className="review-content mt-3">
-                                    <div className="d-flex">
+                                    <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
                                         {/* <p className="short0ad dor rounded-pill ms-2"></p> */}
                                         <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36"/>
@@ -131,7 +131,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     <table className="table request-status designer-request-status table-borderless mb-0">
                                         <thead>
                                             <tr>
-                                                <th>Description</th>
+                                                <th className="ps-0" width="300px">Description</th>
                                                 <th>Size</th>
                                                 <th>File Type </th>
                                                 <th>Transparency</th>
@@ -140,7 +140,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td className="ps-0"  width="300px">
                                                     <span className="d-block">
                                                         {receivedData?.description}
                                                     </span>

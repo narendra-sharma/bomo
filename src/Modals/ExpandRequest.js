@@ -198,22 +198,23 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                         expanddetails?.req_data?.brand_profile?.brandname
                                         : '-'}
                                 </p> */}
-                                <p class="short0ad project-assets rounded-pill" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
+                                <p class="short0ad project-assets rounded-pill px-5" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
                             </div>
                         </div>
-                        <div className="col-md-10 mt-3">
+                        <div className="col-md-12 mt-3">
                             <div class="table-responsive">
                                 <table class="table table-borderless mb-0">
                                     <thead>
-                                        <th>Description</th>
-                                        <th>Size</th>
-                                        <th>File Type </th>
-                                        <th>Transparency</th>
-                                        <th>References</th>
+                                        <tr><th className="ps-0 fw-bold">Description</th>
+                                        <th className="fw-bold">Size</th>
+                                        <th className="fw-bold">File Type </th>
+                                        <th className="fw-bold">Transparency</th>
+                                        <th className="fw-bold ps-5">References</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td className="ps-0" width="390px">
                                                 <p>
                                                     <span className="d-block">{expanddetails?.req_data?.description}
                                                     </span>
@@ -226,7 +227,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             </td>
                                             <td><p>{expanddetails?.req_data?.file_type}</p></td>
                                             <td><p>{expanddetails?.req_data?.transparency}</p> </td>
-                                            <td><p>{expanddetails?.req_data?.references}</p></td>
+                                            <td className="ps-5"><p>{expanddetails?.req_data?.references}</p></td>
                                         </tr>
                                     </tbody>
                                 </table>

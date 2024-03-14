@@ -34,6 +34,9 @@ html body.calculator-page {
 .bg-gray {
   background-color: #f2f2f2;
 }
+.text-black{
+  color: #000;
+}
 img {
   max-width: 100%;
 }
@@ -2054,8 +2057,7 @@ button.accordion-button.collapsed .late-request-section {
   background: #ecf7ee;
   border-radius: 5px;
 }
-.designer-request-poll .review-content th p,
-.designer-request-poll .review-content tr td {
+.designer-request-poll .review-content th p {
   padding: 0;
 }
 .designer-request-poll .review-content table p {
@@ -2069,7 +2071,7 @@ button.accordion-button.collapsed .late-request-section {
   bottom: 10%;
 }
 .delivery-date-content span {
-  /* color: #012801; */
+  color: #000;
   line-height: 16px;
   font-size: 14px;
   font-weight: 500;
@@ -2431,7 +2433,20 @@ table.table-green{
   font-size: 12px;
   padding: 4px 0px;
 }
-
+.expand-request table tr td , .expand-request tr th
+.designer-request-status tr td , .designer-request-status tr th, 
+.designer-request-poll  table tr td, .designer-request-poll  table tr th
+{
+  padding: 0px 8px;;
+  vertical-align: top;
+  color: #000;
+}
+.expand-request table tr p{
+  font-size:14px
+}
+.pr-0{
+  padding-right: 0!important;
+}
 @media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;
