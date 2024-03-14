@@ -116,7 +116,7 @@ const DelieverRequest = ({ requestData, user }) => {
                         <div className="order-completed px-5 py-4 rounded mb-5">
                             <p className="mb-0 extra-dark-green"> DELIVER NOW. This request is in Production
                                 <span className="d-block fw-bold">Delivery in
-                                    <CountdownTimer requestDate={requestData?.req_mail_date} />
+                                    <CountdownTimer requestDate={requestData?.req_mail_date} duration={20 * 60 * 60 * 1000}/>
                                 </span>
                             </p>
                         </div>

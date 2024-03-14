@@ -3,28 +3,26 @@ import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import ColorCode from "../../Common/ColorCode";
 import { saveAs } from 'file-saver';
-import { get_completed_request_forcusotmer_admin } from "../../reduxdata/rootAction";
+import { get_completed_request_forcusotmer_admin, get_review_request_data } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const CompletedRequest = ({deliverrequests,user}) => {
-    const [receivedData, setReceivedData] = useState();
+const CompletedRequest = ({deliverrequests,user, requestData}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let requestdetails = JSON.parse(localStorage.getItem('requestData'));
-        setReceivedData(requestdetails);
         return () => {
             localStorage.removeItem('requestData');
+            dispatch(get_review_request_data(null));
         }
     }, []);
 
     useEffect(() => {
-        if (receivedData?._id) {
-            get_completed_request_forcusotmer_admin(dispatch, user?.token, receivedData?._id);
+        if (requestData?._id) {
+            get_completed_request_forcusotmer_admin(dispatch, user?.token, requestData?._id);
         }
-    }, [receivedData?._id]);
+    }, [requestData?._id]);
 
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
@@ -78,11 +76,11 @@ const CompletedRequest = ({deliverrequests,user}) => {
                     <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
                         <div className="row">
                             <div className="col-md-7 col-lg-6 mb-4">
-                                <h3>{receivedData?.request_name}</h3>
+                                <h3>{requestData?.request_name}</h3>
                                 <div className="review-content mt-3">
                                     <div className="d-flex">
-                                        <ColorCode request={receivedData} />
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="33"/>
+                                        <ColorCode request={requestData} />
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_details?.logo}`} alt='imga' height="33" widht="33"/>
                                         <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                     </div>
                                 </div>
@@ -116,18 +114,18 @@ const CompletedRequest = ({deliverrequests,user}) => {
                                             <tr>
                                                 <td className="ps-0">
                                                     <span className="d-block">
-                                                        {receivedData?.description}
+                                                        {requestData?.description}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    {receivedData?.size?.map((value) => (
+                                                    {requestData?.size?.map((value) => (
                                                         <span className="d-block">{value}</span>
                                                     ))}
                                                 </td>
-                                                <td>{receivedData?.file_type}</td>
-                                                <td>{receivedData?.transparency}</td>
+                                                <td>{requestData?.file_type}</td>
+                                                <td>{requestData?.transparency}</td>
                                                 <td className="text-end">
-                                                    {receivedData?.references}
+                                                    {requestData?.references}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -212,6 +210,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         deliverrequests: state.requests.completeddetails,
+        requestData: state.requests.reviewrequestData,
     };
 };
 

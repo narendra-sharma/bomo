@@ -6,6 +6,7 @@ import ColorCode from "../../Common/ColorCode";
 import RequestDetails from "../../Modals/RequestsDetails";
 import EmptyList from "../../Common/EmptyList";
 import { useNavigate } from "react-router-dom";
+import CountdownTimer from "../../Common/CountdownTimer";
 
 const PollRequests = ({ user, pollrequests }) => {
   const dispatch = useDispatch();
@@ -104,7 +105,10 @@ const PollRequests = ({ user, pollrequests }) => {
             <div className="row">
               <div className="col-md-7 col-lg-8 d-flex align-items-center">
                 <div className="d-flex justify-content-betwwen">
-                  <p className="text-mute"><span>Selection in</span> <span className="fw-bold">14h</span></p>
+                  <p className="text-mute"><span>Selection in</span> <span className="fw-bold">
+                    <CountdownTimer requestDate={request?.accepted_date} duration={14 * 60 * 60 * 1000} reqtype="pool" />h
+                    </span>
+                  </p>
                   <p className="text-mute"><span>{request?.designer_list?.length} applications</span></p>
                 </div>
               </div>

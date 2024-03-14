@@ -104,6 +104,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                               <span class="fw-bold">
                                 <CountdownTimer
                                   requestDate={request?.req_mail_date}
+                                  duration={20 * 60 * 60 * 1000}
                                 />
                               </span>
                             </span>
@@ -153,7 +154,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   <td>
                                     <p>
                                       <span className="fw-bold d-block">
-                                        Alpha Background
+                                        Transparency
                                       </span>
                                     </p>{" "}
                                     {request?.transparency}
