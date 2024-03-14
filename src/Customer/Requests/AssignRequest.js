@@ -86,7 +86,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                 <td>
                                                     <p>12h</p>
                                                 </td>
-                                                <td className="text-center" style={{width:"130px"}}>
+                                                <td className="text-center" style={{width:"120px"}}>
                                                     <ColorCode request={request} />
                                                 </td>
                                                 <td style={{width:"77px"}}>
@@ -97,7 +97,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                             : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span>
                                                     </p>
                                                 </td>
-                                                <td style={{width:"90px"}}>
+                                                <td style={{width:"100px"}}>
                                                     <p>
                                                         <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                                         <span className="d-block">{request?.request_name}</span>
@@ -108,7 +108,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                                         <span className="cursor-pointer" onClick={() => { setExpand(true); dispatch(deliever_request_details(request)); }}>Expand Request</span>{" "}
                                                     </p>
                                                 </td>
-                                                <td style={{width:"120px"}}>
+                                                <td style={{width:"137px"}}>
                                                     <div className="d-flex align-items-center gap-1">
                                                     <p>
                                                         Assign Designers{" "}

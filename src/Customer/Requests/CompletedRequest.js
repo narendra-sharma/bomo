@@ -103,7 +103,7 @@ const CompletedRequest = ({deliverrequests,user, requestData}) => {
                                     <table className="table request-status designer-request-status table-borderless mb-0">
                                         <thead>
                                             <tr>
-                                                <th>Description</th>
+                                                <th className="ps-0" width="300px">Description</th>
                                                 <th>Size</th>
                                                 <th>File Type </th>
                                                 <th>Transparency</th>
@@ -112,7 +112,7 @@ const CompletedRequest = ({deliverrequests,user, requestData}) => {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td className="ps-0">
                                                     <span className="d-block">
                                                         {requestData?.description}
                                                     </span>

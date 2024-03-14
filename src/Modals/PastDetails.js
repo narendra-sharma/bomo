@@ -74,15 +74,17 @@ const PastDetails = ({ show, handleClose, data }) => {
                             <div className="table-responsive">
                                 <table className="table table-borderless mb-0">
                                     <thead>
-                                        <th style={{ width: "240px" }}><p>Description</p></th>
-                                        <th style={{ width: "105px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                        <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                        <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Format</span></p> </th>
-                                        <th><p><span className="fw-bold d-block">Transparency</span></p> </th>
+                                        <tr>
+                                        <th class="ps-0" style={{ width: "215px" }}><p>Description</p></th>
+                                        <th ><p><span className="fw-bold d-block">Reference</span> </p></th>
+                                        <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
+                                        <th ><p><span className="fw-bold d-block">Format</span></p> </th>
+                                        <th className="pr-0"><p><span className="fw-bold d-block">Transparency</span></p> </th>
+                                       </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td class="ps-0" style={{ width: "207px" }}>
                                                 <p>
                                                     <span className="d-block">{data?.description}</span>
                                                 </p>
@@ -90,7 +92,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                                             <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
                                             <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
                                             <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
-                                            <td><p>{data?.transparency}</p></td>
+                                            <td className="pr-0"><p>{data?.transparency}</p></td>
                                         </tr>
                                     </tbody>
                                 </table>
