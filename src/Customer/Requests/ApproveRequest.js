@@ -6,7 +6,7 @@ import RejectRequest from "../../Modals/RejectRequest";
 import ColorCode from "../../Common/ColorCode";
 import EmptyList from "../../Common/EmptyList";
 import CustomPagination from "../../Common/CustomPagination";
-import { change_request_status } from "../../reduxdata/Requests/requestActions";
+import { change_request_status, deliever_request_details } from "../../reduxdata/Requests/requestActions";
 
 const ApproveRequest = ({ user, allRequest, total }) => {
   const [show, setShow] = useState(false);
@@ -78,6 +78,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                           onClick={() => {
                             setShow(true);
                             setReqdata(request);
+                            dispatch(deliever_request_details(request));
                           }}
                         >
                           Expand Request
@@ -134,8 +135,9 @@ const ApproveRequest = ({ user, allRequest, total }) => {
       )}
       <ExpandRequest
         show={show}
-        handleClose={() => setShow(false)}
+        handleClose={() => {setShow(false);  dispatch(deliever_request_details(null));}}
         requestdata={reqdata}
+        reqtype='approve'
       />
       <RejectRequest
         show={isreject}

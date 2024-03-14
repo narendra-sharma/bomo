@@ -9,7 +9,7 @@ import FeedbackFiles from "./FeedbackFiles";
 const { REACT_APP_BOMO_URL } = process.env;
 
 const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
-
+    console.log(requestdata);
     const [feed, setFeed] = useState(false);
     const [issucess, setIssucess] = useState(false);
     const [deliveryname,setDeliveryname]=useState('');
@@ -67,7 +67,11 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                 <div className="col-md-5 d-flex text-center justify-content-center">
                                     <div className="statusbar-section d-flex flex-column justify-content-between">
                                         <div className="delivery-status fw-bold">
-                                            {deliveryStage === 1 ? '9:16' : deliveryStage === 2 ? '16:9' : 'No Size'}
+                                            {deliveryStage === 1 ?
+                                             requestdata?.size?.slice(0,1).map((item) => item) 
+                                             : deliveryStage === 2 ? 
+                                             requestdata?.size?.slice(1,2).map((item) => item)
+                                             : 'No Size'}
                                         </div>
                                         <div className="">
                                             {deliveryStage === 1 ? (

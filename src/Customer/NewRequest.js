@@ -114,7 +114,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
       case 'uploadFiles':
         const UploadImage = files[0];
-        console.log(UploadImage);
         const Fileupload = [UploadImage];
         const uploadedFiles = [...Fileupload];
         if (!Fileupload) {
@@ -333,9 +332,10 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   const handleDownload = async (details) => {
     const fileUrl = details?.apipath;
-    const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
     const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
-    console.log(fileName);
+    const fileExtension = fileName?.split(".").pop().toLowerCase();
+    const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+    const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
     const getMimeType = (ext) => {
       const mimeTypes = {
         txt: 'text/plain',
@@ -354,9 +354,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
     const response = await fetch(fileContent);
     const blobFile = await response.blob();
-    const fileExtension = fileName?.split(".").pop().toLowerCase();
-    console.log(fileExtension);
-    console.log(fileExtension);
     const mimeType = getMimeType(fileExtension);
     const blobwithtype = new Blob([blobFile], { type: mimeType });
     saveAs(blobwithtype, fileName);
