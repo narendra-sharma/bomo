@@ -9,7 +9,6 @@ import FeedbackFiles from "./FeedbackFiles";
 const { REACT_APP_BOMO_URL } = process.env;
 
 const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
-    console.log(requestdata);
     const [feed, setFeed] = useState(false);
     const [issucess, setIssucess] = useState(false);
     const [deliveryname,setDeliveryname]=useState('');

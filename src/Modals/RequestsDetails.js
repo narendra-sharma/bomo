@@ -1,14 +1,15 @@
-import React from "react";
-import { Modal } from "react-bootstrap";
+import React, { useCallback } from "react";
+import { Button, Modal } from "react-bootstrap";
 import briefImage from "../images/brief-request-img.png";
 import ColorCode from "../Common/ColorCode";
 import { useDispatch, connect } from 'react-redux';
-import { poll_request_apply } from "../reduxdata/rootAction";
+import { desginer_accept_assignrequest, poll_request_apply } from "../reduxdata/rootAction";
 import { saveAs } from "file-saver";
+import CountdownTimer from "../Common/CountdownTimer";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
+const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) => {
     const dispatch = useDispatch();
     const handleApplyRequest = (requestdata) => {
         let applyrequest = requestdata._id;
@@ -18,7 +19,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
 
 
     const handleDownload = async (fileUrl) => {
-        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
         // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
@@ -34,7 +35,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                 ai: 'application/postscript',
                 svg: 'image/svg+xml',
                 psd: 'image/vnd.adobe.photoshop',
-              };
+            };
             return mimeTypes[ext] || 'application/octet-stream';
         };
 
@@ -46,13 +47,20 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
         saveAs(blobwithtype, fileName);
     };
 
+    const handleacceptRequest = useCallback((requestdetail, status) => {
+        const request_id = requestdetail._id;
+
+        desginer_accept_assignrequest(dispatch, user?.token, request_id, user?.email, user?._id, status);
+        handleClose();
+    }, [dispatch, user?.token, user?.email, user?._id]);
+
     return (
         <Modal show={show} onHide={handleClose} size="lg" className="brief-request-popup">
             <Modal.Body>
                 <div className=" px-5 py-5 review-content ">
                     <div className="row align-items-center">
                         <div className="col-md-7 col-12 mb-4 designer-active-request">
-                            <span class="deadline-date status position-relative ps-3">Selection in <span class="fw-bold"><span>14 hour</span></span></span>
+                            <span class="deadline-date status position-relative ps-3">Selection in <span class="fw-bold"><span> <CountdownTimer requestDate={data?.accepted_date} duration={14 * 60 * 60 * 1000} reqtype="pool" />hour</span></span></span>
                         </div>
                         <div className="col-md-5 col-12 mb-4">
                             <div class="d-flex justify-content-end align-items-center designer-active-request ">
@@ -97,7 +105,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                                         <th style={{ width: "95px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
                                         <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
                                         <th ><p><span className="fw-bold d-block">Format</span></p> </th>
-                                        <th style={{ width: "135px" }}><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                        <th style={{ width: "135px" }}><p><span className="fw-bold d-block">Transparency</span></p> </th>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -114,14 +122,25 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="mt-4 row justify-content-between">
-                                <div className="col-md-8 status-btn">
-                                    <button className="btn pause-btn rounded py-2 w-100" 
-                                    onClick={() => handleApplyRequest(data)}
-                                    disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
+                            {reqaccept ?
+                                <div className="mt-4 row justify-content-between">
+                                    <div className="col-md-6 status-btn">
+                                        <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'accepted')}>ACCEPT</Button>
+                                    </div>
+                                    <div className="col-md-6 status-btn">
+                                        <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'rejected')}>DECLINE</Button>
+                                    </div>
                                 </div>
-                                <div className="col-md-4"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
-                            </div>
+                                :
+                                <div className="mt-4 row justify-content-between">
+                                    <div className="col-md-8 status-btn">
+                                        <button className="btn pause-btn rounded py-2 w-100"
+                                            onClick={() => handleApplyRequest(data)}
+                                            disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
+                                    </div>
+                                    <div className="col-md-4"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

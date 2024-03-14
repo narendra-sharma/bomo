@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
-import aepdesign from "../../images/aep-image.png";
 import { get_delivered_requests, get_edit_request_data } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
@@ -227,7 +226,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                         </div>
                                                     </div>
                                                 )}
-                                                {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
+                                                {(((!request?.is_approved_by_customer) || (!request?.is_approved_by_super_admin)) && ((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
                                                     <div className="row justify-content-center">
                                                         <div className="col-md-3 align-self-center">
                                                             <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
@@ -342,17 +341,17 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 </div>
                                 <div className="col-md-4 d-flex text-center justify-content-center">
                                     <div className="statusbar-section d-flex flex-column justify-content-between">
-                                        <div className="delivery-status fw-bold">9:16</div>
+                                        <div className="delivery-status fw-bold">{receivedData?.size[0]}</div>
                                         <div className="">
-                                            <img src={designImage3} alt="Image" />
+                                            <img src={designImage3} alt="Imag" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-4 d-flex text-center justify-content-center">
                                     <div className="statusbar-section d-flex flex-column justify-content-evenly">
-                                        <div className="delivery-status fw-bold">16:9</div>
+                                        <div className="delivery-status fw-bold">{receivedData?.size[1]}</div>
                                         <div className="">
-                                            <img src={designImage4} alt="Image" />
+                                            <img src={designImage4} alt="Imag" />
                                         </div>
                                     </div>
                                 </div>

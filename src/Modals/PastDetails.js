@@ -47,7 +47,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
-                                <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname ? data?.brand_profile?.brandname : '-'}</p>
+                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
                                 <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                     Brand Assets
                                 </p>
@@ -78,7 +78,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                                         <th style={{ width: "105px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
                                         <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Deliverables</span></p></th>
                                         <th style={{ width: "100px" }}><p><span className="fw-bold d-block">Format</span></p> </th>
-                                        <th><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                        <th><p><span className="fw-bold d-block">Transparency</span></p> </th>
                                     </thead>
                                     <tbody>
                                         <tr>

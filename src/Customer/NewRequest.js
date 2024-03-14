@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload, superadmin_brandlist, uploadImage } from "../reduxdata/rootAction";
+import { change_add_edit, get_edit_request_data, image_delete, newRequest, new_image_upload, superadmin_brandlist } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import { getbrandlist } from "../reduxdata/rootAction";
 import plusImage from '../images/plus-img.png';
@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import ReactSelect from 'react-select';
 import downloadImage from "../images/download-thumbnail.png";
 import { saveAs } from 'file-saver';
-import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
 const { REACT_APP_BOMO_URL } = process.env;
 const LOGO_URL = REACT_APP_BOMO_URL;
 
@@ -31,7 +30,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     { label: '4:5', value: '4:5' },
     { label: 'custom', value: 'custom' }
   ]);
-  const [addval, setAddval] = useState();
+
   const [show, setShow] = useState(false);
   const transparencies = ['Yes', 'No'];
   const [images, setImages] = useState([]);
@@ -115,7 +114,6 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
       case 'uploadFiles':
         const UploadImage = files[0];
         const Fileupload = [UploadImage];
-        const uploadedFiles = [...Fileupload];
         if (!Fileupload) {
           setErrors({ ...errors, uploadFiles: 'Upload your file' })
         } else if (Fileupload) {
@@ -472,7 +470,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                             isClearable={true}
                             placeholder="Select" />
                           {show && <div>
-                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" onChange={(e) => setAddval(e.target.value)} />
+                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
                           </div>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}

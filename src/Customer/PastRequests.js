@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import dropdownImage from '../images/dropdown-img.png';
 import NewRequestShared from "./Sahred/NewRequestShared";
-import { get_past_requests_for_customer_admin } from "../reduxdata/rootAction";
+import { get_past_requests_for_customer_admin, get_review_request_data } from "../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from '../Common/ColorCode';
 import { format } from "date-fns";
@@ -29,21 +29,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   }, {});
 
   const handleView = (request) => {
-    console.log(request);
-    const data = {
-      _id: request?._id,
-      request_name: request?.request_name,
-      request_type: request?.request_type, 
-      delivery_date: request?.delivery_date,
-      description: request?.description,
-      size: request?.size,
-      file_type: request?.file_type,
-      transparency: request?.transparency,
-      references: request?.references,
-      brand_details: request?.brand_profile,
-      status: 'completed'
-    };
-    localStorage.setItem('requestData', JSON.stringify(data));
+    dispatch(get_review_request_data(request));
     navigate('/completed-request');
   };
 

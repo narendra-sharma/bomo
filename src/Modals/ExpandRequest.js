@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
 import designImage from "../images/nine-sixteen.png";
 import designImage2 from "../images/sixteen-nine.png";
+import designImage3 from "../images/nine-sixteen-1.png";
+import designImage4 from "../images/sixteen-nine2.png";
 import aepdesign from "../images/aep-image.png";
 import ColorCode from '../Common/ColorCode';
 import { connect } from 'react-redux';
@@ -34,7 +36,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
         // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-        const fileName = fileUrl?.substring(fileUrl.lastIndexOf("/") + 1);
+        const fileName = fileUrl?.substring(fileUrl?.lastIndexOf("/") + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
                 txt: "text/plain",

@@ -49,7 +49,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                     <span className="deadline-date status position-relative ps-3">
                       Deadline in{" "}
                       <span className="fw-bold">
-                        <CountdownTimer requestDate={request?.req_mail_date} />
+                        <CountdownTimer requestDate={request?.req_mail_date} duration={20 * 60 * 60 * 1000}/>
                       </span>
                     </span>
                   </div>
