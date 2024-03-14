@@ -141,7 +141,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                         <table className="table request-status designer-request-status table-borderless mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>Description</th>
+                                                    <th className="ps-0" width="300px">Description</th>
                                                     <th>Size</th>
                                                     <th>File Type </th>
                                                     <th>Transparency</th>
@@ -150,12 +150,12 @@ const DelieverRequest = ({ requestData, user }) => {
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><span className="d-block">{requestData?.description}</span>
+                                                    <td className="ps-0" width="300px"><span className="d-block">{requestData?.description}</span>
                                                     </td>
                                                     <td>{requestData?.size}<span className="d-block"></span></td>
                                                     <td>{requestData?.file_type}</td>
                                                     <td>{requestData?.transparency}</td>
-                                                    <td className="text-center">{requestData?.references}</td>
+                                                    <td className="text-end">{requestData?.references}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

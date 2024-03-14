@@ -56,7 +56,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                     <td className="text-center" style={{ width: "122px" }}>
                       <ColorCode request={request} />
                     </td>
-                    <td style={{ width: "100px" }}>
+                    <td style={{ width: "110px" }}>
                       <p>
                         <span className="fw-bold">
                           {request?.user_id?.company}
@@ -71,7 +71,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                     <td style={{ width: "78px" }}>
                       <p>{request?.request_name}</p>
                     </td>
-                    <td style={{ width: "112px" }}>
+                    <td style={{ width: "125px" }}>
                       <p>
                         <span
                           className="fw-bold cursor-pointer"
@@ -84,8 +84,8 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                         </span>{" "}
                       </p>
                     </td>
-                    <td style={{ width: "80px" }}>
-                      <div class="d-flex gap-2">
+                    <td style={{ width: "70px" }}>
+                      <div class="d-flex gap-1">
                         <div>
                           {isapprove[request?._id] === "accepted" ? (
                             <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">

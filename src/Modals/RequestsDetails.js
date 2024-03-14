@@ -59,7 +59,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                         </div>
                         <div className="col-md-7 col-12">
                             <div className="mb-4">
-                                <h2 className="h3 fw-bold">{data?.request_name}</h2>
+                                <h2 className="h3 fw-bold text-black">{data?.request_name}</h2>
                             </div>
                         </div>
 
@@ -88,26 +88,28 @@ const RequestDetails = ({ show, handleClose, data, user, filePath }) => {
                                     </div>
                                 </div> */}
                             </div>
-                            <div className="table-responsive">
+                            <div className="table-responsive expand-request">
                                 <table className="table table-borderless mb-0">
                                     <thead>
-                                        <th><p>Description</p></th>
-                                        <th style={{ width: "95px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                        <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                        <th ><p><span className="fw-bold d-block">Format</span></p> </th>
-                                        <th style={{ width: "135px" }}><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                        <tr>
+                                            <th className="ps-0" width="200px"><p>Description</p></th>
+                                            <th style={{ width: "95px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
+                                            <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
+                                            <th ><p><span className="fw-bold d-block">Format</span></p> </th>
+                                            <th className="pr-0" width="122px"><p><span className="fw-bold d-block">Alpha Background</span></p> </th>
+                                       </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td className="ps-0"  width="200px">
                                                 <p>
                                                     <span className="d-block">{data?.description}</span>
                                                 </p>
                                             </td>
-                                            <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
-                                            <td><p> {data?.size?.map((item => <span className="fw-bold d-block">{item}</span>))}</p></td>
-                                            <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
-                                            <td><p>{data?.transparency}</p></td>
+                                            <td><p><span className="d-block">{data?.references}</span> </p></td>
+                                            <td><p> {data?.size?.map((item => <span className="d-block">{item}</span>))}</p></td>
+                                            <td><p><span className="d-block">{data?.file_type}</span></p> </td>
+                                            <td className="pr-0"><p>{data?.transparency}</p></td>
                                         </tr>
                                     </tbody>
                                 </table>
