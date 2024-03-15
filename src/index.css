@@ -1069,7 +1069,7 @@ td.vertical-end {
   height: 33px;
 }
 .new-request-form textarea.form-control {
-  min-height: 220px;
+  min-height: 230px;
   padding: 20px 15px !important;
 }
 .request-type .request-list {
@@ -2130,6 +2130,7 @@ button.accordion-button.collapsed .late-request-section {
 }
 .expand-request .review-content .short0ad {
   padding: 4px 20px;
+  font-size: 13px;
 }
 .delivery-status button {
   font-size: 14px;
@@ -2450,8 +2451,12 @@ table.table-green{
 .expand-request table tr td{
   padding: 0 13px;
 }
-.expand-request table tr p{
-  font-size:14px
+.expand-request .review-content p , .expand-request-data p{
+  font-size:14px;
+  color:#000;
+}
+.word-break{
+  word-break:break-all
 }
 .pr-0{
   padding-right: 0!important;

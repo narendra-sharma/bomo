@@ -226,19 +226,18 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                             </div>
                         </div>
                         <div className="col-md-12 mt-3">
-                            <div class="table-responsive">
-                                <table class="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td className="ps-0" width="390px" style={{paddingRight:'70px'}}>
+                            
+                                        <div className="row">
+                                            <div className="col-md-4" >
                                                 <p>
                                                     <span className="d-block fw-bold ps-0">Description</span>
                                                     <span className="d-block">{expanddetails?.req_data?.description}
                                                     </span>
                                                     {/* <span className="d-block">Where is this going to appear?</span> */}
                                                 </p>
-                                            </td>
-                                            <td>
+                                            </div>
+                                           
+                                            <div className="col-md-1">
                                                <div className="float-right">
                                                     <p>
                                                         <span className="fw-bold d-block">Size</span>
@@ -246,16 +245,13 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                         <span className="d-block">{item} </span>
                                                     ))}</p>
                                                 </div>
-                                            </td>
-                                            <td width="84px"><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></td>
-                                            <td><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </td>
-                                            <td className="p-0">
-                                                <div className="float-right"><p><span className="fw-bold d-block">References</span> {expanddetails?.req_data?.references}</p>
-                                                </div>
-                                            </td>
-                                            <td><p>{expanddetails?.req_data?.file_type}</p></td>
-                                            <td><p>{expanddetails?.req_data?.transparency}</p> </td>
-                                            <td>
+                                            </div>
+                                          
+                                            <div className="col-md-1"><p> <span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></div>
+                                            <div className="col-md-2"><p> <span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </div>
+                                            <div className="col-md-2"></div>
+                                            <div className="p-0 col-md-2" >
+                                               <div className=""><p className="word-break"><span className="fw-bold d-block">References</span>   
                                                 {expanddetails?.req_data?.references?.includes('https') ?
                                                     <Link
                                                         className="text-decoration-none"
@@ -268,11 +264,11 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                         {expanddetails?.req_data?.references}
                                                     </span>
                                                 }
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                                </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
                         </div>
                         {expanddetails?.delivery_data?.map((request, index) =>
                             <div key={index}>

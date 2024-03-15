@@ -98,35 +98,30 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                     </div>
                                 </div> */}
                             </div>
-                            <div className="table-responsive expand-request">
-                                <table className="table table-borderless mb-0">
-                                   
-                                    <tbody> 
-                                        <tr>
-                                            <td className="ps-0" width="300px" style={{paddingRight:'25px'}}>
-                                                <p>
-                                                    <span className="fw-bold d-block">Description</span>
-                                                    <span className="d-block">{data?.description}</span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>
+                                   <div className="row expand-request-data">
+                                        <div className="col-md-4">
+                                            
+                                            <p>
+                                                <span className="fw-bold d-block">Description</span>
+                                                <span className="d-block">{data?.description}</span>
+                                            </p>
+                                            </div>
+                                            <div className="col-md-3">
+                                                <p className="word-break">
                                                     <span className="fw-bold d-block">Reference</span>
                                                     <span className="d-block">{data?.references}</span>
                                                  </p>
-                                            </td>
-                                            <td><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item => 
-                                              <span className="d-block">{item}</span>))}</p></td>
-                                            <td><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </td>
-                                            <td className="pr-0">
+                                            </div>
+                                            <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item => 
+                                              <span className="d-block">{item}</span>))}</p></div>
+                                            <div className="col-md-1"><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </div>
+                                            <div className="col-md-2">
                                                 <div className="float-right">
-                                                    <p> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
+                                                    <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </div>
+                                    
                             {reqaccept ?
                                 <div className="mt-4 row justify-content-between">
                                     <div className="col-md-6 status-btn">
