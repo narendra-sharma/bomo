@@ -119,15 +119,15 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
                                     <div class={`${expanddetails?.req_data?.brief_rejected_at ? "step" : ''}`}>
                                         {expanddetails?.req_data?.brief_rejected_at &&
-                                            <div>
+                                            expanddetails?.req_data?.brief_rejected_at?.map((item) => <div>
                                                 <p className="brief-content">Brief Rejected</p>
                                                 <div class="deliver-status delivery-cancel">
                                                     <span><i class="fa-solid fa-circle-xmark"></i></span>
                                                 </div>
                                                 <p className="brief-date">
-                                                    {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
-                                                    <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
-                                            </div>}
+                                                    {format(new Date(item), 'dd/MM/yyyy')}
+                                                    <span className="d-block">{formattedTime(item)}</span></p>
+                                            </div>)}
                                     </div>
 
                                     <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>
@@ -230,7 +230,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                 <table class="table table-borderless mb-0">
                                     <tbody>
                                         <tr>
-                                            <td className="ps-0" width="390px" style={{paddingRight:'70px'}}>
+                                            <td className="ps-0" width="390px" style={{ paddingRight: '70px' }}>
                                                 <p>
                                                     <span className="d-block fw-bold ps-0">Description</span>
                                                     <span className="d-block">{expanddetails?.req_data?.description}
@@ -239,35 +239,32 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                 </p>
                                             </td>
                                             <td>
-                                               <div className="float-right">
+                                                <div className="float-right">
                                                     <p>
                                                         <span className="fw-bold d-block">Size</span>
                                                         {expanddetails?.req_data?.size?.map((item) => (
-                                                        <span className="d-block">{item} </span>
-                                                    ))}</p>
+                                                            <span className="d-block">{item} </span>
+                                                        ))}</p>
                                                 </div>
                                             </td>
                                             <td width="84px"><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></td>
                                             <td><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </td>
                                             <td className="p-0">
-                                                <div className="float-right"><p><span className="fw-bold d-block">References</span> {expanddetails?.req_data?.references}</p>
+                                                <div className="float-right"><p><span className="fw-bold d-block">References</span>
+                                                    {expanddetails?.req_data?.references?.includes('https') ?
+                                                        <Link
+                                                            className="text-decoration-none"
+                                                            to={`${expanddetails?.req_data?.references}`}
+                                                            target="_blank"
+                                                        >
+                                                            {expanddetails?.req_data?.references}
+                                                        </Link>
+                                                        : <span className="d-block">
+                                                            {expanddetails?.req_data?.references}
+                                                        </span>
+                                                    }
+                                                </p>
                                                 </div>
-                                            </td>
-                                            <td><p>{expanddetails?.req_data?.file_type}</p></td>
-                                            <td><p>{expanddetails?.req_data?.transparency}</p> </td>
-                                            <td>
-                                                {expanddetails?.req_data?.references?.includes('https') ?
-                                                    <Link
-                                                        className="text-decoration-none"
-                                                        to={`${expanddetails?.req_data?.references}`}
-                                                        target="_blank"
-                                                    >
-                                                        {expanddetails?.req_data?.references}
-                                                    </Link>
-                                                    : <span className="d-block">
-                                                        {expanddetails?.req_data?.references}
-                                                    </span>
-                                                }
                                             </td>
                                         </tr>
                                     </tbody>
@@ -284,7 +281,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                 <p>{format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
                                             </div>
 
-                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                            {request?.landscape && <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[0]}</div>
                                                     <div className="">
@@ -298,8 +295,8 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                     </div>
 
                                                 </div>
-                                            </div>
-                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                            </div>}
+                                            {request?.portrait && <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[1]}</div>
                                                     <div className="">
@@ -313,7 +310,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                     </div>
 
                                                 </div>
-                                            </div>
+                                            </div>}
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">{expanddetails?.req_data?.file_type}</div>

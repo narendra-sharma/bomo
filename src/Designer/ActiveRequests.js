@@ -7,7 +7,7 @@ import {
 } from "../reduxdata/rootAction";
 import { format } from "date-fns";
 import ColorCode from "../Common/ColorCode";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmptyList from "../Common/EmptyList";
 import CountdownTimer from "../Common/CountdownTimer";
 import { saveAs } from "file-saver";
@@ -38,34 +38,60 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
     dispatch(deliever_request_details(requestdata));
   };
 
-    const handleDownload = async (fileUrl) => {
-      const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
-      const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
-        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
-        const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
-        const getMimeType = (ext) => {
-            const mimeTypes = {
-                txt: 'text/plain',
-                pdf: 'application/pdf',
-                zip: 'application/zip',
-                jpg: 'image/jpeg',
-                jpeg: 'image/jpeg',
-                png: 'image/png',
-                gif: 'image/gif',
-                ai: 'application/postscript',
-                svg: 'image/svg+xml',
-                psd: 'image/vnd.adobe.photoshop',
-              };
-            return mimeTypes[ext] || 'application/octet-stream';
-        };
-
-        const response = await fetch(fileContent);
-        const blobFile = await response.blob();
-        const fileExtension = fileName?.split(".").pop().toLowerCase();
-        const mimeType = getMimeType(fileExtension);
-        const blobwithtype = new Blob([blobFile], { type: mimeType });
-        saveAs(blobwithtype, fileName);
+  const handleDownload = async (fileUrl) => {
+    const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
+    const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+    // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
+    const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
+    const getMimeType = (ext) => {
+      const mimeTypes = {
+        txt: 'text/plain',
+        pdf: 'application/pdf',
+        zip: 'application/zip',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        png: 'image/png',
+        gif: 'image/gif',
+        ai: 'application/postscript',
+        svg: 'image/svg+xml',
+        psd: 'image/vnd.adobe.photoshop',
+      };
+      return mimeTypes[ext] || 'application/octet-stream';
     };
+
+    const response = await fetch(fileContent);
+    const blobFile = await response.blob();
+    const fileExtension = fileName?.split(".").pop().toLowerCase();
+    const mimeType = getMimeType(fileExtension);
+    const blobwithtype = new Blob([blobFile], { type: mimeType });
+    saveAs(blobwithtype, fileName);
+  };
+  const DownloadAll = (filesUrl) => {
+    filesUrl.forEach(async (url) => {
+      const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+      const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+      const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+      const getMimeType = (ext) => {
+        const mimeTypes = {
+          txt: "text/plain",
+          pdf: "application/pdf",
+          zip: "application/zip",
+          jpg: "image/jpeg",
+          jpeg: "image/jpeg",
+          png: "image/png",
+          gif: "image/gif",
+        };
+        return mimeTypes[ext] || "application/octet-stream";
+      };
+
+      const response = await fetch(fileContent);
+      const blobFile = await response.blob();
+      const fileExtension = fileName?.split(".").pop().toLowerCase();
+      const mimeType = getMimeType(fileExtension);
+      const blobwithtype = new Blob([blobFile], { type: mimeType });
+      saveAs(blobwithtype, fileName);
+    })
+  };
 
   return (
     <>
@@ -93,12 +119,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                         <div className="col-md-5 col-12">
                           <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                          <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
-                            {/* <p class="short0ad dor rounded-pill">
-                              {request?.brand_profile?.brandname
-                                ? request?.brand_profile?.brandname
-                                : "-"}
-                            </p> */}
+                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
                             <span class="deadline-date status position-relative deliver-now-btn">
                               Deadline in{" "}
                               <span class="fw-bold">
@@ -114,7 +135,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                           <div className="d-flex align-items-center">
                             <ColorCode request={request} />
                             <p
-                              className="brand-assets-btn rounded"
+                              className="brand-assets-btn rounded cursor-pointer"
                               onClick={() =>
                                 handleDownload(
                                   `${request?.brand_profile?.brandassests}`
@@ -124,7 +145,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                               Brand Assets
                             </p>
                           </div>
-                        
+
                           <div className="row">
                             <div className="col-md-4"> </div>
                             <div className="col-md-3">
@@ -132,8 +153,8 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                 <span className="fw-bold d-block">
                                   Status
                                 </span>
-                              
-                              {request?.status}
+
+                                {request?.status && 'Production'}
                               </p>
                             </div>
                             <div className="col-md-3">
@@ -144,21 +165,21 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                 {!request?.delivery_date
                                   ? "No Date"
                                   : format(
-                                      new Date(request?.delivery_date),
-                                      "dd/MM/yyyy"
-                                    )}
+                                    new Date(request?.delivery_date),
+                                    "dd/MM/yyyy"
+                                  )}
                               </p>
                             </div>
                             <div className="col-md-2 ">
-                              
-                                <div className="position-absolute">
-                                  <p>
-                                    <span className="fw-bold d-block">
-                                      Transparency
-                                    </span>
-                                  </p>{" "}
-                                  {request?.transparency}
-                                
+
+                              <div className="position-absolute">
+                                <p>
+                                  <span className="fw-bold d-block">
+                                    Transparency
+                                  </span>
+                                </p>{" "}
+                                {request?.transparency}
+
                               </div>
                             </div>
                           </div>
@@ -178,7 +199,12 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                 <span className="fw-bold d-block">
                                   Reference
                                 </span>{" "}
-                                {request?.references}
+                                {request?.references?.includes('http') ?
+                                  <Link className="text-decoration-none" to={`${request?.references}`} target="_blank">
+                                    {request?.references}
+                                  </Link>
+                                  : <span className="d-block">{request?.references}</span>
+                                }
                               </p>
                             </div>
                             <div className="col-md-3">
@@ -187,7 +213,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   Deliverables
                                 </span>
                                 {request?.size?.map((item) => <span className="d-block">{item}</span>)}
-                                
+
                                 <br />
                               </p>
                             </div>
@@ -201,15 +227,11 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                 {request?.file_type}
                               </div>
                             </div>
-                            
+
                           </div>
-                              
-                          <div
-                            className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center"
-                            onClick={() =>
-                              handleDownload(`${request?.brand_profile?.logo}`)
-                            }
-                          >
+
+                          <div className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center cursor-pointer"
+                            onClick={() => DownloadAll(request?.file)}>
                             Project Assets
                           </div>
                         </div>

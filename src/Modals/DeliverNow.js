@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { designer_deliever_request, get_approve_delivery_list } from "../reduxdata/rootAction";
+import { deliever_request_details, designer_deliever_request, get_approve_delivery_list } from "../reduxdata/rootAction";
 import DeliverSuccess from "./DeliverSuccess";
 import Draggable from "react-draggable";
 import { SUBMIT_NOW } from "../reduxdata/Requests/requestTypes";
@@ -45,6 +45,7 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
             type: SUBMIT_NOW,
             payload: false
         });
+        dispatch(deliever_request_details(null));
     };
 
     return (

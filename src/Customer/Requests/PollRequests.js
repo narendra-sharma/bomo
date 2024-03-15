@@ -7,6 +7,9 @@ import RequestDetails from "../../Modals/RequestsDetails";
 import EmptyList from "../../Common/EmptyList";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Common/CountdownTimer";
+import ApplySuccess from "../../Modals/ApplySuccess";
+
+const { REACT_APP_BOMO_URL } = process.env;
 
 const PollRequests = ({ user, pollrequests }) => {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ const PollRequests = ({ user, pollrequests }) => {
   const [isvisible, setIsvisible] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
+  const [isPop,setIsPop] = useState(false);
 
   const toogleVisibility = () => {
     if (window.scrollY > 300) {
@@ -41,6 +45,8 @@ const PollRequests = ({ user, pollrequests }) => {
     let applyrequest = requestdata._id;
     await poll_request_apply(applyrequest, dispatch, user?.token);
     checkpool();
+    setSelectedData(requestdata)
+    setIsPop(true);
   };
 
   useEffect(() => {
@@ -80,7 +86,7 @@ const PollRequests = ({ user, pollrequests }) => {
               <div className="col-md-11 col-lg-10 d-flex align-items-center">
                 <div className="d-flex align-items-center" onClick={() => handleView(request)}>
                   <ColorCode request={request} reqtype='poll' />
-                  <p className="short0ad dor rounded-pill">{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p>
+                  <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
                 {request?.applied && <div className="poll-apply-sucess">
@@ -133,6 +139,7 @@ const PollRequests = ({ user, pollrequests }) => {
         </div>
       </div>
       <RequestDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} />
+      <ApplySuccess show={isPop} handleClose={() => setIsPop(false)} data={selectedData}/>
     </>
   )
 };

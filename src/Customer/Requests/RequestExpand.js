@@ -24,8 +24,6 @@ const RequestExpand = ({ user, deliverrequests }) => {
         }
     }, []);
 
-    console.log(receivedData);
-
     useEffect(() => {
         if (receivedData?._id) {
             get_delivered_requests(dispatch, user?.token, receivedData?._id);
@@ -149,31 +147,32 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                             <span className="d-block h6">
                                                 {formatDate(receivedData?.delivery_date)}
                                             </span>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="table-responsive">
                                     <table className="table request-status designer-request-status table-borderless mb-0">
-                                      
+
                                         <tbody>
                                             <tr>
-                                                <td className="ps-0"  width="300px" style={{paddingRight:"70px"}}>
-                                                <span className="fw-bold d-block">Description</span>
+                                                <td className="ps-0" width="300px" style={{ paddingRight: "70px" }}>
+                                                    <span className="fw-bold d-block">Description</span>
                                                     <span className="d-block">
                                                         {receivedData?.description}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                <span className="fw-bold d-block">Size</span>
+                                                    <span className="fw-bold d-block">Size</span>
                                                     {receivedData?.size?.map((value) => (
                                                         <span className="d-block">{value}</span>
                                                     ))}
                                                 </td>
-                                                <td>{receivedData?.file_type}</td>
-                                                <td>{receivedData?.transparency}</td>
+                                                <td><span className="fw-bold d-block">File Type</span>{receivedData?.file_type}</td>
+                                                <td><span className="fw-bold d-block">Transparency</span>{receivedData?.transparency}</td>
                                                 <td className="text-end">
+                                                    <span className="fw-bold d-block">References</span>
                                                     {receivedData?.references?.includes('https') ?
                                                         <Link
                                                             className="text-decoration-none"
@@ -380,14 +379,14 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-4 d-flex text-center justify-content-center">
+                                {receivedData?.size[1] && <div className="col-md-4 d-flex text-center justify-content-center">
                                     <div className="statusbar-section d-flex flex-column justify-content-evenly">
                                         <div className="delivery-status fw-bold">{receivedData?.size[1]}</div>
                                         <div className="">
                                             <img src={designImage4} alt="Imag" />
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     )}

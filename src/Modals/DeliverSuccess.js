@@ -11,12 +11,10 @@ const DeliverSuccess = ({show,handleClose,data,user}) => {
                     <div className="d-flex align-items-center justify-content-end mb-3">
                         <img src={pay_success} alt='img not found' />
                     </div>
-                    <span className="mb-0 fw-bold ">{user?.name}</span><span>, you succesfully delivered</span>
-                    <h4 className="mb-5 text-dark">{data?.request_name}</h4>
+                    <span className="fw-bold">{user?.name}</span><span>, you succesfully delivered</span>
+                    <p className="fw-bold">{data?.request_name}</p>
                     <p className="text-mute">
-                        We are reviewing the assests,
-                        <br />
-                       we'll only let you if any layer is missing
+                       Well done! Files are being reviewed, just sit back and relax.
                     </p>
                 </div>
             </Modal.Body>
