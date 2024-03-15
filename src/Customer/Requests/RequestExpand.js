@@ -154,43 +154,53 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="table-responsive">
-                                    <table className="table request-status designer-request-status table-borderless mb-0">
-                                      
-                                        <tbody>
-                                            <tr>
-                                                <td className="ps-0"  width="300px" style={{paddingRight:"70px"}}>
-                                                <span className="fw-bold d-block">Description</span>
-                                                    <span className="d-block">
-                                                        {receivedData?.description}
+                               
+                                <div className="row expand-request-data">
+                                    <div className="col-md-4">
+                                        <p>
+                                           <span className="fw-bold d-block">Description</span>
+                                            <span className="d-block">
+                                                {receivedData?.description}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className="col-md-1">
+                                    <p>
+                                        <span className="fw-bold d-block">Size</span>
+                                        
+                                            {receivedData?.size?.map((value) => (
+                                                <span className="d-block">{value}</span>
+                                            ))}
+                                        </p>
+                                    </div>
+                                    <div className="col-md-2">
+                                        <p> <span className="fw-bold d-block">File Type</span>
+                                    {receivedData?.file_type}</p>
+                                    </div>
+                                    <div className="col-md-3">
+                                        <p> <span className="fw-bold d-block">Transparency</span> {receivedData?.transparency}</p>
+                                    </div>
+                                    <div className="p-0 col-md-2">
+                                        <div className="">
+                                        <p className="word-break">
+                                            <span className="fw-bold d-block">References</span> 
+                                                {receivedData?.references?.includes('https') ?
+                                                    <Link
+                                                        className="text-decoration-none"
+                                                        to={`${receivedData?.references}`}
+                                                        target="_blank"
+                                                    >
+                                                        {receivedData?.references}
+                                                    </Link>
+                                                    : <span className="d-block">
+                                                        {receivedData?.references}
                                                     </span>
-                                                </td>
-                                                <td>
-                                                <span className="fw-bold d-block">Size</span>
-                                                    {receivedData?.size?.map((value) => (
-                                                        <span className="d-block">{value}</span>
-                                                    ))}
-                                                </td>
-                                                <td>{receivedData?.file_type}</td>
-                                                <td>{receivedData?.transparency}</td>
-                                                <td className="text-end">
-                                                    {receivedData?.references?.includes('https') ?
-                                                        <Link
-                                                            className="text-decoration-none"
-                                                            to={`${receivedData?.references}`}
-                                                            target="_blank"
-                                                        >
-                                                            {receivedData?.references}
-                                                        </Link>
-                                                        : <span className="d-block">
-                                                            {receivedData?.references}
-                                                        </span>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
+                                        
                             </div>
 
                             <div>
