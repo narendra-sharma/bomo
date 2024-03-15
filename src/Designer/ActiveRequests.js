@@ -145,7 +145,6 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                               Brand Assets
                             </p>
                           </div>
-
                           <div className="row">
                             <div className="col-md-4"> </div>
                             <div className="col-md-3">
@@ -179,9 +178,9 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   </span>
                                 </p>{" "}
                                 {request?.transparency}
-
                               </div>
                             </div>
+                           
                           </div>
                           <div className="row">
                             <div className="col-md-4">
@@ -220,14 +219,15 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                             <div className="col-md-2 position-relative">
                               <div className="position-absolute">
                                 <p>
-                                  <span className="fw-bold d-block pr-0">
-                                    Format
+                                  <span className="fw-bold d-block">
+                                    Description
                                   </span>
-                                </p>{" "}
-                                {request?.file_type}
+                                  <span className="d-block">
+                                    {request?.description}
+                                  </span>
+                                </p>
                               </div>
                             </div>
-
                           </div>
 
                           <div className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center cursor-pointer"

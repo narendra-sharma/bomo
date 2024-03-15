@@ -1823,12 +1823,11 @@ nav p.user-email {
 .header-user-profile:hover p.user-email {
   color: #6d3ff3;
 }
-.header-user-img {
+.header-user-img , .header-user-profile img {
   transition: 0.25s ease-in-out;
 }
-.header-user-profile:hover .header-user-img {
-  width: 35px !important;
-  height: 35px !important;
+.header-user-profile:hover img , .header-user-profile:hover .header-user-img {
+  transform: scale(1.2);
   transition: 0.25s ease-in-out;
 }
 .header-request-btn button {

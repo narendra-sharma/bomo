@@ -128,9 +128,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                                         <span className="d-block fw-bold">Description</span>
                                                         <span className="d-block">{data?.description}</span>
                                                     </p>
-                                                </td>
-                                                <td>
-                                                    <p>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <p className="word-break">
                                                         <span className="fw-bold d-block">Reference</span>
                                                         {data?.references?.includes('http') ?
                                                             <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
@@ -139,13 +139,11 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                                             : <span className="d-block">{data?.references}</span>
                                                         }
                                                     </p>
-                                                </td>
-                                                <td><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></td>
-                                                <td><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </td>
-                                                <td><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                </div>
+                                                <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>
+                                                <div className="col-md-1"><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </div>
+                                                <div className="col-md-2"><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></div>
+                                           
                                 </div>
                                 <div className="mt-4">
                                     <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2" onClick={() => handleDeliever(data)}>DELIVERY NOW</button>
