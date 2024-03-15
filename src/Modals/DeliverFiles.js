@@ -16,6 +16,7 @@ const DeliverFiles = ({show,onClose,requestdata}) => {
             transparency: requestdata?.transparency,
             references: requestdata?.references,
             brandname: requestdata?.brand_profile?.brandname,
+            file: requestdata?.file,
             status: 'completed' 
         };
         localStorage.setItem('requestData', JSON.stringify(data));
@@ -27,7 +28,7 @@ const DeliverFiles = ({show,onClose,requestdata}) => {
                 <div className="py-5 px-60 rounded">
                     <div className="review-main-content review-delvery-popup p-5 rounded text-center extra-dark-green">
                         <h1 className="extra-dark-green h2 fw-bold mt-3">Congratulation</h1>
-                        <h4>Your delivery for <span className="fw-bold">Transition Brand Video </span>
+                        <h4>Your delivery for <span className="fw-bold">{requestdata?.request_name}</span>
                             <span className="d-block">has been approved and files are ready</span></h4>
                         <div className="my-5 pt-3 pb-4">
                             <button className="review-btn fw-bold rounded-pill px-2" onClick={handleRequest}>Get My files</button>

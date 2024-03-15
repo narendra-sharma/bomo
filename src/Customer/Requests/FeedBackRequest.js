@@ -47,7 +47,8 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
       brand_details: request?.brand_profile,
-      priority: request?.priority
+      priority: request?.priority,
+      file: request?.file,
     };
     localStorage.setItem('requestData', JSON.stringify(data));
     navigate('/request-expand');

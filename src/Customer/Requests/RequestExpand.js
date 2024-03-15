@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
-import { get_delivered_requests, get_edit_request_data } from "../../reduxdata/rootAction";
+import { get_delivered_requests } from "../../reduxdata/rootAction";
 import { connect, useDispatch } from "react-redux";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
 import { saveAs } from "file-saver";
 import designImage3 from "../../images/nine-sixteen-1.png";
 import designImage4 from "../../images/sixteen-nine2.png";
+import { Link } from "react-router-dom";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -20,9 +21,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
         setReceivedData(requestdetails);
         return () => {
             localStorage.removeItem('requestData');
-            dispatch(get_edit_request_data(null));
         }
     }, []);
+
+    console.log(receivedData);
 
     useEffect(() => {
         if (receivedData?._id) {
@@ -48,7 +50,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
         return `${hours}:${minutes}`;
     };
     const handleDownload = async (fileUrl) => {
-        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
         // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf("/") + 1);
@@ -71,6 +73,33 @@ const RequestExpand = ({ user, deliverrequests }) => {
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
         saveAs(blobwithtype, fileName);
+    };
+
+    const DownloadAll = (filesUrl) => {
+        filesUrl.forEach(async (url) => {
+            const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+            const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+            const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+            const getMimeType = (ext) => {
+                const mimeTypes = {
+                    txt: "text/plain",
+                    pdf: "application/pdf",
+                    zip: "application/zip",
+                    jpg: "image/jpeg",
+                    jpeg: "image/jpeg",
+                    png: "image/png",
+                    gif: "image/gif",
+                };
+                return mimeTypes[ext] || "application/octet-stream";
+            };
+
+            const response = await fetch(fileContent);
+            const blobFile = await response.blob();
+            const fileExtension = fileName?.split(".").pop().toLowerCase();
+            const mimeType = getMimeType(fileExtension);
+            const blobwithtype = new Blob([blobFile], { type: mimeType });
+            saveAs(blobwithtype, fileName);
+        })
     };
 
     const getPrioritySuffix = (priority) => {
@@ -104,9 +133,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 <div className="review-content mt-3">
                                     <div className="d-flex">
                                         <ColorCode request={receivedData} />
-                                        {/* <p className="short0ad dor rounded-pill ms-2"></p> */}
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36"/>
-                                        <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36" />
+                                        <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +180,18 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                 <td>{receivedData?.file_type}</td>
                                                 <td>{receivedData?.transparency}</td>
                                                 <td className="text-end">
-                                                    {receivedData?.references}
+                                                    {receivedData?.references?.includes('https') ?
+                                                        <Link
+                                                            className="text-decoration-none"
+                                                            to={`${receivedData?.references}`}
+                                                            target="_blank"
+                                                        >
+                                                            {receivedData?.references}
+                                                        </Link>
+                                                        : <span className="d-block">
+                                                            {receivedData?.references}
+                                                        </span>
+                                                    }
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -285,7 +324,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     ) : (
                                         <div></div>
                                     )}
-                                    {((!receivedData?.status==='completed')) &&
+                                    {((!receivedData?.status === 'completed')) &&
                                         <div className="delivery-status-section active-request p-5 rounded mt-4">
                                             <div className="row justify-content-center">
                                                 <div className="col-md-4 justify-content-center align-self-center">
