@@ -51,9 +51,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll">
+            <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll logout-popup">
                 <Modal.Body>
-                    <div className=" px-5 py-5 px-md-5 review-content ">
+                    <div className="px-5 py-5 review-content ">
                         <div className="row align-items-center">
                             <div className="col-md-7 col-12">
                                 <div className="mb-4">
@@ -96,24 +96,23 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 </div>
                                 <div className="table-responsive">
                                     <table className="table table-borderless mb-0">
-                                        <thead>
-                                            <th><p>Description</p></th>
-                                            <th><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                            <th><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                            <th><p><span className="fw-bold d-block">Format</span></p> </th>
-                                            <th><p><span className="fw-bold d-block">Transparency</span></p> </th>
-                                        </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td class="ps-0" width="230px" style={{paddingRight:"30px"}}>
                                                     <p>
+                                                    <span className="d-block fw-bold">Description</span>
                                                         <span className="d-block">{data?.description}</span>
                                                     </p>
                                                 </td>
-                                                <td><p><span className="fw-bold d-block">{data?.references}</span> </p></td>
-                                                <td><p>{data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></td>
-                                                <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
-                                                <td><p>{data?.transparency}</p></td>
+                                                <td>
+                                                    <p>
+                                                        <span className="fw-bold d-block">Reference</span>
+                                                        <span className="fw-bold d-block">{data?.references}</span> 
+                                                    </p>
+                                                </td>
+                                                <td><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></td>
+                                                <td><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </td>
+                                                <td><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></td>
                                             </tr>
                                         </tbody>
                                     </table>

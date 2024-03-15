@@ -123,7 +123,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                 <div className="col-md-7 col-lg-6 mb-4">
                                     <h3>{requestData?.request_name}</h3>
                                     <div className="review-content mt-3">
-                                        <div className="d-flex">
+                                        <div className="d-flex align-items-center">
                                             <ColorCode request={requestData} />
                                             <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
                                             {/* <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p> */}
@@ -143,23 +143,19 @@ const DelieverRequest = ({ requestData, user }) => {
                                 <div className="col-md-12">
                                     <div className="table-responsive">
                                         <table className="table request-status designer-request-status table-borderless mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Description</th>
-                                                    <th>Size</th>
-                                                    <th>File Type </th>
-                                                    <th>Transparency</th>
-                                                    <th className="text-end">References</th>
-                                                </tr>
-                                            </thead>
+                                            
                                             <tbody>
                                                 <tr>
-                                                    <td><span className="d-block">{requestData?.description}</span>
+                                                    <td className="ps-0" width="360px" style={{"paddingRight":"25px"}}>
+                                                    <span className="d-block fw-bold">Description</span>
+                                                     <span className="d-block">{requestData?.description}</span>
                                                     </td>
-                                                    <td>{requestData?.size?.map((item) => <span className="d-block">{item}</span>)}</td>
-                                                    <td>{requestData?.file_type}</td>
-                                                    <td>{requestData?.transparency}</td>
-                                                    <td className="text-center">{requestData?.references}</td>
+                                                    <td> <span className="d-block fw-bold">Size</span> {requestData?.size?.map((item) => <span className="d-block">{item}</span>)}</td>
+                                                    <td><span className="d-block fw-bold">File Type </span> {requestData?.file_type}</td>
+                                                    <td><span className="d-block fw-bold">Transparency </span> {requestData?.transparency}</td>
+                                                    <td className="">
+                                                        <div className="text-end">
+                                                            <span className="d-block fw-bold">References</span> {requestData?.references}</div></td>
                                                 </tr>
                                             </tbody>
                                         </table>

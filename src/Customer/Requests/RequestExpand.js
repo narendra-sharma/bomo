@@ -131,7 +131,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             <div className="col-md-7 col-lg-6 mb-4">
                                 <h3>{receivedData?.request_name}</h3>
                                 <div className="review-content mt-3">
-                                    <div className="d-flex">
+                                    <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
                                         <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36" />
                                         <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
@@ -149,30 +149,24 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                             <span className="d-block h6">
                                                 {formatDate(receivedData?.delivery_date)}
                                             </span>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="table-responsive">
                                     <table className="table request-status designer-request-status table-borderless mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Description</th>
-                                                <th>Size</th>
-                                                <th>File Type </th>
-                                                <th>Transparency</th>
-                                                <th className="text-end">References</th>
-                                            </tr>
-                                        </thead>
+                                      
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td className="ps-0"  width="300px" style={{paddingRight:"70px"}}>
+                                                <span className="fw-bold d-block">Description</span>
                                                     <span className="d-block">
                                                         {receivedData?.description}
                                                     </span>
                                                 </td>
                                                 <td>
+                                                <span className="fw-bold d-block">Size</span>
                                                     {receivedData?.size?.map((value) => (
                                                         <span className="d-block">{value}</span>
                                                     ))}
