@@ -125,13 +125,11 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                             <td><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </td>
                                             <td className="pr-0">
                                                 <div className="float-right">
-                                                    <p> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
+                                                    <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </div>
+                                        </div>
+                                    
                             {reqaccept ?
                                 <div className="mt-4 row justify-content-between">
                                     <div className="col-md-6 status-btn">

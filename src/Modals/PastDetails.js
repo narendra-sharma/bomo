@@ -131,7 +131,9 @@ const PastDetails = ({ show, handleClose, data }) => {
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
+                                    
                         </div>
                     </div>
                 </div>

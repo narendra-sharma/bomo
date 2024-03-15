@@ -240,6 +240,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             </td>
                                             <td>
                                                 <div className="float-right">
+
                                                     <p>
                                                         <span className="fw-bold d-block">Size</span>
                                                         {expanddetails?.req_data?.size?.map((item) => (
