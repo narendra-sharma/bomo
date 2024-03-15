@@ -100,26 +100,29 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                             </div>
                             <div className="table-responsive expand-request">
                                 <table className="table table-borderless mb-0">
-                                    <thead>
+                                   
+                                    <tbody> 
                                         <tr>
-                                            <th className="ps-0" width="275px"><p>Description</p></th>
-                                            <th style={{ width: "95px" }}><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                            <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                            <th ><p><span className="fw-bold d-block">Format</span></p> </th>
-                                            <th className="pr-0" width="122px"><p><span className="fw-bold d-block">Transparency</span></p> </th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="ps-0"  width="275px">
+                                            <td className="ps-0" width="300px" style={{paddingRight:'25px'}}>
                                                 <p>
+                                                    <span className="fw-bold d-block">Description</span>
                                                     <span className="d-block">{data?.description}</span>
                                                 </p>
                                             </td>
-                                            <td><p><span className="d-block">{data?.references}</span> </p></td>
-                                            <td><p> {data?.size?.map((item => <span className="d-block">{item}</span>))}</p></td>
-                                            <td><p><span className="d-block">{data?.file_type}</span></p> </td>
-                                            <td className="pr-0"><p>{data?.transparency}</p></td>
+                                            <td>
+                                                <p>
+                                                    <span className="fw-bold d-block">Reference</span>
+                                                    <span className="d-block">{data?.references}</span>
+                                                 </p>
+                                            </td>
+                                            <td><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item => 
+                                              <span className="d-block">{item}</span>))}</p></td>
+                                            <td><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </td>
+                                            <td className="pr-0">
+                                                <div className="float-right">
+                                                    <p> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

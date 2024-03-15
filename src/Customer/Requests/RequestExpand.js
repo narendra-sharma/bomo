@@ -121,38 +121,37 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                             <span className="d-block h6">
                                                 {formatDate(receivedData?.delivery_date)}
                                             </span>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-12">
                                 <div className="table-responsive">
                                     <table className="table request-status designer-request-status table-borderless mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th className="ps-0" width="300px">Description</th>
-                                                <th>Size</th>
-                                                <th>File Type </th>
-                                                <th>Transparency</th>
-                                                <th className="text-end">References</th>
-                                            </tr>
-                                        </thead>
+                                      
                                         <tbody>
                                             <tr>
-                                                <td className="ps-0"  width="300px">
+                                                <td className="ps-0"  width="300px" style={{paddingRight:"70px"}}>
+                                                <span className="fw-bold d-block">Description</span>
                                                     <span className="d-block">
                                                         {receivedData?.description}
                                                     </span>
                                                 </td>
                                                 <td>
+                                                <span className="fw-bold d-block">Size</span>
                                                     {receivedData?.size?.map((value) => (
                                                         <span className="d-block">{value}</span>
                                                     ))}
                                                 </td>
-                                                <td>{receivedData?.file_type}</td>
-                                                <td>{receivedData?.transparency}</td>
-                                                <td className="text-end">
+                                                <td><span className="fw-bold d-block">File Type </span>
+                                                    {receivedData?.file_type}</td>
+                                                <td><span className="fw-bold d-block">Transparency</span>
+                                                    {receivedData?.transparency}</td>
+                                                <td className="float-right">
+                                                    <div><span className="fw-bold d-block">References</span>
                                                     {receivedData?.references}
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                         </tbody>
