@@ -21,7 +21,7 @@ const ApproveStatus = ({ expanddetails }) => {
                     {expanddetails?.req_data?.createdAt ? format(new Date(expanddetails?.req_data?.createdAt), 'dd/MM/yyyy') : 'No Date'}
                     <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
             </div>
-            {(!expanddetails?.req_data?.brief_approved_at && !expanddetails?.req_data?.brief_rejected_at) && <div className="mt-3">
+            {(!expanddetails?.req_data?.brief_approved_at) && (expanddetails?.req_data?.brief_rejected_at?.length===0) && <div className="mt-3">
                 <div class="deliver-status">
                     <p className="brief-content mt-2">In-Progress</p>
                 </div>
@@ -32,15 +32,15 @@ const ApproveStatus = ({ expanddetails }) => {
 
             <div class={`${expanddetails?.req_data?.brief_rejected_at ? 'step' : ''}`}>
                 {expanddetails?.req_data?.brief_rejected_at &&
-                    <div>
+                    expanddetails?.req_data?.brief_rejected_at?.map((item) => <div>
                         <p className="brief-content">Brief Rejected</p>
                         <div class="deliver-status delivery-cancel">
                             <span><i class="fa-solid fa-circle-xmark"></i></span>
                         </div>
                         <p className="brief-date">
-                            {format(new Date(expanddetails?.req_data?.brief_rejected_at), 'dd/MM/yyyy')}
-                            <span className="d-block">{formattedTime(expanddetails?.req_data?.brief_rejected_at)}</span></p>
-                    </div>}
+                            {format(new Date(item), 'dd/MM/yyyy')}
+                            <span className="d-block">{formattedTime(item)}</span></p>
+                    </div>)}
             </div>
 
             <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>

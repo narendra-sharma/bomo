@@ -9,12 +9,13 @@ import { desginer_accept_assignrequest, get_designer_assigned_requestlist } from
 import { connect } from 'react-redux';
 import { format } from 'date-fns';
 import RequestsDetails from '../../Modals/RequestsDetails';
+import CountdownTimer from '../../Common/CountdownTimer';
 
 const DesignerRequest = ({ designerassignedrequests, user }) => {
     const dispatch = useDispatch();
     const [assignedRequest, setAssignedRequest] = useState([]);
     const [toggle, setToggle] = useState(false);
-  const [selectedData, setSelectedData] = useState([]);
+    const [selectedData, setSelectedData] = useState([]);
 
     useEffect(() => {
         if (user?.token) {
@@ -39,12 +40,19 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                     <div className="ms-4 mb-4">
                         <h3>Accept Request</h3>
                     </div>
-                    <div className="designer-request bg-white px-5 px-md-4 py-5 rounded">
-                        <div className="table-responsive rounded">
-                            <table className="table table-borderless mb">
-                                <tbody>
-                                    {assignedRequest?.length ? assignedRequest?.map((request, index) => (
-
+                    {assignedRequest?.length ? assignedRequest?.map((request, index) => (
+                        <div className="designer-request bg-white px-5 px-md-4 py-2 rounded">
+                            <div className="mt-4 ms-4 mb-1">
+                                <span className="deadline-date status position-relative ps-3">
+                                    Time to accept{" "}
+                                    <span className="fw-bold">
+                                        <CountdownTimer requestDate={request?.req_mail_date} duration={2 * 60 * 60 * 1000} />
+                                    </span>
+                                </span>
+                            </div>
+                            <div className="table-responsive rounded">
+                                <table className="table table-borderless mb">
+                                    <tbody>
                                         <tr key={index}>
                                             <td className="text-center shortad"><ColorCode request={request} /></td>
                                             <td><p>{request?.brand_profile?.brandname}</p></td>
@@ -68,13 +76,11 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                                 <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request, 'rejected')}>DECLINE</Button>
                                             </td>
                                         </tr>
-
-                                    )) : <EmptyList name="Acceptance Request" />}
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-
+                    )) : <EmptyList name="Acceptance Request" />}
                 </div>
             </div>
             <RequestsDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} reqaccept='yes' />

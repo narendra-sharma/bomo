@@ -76,7 +76,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                           <td>
                             <p>
                               <span className="fw-bold">Status</span>{" "}
-                              <span className="d-block">{request?.status}</span>
+                              <span className="d-block">{request?.status && 'Production'}</span>
                             </p>
                           </td>
                           <td>

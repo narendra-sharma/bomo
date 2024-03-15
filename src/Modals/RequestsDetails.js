@@ -6,6 +6,7 @@ import { useDispatch, connect } from 'react-redux';
 import { desginer_accept_assignrequest, poll_request_apply } from "../reduxdata/rootAction";
 import { saveAs } from "file-saver";
 import CountdownTimer from "../Common/CountdownTimer";
+import { Link } from "react-router-dom";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -21,7 +22,6 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
     const handleDownload = async (fileUrl) => {
         const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
-        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -76,7 +76,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
-                                <p class="short0ad dor rounded-pill">{data?.brand_profile?.brandname ? data?.brand_profile?.brandname : '-'}</p>
+                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
                                 {/* <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>Brand Assets</p> */}
                             </div>
                         </div>
@@ -98,24 +98,32 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                     </div>
                                 </div> */}
                             </div>
-                                   <div className="row expand-request-data">
-                                        <div className="col-md-4">
-                                            
-                                            <p>
-                                                <span className="fw-bold d-block">Description</span>
-                                                <span className="d-block">{data?.description}</span>
-                                            </p>
-                                            </div>
-                                            <div className="col-md-3">
-                                                <p className="word-break">
+                            <div className="table-responsive expand-request">
+                                <table className="table table-borderless mb-0">
+
+                                    <tbody>
+                                        <tr>
+                                            <td className="ps-0" width="300px" style={{ paddingRight: '25px' }}>
+                                                <p>
+                                                    <span className="fw-bold d-block">Description</span>
+                                                    <span className="d-block">{data?.description}</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
                                                     <span className="fw-bold d-block">Reference</span>
-                                                    <span className="d-block">{data?.references}</span>
-                                                 </p>
-                                            </div>
-                                            <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item => 
-                                              <span className="d-block">{item}</span>))}</p></div>
-                                            <div className="col-md-1"><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </div>
-                                            <div className="col-md-2">
+                                                    {data?.references?.includes('http') ?
+                                                        <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
+                                                            {data?.references}
+                                                        </Link>
+                                                        : <span className="d-block">{data?.references}</span>
+                                                    }
+                                                </p>
+                                            </td>
+                                            <td><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item =>
+                                                <span className="d-block">{item}</span>))}</p></td>
+                                            <td><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </td>
+                                            <td className="pr-0">
                                                 <div className="float-right">
                                                     <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
                                                 </div>
