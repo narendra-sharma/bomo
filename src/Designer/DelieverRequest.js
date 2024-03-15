@@ -9,60 +9,45 @@ import { toast } from "react-toastify";
 const { REACT_APP_BOMO_URL } = process.env;
 
 const DelieverRequest = ({ requestData, user }) => {
-    const [formdata, setFormdata] = useState({
-        firstFile: '',
-        secondFile: '',
-        zipfile: ''
-    });
-    const [filepreview, setFilepreview] = useState('');
-    const [secondfilepreview, setSecondfilepreview] = useState('');
+    const [formdata, setFormdata] = useState({ zipfile: '' });
+    const sizes = requestData?.size;
+    const [deliverdata, setDeliverdata] = useState({ firstfile: '' });
+    const [fileErrors, setFileErrors] = useState({});
+
     const [zipfilepreview, setZipfilepreview] = useState('');
-    const [errors, setErrors] = useState({
-        firstFile: '',
-        secondFile: '',
-        zipfile: ''
-    });
+    const [errors, setErrors] = useState({ zipfile: '' });
     const [show, setShow] = useState(false);
     const [deliverdetail, setDeliverdetail] = useState();
     const [data, setData] = useState();
-    const handleInputChange = async (e) => {
-        const { name, files } = e.target;
+
+    const handleChange = (e) => {
+        const { name } = e.target;
+        const file = e.target.files[0];
+        console.log(file);
         const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
+        if (file && !allowedFileTypes.includes(file.type)) {
+            setFileErrors((prevErrors) => ({
+                ...prevErrors,
+                [name]: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.',
+            }));
+        } else {
+            setDeliverdata((prevdata) => ({
+                ...prevdata,
+                [name]: file,
+            }));
+            setFileErrors((prevErrors) => ({
+                ...prevErrors,
+                [name]: '',
+            }));
+        }
+    };
+
+    const handleZipFile = async (e) => {
+        const { name, files } = e.target;
         switch (name) {
-            case 'firstFile':
-                const FirstFile = files[0];
-                if (!FirstFile) {
-                    setErrors({ ...errors, firstFile: 'Upload 9:16 .mp4' });
-                } else if (!allowedFileTypes.includes(FirstFile.type)) {
-                    setErrors({ ...errors, firstFile: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-                } else if (allowedFileTypes.includes(FirstFile.type)) {
-                    setErrors({ ...errors, firstFile: '' });
-                    setFormdata({
-                        ...formdata,
-                        firstFile: FirstFile,
-                    });
-                    setFilepreview(FirstFile);
-                }
-                break;
-
-            case 'secondFile':
-                const SecondFile = files[0];
-                if (!SecondFile) {
-                    setErrors({ ...errors, secondFile: 'Upload 16:9 .mp4' });
-                } else if (!allowedFileTypes.includes(SecondFile.type)) {
-                    setErrors({ ...errors, secondFile: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.' });
-                } else if (allowedFileTypes.includes(SecondFile.type)) {
-                    setErrors({ ...errors, secondFile: '' });
-                    setFormdata({
-                        ...formdata,
-                        secondFile: SecondFile,
-                    });
-                    setSecondfilepreview(SecondFile);
-                }
-                break;
-
             case 'zipfile':
                 const ZipFile = files[0];
+                console.log(ZipFile);
                 if (!ZipFile) {
                     setErrors({ ...errors, zipfile: 'Upload your .Zip' });
                 } else if (ZipFile.type !== 'application/zip') {
@@ -82,30 +67,43 @@ const DelieverRequest = ({ requestData, user }) => {
         }
     };
 
-    const handleDeliver = (e) => {
-        e.preventDefault();
-        if (formdata.firstFile === '' || formdata.secondFile === '' || formdata.zipfile === '') {
-            toast.error('Upload all pieces!');
-            return;
-        }
-        if (Object.values(errors).some(error => error !== '')) {
-            return;
-        }
-        const delieverData = {
-            request_id: requestData?._id,
-            landscape: formdata?.firstFile,
-            portrait: formdata?.secondFile,
-            zip: formdata?.zipfile
-        };
-        setDeliverdetail(delieverData);
-        setShow(true);
+    const validate = () => {
+        const newErrors = {};
+        
+        requestData?.sizes?.forEach((_,index) => {
+            if(!deliverdata[`firstfile${index}`]) {
+                newErrors[`firstfile${index}`] = `Please upload ${requestData.size[index]} .mp4`;
+            }
+        })
+        setFileErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
-    const formatTime = (timeRemaining) => {
-        const hours = Math.floor(timeRemaining / (60 * 60 * 1000));
-        const minutes = Math.floor((timeRemaining % (60 * 60 * 1000)) / (60 * 1000));
-        const seconds = Math.floor((timeRemaining % (60 * 1000)) / 1000);
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()&& formdata.zipfile) {
+            const deliverData = {
+                request_id: requestData?._id,
+                landscape: null,
+                portrait: null,
+                zip: formdata?.zipfile
+            };
+            Object.keys(deliverdata).forEach(key => {
+                if (key.startsWith('firstfile')) {
+                    const index = parseInt(key.replace('firstfile', ''));
+                    if (index === 0) {
+                        deliverData.landscape = deliverdata[key];
+                    } else if (index === 1) {
+                        deliverData.portrait = deliverdata[key];
+                    }
+                }
+            });
+          console.log('Form submitted successfully.',deliverData);
+          setDeliverdetail(deliverData);
+          setShow(true);
+        } else {
+            toast.error('Upload all pieces!');
+        }
     };
 
     return (
@@ -116,7 +114,7 @@ const DelieverRequest = ({ requestData, user }) => {
                         <div className="order-completed px-5 py-4 rounded mb-5">
                             <p className="mb-0 extra-dark-green"> DELIVER NOW. This request is in Production
                                 <span className="d-block fw-bold">Delivery in
-                                    <CountdownTimer requestDate={requestData?.req_mail_date} duration={20 * 60 * 60 * 1000}/>
+                                    <CountdownTimer requestDate={requestData?.req_mail_date} duration={20 * 60 * 60 * 1000} />
                                 </span>
                             </p>
                         </div>
@@ -127,7 +125,7 @@ const DelieverRequest = ({ requestData, user }) => {
                                     <div className="review-content mt-3">
                                         <div className="d-flex align-items-center">
                                             <ColorCode request={requestData} />
-                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
+                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
                                             {/* <p className="short0ad dor rounded-pill ms-2">{requestData?.brand_profile?.brandname ? requestData?.brand_profile?.brandname : '-'}</p> */}
                                             <p className="short0ad project-assets ms-2 px-4">Project Assets</p>
                                         </div>
@@ -167,36 +165,37 @@ const DelieverRequest = ({ requestData, user }) => {
                             <div className="ready-to-delivery-section border border-dark p-5 bg-gray mt-4">
                                 <p><span className="fw-bold">Ready to Deliver?</span> Place each file in its corresponding folder</p>
                                 <div className="row align-items-center">
-                                    <div className="col-md-3 d-flex flex-column">
-                                        <h5 className="text-center mb-2"> <span className="uplaod-dimension border border-dark d-inline-block"></span>
-                                            Upload {requestData?.size[0]} .mp4
-                                        </h5>
-                                        <div className="upload-nine-mp4">
-                                            <div className="d-flex align-item-center justify-content-center mb-4">
-                                                <label class="uploadFile">
-                                                    {!filepreview ? <span class="filename"><i className="fa fa-plus"></i></span> : <i className="fa-solid fa-check-circle text-success"></i>}
-                                                    <input name="firstFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.firstFile} onChange={handleInputChange} />
-                                                    {errors.firstFile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.firstFile}</p>}
-                                                </label>
+                                    {requestData?.size?.map((item, index) =>
+                                        <div className="col-md-3 d-flex flex-column" key={index}>
+                                            <h5 className="text-center mb-2"> <span className="uplaod-dimension border border-dark d-inline-block"></span>
+                                                Upload {item} .mp4
+                                            </h5>
+                                            <div className="upload-nine-mp4">
+                                                <div className="d-flex align-item-center justify-content-center mb-4">
+                                                    <label class="uploadFile">
+                                                        {!deliverdata[`firstfile${index}`] ?
+                                                            <span class="filename">
+                                                                <i className="fa fa-plus"></i>
+                                                            </span>
+                                                            : <i className="fa-solid fa-check-circle text-success"></i>}
+
+                                                        <input
+                                                            name={`firstfile${index}`}
+                                                            type="file"
+                                                            accept="image/*"
+                                                            className="inputfile form-control"
+                                                            defaultValue={deliverdata[`firstfile${index}`]}
+                                                            onChange={(e) => handleChange(e)} />
+                                                        {fileErrors[`firstFile${index}`] &&
+                                                            <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
+                                                                {fileErrors[`firstFile${index}`]}
+                                                            </p>
+                                                        }
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="col-md-3 d-flex flex-column">
-                                        <h5 className="text-center mb-2">
-                                            <span className="uplaod-dimension sixteen-nine border border-dark d-inline-block"></span>  Upload {requestData?.size[1]} .mp4
-                                        </h5>
-                                        <div className="upload-nine-mp4">
-
-                                            <div className="d-flex align-item-center justify-content-center mb-4">
-                                                <label class="uploadFile">
-                                                    {!secondfilepreview ? <span class="filename"><i className="fa fa-plus"></i></span> : <i className="fa-solid fa-check-circle text-success"></i>}
-                                                    <input name="secondFile" type="file" accept="image/*" className="inputfile form-control" defaultValue={formdata.secondFile} onChange={handleInputChange} />
-                                                    {errors.secondFile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.secondFile}</p>}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    )}
 
                                     <div className="col-md-3 d-flex flex-column">
                                         <h5 className="text-center mb-2">
@@ -207,14 +206,14 @@ const DelieverRequest = ({ requestData, user }) => {
                                             <div className="d-flex align-item-center justify-content-center mb-4">
                                                 <label class="uploadFile">
                                                     {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i></span> : <i className="fa-solid fa-check-circle text-success"></i>}
-                                                    <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleInputChange} />
+                                                    <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleZipFile} />
                                                     {errors.zipfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.zipfile}</p>}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-md-3">
-                                        <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => { handleDeliver(e); setData(requestData); }}>DELIVERY NOW</button> </div>
+                                        <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => { handleSubmit(e); setData(requestData); }}>DELIVERY NOW</button> </div>
                                     </div>
 
                                 </div>

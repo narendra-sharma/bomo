@@ -360,9 +360,16 @@ export const designer_deliever_request = async (dispatch, token, data) => {
   try {
     const formData = new FormData();
     formData.append("request_id", data?.request_id);
-    formData.append("landscape", data?.landscape);
-    formData.append("portrait", data?.portrait);
+     
+    if(data?.landscape){
+      formData.append("landscape", data?.landscape);
+    }
+
+    if (data?.portrait){
+      formData.append("portrait", data?.portrait);
+    }
     formData.append("zip", data?.zip);
+    
     const url = `${REACT_APP_BOMO_URL}request/upload-design`;
     const HEADERS = {
       headers: {

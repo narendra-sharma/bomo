@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DraftRequests from "../Customer/Requests/DraftRequests";
 import NewRequestShared from "../Customer/Sahred/NewRequestShared";
 import { connect, useDispatch } from "react-redux";
-import { get_customeradmin_active_requestslist } from "../reduxdata/rootAction";
+import { get_customeradmin_active_requestslist, get_review_request_data } from "../reduxdata/rootAction";
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
 import FeedBackRequest from "../Customer/Requests/FeedBackRequest";
@@ -37,6 +37,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
       references: request?.references,
       brandname: request?.brand_profile?.brandname,
       brand_details: request?.brand_profile,
+      file: request?.file,
       status: "production",
     };
     localStorage.setItem("requestData", JSON.stringify(data));

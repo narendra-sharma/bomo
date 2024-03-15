@@ -14,6 +14,7 @@ import { saveAs } from 'file-saver';
 import UploadPieces from '../Common/UploadPieces';
 import ApproveStatus from '../Customer/Requests/ApproveStatus';
 import AssignStatus from '../Customer/Requests/AssignStatus';
+import { Link } from 'react-router-dom';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -35,7 +36,6 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
     const handleDownload = async (fileUrl) => {
         const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
-        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl?.lastIndexOf("/") + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -56,6 +56,33 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
         saveAs(blobwithtype, fileName);
+    };
+
+    const DownloadAll = (filesUrl) => {
+        filesUrl.forEach(async (url) => {
+            const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+            const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+            const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+            const getMimeType = (ext) => {
+                const mimeTypes = {
+                    txt: "text/plain",
+                    pdf: "application/pdf",
+                    zip: "application/zip",
+                    jpg: "image/jpeg",
+                    jpeg: "image/jpeg",
+                    png: "image/png",
+                    gif: "image/gif",
+                };
+                return mimeTypes[ext] || "application/octet-stream";
+            };
+
+            const response = await fetch(fileContent);
+            const blobFile = await response.blob();
+            const fileExtension = fileName?.split(".").pop().toLowerCase();
+            const mimeType = getMimeType(fileExtension);
+            const blobwithtype = new Blob([blobFile], { type: mimeType });
+            saveAs(blobwithtype, fileName);
+        })
     };
 
     return (
@@ -195,12 +222,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                             <div class=" d-flex align-items-center review-content ">
                                 <ColorCode request={expanddetails?.req_data} />
                                 <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${expanddetails?.req_data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
-                                {/* <p class="short0ad dor rounded-pill">
-                                    {expanddetails?.req_data?.brand_profile?.brandname ?
-                                        expanddetails?.req_data?.brand_profile?.brandname
-                                        : '-'}
-                                </p> */}
-                                <p class="short0ad project-assets rounded-pill px-5" onClick={() => handleDownload(expanddetails?.req_data?.brand_profile?.brandassests)}>Project Assets</p>
+                                <p class="short0ad project-assets rounded-pill cursor-pointer" onClick={() => DownloadAll(expanddetails?.req_data?.file)}>Project Assets</p>
                             </div>
                         </div>
                         <div className="col-md-12 mt-3">
@@ -230,6 +252,22 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             <td className="p-0">
                                                 <div className="float-right"><p><span className="fw-bold d-block">References</span> {expanddetails?.req_data?.references}</p>
                                                 </div>
+                                            </td>
+                                            <td><p>{expanddetails?.req_data?.file_type}</p></td>
+                                            <td><p>{expanddetails?.req_data?.transparency}</p> </td>
+                                            <td>
+                                                {expanddetails?.req_data?.references?.includes('https') ?
+                                                    <Link
+                                                        className="text-decoration-none"
+                                                        to={`${expanddetails?.req_data?.references}`}
+                                                        target="_blank"
+                                                    >
+                                                        {expanddetails?.req_data?.references}
+                                                    </Link>
+                                                    : <span className="d-block">
+                                                        {expanddetails?.req_data?.references}
+                                                    </span>
+                                                }
                                             </td>
                                         </tr>
                                     </tbody>
