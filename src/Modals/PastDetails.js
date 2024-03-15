@@ -80,7 +80,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                                     </p>
                                 </div>
                                 <div className="col-md-3">
-                                    <p>
+                                    <p className="word-break">
                                         <span className="d-block fw-bold">Reference</span>
                                         <span className="d-block">{data?.references}</span>
                                         </p>

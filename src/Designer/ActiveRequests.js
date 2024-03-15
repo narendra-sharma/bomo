@@ -125,83 +125,95 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                             </p>
                           </div>
                         
-                          <div className="row">
-                            <div className="col-md-4"> </div>
-                            <div className="col-md-3">
-                              <p>
-                                <span className="fw-bold d-block">
-                                  Status
-                                </span>
-                              
-                              {request?.status}
-                              </p>
-                            </div>
-                            <div className="col-md-3">
-                              <p>
-                                <span className="fw-bold d-block">
-                                  Expected Delivery{" "}
-                                </span>
-                                {!request?.delivery_date
-                                  ? "No Date"
-                                  : format(
-                                      new Date(request?.delivery_date),
-                                      "dd/MM/yyyy"
-                                    )}
-                              </p>
-                            </div>
-                            <div className="col-md-2 ">
-                              
-                                <div className="position-absolute">
+                          <div className="row mb-4">
+                            <div className="col-md-5"> </div>
+                            <div className="col-md-7"> 
+                              <div className="row">
+                                <div className="col-md-5">
+                                  <p>
+                                    <span className="fw-bold d-block">
+                                      Status
+                                    </span>
+                                  
+                                  {request?.status}
+                                  </p>
+                                </div>
+                                <div className="col-md-4">
+                                  <p>
+                                    <span className="fw-bold d-block">
+                                      Expected Delivery{" "}
+                                    </span>
+                                    {!request?.delivery_date
+                                      ? "No Date"
+                                      : format(
+                                          new Date(request?.delivery_date),
+                                          "dd/MM/yyyy"
+                                        )}
+                                  </p>
+                                </div>
+                                <div className="col-md-3 ps-0">
                                   <p>
                                     <span className="fw-bold d-block">
                                       Transparency
                                     </span>
-                                  </p>{" "}
+                                  {" "}
                                   {request?.transparency}
-                                
+                                  </p>
+                                    
+                                </div>
+
                               </div>
                             </div>
+                           
                           </div>
                           <div className="row">
-                            <div className="col-md-4">
-                              <p>
-                                <span className="fw-bold d-block">
-                                  Description
-                                </span>
-                                <span className="d-block">
-                                  {request?.description}
-                                </span>
-                              </p>
-                            </div>
-                            <div className="col-md-3">
-                              <p>
-                                <span className="fw-bold d-block">
-                                  Reference
-                                </span>{" "}
-                                {request?.references}
-                              </p>
-                            </div>
-                            <div className="col-md-3">
-                              <p>
-                                <span className="fw-bold d-block">
-                                  Deliverables
-                                </span>
-                                {request?.size?.map((item) => <span className="d-block">{item}</span>)}
-                                
-                                <br />
-                              </p>
-                            </div>
-                            <div className="col-md-2 position-relative">
-                              <div className="position-absolute">
+                            <div className="col-md-5"> 
+                              <div className="">
                                 <p>
-                                  <span className="fw-bold d-block pr-0">
-                                    Format
+                                  <span className="fw-bold d-block">
+                                    Description
                                   </span>
-                                </p>{" "}
-                                {request?.file_type}
+                                  <span className="d-block">
+                                    {request?.description}
+                                  </span>
+                                </p>
                               </div>
                             </div>
-                            
+                            <div className="col-md-7"> 
+                              <div className="row">
+                                <div className="col-md-5">
+                                  <p class="wor-break">
+                                      <span className="fw-bold d-block">
+                                        Reference
+                                      </span>{" "}
+                                      {request?.references}
+                                    </p>
+                                </div>
+                        
+                                <div className="col-md-4">
+                                  <p>
+                                    <span className="fw-bold d-block">
+                                      Deliverables
+                                    </span>
+                                    {request?.size?.map((item) => <span className="d-block">{item}</span>)}
+                                    
+                                  </p>
+                                
+                                </div>
+                          
+                               <div className="col-md-3 ps-0">
+                                  <p>
+                                    <span className="fw-bold d-block pr-0">
+                                      Format
+                                    </span>
+                                  {" "}
+                                  {request?.file_type}
+                                  </p>
+                              </div>
+
+                             </div>
+                            </div>
+                           
                           </div>
                               
                           <div

@@ -141,22 +141,29 @@ const DelieverRequest = ({ requestData, user }) => {
 
                                 </div>
                                 <div className="col-md-12">
-                                    <div className="row">
+                                    <div className="row justify-content-between expand-request-data">
                                         <div className="col-md-4">    
-                                            <p>
+                                            <p style={{paddingRight:"20px"}}>
                                                 <span className="d-block fw-bold">Description</span>
                                                 <span className="d-block">{requestData?.description}</span>
                                             </p>
                                         </div>
-                                        <div className="col-md-1">
-                                            <p>  <span className="d-block fw-bold">Size</span>
-                                             {requestData?.size?.map((item) => <span className="d-block">{item}</span>)}</p>
+                                        <div className="col-md-5">
+                                         <div className="d-flex gap-4">
+                                            <div className="">
+                                                <p>  <span className="d-block fw-bold">Size</span>
+                                                {requestData?.size?.map((item) => <span className="d-block">{item}</span>)}</p>
+                                            </div>
+                                            <div className=""> <p><span className="d-block fw-bold">File Type </span> 
+                                            {requestData?.file_type}</p></div>
+                                            <div className=""><p><span className="d-block fw-bold">Transparency </span> 
+                                            {requestData?.transparency}</p></div>
+                                            </div>
+
                                         </div>
-                                        <div className="col-md-2"> <p><span className="d-block fw-bold">File Type </span> 
-                                        {requestData?.file_type}</p></div>
-                                        <div className="col-md-3"><p><span className="d-block fw-bold">Transparency </span> 
-                                        {requestData?.transparency}</p></div>
-                                        <div className="col-md-2">
+                                       
+
+                                        <div className="col-md-3">
                                             <p className="word-break">
                                                 <span className="d-block fw-bold">References</span> {requestData?.references}</p></div>
                                             
