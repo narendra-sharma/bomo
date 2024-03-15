@@ -127,32 +127,33 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                                 <div className="float-right">
                                                     <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
                                                 </div>
-                                            </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {reqaccept ?
+                                    <div className="mt-4 row justify-content-between">
+                                        <div className="col-md-6 status-btn">
+                                            <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'accepted')}>ACCEPT</Button>
                                         </div>
-                                    
-                            {reqaccept ?
-                                <div className="mt-4 row justify-content-between">
-                                    <div className="col-md-6 status-btn">
-                                        <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'accepted')}>ACCEPT</Button>
+                                        <div className="col-md-6 status-btn">
+                                            <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'rejected')}>DECLINE</Button>
+                                        </div>
                                     </div>
-                                    <div className="col-md-6 status-btn">
-                                        <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'rejected')}>DECLINE</Button>
+                                    :
+                                    <div className="mt-4 row justify-content-between">
+                                        <div className="col-md-9 status-btn">
+                                            <button className="btn pause-btn rounded py-2 w-100"
+                                                onClick={() => handleApplyRequest(data)}
+                                                disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
+                                        </div>
+                                        <div className="col-md-3"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
                                     </div>
-                                </div>
-                                :
-                                <div className="mt-4 row justify-content-between">
-                                    <div className="col-md-9 status-btn">
-                                        <button className="btn pause-btn rounded py-2 w-100"
-                                            onClick={() => handleApplyRequest(data)}
-                                            disabled={data?.applied}>{data?.applied ? 'APPLIED' : 'APPLY'}</button>
-                                    </div>
-                                    <div className="col-md-3"><h5 class="fw-bold mb-0 text-end">$125</h5></div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </Modal.Body>
         </Modal>
     )
