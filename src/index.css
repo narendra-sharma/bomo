@@ -70,6 +70,9 @@ p {
 .bg-gray-light {
   background-color: var(--gray);
 }
+.float-right{
+  float: right;
+}
 h1,
 h2,
 h3,
@@ -515,9 +518,9 @@ nav {
 .draft-table table td:first-child {
   width: 175px;
 }
-.draft-table table td:nth-child(2) {
+/* .draft-table table td:nth-child(2) {
   width: 85px;
-}
+} */
 .draft-table table td:nth-child(3) {
   width: 85px;
 }
@@ -2360,7 +2363,7 @@ button.accordion-button.collapsed .late-request-section {
   background: #000 !important;
   z-index: 9;
 }
-.uploadFile:hover {
+.new-request-form .uploadFile:hover {
   background-color: black;
 }
 .uploadFile:hover i {
@@ -2437,19 +2440,24 @@ table.table-green{
   font-size: 12px;
   padding: 4px 0px;
 }
-.expand-request table tr td , .expand-request tr th ,
-.designer-request-status tr td , .designer-request-status tr th, 
+.expand-request table tr td , .designer-request-status tr td , .designer-request-status tr th, 
 .designer-request-poll  table tr td, .designer-request-poll  table tr th
 {
   padding: 0px 8px;;
   vertical-align: top;
   color: #000;
 }
+.expand-request table tr td{
+  padding: 0 13px;
+}
 .expand-request table tr p{
   font-size:14px
 }
 .pr-0{
   padding-right: 0!important;
+}
+.cutomer-home-page .review-content p {
+  font-size: 14px;
 }
 @media (min-width: 576px){
   .main-content-wraaper {

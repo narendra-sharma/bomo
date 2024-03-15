@@ -124,84 +124,86 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                               Brand Assets
                             </p>
                           </div>
-                          <div className="table-responsive">
-                            <table className="table request-status table-borderless mb-0">
-                              <tbody>
-                                <tr>
-                                  <td> </td>
-                                  <td>
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Status
-                                      </span>
-                                    
-                                    {request?.status}
-                                    </p>
-                                  </td>
-                                  <td>
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Expected Delivery{" "}
-                                      </span>
-                                      {!request?.delivery_date
-                                        ? "No Date"
-                                        : format(
-                                            new Date(request?.delivery_date),
-                                            "dd/MM/yyyy"
-                                          )}
-                                    </p>
-                                  </td>
-                                  <td className="pr-0">
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Transparency
-                                      </span>
-                                    </p>{" "}
-                                    {request?.transparency}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td width="200px">
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Description
-                                      </span>
-                                      <span className="d-block">
-                                        {request?.description}
-                                      </span>
-                                    </p>
-                                  </td>
-                                  <td>
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Reference
-                                      </span>{" "}
-                                      {request?.references}
-                                    </p>
-                                  </td>
-                                  <td>
-                                    <p>
-                                      <span className="fw-bold d-block">
-                                        Deliverables
-                                      </span>
-                                      {request?.size?.map((item) => <span className="d-block">{item}</span>)}
-                                      
-                                      <br />
-                                    </p>
-                                  </td>
-                                  <td >
-                                    <p>
-                                      <span className="fw-bold d-block pr-0">
-                                        Format
-                                      </span>
-                                    </p>{" "}
-                                    {request?.file_type}
-                                  </td>
-                                 
-                                </tr>
-                              </tbody>
-                            </table>
+                        
+                          <div className="row">
+                            <div className="col-md-4"> </div>
+                            <div className="col-md-3">
+                              <p>
+                                <span className="fw-bold d-block">
+                                  Status
+                                </span>
+                              
+                              {request?.status}
+                              </p>
+                            </div>
+                            <div className="col-md-3">
+                              <p>
+                                <span className="fw-bold d-block">
+                                  Expected Delivery{" "}
+                                </span>
+                                {!request?.delivery_date
+                                  ? "No Date"
+                                  : format(
+                                      new Date(request?.delivery_date),
+                                      "dd/MM/yyyy"
+                                    )}
+                              </p>
+                            </div>
+                            <div className="col-md-2 ">
+                              
+                                <div className="position-absolute">
+                                  <p>
+                                    <span className="fw-bold d-block">
+                                      Transparency
+                                    </span>
+                                  </p>{" "}
+                                  {request?.transparency}
+                                
+                              </div>
+                            </div>
                           </div>
+                          <div className="row">
+                            <div className="col-md-4">
+                              <p>
+                                <span className="fw-bold d-block">
+                                  Description
+                                </span>
+                                <span className="d-block">
+                                  {request?.description}
+                                </span>
+                              </p>
+                            </div>
+                            <div className="col-md-3">
+                              <p>
+                                <span className="fw-bold d-block">
+                                  Reference
+                                </span>{" "}
+                                {request?.references}
+                              </p>
+                            </div>
+                            <div className="col-md-3">
+                              <p>
+                                <span className="fw-bold d-block">
+                                  Deliverables
+                                </span>
+                                {request?.size?.map((item) => <span className="d-block">{item}</span>)}
+                                
+                                <br />
+                              </p>
+                            </div>
+                            <div className="col-md-2 position-relative">
+                              <div className="position-absolute">
+                                <p>
+                                  <span className="fw-bold d-block pr-0">
+                                    Format
+                                  </span>
+                                </p>{" "}
+                                {request?.file_type}
+                              </div>
+                            </div>
+                            
+                          </div>
+                              
                           <div
                             className="project-assets-btn mt-4 fw-bold w-100 rounded-pill px-3 py-1 text-center"
                             onClick={() =>
