@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { deliever_request_details } from "../reduxdata/rootAction";
 import CountdownTimer from "../Common/CountdownTimer";
@@ -20,9 +20,8 @@ const RequestBrief = ({ show, handleClose, data }) => {
     };
 
     const handleDownload = async (fileUrl) => {
-        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
-        // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -36,7 +35,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                 ai: 'application/postscript',
                 svg: 'image/svg+xml',
                 psd: 'image/vnd.adobe.photoshop',
-              };
+            };
             return mimeTypes[ext] || 'application/octet-stream';
         };
 
@@ -48,6 +47,32 @@ const RequestBrief = ({ show, handleClose, data }) => {
         saveAs(blobwithtype, fileName);
     };
 
+    const DownloadAll = (filesUrl) => {
+        filesUrl?.forEach(async (url) => {
+            const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+            const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+            const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+            const getMimeType = (ext) => {
+                const mimeTypes = {
+                    txt: "text/plain",
+                    pdf: "application/pdf",
+                    zip: "application/zip",
+                    jpg: "image/jpeg",
+                    jpeg: "image/jpeg",
+                    png: "image/png",
+                    gif: "image/gif",
+                };
+                return mimeTypes[ext] || "application/octet-stream";
+            };
+
+            const response = await fetch(fileContent);
+            const blobFile = await response.blob();
+            const fileExtension = fileName?.split(".").pop().toLowerCase();
+            const mimeType = getMimeType(fileExtension);
+            const blobwithtype = new Blob([blobFile], { type: mimeType });
+            saveAs(blobwithtype, fileName);
+        })
+    };
 
     return (
         <>
@@ -68,8 +93,8 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             <div className="col-md-6">
                                 <div className="d-flex align-items-center mb-3">
                                     <ColorCode request={data} />
-                                    <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
-                                    <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
+                                    <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                    <p className="brand-assets-btn rounded bg-white request-poll-active cursor-pointer" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                         Brand Assets
                                     </p>
                                 </div>
@@ -89,23 +114,30 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div className="mb-3 position-relative">
                                     <img src={reelImage} alt="reel imag" width="100%" />
                                     <div className="project-btn">
-                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${data?.brand_profile?.logo}`)}>
+                                        <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center cursor-pointer" onClick={() => DownloadAll(data?.file)}>
                                             Project Assets
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                   
-                                                <div class="col-md-4">
+                                <div className="table-responsive">
+                                    <table className="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="ps-0" width="230px" style={{ paddingRight: "30px" }}>
                                                     <p>
-                                                    <span className="d-block fw-bold">Description</span>
+                                                        <span className="d-block fw-bold">Description</span>
                                                         <span className="d-block">{data?.description}</span>
                                                     </p>
                                                 </div>
                                                 <div className="col-md-3">
                                                     <p className="word-break">
                                                         <span className="fw-bold d-block">Reference</span>
-                                                        <span className="fw-bold d-block">{data?.references}</span> 
+                                                        {data?.references?.includes('http') ?
+                                                            <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
+                                                                {data?.references}
+                                                            </Link>
+                                                            : <span className="d-block">{data?.references}</span>
+                                                        }
                                                     </p>
                                                 </div>
                                                 <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>

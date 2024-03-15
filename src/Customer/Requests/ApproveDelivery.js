@@ -86,14 +86,14 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
+                                       {request?.size[1] && <div className="statusbar-section d-flex align-items-center justify-content-between">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[1]}</p>
                                             </div>
                                             <div className="bar-code">
                                                 <img src={designImage2} alt="Image" />
                                             </div>
-                                        </div>
+                                        </div>}
                                     </td>
                                     <td>
                                         <div className="statusbar-section d-flex align-items-center justify-content-between">

@@ -3,12 +3,13 @@ import { Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
 import { saveAs } from 'file-saver';
+import { Link } from "react-router-dom";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
 const PastDetails = ({ show, handleClose, data }) => {
     const handleDownload = async (fileUrl) => {
-        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g,'%2B') : fileUrl;
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
         // const fileContent = `${REACT_APP_BOMO_URL}download?file=${fileUrl}`;
         const fileName = fileUrl?.substring(fileUrl.lastIndexOf('/') + 1);
@@ -33,6 +34,33 @@ const PastDetails = ({ show, handleClose, data }) => {
         saveAs(blobwithtype, fileName);
     };
 
+    const DownloadAll = (filesUrl) => {
+        filesUrl.forEach(async (url) => {
+            const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+            const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+            const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+            const getMimeType = (ext) => {
+                const mimeTypes = {
+                    txt: "text/plain",
+                    pdf: "application/pdf",
+                    zip: "application/zip",
+                    jpg: "image/jpeg",
+                    jpeg: "image/jpeg",
+                    png: "image/png",
+                    gif: "image/gif",
+                };
+                return mimeTypes[ext] || "application/octet-stream";
+            };
+
+            const response = await fetch(fileContent);
+            const blobFile = await response.blob();
+            const fileExtension = fileName?.split(".").pop().toLowerCase();
+            const mimeType = getMimeType(fileExtension);
+            const blobwithtype = new Blob([blobFile], { type: mimeType });
+            saveAs(blobwithtype, fileName);
+        })
+    };
+
     return (
         <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll logout-popup">
             <Modal.Body>
@@ -47,8 +75,8 @@ const PastDetails = ({ show, handleClose, data }) => {
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
-                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36"/>
-                                <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
+                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                <p className="brand-assets-btn rounded bg-white request-poll-active cursor-pointer" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                     Brand Assets
                                 </p>
                             </div>
@@ -66,32 +94,43 @@ const PastDetails = ({ show, handleClose, data }) => {
                             <div className="mb-3 position-relative">
                                 <img src={reelImage} alt="reel imag" width="100%" />
                                 <div className="project-btn">
-                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center" onClick={() => handleDownload(`${data?.brand_profile?.logo}`)}>
+                                    <div class="project-assets-btn mt-4 fw-bold  rounded-pill px-3 py-1 text-center cursor-pointer" onClick={() => DownloadAll(data?.file)}>
                                         Project Assets
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                              
-                                <div class="col-md-4">
-                                    <p>
-                                        <span className="d-block fw-bold">Description</span>
-                                        <span className="d-block">{data?.description}</span>
-                                    </p>
-                                </div>
-                                <div className="col-md-3">
-                                    <p className="word-break">
-                                        <span className="d-block fw-bold">Reference</span>
-                                        <span className="d-block">{data?.references}</span>
-                                        </p>
-                                </div>
-                                <div className="col-md-2"><p><span className="d-block fw-bold">Deliverables</span> <span className="d-block">{data?.size}</span></p></div>
-                                <div className="col-md-1"><p><span className="d-block fw-bold">Format</span> <span className="d-block">{data?.file_type}</span></p> </div>
-                                <div className="col-md-2">
-                                    <div className="float-right">
-                                        <p><span className="d-block fw-bold">Transparency</span> {data?.transparency}</p>
-                                        </div>
-                                    </div>
+                            <div className="table-responsive">
+                                <table className="table table-borderless mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="ps-0" style={{ width: "215px" }}><p>Description</p></th>
+                                            <th ><p><span className="fw-bold d-block">Reference</span> </p></th>
+                                            <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
+                                            <th ><p><span className="fw-bold d-block">Format</span></p> </th>
+                                            <th className="pr-0"><p><span className="fw-bold d-block">Transparency</span></p> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="ps-0">
+                                                <p>
+                                                    <span className="d-block">{data?.description}</span>
+                                                </p>
+                                            </td>
+                                            <td><p>
+                                                {data?.references?.includes('http') ?
+                                                    <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
+                                                        {data?.references}
+                                                    </Link>
+                                                    : <span className="fw-bold d-block">{data?.references}</span>
+                                                }
+                                            </p></td>
+                                            <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
+                                            <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
+                                            <td className="pr-0"><p>{data?.transparency}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                                     
                         </div>
