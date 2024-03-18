@@ -1069,7 +1069,7 @@ td.vertical-end {
   height: 33px;
 }
 .new-request-form textarea.form-control {
-  min-height: 230px;
+  min-height: 226px;
   padding: 20px 15px !important;
 }
 .request-type .request-list {
@@ -1829,13 +1829,13 @@ button.deliver-now-btn.rejected:hover{
 nav p.user-email {
   font-size: 14px;
 }
-.header-user-profile:hover p.user-email {
+.header-profile-side:hover p.user-email {
   color: #6d3ff3;
 }
-.header-user-img , .header-user-profile img {
+.header-user-img , .header-profile-side img {
   transition: 0.25s ease-in-out;
 }
-.header-user-profile:hover img , .header-user-profile:hover .header-user-img {
+.header-user-profile:hover img , .header-profile-side:hover .header-user-img {
   transform: scale(1.2);
   transition: 0.25s ease-in-out;
 }
@@ -2112,9 +2112,11 @@ button.accordion-button.collapsed .late-request-section {
 .upload-zip-file .uploadFile {
   padding: 30px 10px;
 }
+
 .upload-zip-file .uploadFile {
   background: #d2cece;
 }
+
 .ready-to-delivery-section span.filename {
   background: #cdffb5;
   width: 30px;
@@ -2124,11 +2126,21 @@ button.accordion-button.collapsed .late-request-section {
   border-radius: 50%;
   border: solid 1px #000;
 }
+.ready-to-delivery-section .upload-nine-mp4:hover .uploadFile{
+  background-color: #ecf7ee;
+}
 .ready-to-delivery-section .upload-zip-file span.filename {
   background-color: #838383;
 }
+.ready-to-delivery-section .upload-nine-mp4:hover  span.filename , 
+.ready-to-delivery-section .upload-zip-file:hover  span.filename{
+ background-color: #fff;
+}
+.ready-to-delivery-section .upload-zip-file:hover .uploadFile{
+  background-color: #000;
+}
 .ready-to-delivery-section .uplaod-dimension {
-  width: 9px;
+  width: 11px;
   height: 16px;
   border-radius: 2px;
 }
@@ -2375,14 +2387,14 @@ button.accordion-button.collapsed .late-request-section {
 .new-request-form .uploadFile:hover {
   background-color: black;
 }
-.uploadFile:hover i {
+.new-request-form .uploadFile:hover i {
   color: #fff !important;
 }
 .form-group .css-13cymwt-control {
   min-height: 33px !important;
   border-color: #000;
 }
-.form-group .css-qbdosj-Input{
+.form-group .css-qbdosj-Input,  .form-group .css-19bb58m{
   margin: 0;
 }
 .form-group .css-b62m3t-container .css-1fdsijx-ValueContainer {
