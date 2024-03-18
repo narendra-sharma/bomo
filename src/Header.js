@@ -99,9 +99,11 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               </>
             )}
             <div className="d-flex text-right justify-content-between header-user-profile align-items-center">
+              <div className="header-profile-side d-flex justify-content-between align-items-center">
               {user?.role === "customer" ||
               user?.role == "designer" ||
               userRole == "Designer" ? (
+                
                 <div
                   className="cursor-pointer header-user-img"
                   onClick={() => navigate("/settings")}
@@ -168,6 +170,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
                     : userrole}
                 </span>
               </p>
+              </div>
               {userrole !== "Designer" ? (
                 <div></div>
               ) : (

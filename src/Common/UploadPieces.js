@@ -144,7 +144,7 @@ const UploadPieces = ({ requestData }) => {
           )}
 
           <div className="col-md-3 d-flex flex-column">
-            <h5 className="text-center mb-2">
+            <h5 className="text-left mb-2">
               .zip and upload your .AEP
             </h5>
             <div className="upload-zip-file">

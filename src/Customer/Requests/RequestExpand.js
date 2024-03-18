@@ -162,7 +162,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                         </p>
                                     </div>
                                     <div className="col-md-5">
-                                        <div className="d-flex gap-4">
+                                        <div className="d-flex justify-content-center gap-4">
                                             <div className="">
                                                 <p>
                                                     <span className="fw-bold d-block">Size</span>
@@ -178,7 +178,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                        
 
                                     <div className="col-md-3">
-                                        <p><span className="fw-bold d-block">References</span>
+                                        <p className="word-break"><span className="fw-bold d-block">References</span>
                                         {receivedData?.references?.includes('https') ?
                                             <Link
                                                 className="text-decoration-none"
