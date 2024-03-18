@@ -50,21 +50,24 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
 
     return (
         <div>
-            <Modal show={show} onHide={handleClose} className="logout-popup">
+            <Modal show={show} onHide={handleClose} className="delivery-now-popup logout-popup">
                 <Modal.Body>
                     <div className="px-4 py-4">
-                        <div className="d-flex align-items-center justify-content-between">
-                            <h5 className="mb-0 fw-bold text-dark">{user?.name}</h5>
-                            {!isdrag &&  <i className="fa-solid fa-exclamation-circle cancel"></i>}
+                        <div className="d-flex align-items-center gap-5 ">
+                            <div style={{width:"58%"}}>
+                            <h5 className="mb-0 fw-bold">{user?.name}</h5>
+                            <h5 className="mb-0">Double check,double win</h5>
+                            </div>
+                            {!isdrag &&  <i className="fa-solid fa-exclamation-circle cancel extra-dark-green"></i>}
                         </div>
-                        <p className="text-mute">
-                            Double check,double win
-                            <br />
+                        
+                        <p className=" mt-2 pb-5">
+                            
                             Once delivered you <b>won't be able to edit</b> any file.
                             <br />
                             Happy with your uploads? Hit deliver:)
                         </p>
-                        <div className={`px-1 py-1 ${isdrag ? "bg-success" : "border border-dark"} rounded-pill`} style={{ overflow: "hidden" }}>
+                        <div className={`mt-5 ${isdrag ? "delivery-now-btn-dark" : "delivery-now-btn"} rounded-pill`} style={{ overflow: "hidden" }}>
                             <Draggable
                                 axis="x"
                                 onStart={() => {
@@ -76,7 +79,7 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
                                 onStop={handleDragStop}
                                 bounds={{ left: 0, right: 200 }}
                                 position={dragPosition}>
-                                <Button variant="success" className="w-50 rounded-pill btn-outline-dark">
+                                <Button variant="unset" className="btn px-4 rounded-pill">
                                     DELIVER NOW
                                 </Button>
                             </Draggable>

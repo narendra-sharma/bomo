@@ -114,25 +114,29 @@ const PastDetails = ({ show, handleClose, data }) => {
                                             <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
                                                 {data?.references}
                                             </Link>
-                                            : <span className="fw-bold d-block">{data?.references}</span>
+                                            : <span className="d-block">{data?.references}</span>
                                         }
                                    </p>  
                                 </div>
-                                <div className="col-md-2">
-                                    <p>
-                                        <span className="d-block fw-bold">Deliverables</span> 
-                                        <span className="fw-bold d-block">{data?.size}</span>
-                                    </p>
+                                <div className="col-md-5">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="">
+                                        <p>
+                                            <span className="d-block fw-bold">Deliverables</span> 
+                                            <span className=" d-block">{data?.size}</span>
+                                        </p>
+                                        </div>
+                                        <div className=""> <p>
+                                        <span className="d-block fw-bold">Format</span>
+                                            
+                                            <span className="d-block">{data?.file_type}</span></p> </div>
+                                        <div className="">
+                                            <div className="float-right"><p>
+                                            <span className="d-block fw-bold">Transparency</span> {data?.transparency}</p></div>
+                                        </div>
+
                                     </div>
-                                <div className="col-md-1"> <p>
-                                <span className="d-block fw-bold">Format</span>
-                                    
-                                    <span className="d-block">{data?.file_type}</span></p> </div>
-                                <div className="col-md-2">
-                                    <div className="float-right"><p>
-                                    <span className="d-block fw-bold">Transparency</span> {data?.transparency}</p></div>
-                                </div>
-                                       
+                                </div>        
                             </div>
                                     
                         </div>

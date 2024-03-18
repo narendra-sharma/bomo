@@ -2564,6 +2564,34 @@ table.table-green{
  .customer-active-request tr:hover td:last-child{
   border-radius: 0 20px 20px 0;
 }
+.delivery-now-popup i {
+  font-size: 35px;
+  color: #072801;
+}
+.delivery-now-popup .delivery-now-btn{
+  background-color:#edf8ef;
+}
+.delivery-now-popup .delivery-now-btn-dark{
+  background-color:#072801
+}
+.delivery-now-popup .btn{
+
+  font-size: 14px;
+  border: solid 1px #012801;
+}
+.delivery-now-popup .delivery-now-btn .btn{
+  background-color:#072801;
+  color: #fff;
+}
+.delivery-now-popup  .btn{
+  background-color:#072801!important;;
+  color: #fff!important;
+}
+.delivery-now-popup .delivery-now-btn-dark .btn{
+  background-color:#3FCE3C!important;
+  color:#012801!important;
+ 
+}
 @media (max-width: 1900px) {
   .registration-form {
     height: auto;
