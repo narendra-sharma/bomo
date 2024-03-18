@@ -108,7 +108,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                             
                                             
                                         
-                                        <div className="col-md-3">
+                                        <div className="col-md-4">
                                             <p className="word-break">
                                                 <span className="fw-bold d-block">Reference</span>
                                                 {data?.references?.includes('http') ?
@@ -119,14 +119,20 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                                 }
                                             </p>
                                         </div>
-                                        <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item =>
-                                            <span className="d-block">{item}</span>))}</p></div>
-                                        <div className="col-md-1"><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </div>
-                                        <div className="col-md-2">
-                                            <div className="float-right">
-                                                <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
-                                            </div>
+                                        <div className="col-md-4">
+                                             <div className="d-flex justify-content-between">
+                                                <div className=""><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item =>
+                                                <span className="d-block">{item}</span>))}</p></div>
+                                                <div className=""><p><span className="fw-bold d-block">Format</span> <span className="d-block">{data?.file_type}</span></p> </div>
+                                                <div className="">
+                                                    <div className="">
+                                                        <p class="word-break"> <span className="fw-bold d-block">Transparency</span> {data?.transparency}</p>
+                                                    </div>
+                                                </div>
+
+                                             </div>
                                         </div>
+                                        
                             </div>
                                    
                                 {reqaccept ?

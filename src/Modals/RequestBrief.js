@@ -140,9 +140,14 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                             }
                                         </p>
                                     </div>
-                                    <div className="col-md-2"><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>
-                                    <div className="col-md-1"><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </div>
-                                    <div className="col-md-2"><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></div>
+                                    <div className="col-md-5">
+                                    <div className="d-flex justify-content-between">
+                                    <div className=""><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>
+                                    <div className=""><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </div>
+                                    <div className=""><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></div>
+                                     </div>
+                                    </div>
+                                    
                                            
                                 </div>
                                 <div className="mt-4">
