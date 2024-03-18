@@ -226,50 +226,45 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                             </div>
                         </div>
                         <div className="col-md-12 mt-3">
-                            <div class="table-responsive">
-                                <table class="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td className="ps-0" width="390px" style={{ paddingRight: '70px' }}>
-                                                <p>
-                                                    <span className="d-block fw-bold ps-0">Description</span>
-                                                    <span className="d-block">{expanddetails?.req_data?.description}
-                                                    </span>
-                                                    {/* <span className="d-block">Where is this going to appear?</span> */}
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <div className="float-right">
+                            <div class="row">
+                                <div className="col-md-5">
+                                    <p>
+                                        <span className="d-block fw-bold">Description</span>
+                                        <span className="d-block">{expanddetails?.req_data?.description}
+                                        </span>
+                                        {/* <span className="d-block">Where is this going to appear?</span> */}
+                                    </p>
+                                </div>
+                                <div className="col-md-1">
+                                    <div className="float-right">
 
-                                                    <p>
-                                                        <span className="fw-bold d-block">Size</span>
-                                                        {expanddetails?.req_data?.size?.map((item) => (
-                                                            <span className="d-block">{item} </span>
-                                                        ))}</p>
-                                                </div>
-                                            </td>
-                                            <td width="84px"><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></td>
-                                            <td><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </td>
-                                            <td className="p-0">
-                                                <div className="float-right"><p><span className="fw-bold d-block">References</span>
-                                                    {expanddetails?.req_data?.references?.includes('https') ?
-                                                        <Link
-                                                            className="text-decoration-none"
-                                                            to={`${expanddetails?.req_data?.references}`}
-                                                            target="_blank"
-                                                        >
-                                                            {expanddetails?.req_data?.references}
-                                                        </Link>
-                                                        : <span className="d-block">
-                                                            {expanddetails?.req_data?.references}
-                                                        </span>
-                                                    }
-                                                </p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                        <p>
+                                            <span className="fw-bold d-block">Size</span>
+                                            {expanddetails?.req_data?.size?.map((item) => (
+                                                <span className="d-block">{item} </span>
+                                            ))}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-1"><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></div>
+                                <div className="col-md-2"><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </div>
+                                <div className="col-md-3">
+                                    <div className=""><p className="word-break"><span className="fw-bold d-block">References</span>
+                                        {expanddetails?.req_data?.references?.includes('https') ?
+                                            <Link
+                                                className="text-decoration-none"
+                                                to={`${expanddetails?.req_data?.references}`}
+                                                target="_blank"
+                                            >
+                                                {expanddetails?.req_data?.references}
+                                            </Link>
+                                            : <span className="d-block">
+                                                {expanddetails?.req_data?.references}
+                                            </span>
+                                        }
+                                    </p>
+                                    </div>
+                                </div>
+                                       
                             </div>
                         </div>
                         {expanddetails?.delivery_data?.map((request, index) =>

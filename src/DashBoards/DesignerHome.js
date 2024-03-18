@@ -54,11 +54,11 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                     </span>
                   </div>
                   <div className="table-responsive rounded">
-                    <table className="table table-borderless mb-0">
+                    <table className="table table-green table-borderless mb-0">
                       <tbody>
                         <tr>
                           <td
-                            className="text-center"
+                            className="text-center ps-3 "
                             style={{ width: "130px" }}
                           >
                             <ColorCode request={request} />
@@ -100,7 +100,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                               </span>
                             </p>
                           </td>
-                          <td className="text-end">
+                          <td className="text-center">
                             <p>
                               <span
                                 className="extra-dark-green cursor-pointer"
@@ -113,7 +113,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                               </span>{" "}
                             </p>
                           </td>
-                          <td className="text-end ps-0">
+                          <td className="text-center col-md-2 ps-0">
                             <Button
                               variant="unset"
                               className="rounded-pill deliver-now-btn fw-bold"

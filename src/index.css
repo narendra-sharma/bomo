@@ -1803,6 +1803,15 @@ button.deliver-now-btn:hover {
   border: solid 1px #000;
   color: #000;
 }
+button.deliver-now-btn.rejected{
+  background-color: #F92B34;
+  color: #fff;
+  border: solid 1px #F92B34;
+}
+button.deliver-now-btn.rejected:hover{
+  background-color: transparent;
+  color: #F92B34;
+}
 .designer-header button.deliver-now-btn {
   padding: 0px 18px;
   font-size: 12px;
@@ -1861,7 +1870,7 @@ nav p.user-email {
 }
 .designer-active-request .table > :not(caption) > * > *,
 .designer-request .table > :not(caption) > * > * {
-  background-color: #ecf7ee;
+  background-color: #ecf7ee!important;
 }
 .designer-request .table {
   border-collapse: separate;
