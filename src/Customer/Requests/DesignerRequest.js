@@ -41,7 +41,7 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                         <h3>Accept Request</h3>
                     </div>
                     {assignedRequest?.length ? assignedRequest?.map((request, index) => (
-                        <div className="designer-request bg-white px-5 px-md-4 py-2 rounded">
+                        <div className=" bg-white px-5 px-md-4 py-2 rounded">
                             <div className="mt-4 ms-4 mb-1">
                                 <span className="deadline-date status position-relative ps-3">
                                     Time to accept{" "}
@@ -51,12 +51,12 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                 </span>
                             </div>
                             <div className="table-responsive rounded">
-                                <table className="table table-borderless mb">
+                                <table className="table table-green rounded table-borderless mt-2">
                                     <tbody>
                                         <tr key={index}>
-                                            <td className="text-center shortad"><ColorCode request={request} /></td>
-                                            <td><p>{request?.brand_profile?.brandname}</p></td>
-                                            <td><p>{request?.request_name}</p></td>
+                                            <td className="text-center shortad ps-4"><ColorCode request={request} /></td>
+                                            <td><p className="extra-dark-green">{request?.brand_profile?.brandname}</p></td>
+                                            <td><p className="fw-bold" style={{fontSize:"15px"}}>{request?.request_name}</p></td>
                                             <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'Awaiting Acceptance' : ''}</span></p></td>
                                             <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? '-' : 'No Date'}</span></p></td>
                                             <td className="text-end">
@@ -69,11 +69,13 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                                     </span>{" "}
                                                 </p>
                                             </td>
+                                            
                                             <td className="text-end ps-0">
+                                                <div className="d-flex gap-3 justify-content-center" >
                                                 <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request, 'accepted')}>ACCEPT</Button>
-                                            </td>
-                                            <td className="text-end ps-0">
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request, 'rejected')}>DECLINE</Button>
+                                                <Button variant="unset" className="rounded-pill deliver-now-btn rejected fw-bold" onClick={() => handleacceptRequest(request, 'rejected')}>DECLINE</Button>
+                                                </div>
+                                                
                                             </td>
                                         </tr>
                                     </tbody>

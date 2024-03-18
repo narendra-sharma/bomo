@@ -99,38 +99,40 @@ const PastDetails = ({ show, handleClose, data }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="table-responsive">
-                                <table className="table table-borderless mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th class="ps-0" style={{ width: "215px" }}><p>Description</p></th>
-                                            <th ><p><span className="fw-bold d-block">Reference</span> </p></th>
-                                            <th ><p><span className="fw-bold d-block">Deliverables</span></p></th>
-                                            <th ><p><span className="fw-bold d-block">Format</span></p> </th>
-                                            <th className="pr-0"><p><span className="fw-bold d-block">Transparency</span></p> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="ps-0">
-                                                <p>
-                                                    <span className="d-block">{data?.description}</span>
-                                                </p>
-                                            </td>
-                                            <td><p>
-                                                {data?.references?.includes('http') ?
-                                                    <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
-                                                        {data?.references}
-                                                    </Link>
-                                                    : <span className="fw-bold d-block">{data?.references}</span>
-                                                }
-                                            </p></td>
-                                            <td><p><span className="fw-bold d-block">{data?.size}</span></p></td>
-                                            <td><p><span className="fw-bold d-block">{data?.file_type}</span></p> </td>
-                                            <td className="pr-0"><p>{data?.transparency}</p></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="row">
+                              
+                                <div class="col-md-4">
+                                    <p>
+                                      <span className="d-block fw-bold">Description</span>  
+                                        <span className="d-block">{data?.description}</span>
+                                    </p>
+                                </div>
+                                <div className="col-md-3">
+                                    <p className="word-break">
+                                       <span className="d-block fw-bold">Reference</span> 
+                                        {data?.references?.includes('http') ?
+                                            <Link className="text-decoration-none" to={`${data?.references}`} target="_blank">
+                                                {data?.references}
+                                            </Link>
+                                            : <span className="fw-bold d-block">{data?.references}</span>
+                                        }
+                                   </p>  
+                                </div>
+                                <div className="col-md-2">
+                                    <p>
+                                        <span className="d-block fw-bold">Deliverables</span> 
+                                        <span className="fw-bold d-block">{data?.size}</span>
+                                    </p>
+                                    </div>
+                                <div className="col-md-1"> <p>
+                                <span className="d-block fw-bold">Format</span>
+                                    
+                                    <span className="d-block">{data?.file_type}</span></p> </div>
+                                <div className="col-md-2">
+                                    <div className="float-right"><p>
+                                    <span className="d-block fw-bold">Transparency</span> {data?.transparency}</p></div>
+                                </div>
+                                       
                             </div>
                                     
                         </div>

@@ -114,7 +114,7 @@ const UploadPieces = ({ requestData }) => {
                     'uplaod-dimension border border-dark d-inline-block'
                     : 'upload-dimension one-one border border-dark d-inline-block'}>
                 </span>
-                Upload {item} .mp4
+                <span className="ps-2">  Upload {item} .mp4</span>
               </h5>
               <div className="upload-nine-mp4">
                 <div className="d-flex align-item-center justify-content-center mb-4">
