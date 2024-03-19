@@ -48,7 +48,7 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                       <p>
                         <span className="fw-bold">Status</span>{" "}
                         <span className="d-block">
-                          {request?.brief_rejected_at ? <span className="d-block">Need Update</span> : request?.status === "draft" ? "Draft" : "--"}
+                          {request?.brief_rejected_at_for_customer? <span className="d-block">Need Update</span> : request?.status === "draft" ? "Draft" : "--"}
                         </span>
                       </p>
                     </td>
