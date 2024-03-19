@@ -66,10 +66,10 @@ const PollRequests = ({ user, pollrequests }) => {
     checkpool();
   }, [pollrequests]);
 
-  const handleView = (request) => {
-    localStorage.setItem('requestData', JSON.stringify(request));
-    navigate('/details');
-  };
+  // const handleView = (request) => {
+  //   localStorage.setItem('requestData', JSON.stringify(request));
+  //   navigate('/details');
+  // };
 
   return (
     <>
@@ -84,7 +84,7 @@ const PollRequests = ({ user, pollrequests }) => {
             </div>
             <div className="row">
               <div className="col-md-11 col-lg-10 d-flex align-items-center">
-                <div className="d-flex align-items-center" onClick={() => handleView(request)}>
+                <div className="d-flex align-items-center">
                   <ColorCode request={request} reqtype='poll' />
                   <span class="brand-poll-circle">
                      <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />

@@ -477,7 +477,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                             isClearable={true}
                             placeholder="Select" />
                           {show && <div>
-                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" />
+                            <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" pattern="[0-9/:]*" onInput={(e) => e.target.value = e.target.value.replace(/[^0-9/:]/g, '')} />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
                             {customerror && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{customerror}</p>}
                           </div>}

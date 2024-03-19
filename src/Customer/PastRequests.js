@@ -29,7 +29,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
   }, {});
 
   const handleView = (request) => {
-    dispatch(get_review_request_data(request));
+    localStorage.setItem('requestData', JSON.stringify(request));
     navigate('/completed-request');
   };
 
@@ -37,7 +37,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
     <>
       <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
         <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
-        {((user?.role === 'customer_admin'||'customer')) && <SharedRequest />}
+          {((user?.role === 'customer_admin' || 'customer')) && <SharedRequest />}
           <div className="review-main-content past-request-section mb-5">
             <div className="mx-md-5 mx-sm-0 mb-4"><h3 >Past Requests</h3></div>
             <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
@@ -48,7 +48,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                     <h5 className="mx-md-4 mx-sm-0 fw-bold">{monthYear}</h5>
                   </div>
                   {requests?.map((request) => (
-                    <div className="col-md-4">
+                    <div className="col-md-4" onClick={() => handleView(request)}>
                       <Link className="text-decoration-none">
                         <div className="table-responsive">
                           <table className="table table-borderless mb-0">
@@ -61,12 +61,16 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                                 </span></p></td>
                                 <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                                 <td>
-                                  <select type='select' defaultValue='' onChange={() => handleView(request)}>
+                                  <img src={dropdownImage} alt="imgone" height="20" width="18" />
+                                </td>
+                                {/* <td>
+                                  <select type='select' defaultValue='' onClick={() => handleView(request)}>
                                     <option value='' disabled></option>
                                     <option value='view'>View</option>
                                   </select>
-                                </td>
+                                </td> */}
                               </tr>
+
                             </tbody>
                           </table>
                         </div>

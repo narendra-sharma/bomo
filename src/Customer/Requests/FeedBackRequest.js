@@ -65,30 +65,33 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                   {items?.length > 0 ? (
                     items.map((request, index) => (
                       <Draggable key={request?._id} draggableId={request?._id} index={index}>
-                        {(provided) => (                        
-                            <tr
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                              onClick={() => handleView(request)}
-                            >
-                              <td><p className="serial-number">{request?.priority}</p></td>
-                              <td className="text-center"><ColorCode request={request} /></td>
-                              <td>
-                                <p>{request?.brand_profile ? request?.brand_profile?.brandname : '-'}</p>
-                              </td>
-                              <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
-                              <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
-                                ? "No Date"
-                                : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
-                              <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                              <td>
-                                <select type='select' defaultValue='' onChange={() => handleView(request)}>
-                                  <option value='' disabled></option>
-                                  <option value='view'>View</option>
-                                </select>
-                              </td>
-                            </tr>
+                        {(provided) => (
+                          <tr
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            onClick={() => handleView(request)}
+                          >
+                            <td><p className="serial-number">{request?.priority}</p></td>
+                            <td className="text-center"><ColorCode request={request} /></td>
+                            <td>
+                              <p>{request?.brand_profile ? request?.brand_profile?.brandname : '-'}</p>
+                            </td>
+                            <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                            <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
+                              ? "No Date"
+                              : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
+                            <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
+                            <td>
+                              <img src={dropdownImage} alt="imgone" height="20" width="18" />
+                            </td>
+                            {/* <td>
+                              <select type='select' defaultValue='' onChange={() => handleView(request)}>
+                                <option value='' disabled></option>
+                                <option value='view'>View</option>
+                              </select>
+                            </td> */}
+                          </tr>
                         )}
                       </Draggable>
                     ))
