@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
-import { superadmin_approve_delivery } from "../reduxdata/rootAction";
+import { get_admin_assign_requestlist, get_admin_pending_requestlist, superadmin_approve_delivery } from "../reduxdata/rootAction";
 
 const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
     const dispatch = useDispatch();
@@ -37,6 +37,10 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus }) => {
             message: formdata.message
         };
         await superadmin_approve_delivery(dispatch,user?.token,specifyData,reqstatus);
+        setTimeout(() => {
+            get_admin_pending_requestlist(dispatch, user?.token);
+            get_admin_assign_requestlist(dispatch, user?.token);
+         },3000);
         handleClose();
     };
 

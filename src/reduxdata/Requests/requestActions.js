@@ -446,8 +446,6 @@ export const superadmin_approve_delivery = async (
            get_approve_delivery_list(token, dispatch);
         },3000);
       }
-      await get_admin_pending_requestlist(dispatch, token);
-      await get_admin_assign_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }
