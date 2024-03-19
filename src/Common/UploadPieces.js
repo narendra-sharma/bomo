@@ -177,10 +177,10 @@ const UploadPieces = () => {
               </h5>
               <div className="upload-nine-mp4">
                 <div className="d-flex align-items-center justify-content-center">
-                  <label class={`${!deliverdata[`firstfile${index}`] ? 'uploadFile' : isWrong[index] ? 'bg-red w-100 text-center' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
+                <label class={`${isWrong[index] ? 'bg-red w-100 text-center' : !deliverdata[`firstfile${index}`] ? 'uploadFile' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
                     {
                       isWrong[index] ?
-                        <span class="filename"> <i className="fa-solid fa-circle-xmark cancel text-danger"></i></span> :
+                        <span class="filename"> <i className="fa-solid fa-xmark cancel"></i></span> :
                         !deliverdata[`firstfile${index}`] ?
                           <span class="filename">
                             <i className="fa fa-plus"></i>

@@ -93,7 +93,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             <div className="col-md-6">
                                 <div className="d-flex align-items-center mb-3">
                                     <ColorCode request={data} />
-                                    <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                    <span class="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' /></span>
                                     <p className="brand-assets-btn rounded bg-white request-poll-active cursor-pointer" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>
                                         Brand Assets
                                     </p>
