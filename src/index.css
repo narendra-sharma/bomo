@@ -1264,11 +1264,13 @@ ul.designer-list {
   height: auto;
   overflow: unset;
   padding: 10px 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap:5px;
 }
 ul.designer-list li {
-  width: 30%;
+  width: 31%;
   display: inline-block;
-  margin-right: 6px;
 }
 .admin-payments .form-control {
   background: var(--gray-dark-color);
@@ -2584,7 +2586,7 @@ table.table-green{
   color: #fff;
 }
 .delivery-now-popup  .btn{
-  background-color:#072801!important;;
+  background-color:#072801!important;
   color: #fff!important;
 }
 .delivery-now-popup .delivery-now-btn-dark .btn{
