@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeliverNow from "../Modals/DeliverNow";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-const UploadPieces = ({ requestData }) => {
+const UploadPieces = () => {
+  // console.log(requestData);
+
+  const [requestData, setRequestData] = useState();
+  const checkfile_type = requestData?.file_type;
+  console.log(checkfile_type);
+  const [filetype, setFiletype] = useState('');
+  
+
+  useEffect(() => {
+    let requestdetails = JSON.parse(localStorage.getItem('requestData'));
+    setRequestData(requestdetails);
+
+     if(checkfile_type==='Mov' ) {
+      setFiletype('video/quicktime');
+     } else if(checkfile_type==='Mp4') {
+      setFiletype('video/mp4');
+     } else if(checkfile_type==='gif'){
+      setFiletype('image/gif');
+     }
+  }, [checkfile_type]);
+
+
   const [formdata, setFormdata] = useState({ zipfile: '' });
-  const sizes = requestData?.size;
   const [deliverdata, setDeliverdata] = useState({ firstfile: '' });
   const [fileErrors, setFileErrors] = useState({});
 
@@ -14,25 +35,59 @@ const UploadPieces = ({ requestData }) => {
   const [show, setShow] = useState(false);
   const [deliverdetail, setDeliverdetail] = useState();
   const [data, setData] = useState();
+  const [isWrong, setIsWrong] = useState(Array(requestData?.size?.length).fill(false));
 
-  const handleChange = (e) => {
+  const handleChange = (e, index) => {
     const { name } = e.target;
     const file = e.target.files[0];
     console.log(file);
-    const allowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'video/mp4', 'image/gif'];
-    if (file && !allowedFileTypes.includes(file.type)) {
-      setFileErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: 'Invalid file type. Please upload PNG, JPEG, JPG, MP4, or GIF files.',
-      }));
+    console.log(filetype);
+
+    if (file.type === filetype) {
+      const video = document.createElement('video');
+      video.onloadedmetadata = () => {
+        const aspectRatio = (video.videoWidth / video.videoHeight);
+        console.log(aspectRatio);
+
+        const sizeRatios = requestData?.size?.map(item => item.replace(/:/g, '/'));
+        const convertedArray = sizeRatios.map(item => {
+          const [numerator, denominator] = item.split('/').map(Number);
+          return numerator / denominator;
+        });
+        const checkratio = convertedArray.includes(aspectRatio);
+        if (!checkratio) {
+          setFileErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: 'Please upload videos with aspect ratios of 16:9, 9:16, 1:1, or 4:5.',
+          }));
+          console.log("invalid file");
+        } else {
+          setDeliverdata((prevdata) => ({
+            ...prevdata,
+            [name]: file,
+          }));
+          setFileErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: '',
+          }));
+          setIsWrong(prev => {
+            const newstate = [...prev];
+            newstate[index] = false;
+            return newstate;
+          });
+        }
+      };
+      video.src = URL.createObjectURL(file);
     } else {
+      toast.error("Invalid File Type");
+      setIsWrong(prev => {
+        const newstate = [...prev];
+        newstate[index] = true;
+        return newstate;
+      });
       setDeliverdata((prevdata) => ({
         ...prevdata,
-        [name]: file,
-      }));
-      setFileErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: '',
+        [name]: null,
       }));
     }
   };
@@ -114,24 +169,27 @@ const UploadPieces = ({ requestData }) => {
                     'uplaod-dimension border border-dark d-inline-block'
                     : 'upload-dimension one-one border border-dark d-inline-block'}>
                 </span>
-                <span className="ps-2">  Upload {item} .mp4</span>
+                <span className="ps-2"> Upload {item} .{requestData?.file_type.toLowerCase()}</span>
               </h5>
               <div className="upload-nine-mp4">
                 <div className="d-flex align-item-center justify-content-center mb-4">
-                  <label class="uploadFile">
-                    {!deliverdata[`firstfile${index}`] ?
-                      <span class="filename">
-                        <i className="fa fa-plus"></i>
-                      </span>
-                      : <i className="fa-solid fa-check-circle text-success"></i>}
+                  <label class={`${!deliverdata[`firstfile${index}`] ? 'uploadFile' : 'bg-success'}`}>
+                    {
+                      isWrong[index] ?
+                        <span class="filename"> <i className="fa-solid fa-circle-xmark cancel text-danger"></i></span> :
+                        !deliverdata[`firstfile${index}`] ?
+                          <span class="filename">
+                            <i className="fa fa-plus"></i>
+                          </span>
+                          : <span class="filename"><i className="fa-solid fa-check-circle text-success"></i></span>
+                    }
 
                     <input
                       name={`firstfile${index}`}
                       type="file"
-                      accept="image/*"
                       className="inputfile form-control"
                       defaultValue={deliverdata[`firstfile${index}`]}
-                      onChange={(e) => handleChange(e)} />
+                      onChange={(e) => handleChange(e, index)} />
                     {fileErrors[`firstFile${index}`] &&
                       <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">
                         {fileErrors[`firstFile${index}`]}
@@ -150,7 +208,7 @@ const UploadPieces = ({ requestData }) => {
             <div className="upload-zip-file">
 
               <div className="d-flex align-item-center justify-content-center mb-4">
-                <label class="uploadFile">
+                <label class={`uploadFile${zipfilepreview && 'bg-success'}`}>
                   {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i></span> : <i className="fa-solid fa-check-circle text-success"></i>}
                   <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleZipFile} />
                   {errors.zipfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.zipfile}</p>}

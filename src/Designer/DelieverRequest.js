@@ -11,7 +11,14 @@ import { saveAs } from 'file-saver';
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const DelieverRequest = ({ requestData }) => {
+const DelieverRequest = () => {
+    const [requestData, setRequestData] = useState();
+
+    useEffect(() => {
+        let requestdetails = JSON.parse(localStorage.getItem('requestData'));
+        setRequestData(requestdetails);
+    }, []);
+
 
     const DownloadAll = (filesUrl) => {
         filesUrl.forEach(async (url) => {

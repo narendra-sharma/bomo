@@ -102,13 +102,13 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               <div className="header-profile-side d-flex justify-content-between align-items-center">
               {user?.role === "customer" ||
               user?.role == "designer" ||
-              userRole == "Designer" ? (
-                
+          
+              userrole === "Designer" ? (
                 <div
                   className="cursor-pointer header-user-img"
                   onClick={() => navigate("/settings")}
                   style={{
-                    backgroundColor: user?.colour,
+                    backgroundColor: user?.colour ? user?.colour : 'black',
                     width: 30,
                     height: 30,
                     borderRadius: 25,

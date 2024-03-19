@@ -70,6 +70,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
   const [selectedRequestType, setSelectedRequestType] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [clickedIndex, setClickedIndex] = useState(null);
+  const [customerror,setCustomerror]=useState('');
   const handleHover = (index) => {
     setHoveredIndex(index);
   };
@@ -160,6 +161,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
     if (options?.find((item) => item?.value === 'custom')) {
       options.pop();
       setShow(true);
+      setErrors({...errors, size: ''});
       return;
     } else if (!options || options?.length === 0) {
       setFormData({
@@ -180,7 +182,8 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
 
   const handleCustom = () => {
     const inputValue = document.getElementById('customSizeInput').value;
-    if (inputValue) {
+    const ratioPattern = /^\d+:\d+$/;
+    if (inputValue && ratioPattern.test(inputValue)) {
       const sizedata = {
         label: inputValue,
         value: inputValue
@@ -190,7 +193,11 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
         size: [...prevdata?.size, sizedata]
       }));
       setShow(false);
+      setErrors({ size: '' });
       document.getElementById('customSizeInput').value = '';
+      setCustomerror('');
+    } else {
+      setCustomerror('Invalid Size');
     }
   };
 
@@ -472,6 +479,7 @@ const NewRequest = ({ brands, user, requestTypes, requestData, isAddEdit, imageP
                           {show && <div>
                             <input type='ratio' id='customSizeInput' className="form-control mt-2" placeholder="Enter Custom Size" />
                             <button type="button" className="btn btn-primary mt-2" onClick={handleCustom}>Add Custom Size</button>
+                            {customerror && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{customerror}</p>}
                           </div>}
                           {errors.size && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.size}</p>}
                         </div>

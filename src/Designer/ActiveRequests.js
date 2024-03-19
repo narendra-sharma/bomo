@@ -34,8 +34,9 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
   }, [activerequest]);
 
   const handleDeliever = (requestdata) => {
+    localStorage.setItem('requestData', JSON.stringify(requestdata));
     navigate("/deleiver-request");
-    dispatch(deliever_request_details(requestdata));
+    // dispatch(deliever_request_details(requestdata));
   };
 
   const handleDownload = async (fileUrl) => {
@@ -218,7 +219,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   </p>
                                 </div>
                                 <div className="col-md-3">
-                                <p><span className="d-block fw-bold">Format</span> <span className="d-block"></span></p>
+                                <p><span className="d-block fw-bold">Format</span> <span className="d-block">{request?.file_type}</span></p>
                                 </div>
                               </div>
                             </div>
