@@ -92,7 +92,7 @@ const DelieverRequest = () => {
                                             </p>
                                         </div>
                                         <div className="col-md-5">
-                                            <div className="d-flex gap-4">
+                                            <div className="d-flex justify-content-center gap-4">
                                                 <div className="">
                                                     <p>
                                                         <span className="d-block fw-bold">Size</span> {requestData?.size?.map((item) => <span className="d-block">{item}</span>)}
