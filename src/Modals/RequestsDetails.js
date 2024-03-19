@@ -76,7 +76,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                         <div className="col-md-6">
                             <div className="d-flex align-items-center mb-3">
                                 <ColorCode request={data} />
-                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                <span class="brand-poll-circle">  <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${data?.brand_profile?.logo}`} alt='imga'/></span>
                                 {/* <p className="brand-assets-btn rounded bg-white request-poll-active" onClick={() => handleDownload(`${data?.brand_profile?.brandassests}`)}>Brand Assets</p> */}
                             </div>
                         </div>
@@ -141,7 +141,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                             <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'accepted')}>ACCEPT</Button>
                                         </div>
                                         <div className="col-md-6 status-btn">
-                                            <Button className="btn pause-btn rounded py-2 w-100" onClick={() => handleacceptRequest(data, 'rejected')}>DECLINE</Button>
+                                            <Button className="btn pause-btn rounded decline-btn py-2 w-100" onClick={() => handleacceptRequest(data, 'rejected')}>DECLINE</Button>
                                         </div>
                                     </div>
                                     :
