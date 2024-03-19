@@ -139,7 +139,8 @@ const Setting = ({ userrole, profiledetails }) => {
                               : "#000000",
                           }}
                         ></div>
-                      )}
+                      )
+                      }
                       <p className="mb-0 user-email  ms-1 ms-lg-2">
                         <b className=" d-md-block">Name</b>
                         <span className="d-block">{user?.name}</span>

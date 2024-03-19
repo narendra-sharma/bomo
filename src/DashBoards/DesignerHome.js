@@ -30,8 +30,9 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
   }, [activerequest]);
 
   const handleDeliever = (requestData) => {
+    localStorage.setItem('requestData', JSON.stringify(requestData));
     navigate("/deleiver-request");
-    dispatch(deliever_request_details(requestData));
+    // dispatch(deliever_request_details(requestData));
   };
 
   return (

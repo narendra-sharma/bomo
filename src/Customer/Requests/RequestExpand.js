@@ -19,9 +19,6 @@ const RequestExpand = ({ user, deliverrequests }) => {
     useEffect(() => {
         let requestdetails = JSON.parse(localStorage.getItem('requestData'));
         setReceivedData(requestdetails);
-        return () => {
-            localStorage.removeItem('requestData');
-        }
     }, []);
 
     useEffect(() => {
