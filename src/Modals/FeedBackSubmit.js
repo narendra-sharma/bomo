@@ -78,6 +78,9 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
         if (designName === 'landscape') {
             const feedbackmessage = formdata.feedback;
             localStorage.setItem('landscape', JSON.stringify(feedbackmessage));
+            if(details?.size?.length===1){
+                setIsFeed(true);
+            }
             handleClose();
         }
 
@@ -120,7 +123,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
                     </div>
                 </Modal.Body>
             </Modal>
-            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)} />
+            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}/>
         </div>
     )
 }

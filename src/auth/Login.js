@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import logoImage from '../images/bomo-light-green.svg';
 import darkLogo from '../images/bomo-dark-green.svg';
 const Login = (props) => {
-  const { isLoading,login } = props;
+  const { isLoading, login } = props;
   let typeuser = localStorage.getItem('USERTYPE');
   let checkusertype = JSON.parse(typeuser);
   const userrole = useSelector((state) => state.auth.role || '')
@@ -64,7 +64,7 @@ const Login = (props) => {
   };
 
   const handleSignup = (user, role) => {
-    login(user,role,dispatch);
+    login(user, role, dispatch);
   }
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'MM.dd.yyyy');
@@ -76,10 +76,10 @@ const Login = (props) => {
             <div className="form-heading d-flex flex-column justify-content-between">
               <h2>Login</h2>
               <div className="login-date">{formattedDate}
-              <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">
-              
-                <img src={checkusertype === 'Designer' ? darkLogo:logoImage} alt="Bomo logo" />
-              </Link></div>
+                <div><Link to="/" className="bomo-login-logo fw-bold text-decoration-none">
+
+                  <img src={checkusertype === 'Designer' ? darkLogo : logoImage} alt="Bomo logo" />
+                </Link></div>
               </div>
             </div>
             <div>
@@ -88,7 +88,7 @@ const Login = (props) => {
                 <div className="form-group">
                   <label>
                     Email<span className="text-danger">*</span></label>
-                  <input type="text" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate/>
+                  <input type="text" name="email" placeholder="Your company email here" className="form_control" value={formData.email} onChange={handleInputChange} noValidate />
                   {emailerror && <p className="error  fw-bold">{emailerror}</p>}
                 </div>
 
@@ -97,8 +97,8 @@ const Login = (props) => {
                     Password<span className="text-danger">*</span></label>
                   <input type={showPassword ? "text" : "password"} name="password" placeholder="Enter your password here" className="form_control" value={formData.password} onChange={handleInputChange} />
                   <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"} onClick={togglePasswordVisibility} ></i>
-                  </div>
-                  {passworderror && <p className="error  fw-bold">{passworderror}</p>}
+                </div>
+                {passworderror && <p className="error  fw-bold">{passworderror}</p>}
 
                 <button type="submit" disabled={isLoading} className="submit-btn signup-btn">
                   {isLoading ? 'Login.....' : 'Login'}
@@ -113,16 +113,16 @@ const Login = (props) => {
                 </div>
               </form>
             </div>
-            </div>
-              {checkusertype === 'SuperAdmin' ? (
-                <p></p>
-              ) : checkusertype === 'Designer' ? (
-                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
-              ) : checkusertype === 'customer_admin' ? (
-                <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
-              ) : (
-                <p></p>
-              )}
+          </div>
+          {checkusertype === 'SuperAdmin' ? (
+            <p></p>
+          ) : checkusertype === 'Designer' ? (
+            <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
+          ) : checkusertype === 'customer_admin' ? (
+            <p className="already-register text-end">Don’t have an account? <Link to='/signup' className="login-redirect">Sign up</Link></p>
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
     </>

@@ -32,7 +32,8 @@ const ApproveStatus = ({ expanddetails }) => {
 
             <div class={`${expanddetails?.req_data?.brief_rejected_at ? 'step' : ''}`}>
                 {expanddetails?.req_data?.brief_rejected_at &&
-                    expanddetails?.req_data?.brief_rejected_at?.map((item) => <div>
+                    expanddetails?.req_data?.brief_rejected_at?.map((item) => 
+                    <div>
                         <p className="brief-content">Brief Rejected</p>
                         <div class="deliver-status delivery-cancel">
                             <span><i class="fa-solid fa-circle-xmark"></i></span>

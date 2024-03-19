@@ -107,7 +107,7 @@ const PaymentHistory = ({
               <th>Date</th>
               <th>Status</th>
               <th>Amount</th>
-              <th>Updated By</th>
+              {(user?.role=== 'customer_admin' || user?.role==='superadmin') && <th>Updated By</th>}
               <th colSpan={4}></th>
             </tr>
           </thead>
@@ -120,11 +120,11 @@ const PaymentHistory = ({
                     {item.payment_status === "paid" ? "COMPLETED" : "PENDING"}
                   </td>
                   <td>${item.amount / 100} </td>
-                  <td>
+                  {(user?.role=== 'customer_admin' || 'superadmin') && <td>
                     {item?.updated_by?.name
                       ? item?.updated_by?.name
                       : item?.user_id?.name}
-                  </td>
+                  </td>}
                   <td className="text-end">
                     <a
                       href={item?.invoice_link}

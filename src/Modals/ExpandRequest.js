@@ -34,8 +34,10 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
     };
 
     const handleDownload = async (fileUrl) => {
+        console.log(fileUrl);
         const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
         const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        console.log("File Content URL:", fileContent);
         const fileName = fileUrl?.substring(fileUrl?.lastIndexOf("/") + 1);
         const getMimeType = (ext) => {
             const mimeTypes = {
@@ -46,6 +48,8 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                 jpeg: "image/jpeg",
                 png: "image/png",
                 gif: "image/gif",
+                mp4: "video/mp4",
+                mov: "video/quicktime"
             };
             return mimeTypes[ext] || "application/octet-stream";
         };
@@ -55,6 +59,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         const fileExtension = fileName?.split(".").pop().toLowerCase();
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
+        console.log(blobwithtype);
         saveAs(blobwithtype, fileName);
     };
 
@@ -62,6 +67,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         filesUrl.forEach(async (url) => {
             const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
             const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+            console.log("File Content URL:", fileContent);
             const fileName = url?.substring(url?.lastIndexOf("/") + 1);
             const getMimeType = (ext) => {
                 const mimeTypes = {
@@ -351,7 +357,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                     </div>
 
                     {(expanddetails?.req_data?.is_approved_by_super_admin) &&
-                        <UploadPieces />
+                        <UploadPieces/>
                     }
                 </div>
             </Modal.Body>

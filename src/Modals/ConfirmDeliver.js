@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import FeedBackSubmit from "./FeedBackSubmit";
 import ReviewSubmit from "./ReviewSubmit";
 import designImage5 from "../images/large-nine-sixteen.png";
+import designImage2 from "../images/sixteen-nine.png";
 import ColorCode from "../Common/ColorCode";
 import FeedbackFiles from "./FeedbackFiles";
 
@@ -24,6 +25,14 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
         return `${monthDay}th ${time}`;
     };
 
+    const handleSingle = () => {
+        if(requestdata?.size?.length===1){
+            setIssucess(true);
+        }else if (requestdata?.size?.length>1){
+            setDeliveryStage(deliveryStage + 1)
+        }
+    };
+
     const handleCheck = () => {
         if(deliveryStage===2 && (getPortrait || getLandscape)) {
             setIsFeed(true);
@@ -34,7 +43,11 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
     };
 
     const showFeedback = () => {
-        if(deliveryStage===1){
+        if(deliveryStage===1 && requestdata?.size?.length===1){
+            setFeed(true);
+            setDeliveryname('landscape');
+            viewClose();
+        } else if(deliveryStage===1 && requestdata?.size?.length===2){
             setFeed(true);
             setDeliveryname('landscape');
         } else if(deliveryStage===2) {
@@ -74,7 +87,8 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                         </div>
                                         <div className="">
                                             {deliveryStage === 1 ? (
-                                                <img src={`${REACT_APP_BOMO_URL}designe/landscape/${requestdata?.landscape}`} alt="Img1" />
+                                                <img src={designImage2} alt="iff"/>
+                                                // <img src={`${REACT_APP_BOMO_URL}designe/landscape/${requestdata?.landscape}`} alt="Img1" />
                                             ) : deliveryStage === 2 ? (
                                                 <img src={`${REACT_APP_BOMO_URL}designe/portrait/${requestdata?.portrait}`} alt="Img2" />
                                             ) : "No Data"}
@@ -82,24 +96,24 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                     </div>
                                 </div>
                                 <div className="col-md-5 align-self-center text-center">
-                                    <p className="mb-1 h6 fw-bold color-black"> Delivery {deliveryStage}/2 </p>
+                                    <p className="mb-1 h6 fw-bold color-black"> Delivery {deliveryStage}/{requestdata?.size?.length} </p>
                                     <div className="delivery-status fw-bold mb-3">
                                         {requestdata?.request_name}
                                     </div>
                                     <span className="delivery-status">
                                         {deliveryStage === 1 ?
-                                            <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => setDeliveryStage(deliveryStage + 1)}></i>
+                                            <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => handleSingle()}></i>
                                             : <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => handleCheck()}></i>
                                         }
                                     </span>
                                     <span className="delivery-status delivery-cancel bg-white p-1 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={showFeedback}></i></span>
-                                    <div className="mt-5">
+                                    {requestdata?.size?.length > 1 && <div className="mt-5">
                                         {deliveryStage === 1 ? (
                                             <button className="btn btn-outline-dark px-3 py-1" onClick={() => setDeliveryStage(deliveryStage + 1)}>Next</button>
                                         ) : deliveryStage === 2 ? (
                                             <button className="btn btn-outline-dark px-3 py-1" onClick={() => setDeliveryStage(Math.max(1, deliveryStage - 1))}>Previous</button>)
                                             : "No Data Found"}
-                                    </div>
+                                    </div>}
                                 </div>
                             </div>
                         </div>

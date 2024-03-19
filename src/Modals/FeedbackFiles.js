@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import reelImage from "../images/reel-image.png";
 import ConfirmFeedback from "./ConfirmFeedback";
+import { connect } from "react-redux";
 
-const FeedbackFiles = ({ show, handleClose,details }) => {
+const FeedbackFiles = ({ show, handleClose,requestData }) => {
 
     const getPortrait = JSON.parse(localStorage.getItem('portrait'));
     const getLandscape = JSON.parse(localStorage.getItem('landscape'));
@@ -13,23 +14,23 @@ const FeedbackFiles = ({ show, handleClose,details }) => {
             <Modal show={show} onHide={handleClose} size="xl" className="logout-popup">
                 <Modal.Body>
                     <div>
-                        <span>Delivery 2/2</span>
-                        <p>Transition Brand Video</p>
+                        <span>Delivery {requestData?.size?.length}/{requestData?.size?.length}</span>
+                        <p>{requestData?.request_name}</p>
                         <div className="d-flex align-items-center justify-content-between">
                             <div className="d-flex flex-column align-items-center">
-                                <span>9:16</span>
+                                <span>{requestData?.size[0]}</span>
                                 <span>{getLandscape ? <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
                                     : <i className="fa-solid fa-check-circle"></i>}
                                 </span>
                                 <img src={reelImage} alt="imag" />
                             </div>
-                            <div className="d-flex flex-column align-items-center">
-                                <span>16:9</span>
+                            {requestData?.size?.length>1 && <div className="d-flex flex-column align-items-center">
+                                <span>{requestData?.size[1]}</span>
                                 <span>{getPortrait ? <i className="fa-solid fa-circle-xmark cancel text-danger"></i>
                                     : <i className="fa-solid fa-check-circle"></i>}
                                 </span>
                                 <img src={reelImage} alt="imag" />
-                            </div>
+                            </div>}
                         </div>
                         <div className="d-flex gap-3 justify-content-center mt-3 pt-4">
                             <div className="col-md-3">
@@ -41,9 +42,15 @@ const FeedbackFiles = ({ show, handleClose,details }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            <ConfirmFeedback show={isShow} handleClose={() => setIsShow(false)} requestdata={details}/>
+            <ConfirmFeedback show={isShow} handleClose={() => setIsShow(false)}/>
         </div>
     )
 };
 
-export default FeedbackFiles;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+        requestData: state.requests.reviewrequestData,
+    };
+};
+export default connect(mapStateToProps)(FeedbackFiles);

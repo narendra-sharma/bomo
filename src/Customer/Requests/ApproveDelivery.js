@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { deliever_request_details, get_approve_delivery_list, superadmin_approve_delivery } from '../../reduxdata/rootAction';
 import designImage from "../../images/nine-sixteen.png";
@@ -10,31 +10,37 @@ import ExpandRequest from '../../Modals/ExpandRequest';
 import RejectRequest from '../../Modals/RejectRequest';
 
 const ApproveDelivery = ({ user, approvelist }) => {
-    const [show,setShow]=useState(false);
-    const [isapprove,setIsapprove]=useState({});
-    const [isreject,setIsreject]=useState(false);
-    const [reqdata,setReqdata]=useState({});
+    const [show, setShow] = useState(false);
+    const [isapprove, setIsapprove] = useState({});
+    const [isreject, setIsreject] = useState(false);
+    const [reqdata, setReqdata] = useState({});
     const dispatch = useDispatch();
 
-    const handleApprove = async (e,data,status) => {
+    const handleApprove = async (e, data, status) => {
         e.preventDefault();
         const requestId = data?._id;
-        if((status === 'accepted')&&data){
+        if ((status === 'accepted') && data) {
             const approvedata = {
-                _id:requestId,
-                deliverystatus:status
+                _id: requestId,
+                deliverystatus: status
             };
-            await superadmin_approve_delivery(dispatch,user?.token,approvedata);
-            setIsapprove((prev) => ({...prev, [requestId]: 'accepted'}));
-        } else if((status === 'rejected')&&data){
+            await superadmin_approve_delivery(dispatch, user?.token, approvedata);
+            setIsapprove((prev) => ({ ...prev, [requestId]: 'accepted' }));
+        } else if ((status === 'rejected') && data) {
             setIsreject(true);
             setReqdata(data);
         }
     };
 
+    const handleExpand = () => {
+        setShow(false);
+        localStorage.removeItem('requestData');
+        dispatch(deliever_request_details(null));
+    };
+
     useEffect(() => {
         get_approve_delivery_list(user?.token, dispatch);
-    }, [dispatch,user?.token]);
+    }, [dispatch, user?.token]);
 
     return (
         <div className="row">
@@ -72,7 +78,11 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="cursor-pointer" onClick={() => {setShow(true); dispatch(deliever_request_details(request));}}>Expand Request</span>{" "}
+                                            <span className="cursor-pointer" onClick={() => { 
+                                                setShow(true); 
+                                                dispatch(deliever_request_details(request)); 
+                                                localStorage.setItem('requestData', JSON.stringify(request));
+                                                }}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>
@@ -86,7 +96,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </div>
                                     </td>
                                     <td>
-                                       {request?.size[1] && <div className="statusbar-section d-flex align-items-center justify-content-between">
+                                        {request?.size[1] && <div className="statusbar-section d-flex align-items-center justify-content-between">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[1]}</p>
                                             </div>
@@ -107,12 +117,12 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <div className="d-flex align-items-center">
-                                            <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e,request,'accepted')}>
-                                               {isapprove[request?._id] === 'accepted' ? 'Approved' : 'Approve Delivery'}
+                                            <button className="btn btn-sm btn-outline-success rounded-pill" onClick={(e) => handleApprove(e, request, 'accepted')}>
+                                                {isapprove[request?._id] === 'accepted' ? 'Approved' : 'Approve Delivery'}
                                             </button>
-                                            {isapprove[request?._id] === 'accepted' ? 
-                                            <i className="fa-solid fa-check-circle text-success"></i> :
-                                            <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e,request,'rejected')}></i>}
+                                            {isapprove[request?._id] === 'accepted' ?
+                                                <i className="fa-solid fa-check-circle text-success"></i> :
+                                                <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
                                         </div>
                                     </td>
                                 </tr>
@@ -121,7 +131,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     </table>
                 </div>
             </div>
-            <ExpandRequest show={show} handleClose={() => {setShow(false); dispatch(deliever_request_details(null));}}/>
+            <ExpandRequest show={show} handleClose={() => { handleExpand();}} />
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )
