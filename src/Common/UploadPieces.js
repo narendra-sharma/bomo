@@ -10,19 +10,19 @@ const UploadPieces = () => {
   const checkfile_type = requestData?.file_type;
   console.log(checkfile_type);
   const [filetype, setFiletype] = useState('');
-  
+
 
   useEffect(() => {
     let requestdetails = JSON.parse(localStorage.getItem('requestData'));
     setRequestData(requestdetails);
 
-     if(checkfile_type==='Mov' ) {
+    if (checkfile_type === 'Mov') {
       setFiletype('video/quicktime');
-     } else if(checkfile_type==='Mp4') {
+    } else if (checkfile_type === 'Mp4') {
       setFiletype('video/mp4');
-     } else if(checkfile_type==='gif'){
+    } else if (checkfile_type === 'gif') {
       setFiletype('image/gif');
-     }
+    }
   }, [checkfile_type]);
 
 
@@ -167,7 +167,11 @@ const UploadPieces = () => {
                   'uplaod-dimension sixteen-nine border border-dark d-inline-block' :
                   item === '9:16' ?
                     'uplaod-dimension border border-dark d-inline-block'
-                    : 'upload-dimension one-one border border-dark d-inline-block'}>
+                    : item === '4:5' ?
+                      'uplaod-dimension four-five border border-dark d-inline-block'
+                      : item === '1:1' ?
+                        'uplaod-dimension one-one border border-dark d-inline-block'
+                        : 'uplaod-dimension sixteen-nine custom-size border border-dark d-inline-block'}>
                 </span>
                 <span className="ps-2"> Upload {item} .{requestData?.file_type.toLowerCase()}</span>
               </h5>
@@ -181,7 +185,7 @@ const UploadPieces = () => {
                           <span class="filename">
                             <i className="fa fa-plus"></i>
                           </span>
-                          :<span className="after-uploaded">
+                          : <span className="after-uploaded">
                             <span className="d-block h6 text-black fw-bold mb-1">SUCCESFUL</span> <span class="filename"><i className="fa-solid fa-check"></i></span></span>
                     }
 
@@ -209,8 +213,8 @@ const UploadPieces = () => {
             <div className="upload-zip-file">
 
               <div className="d-flex align-items-center justify-content-center">
-                <label class={`uploadFile${zipfilepreview && 'upload-zip-successfully'} uploadFile d-flex align-items-center justify-content-center` }>
-                  {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i> </span>: <span class="filename"><i className="fa-solid fa-check"></i></span>}
+                <label class={`uploadFile${zipfilepreview && 'upload-zip-successfully'} uploadFile d-flex align-items-center justify-content-center`}>
+                  {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i> </span> : <span class="filename"><i className="fa-solid fa-check"></i></span>}
                   <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleZipFile} />
                   {errors.zipfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.zipfile}</p>}
                 </label>
@@ -220,50 +224,7 @@ const UploadPieces = () => {
           <div className="col-md-3">
             <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => { handleSubmit(e); setData(requestData); }}>DELIVERY NOW</button> </div>
           </div>
-
         </div>
-        <div class="row align-items-center">
-          <div class="col-md-3 d-flex flex-column">
-            <h5 class="text-center mb-2">
-              <span class="uplaod-dimension one-one border border-dark d-inline-block"></span>
-              <span class="ps-2"> Upload 1:1 .mp4</span></h5>
-              <div class="upload-nine-mp4">
-                <div class="d-flex align-items-center justify-content-center">
-                  <label class="uploadFile uploadFile d-flex align-items-center justify-content-center">
-                    <span class="filename"><i class="fa fa-plus"></i></span>
-                    <input name="firstfile0" type="file" class="inputfile form-control" value=""/>
-                    </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 d-flex flex-column">
-            <h5 class="text-center mb-2">
-              <span class="uplaod-dimension four-five border border-dark d-inline-block"></span>
-              <span class="ps-2"> Upload 4.5 .mp4</span></h5>
-              <div class="upload-nine-mp4">
-                <div class="d-flex align-items-center justify-content-center">
-                  <label class="uploadFile uploadFile d-flex align-items-center justify-content-center">
-                    <span class="filename"><i class="fa fa-plus"></i></span>
-                    <input name="firstfile0" type="file" class="inputfile form-control" value=""/>
-                    </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 d-flex flex-column">
-            <h5 class="text-center mb-2">
-              <span class="uplaod-dimension sixteen-nine custom-size border border-dark d-inline-block"></span>
-              <span class="ps-2"> Upload cutsom Size</span></h5>
-              <div class="upload-nine-mp4">
-                <div class="d-flex align-items-center justify-content-center">
-                  <label class="uploadFile uploadFile d-flex align-items-center justify-content-center">
-                    <span class="filename"><i class="fa fa-plus"></i></span>
-                    <input name="firstfile0" type="file" class="inputfile form-control" value=""/>
-                    </label>
-                </div>
-              </div>
-            </div>
-            </div>
-
       </div>
       <DeliverNow show={show} handleClose={() => setShow(false)} detail={deliverdetail} currentdata={data} />
     </div>

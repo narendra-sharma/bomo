@@ -219,7 +219,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                         <div className="col-md-3 d-flex text-center justify-content-center">
                                                             <div className="statusbar-section d-flex flex-column justify-content-between">
                                                                 <div className="delivery-status fw-bold">
-                                                                    9:16
+                                                                    {receivedData?.size[0]}
                                                                 </div>
                                                                 <div className="">
                                                                     <img src={designImage} alt="Imag" />
@@ -238,10 +238,10 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        {receivedData?.size[1] && <div className="col-md-3 d-flex text-center justify-content-center">
                                                             <div className="statusbar-section d-flex flex-column justify-content-between">
                                                                 <div className="delivery-status fw-bold">
-                                                                    16:9
+                                                                    {receivedData?.size[1]}
                                                                 </div>
                                                                 <div className="">
                                                                     <img src={designImage2} alt="Imag" />
@@ -259,7 +259,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div>}
                                                     </div>
                                                 )}
                                                 {(((!request?.is_approved_by_customer) || (!request?.is_approved_by_super_admin)) && ((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (

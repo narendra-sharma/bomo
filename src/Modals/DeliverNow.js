@@ -76,7 +76,7 @@ const DeliverNow = ({ show, handleClose, detail, user, currentdata, isSubmit }) 
                                     }}
                                     onDrag={handleDrag}
                                     onStop={handleDragStop}
-                                    bounds={{ left: 0, right: 200 }}
+                                    bounds={{ left: 0, right: 255 }}
                                     position={dragPosition}>
                                     <Button variant="unset" className="btn px-4 rounded-pill">
                                         DELIVER NOW

@@ -9,20 +9,27 @@ import { Link } from "react-router-dom";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const CompletedRequest = ({ deliverrequests, user, requestData }) => {
+const CompletedRequest = ({ deliverrequests, user }) => {
     const dispatch = useDispatch();
+    const [receivedData, setReceivedData] = useState();
 
     useEffect(() => {
-        return () => {
-            dispatch(get_review_request_data(null));
-        }
+        let requestdetails = JSON.parse(localStorage.getItem('requestData'));
+        setReceivedData(requestdetails);
     }, []);
 
+
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(get_review_request_data(null));
+    //     }
+    // }, []);
+
     useEffect(() => {
-        if (requestData?._id) {
-            get_completed_request_forcusotmer_admin(dispatch, user?.token, requestData?._id);
+        if (receivedData?._id) {
+            get_completed_request_forcusotmer_admin(dispatch, user?.token, receivedData?._id);
         }
-    }, [requestData?._id]);
+    }, [receivedData?._id]);
 
     const formatDate = (inputDate) => {
         const date = new Date(inputDate);
@@ -103,13 +110,14 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                     <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
                         <div className="row">
                             <div className="col-md-7 col-lg-6 mb-4">
-                                <h3>{requestData?.request_name}</h3>
+                                <h3>{receivedData?.request_name}</h3>
                                 <div className="review-content mt-3">
                                     <div className="d-flex">
-                                        <ColorCode request={requestData} />
+                                        <ColorCode request={receivedData} />
                                         <span class="brand-poll-circle">
-                                             <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_details?.logo}`} alt='imga' /></span>
-                                      <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(requestData?.file)}>Project Assets</p>
+                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_profile?.logo}`} alt='imga' />
+                                        </span>
+                                        <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
                                     </div>
                                 </div>
                             </div>
@@ -142,27 +150,27 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                                             <tr>
                                                 <td className="ps-0">
                                                     <span className="d-block">
-                                                        {requestData?.description}
+                                                        {receivedData?.description}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    {requestData?.size?.map((value) => (
+                                                    {receivedData?.size?.map((value) => (
                                                         <span className="d-block">{value}</span>
                                                     ))}
                                                 </td>
-                                                <td>{requestData?.file_type}</td>
-                                                <td>{requestData?.transparency}</td>
+                                                <td>{receivedData?.file_type}</td>
+                                                <td>{receivedData?.transparency}</td>
                                                 <td className="text-end">
-                                                    {requestData?.references?.includes('https') ?
+                                                    {receivedData?.references?.includes('https') ?
                                                         <Link
                                                             className="text-decoration-none"
-                                                            to={`${requestData?.references}`}
+                                                            to={`${receivedData?.references}`}
                                                             target="_blank"
                                                         >
-                                                            {requestData?.references}
+                                                            {receivedData?.references}
                                                         </Link>
                                                         : <span className="d-block">
-                                                            {requestData?.references}
+                                                            {receivedData?.references}
                                                         </span>
                                                     }
                                                 </td>
@@ -192,7 +200,7 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">
-                                                        9:16
+                                                        {receivedData?.size[0]}
                                                     </div>
                                                     <div className="">
                                                         <img src={designImage} alt="Imag" />
@@ -211,10 +219,10 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                            {receivedData?.size[1] && <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">
-                                                        16:9
+                                                        {receivedData?.size[1]}
                                                     </div>
                                                     <div className="">
                                                         <img src={designImage2} alt="Imag" />
@@ -232,7 +240,7 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>}
                                         </div>
                                     </div>
                                 </div>

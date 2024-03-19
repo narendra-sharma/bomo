@@ -231,6 +231,7 @@ const BankInfo = ({ user, imagepath, profiledetails }) => {
         frontImageName: bankInfo?.documentfront?.split("/").pop(),
         backImageName: bankInfo?.documentback?.split("/").pop(),
         firstname: user?.name,
+        lastname: user?.address?.surname,
         email: user?.email,
         city: user?.address?.city,
         state: getcity,

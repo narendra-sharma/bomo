@@ -449,6 +449,7 @@ export const add_user_account = async (dispatch, accountdata, token) => {
       month: accountdata.month,
       year: accountdata.year,
       first_name: accountdata.firstname,
+      last_name: accountdata.lastname,
       gender: accountdata.gender,
       phone: accountdata.phone,
       id_number: accountdata.idnumber,
