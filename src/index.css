@@ -2139,7 +2139,7 @@ button.accordion-button.collapsed .late-request-section {
   border-radius: 50%;
   border: solid 1px #000;
 }
-.ready-to-delivery-section .upload-nine-mp4:hover .uploadFile , .upload-zip-successfully {
+.ready-to-delivery-section .upload-nine-mp4:hover .uploadFile  {
   background-color: #ecf7ee;
 }
 
@@ -2153,8 +2153,29 @@ button.accordion-button.collapsed .late-request-section {
 .ready-to-delivery-section .upload-zip-file:hover .uploadFile{
   background-color: #000;
 }
-.ready-to-delivery-section .upload-zip-successfully:hover .uploadFile{
+.ready-to-delivery-section .upload-zip-file .uploadFileupload-zip-successfully ,
+.ready-to-delivery-section .upload-zip-file:hover .uploadFileupload-zip-successfully.uploadFile{
   background-color: #ecf7ee;
+}
+.ready-to-delivery-section .after-uploaded span.filename {
+  background: #ECF7EE;
+}
+.ready-to-delivery-section .upload-zip-file .uploadFileupload-zip-successfully span.filename ,
+.ready-to-delivery-section .upload-nine-mp4:hover .after-uploaded span.filename{
+background-color: #3FCE3C;
+}
+.ready-to-delivery-section .upload-nine-mp4:hover .after-uploaded span.filename i ,
+.ready-to-delivery-section .upload-zip-file .uploadFileupload-zip-successfully span.filename i{
+  color: #000;
+}
+.upload-nine-mp4 .uploadFile.a{
+  background-color: #F92B34;
+}
+.ready-to-delivery-section span.filename.a{
+  background-color: #000;
+}
+.ready-to-delivery-section span.filename.a{
+  color: #fff;
 }
 .ready-to-delivery-section .uplaod-dimension , 
 .ready-to-delivery-section .uplaod-dimension.four-five {
@@ -2519,9 +2540,11 @@ table.table-green{
   border-radius: 50%;
   width: 33px;
   height: 33px;
-  display: inline-block;
   text-align: center;
   line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .brand-poll-circle img{
   width: 26px;
