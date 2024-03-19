@@ -2123,8 +2123,9 @@ button.accordion-button.collapsed .late-request-section {
 .upload-zip-file .uploadFile , .upload-nine-mp4 .bg-green {
   padding: 30px 10px;
   border-radius: 5px;
+  border:solid 1px #000;
+  height: 100px;
 }
-
 .upload-zip-file .uploadFile {
   background: #d2cece;
 }
@@ -2138,9 +2139,10 @@ button.accordion-button.collapsed .late-request-section {
   border-radius: 50%;
   border: solid 1px #000;
 }
-.ready-to-delivery-section .upload-nine-mp4:hover .uploadFile{
+.ready-to-delivery-section .upload-nine-mp4:hover .uploadFile , .upload-zip-successfully {
   background-color: #ecf7ee;
 }
+
 .ready-to-delivery-section .upload-zip-file span.filename {
   background-color: #838383;
 }
@@ -2151,12 +2153,21 @@ button.accordion-button.collapsed .late-request-section {
 .ready-to-delivery-section .upload-zip-file:hover .uploadFile{
   background-color: #000;
 }
-.ready-to-delivery-section .uplaod-dimension {
+.ready-to-delivery-section .upload-zip-successfully:hover .uploadFile{
+  background-color: #ecf7ee;
+}
+.ready-to-delivery-section .uplaod-dimension , 
+.ready-to-delivery-section .uplaod-dimension.four-five {
   width: 11px;
   height: 16px;
   border-radius: 2px;
 }
-.ready-to-delivery-section .uplaod-dimension.sixteen-nine {
+.ready-to-delivery-section .uplaod-dimension.one-one{
+  width: 12px;
+  height: 12px;
+}
+.ready-to-delivery-section .uplaod-dimension.sixteen-nine 
+ {
   width: 16px;
   height: 12px;
 }
@@ -2503,9 +2514,6 @@ table.table-green{
 .upload-nine-mp4 .bg-green{
   background-color:#3FCE3C ;
 }
-.upload-nine-mp4 .bg-green:hover{
-  background-color:#ECF7EE;
-}
 .brand-poll-circle{
   border: solid 1px #000;
   border-radius: 50%;
@@ -2625,8 +2633,10 @@ table.table-green{
 }
 .delivery-now-popup .delivery-now-btn-dark .btn{
   background-color:#3FCE3C!important;
-  color:#012801!important;
- 
+ color:#012801!important;
+}
+.after-uploaded .h6{
+  font-size: 12px;
 }
 @media (max-width: 1900px) {
   .registration-form {
