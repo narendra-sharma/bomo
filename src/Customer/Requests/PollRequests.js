@@ -86,7 +86,9 @@ const PollRequests = ({ user, pollrequests }) => {
               <div className="col-md-11 col-lg-10 d-flex align-items-center">
                 <div className="d-flex align-items-center" onClick={() => handleView(request)}>
                   <ColorCode request={request} reqtype='poll' />
-                  <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                  <span class="brand-poll-circle">
+                     <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                  </span>
                 </div>
                 <div><p><a href="javascript:void(0)" className="text-decoration-none color-black show-brief" onClick={() => { setToggle(true); setSelectedData(request); }}>+ Show full Brief</a></p></div>
                 {request?.applied && <div className="poll-apply-sucess">

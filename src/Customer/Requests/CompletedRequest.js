@@ -107,8 +107,9 @@ const CompletedRequest = ({ deliverrequests, user, requestData }) => {
                                 <div className="review-content mt-3">
                                     <div className="d-flex">
                                         <ColorCode request={requestData} />
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_details?.logo}`} alt='imga' height="33" widht="33" />
-                                        <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(requestData?.file)}>Project Assets</p>
+                                        <span class="brand-poll-circle">
+                                             <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${requestData?.brand_details?.logo}`} alt='imga' /></span>
+                                      <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(requestData?.file)}>Project Assets</p>
                                     </div>
                                 </div>
                             </div>

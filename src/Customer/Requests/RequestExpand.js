@@ -128,7 +128,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 <div className="review-content mt-3">
                                     <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' height="33" widht="36" />
+                                        <span class="brand-poll-circle"> 
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' /></span>
                                         <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
                                     </div>
                                 </div>

@@ -1042,6 +1042,15 @@ td.vertical-end {
   background-color: #000 !important;
   color: #fff;
 }
+.modal-body button.decline-btn{
+  border-color: #F92B34;
+  color: #F92B34;
+}
+.modal-body button.decline-btn:hover{
+  background-color: #F92B34;
+  border-color: #F92B34;
+  color: #fff;
+}
 .cancel-popup .modal-content {
   border: solid 5px #f82626;
 }
@@ -2111,8 +2120,9 @@ button.accordion-button.collapsed .late-request-section {
   width: 72%;
 }
 .upload-nine-mp4 .uploadFile,
-.upload-zip-file .uploadFile {
+.upload-zip-file .uploadFile , .upload-nine-mp4 .bg-green {
   padding: 30px 10px;
+  border-radius: 5px;
 }
 
 .upload-zip-file .uploadFile {
@@ -2485,6 +2495,30 @@ table.table-green{
 }
 .cutomer-home-page .review-content p {
   font-size: 14px;
+}
+.modal-body .delivery-now-bg{
+  background-color: #ECF7EE;
+  border : solid 1px #ECF7EE!important;
+}
+.upload-nine-mp4 .bg-green{
+  background-color:#3FCE3C ;
+}
+.upload-nine-mp4 .bg-green:hover{
+  background-color:#ECF7EE;
+}
+.brand-poll-circle{
+  border: solid 1px #000;
+  border-radius: 50%;
+  width: 33px;
+  height: 33px;
+  display: inline-block;
+  text-align: center;
+  line-height: 32px;
+}
+.brand-poll-circle img{
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
 }
 @media (min-width: 576px){
   .main-content-wraaper {
