@@ -72,8 +72,8 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         </td>
                                                         <td>
                                                             <p>
-                                                                <span className="fw-bold">Cratat</span>{" "}
-                                                                <span className="d-block">DIOR</span>
+                                                                <span className="fw-bold">{request?.user_id?.company}</span>{" "}
+                                                                <span className="d-block">{request?.request_name}</span>
                                                             </p>
                                                         </td>
                                                         <td>
@@ -128,7 +128,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         </td>
                                                         <td>
                                                             <p>
-                                                                <span className="fw-bold">Cratat</span>{" "}
+                                                                <span className="fw-bold">{request?.user_id?.company}</span>{" "}
                                                                 <span className="d-block">DIOR</span>
                                                             </p>
                                                         </td>

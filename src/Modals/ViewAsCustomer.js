@@ -176,7 +176,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Request Booked/Month</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-dark mb-0">
-                    {singleUserData?.request_booked_per_month}
+                    {singleUserData?.request_booked_per_month ? singleUserData?.request_booked_per_month : '0' }
                   </h2>
                 </div>
               </div>
@@ -186,7 +186,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Request in Feedback Queue</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.requests_in_feedback_queue?.length > 0
+                    {singleUserData?.requests_in_feedback_queue
                       ? singleUserData?.requests_in_feedback_queue
                       : "0"}
                   </h2>
@@ -198,7 +198,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Drafts</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.num_of_draft_requests}
+                    {singleUserData?.num_of_draft_requests ? singleUserData?.num_of_draft_requests : '0'}
                   </h2>
                 </div>
               </div>
@@ -208,7 +208,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Number of Requests Done</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.num_of_requests_done}
+                    {singleUserData?.num_of_requests_done ? singleUserData?.num_of_requests_done : '0'}
                   </h2>
                 </div>
               </div>
@@ -218,7 +218,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Number of Requests Finished</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.num_of_requests_finished?.length > 0
+                    {singleUserData?.num_of_requests_finished
                       ? singleUserData?.num_of_requests_finished
                       : "0"}
                   </h2>
@@ -230,7 +230,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Number of Reviews Requested</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.Num_of_riviews_requested}
+                    {singleUserData?.Num_of_riviews_requested ? singleUserData?.Num_of_riviews_requested : '0'}
                   </h2>
                 </div>
               </div>
@@ -240,7 +240,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Avg Req Completion Time</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    {singleUserData?.avg_req_completion_time}
+                    {singleUserData?.avg_req_completion_time ? singleUserData?.avg_req_completion_time : '0'}
                   </h2>
                 </div>
               </div>
@@ -266,7 +266,7 @@ const ViewAsCustomer = ({
                 <p className="fw-bold">Total paid to Bomo</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
-                    $ {singleUserData?.total_paid_to_bomo}
+                    $ {singleUserData?.total_paid_to_bomo ? singleUserData?.total_paid_to_bomo : '0'}
                   </h2>
                 </div>
               </div>
