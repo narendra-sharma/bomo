@@ -4,11 +4,9 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 const UploadPieces = () => {
-  // console.log(requestData);
 
   const [requestData, setRequestData] = useState();
   const checkfile_type = requestData?.file_type;
-  console.log(checkfile_type);
   const [filetype, setFiletype] = useState('');
 
 
@@ -177,7 +175,7 @@ const UploadPieces = () => {
               </h5>
               <div className="upload-nine-mp4">
                 <div className="d-flex align-items-center justify-content-center">
-                  <label class={`${!deliverdata[`firstfile${index}`] ? 'uploadFile' : isWrong[index] ? 'bg-red w-100 text-center' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
+                  <label class={`${isWrong[index] ? 'bg-red w-100 text-center' : !deliverdata[`firstfile${index}`] ? 'uploadFile' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
                     {
                       isWrong[index] ?
                         <span class="filename"> <i className="fa-solid fa-circle-xmark cancel text-danger"></i></span> :
