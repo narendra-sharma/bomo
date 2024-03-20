@@ -2168,13 +2168,14 @@ background-color: #3FCE3C;
 .ready-to-delivery-section .upload-zip-file .uploadFileupload-zip-successfully span.filename i{
   color: #000;
 }
-.upload-nine-mp4 .uploadFile.a{
+.upload-nine-mp4 .uploadFile.bg-red , .upload-nine-mp4:hover .uploadFile.bg-red{
   background-color: #F92B34;
+  border-color: #F92B34!important;
 }
-.ready-to-delivery-section span.filename.a{
+.ready-to-delivery-section .uploadFile.bg-red span.filename{
   background-color: #000;
 }
-.ready-to-delivery-section span.filename.a{
+.ready-to-delivery-section .uploadFile.bg-red span.filename i{
   color: #fff;
 }
 .ready-to-delivery-section .uplaod-dimension , 
@@ -2532,8 +2533,11 @@ table.table-green{
   background-color: #ECF7EE;
   border : solid 1px #ECF7EE!important;
 }
-.upload-nine-mp4 .bg-green{
-  background-color:#3FCE3C ;
+.ready-to-delivery-section .upload-nine-mp4 .bg-green{
+  background-color:#3FCE3C !important;
+}
+.ready-to-delivery-section .upload-nine-mp4:hover .bg-green{
+  background-color: #ecf7ee!important;
 }
 .brand-poll-circle{
   border: solid 1px #000;
