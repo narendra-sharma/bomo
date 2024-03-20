@@ -11,10 +11,9 @@ const ApplySuccess = ({ show, handleClose, user, data }) => {
                     <div className="d-flex align-items-center justify-content-end mb-3">
                         <img src={pay_success} alt='img not found' />
                     </div>
-                    <span className="fw-bold">{user?.name},</span>
-                    <br />
-                    <span>you have applied to <span className="fw-bold">{data?.request_name}</span></span>
-                    <p className="text-mute">
+                    <h5 className="fw-bold "><span className="d-block">{user?.name},</span>
+                   <span className="fw-medium">you have applied to </span> <span className="fw-bold">{data?.request_name}</span></h5>
+                    <p>
                         You will be notified via email if selected.
                     </p>
                 </div>
