@@ -6,6 +6,8 @@ import CustomPagination from "./CustomPagination";
 import { get_payment_history } from "../reduxdata/PlansPayments/planActions";
 import EmptyList from "./EmptyList";
 import { get_customers_payment_history } from "../reduxdata/rootAction";
+import { saveAs } from 'file-saver';
+const { REACT_APP_BOMO_URL } = process.env;
 const PaymentHistory = ({
   user,
   userrole,
@@ -69,6 +71,34 @@ const PaymentHistory = ({
       get_payment_history(dispatch, user?.token, page, perPage);
     }
   };
+
+  const handleDownload = async (url) => {
+        const filepath = url.includes('+') ? url.replace(/\+/g, '%2B') : url;
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        const fileName = url?.substring(url?.lastIndexOf("/") + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: "text/plain",
+                pdf: "application/pdf",
+                zip: "application/zip",
+                jpg: "image/jpeg",
+                jpeg: "image/jpeg",
+                png: "image/png",
+                gif: "image/gif",
+                mp4: "video/mp4",
+                mov: "video/quicktime"
+            };
+            return mimeTypes[ext] || "application/octet-stream";
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
+};
+
   return (
     <div className="payment-history-section review-main-content p-5 rounderd mt-5">
       <div
@@ -126,12 +156,13 @@ const PaymentHistory = ({
                       : item?.user_id?.name}
                   </td>}
                   <td className="text-end">
-                    <a
+                   {item?.invoice_link ? <a
                       href={item?.invoice_link}
                       className="btn btn-outline-dark rounded-pill px-4 py-1"
                     >
                       Invoice
-                    </a>
+                    </a> :
+                      <button className="btn btn-outline-dark rounded-pill px-4 py-1" onClick={() => handleDownload(item?.inv_path)}>Invoice</button>}
                   </td>
                 </tr>
               ))
