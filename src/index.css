@@ -911,12 +911,17 @@ table.feedback-queue tr:hover td:first-child {
 }
 .designer-past-request .review-content tr td:first-child {
   width: 140px;
+  border-radius: 5px 0 0 5px;
+  padding-left: 20px;
+
 }
 .designer-past-request.past-request-section table tr td:nth-child(5) {
   width: 150px;
 }
 .designer-past-request.past-request-section table tr td:last-child {
   width: 200px;
+  border-radius: 0px 5px 0 5px;
+
 }
 .past-request-section .review-content .short0ad {
   width: 85px;
@@ -1569,6 +1574,7 @@ ul.designer-list li {
 }
 .designer-past-request .review-content tr td button {
   font-size: 14px;
+  border-color: #f2f2f2;
 }
 .color-light-blue {
   color: #7c96fe;
@@ -2511,6 +2517,10 @@ background-color: #3FCE3C;
 table.table-green{
   background-color: #ECF7EE;
 }
+
+.past-request-section table tr:hover td{
+  background: #f2f2f2 !important;
+}
 .design-list-section.review-content table td {
   padding: 13px 5px;
 }
@@ -2528,7 +2538,7 @@ table.table-green{
 .expand-request table tr td{
   padding: 0 13px;
 }
-.expand-request .review-content p , .expand-request-data p{
+.expand-request .review-content p , .expand-request-data p , .order-completed-table p{
   font-size:14px;
   color:#000;
 }
@@ -2566,6 +2576,9 @@ table.table-green{
   width: 26px;
   height: 26px;
   object-fit: cover;
+}
+.designer-request-poll p{
+  word-break: break-all;
 }
 @media (min-width: 576px){
   .main-content-wraaper {
