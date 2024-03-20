@@ -4,11 +4,9 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 const UploadPieces = () => {
-  // console.log(requestData);
 
   const [requestData, setRequestData] = useState();
   const checkfile_type = requestData?.file_type;
-  console.log(checkfile_type);
   const [filetype, setFiletype] = useState('');
 
 
