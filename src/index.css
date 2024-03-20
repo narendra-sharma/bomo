@@ -83,8 +83,8 @@ p {
   margin: 0;
 }
 .px-60 {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 .color-white {
   color: #fff;
@@ -423,7 +423,7 @@ nav {
 }
 .review-content .short0ad {
   border: solid 1px #b185f2;
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 20px;
   color: #b185f2;
   font-weight: 600;
@@ -499,7 +499,7 @@ nav {
 }
 .review-content table td {
   vertical-align: middle;
-  padding: 13px 8px;
+  padding: 13px 7px;
 }
 .review-content .draft-table table td {
   padding: 13px 20px;
@@ -616,9 +616,19 @@ table.feedback-queue {
 table.feedback-queue tr td {
   background-color: var(--gray);
 }
+.review-content .feedback-queue td p , table.table.table-borderless.customer-active-request td p{
+  font-size: 12px;
+}
 table.feedback-queue tr:first-child td {
   background-color: transparent;
 }
+table.feedback-queue tr:hover td {
+  background-color: #f2f2f2!important;
+}
+table.feedback-queue tr:hover td:first-child {
+  background-color: #fff!important;
+}
+
 .status::before {
   content: "";
   position: absolute;
@@ -1122,6 +1132,7 @@ select.form-control {
 }
 .order-completed {
   border: solid 1px #3fce3c;
+  background: #ECF7EE;
 }
 .order-completed p {
   color: #012801;
@@ -1253,13 +1264,14 @@ select.form-control {
 ul.talented-designer {
   background-color: #ecf7ee;
   padding: 10px 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 80px;
 }
 .design-list-section ul li p{
  font-size: 12px; 
  position: relative;
  padding-left: 15px;
+     line-height: 15px;
 }
 ul.talented-designer li i {
   color: #838383;
@@ -1278,7 +1290,7 @@ ul.designer-list {
   gap:5px;
 }
 ul.designer-list li {
-  width: 31%;
+  width: 32%;
   display: inline-block;
 }
 .admin-payments .form-control {
@@ -1590,8 +1602,8 @@ ul.designer-list li {
   padding-right: 12px;
 }
 .ml-md-auto.py-4.ms-md-auto.rightside-wrapper {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 .subscription-status .ACTIVE {
   color: #000;
@@ -2197,8 +2209,9 @@ background-color: #3FCE3C;
   padding: 4px 20px;
   font-size: 13px;
 }
-.delivery-status button {
-  font-size: 14px;
+.delivery-status-section .delivery-status button {
+  font-size: 18px;
+  cursor: text;
 }
 .expand-request .delivery-status i {
   color: #3fce3c;
@@ -2385,8 +2398,7 @@ background-color: #3FCE3C;
   background: #00000094;
 }
 .designer-active-request-section .col-lg-6 {
-  width: 48.2%;
-  margin-right: 18px;
+  width: 48.8%;
 }
 .poll-request-content {
   border: solid 1px transparent;
@@ -2526,9 +2538,9 @@ table.table-green{
 .pr-0{
   padding-right: 0!important;
 }
-.cutomer-home-page .review-content p {
+/* .cutomer-home-page .review-content p {
   font-size: 14px;
-}
+} */
 .modal-body .delivery-now-bg{
   background-color: #ECF7EE;
   border : solid 1px #ECF7EE!important;
@@ -2568,10 +2580,10 @@ table.table-green{
 @media (min-width: 992px) {
   
   .design-list-section .col-lg-2 {
-    width: 14.5%;
+    width: 14%;
   }
   .design-list-section .col-lg-3 {
-    width: 27%;
+    width: 27.2%;
   }
   .main-content-wraaper {
     max-width: 960px;
@@ -2627,7 +2639,7 @@ table.table-green{
   width: 30px;
 }
 .customer-active-request tr:hover , .customer-active-request tr:hover td{
-  background-color:#fbfbfb;
+  background-color:#f7f6f6;
 }
 .customer-active-request tr:hover td:nth-child(1) {
   border-radius:  20px 0 0 20px; 

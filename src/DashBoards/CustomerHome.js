@@ -73,7 +73,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
               </div>
             </div>
           </div>
-          <div className="row designer-active-request-section">
+          <div className="row designer-active-request-section gap-3">
             <div className="col-lg-6 col-md-12 bg-white rounded mb-5">
               <div className="review-content bg-white px-1 py-5 rounded">
                 <div className="table-responsive">
