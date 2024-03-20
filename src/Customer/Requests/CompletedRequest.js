@@ -135,7 +135,7 @@ const CompletedRequest = ({ deliverrequests, user }) => {
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="row order-completed-table">
+                                <div className="row order-completed-table ">
                                     
                                                 <div className="col-md-4">
                                                     <p className="word-break">
