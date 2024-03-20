@@ -41,43 +41,56 @@ const UploadPieces = () => {
     console.log(file);
     console.log(filetype);
 
-    if (file.type === filetype) {
-      const video = document.createElement('video');
-      video.onloadedmetadata = () => {
-        const aspectRatio = (video.videoWidth / video.videoHeight);
-        console.log(aspectRatio);
+    if (file?.type === filetype) {
+      // const video = document.createElement('video');
+      // video.onloadedmetadata = () => {
+      //   const aspectRatio = (video.videoWidth / video.videoHeight);
+      //   console.log(aspectRatio);
 
-        const sizeRatios = requestData?.size?.map(item => item.replace(/:/g, '/'));
-        const convertedArray = sizeRatios.map(item => {
-          const [numerator, denominator] = item.split('/').map(Number);
-          return numerator / denominator;
-        });
-        const checkratio = convertedArray.includes(aspectRatio);
-        if (!checkratio) {
-          setFileErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: 'Please upload videos with aspect ratios of 16:9, 9:16, 1:1, or 4:5.',
-          }));
-          console.log("invalid file");
-        } else {
-          setDeliverdata((prevdata) => ({
-            ...prevdata,
-            [name]: file,
-          }));
-          setFileErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: '',
-          }));
-          setIsWrong(prev => {
-            const newstate = [...prev];
-            newstate[index] = false;
-            return newstate;
-          });
-        }
-      };
-      video.src = URL.createObjectURL(file);
+      //   const sizeRatios = requestData?.size?.map(item => item.replace(/:/g, '/'));
+      //   const convertedArray = sizeRatios.map(item => {
+      //     const [numerator, denominator] = item.split('/').map(Number);
+      //     return numerator / denominator;
+      //   });
+      //   const checkratio = convertedArray.includes(aspectRatio);
+      //   if (!checkratio) {
+      //     setFileErrors((prevErrors) => ({
+      //       ...prevErrors,
+      //       [name]: 'Please upload videos with aspect ratios of 16:9, 9:16, 1:1, or 4:5.',
+      //     }));
+      //     console.log("invalid file");
+      //   } else {
+      //     setDeliverdata((prevdata) => ({
+      //       ...prevdata,
+      //       [name]: file,
+      //     }));
+      //     setFileErrors((prevErrors) => ({
+      //       ...prevErrors,
+      //       [name]: '',
+      //     }));
+      //     setIsWrong(prev => {
+      //       const newstate = [...prev];
+      //       newstate[index] = false;
+      //       return newstate;
+      //     });
+      //   }
+      // };
+      // video.src = URL.createObjectURL(file);
+      setDeliverdata((prevdata) => ({
+        ...prevdata,
+        [name]: file,
+      }));
+      setFileErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: '',
+      }));
+      setIsWrong(prev => {
+        const newstate = [...prev];
+        newstate[index] = false;
+        return newstate;
+      });
     } else {
-      toast.error("Invalid File Type");
+      // toast.error("Invalid File Type");
       setIsWrong(prev => {
         const newstate = [...prev];
         newstate[index] = true;
@@ -175,10 +188,14 @@ const UploadPieces = () => {
               </h5>
               <div className="upload-nine-mp4">
                 <div className="d-flex align-items-center justify-content-center">
-                <label class={`${isWrong[index] ? 'bg-red w-100 text-center' : !deliverdata[`firstfile${index}`] ? 'uploadFile' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
+                  <label class={`${isWrong[index] ? 'bg-red w-100 text-center' : !deliverdata[`firstfile${index}`] ? 'uploadFile' : 'bg-green w-100 text-center'} uploadFile d-flex align-items-center justify-content-center`}>
                     {
                       isWrong[index] ?
-                        <span class="filename"> <i className="fa-solid fa-xmark cancel"></i></span> :
+                        <span className="after-uploaded">
+                          <span className="d-block h6 text-black fw-bold mb-1">WRONG FILE</span>
+                          <span class="filename"> <i className="fa-solid fa-xmark cancel"></i></span>
+                        </span>
+                        :
                         !deliverdata[`firstfile${index}`] ?
                           <span class="filename">
                             <i className="fa fa-plus"></i>
@@ -209,10 +226,9 @@ const UploadPieces = () => {
               .zip and upload your .AEP
             </h5>
             <div className="upload-zip-file">
-
               <div className="d-flex align-items-center justify-content-center">
-                <label class={`uploadFile${zipfilepreview && 'upload-zip-successfully'} uploadFile d-flex align-items-center justify-content-center`}>
-                  {!zipfilepreview ? <span class="filename"><i className="fa fa-plus"></i> </span> : <span class="filename"><i className="fa-solid fa-check"></i></span>}
+                <label className={`uploadFile${zipfilepreview && 'upload-zip-successfully'} uploadFile d-flex align-items-center justify-content-center`}>
+                  {!zipfilepreview ? <span className="filename"><i className="fa fa-plus"></i> </span> : <span className="filename"><i className="fa-solid fa-check"></i></span>}
                   <input name="zipfile" type="file" accept=".zip" className="inputfile form-control" defaultValue={formdata.zipfile} onChange={handleZipFile} />
                   {errors.zipfile && <p className="d-flex flex-start text-danger error-msg mb-1 mb-md-0">{errors.zipfile}</p>}
                 </label>

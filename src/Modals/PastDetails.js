@@ -61,6 +61,26 @@ const PastDetails = ({ show, handleClose, data }) => {
         })
     };
 
+    const getSuffix = (day) => {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
+    };
+
+    const formatDate = (inputdate) => {
+        const date = new Date(inputdate);
+        date.setDate(date.getDate()+3);
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US',{month: 'long'});
+        const year = date?.getFullYear();
+
+        return `${day}${getSuffix(day)} ${month} ${year}`
+    };
+
     return (
         <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll logout-popup">
             <Modal.Body>
@@ -123,7 +143,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                                         <div className="">
                                         <p>
                                             <span className="d-block fw-bold">Deliverables</span> 
-                                            <span className=" d-block">{data?.size}</span>
+                                           {data?.size?.map((item) => <span className=" d-block">{item}</span>)}
                                         </p>
                                         </div>
                                         <div className=""> <p>
@@ -139,6 +159,14 @@ const PastDetails = ({ show, handleClose, data }) => {
                                 </div>        
                             </div>
                                     
+                        </div>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-between mt-4">
+                        <div>
+                            <span className="fw-bold">DELIVERED - </span><span className="fw-bold">Paid on {formatDate(data?.design_approved_at_by_customer)}</span>
+                        </div>
+                        <div>
+                            <span className="fw-bold">$125</span>
                         </div>
                     </div>
                 </div>

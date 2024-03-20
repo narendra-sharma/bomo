@@ -128,8 +128,8 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                 <div className="review-content mt-3">
                                     <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
-                                        <span class="brand-poll-circle"> 
-                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' /></span>
+                                        <span class="brand-poll-circle">
+                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' /></span>
                                         <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                             <div className="col-md-12">
                                 <div className="row justify-content-between expand-request-data">
                                     <div className="col-md-4">
-                                        <p>      
+                                        <p>
                                             <span className="fw-bold d-block">Description</span>
                                             <span className="d-block">
                                                 {receivedData?.description}
@@ -173,27 +173,27 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                             <div><p><span className="fw-bold d-block">Transparency</span>{receivedData?.transparency}</p></div>
                                         </div>
                                     </div>
-                                       
+
 
                                     <div className="col-md-3">
                                         <p className="word-break"><span className="fw-bold d-block">References</span>
-                                        {receivedData?.references?.includes('https') ?
-                                            <Link
-                                                className="text-decoration-none"
-                                                to={`${receivedData?.references}`}
-                                                target="_blank"
-                                            >
-                                                {receivedData?.references}
-                                            </Link>
-                                            : <span className="d-block">
-                                                {receivedData?.references}
-                                            </span>
-                                        }
+                                            {receivedData?.references?.includes('https') ?
+                                                <Link
+                                                    className="text-decoration-none"
+                                                    to={`${receivedData?.references}`}
+                                                    target="_blank"
+                                                >
+                                                    {receivedData?.references}
+                                                </Link>
+                                                : <span className="d-block">
+                                                    {receivedData?.references}
+                                                </span>
+                                            }
                                         </p>
                                     </div>
-                                           
+
                                 </div>
-                                        
+
                             </div>
 
                             <div>
@@ -277,23 +277,23 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                                         <div className="col-md-3 d-flex text-center justify-content-center">
                                                             <div className="statusbar-section d-flex flex-column justify-content-between">
                                                                 <div className="delivery-status fw-bold">
-                                                                    9:16
+                                                                    {request?.request_id?.size[0]}
                                                                 </div>
                                                                 <div className="">
                                                                     <img src={designImage} alt="Imag" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-3 d-flex text-center justify-content-center">
+                                                        {request?.request_id?.size[1] && <div className="col-md-3 d-flex text-center justify-content-center">
                                                             <div className="statusbar-section d-flex flex-column justify-content-between">
                                                                 <div className="delivery-status fw-bold">
-                                                                    16:9
+                                                                    {request?.request_id?.size[1]}
                                                                 </div>
                                                                 <div className="">
                                                                     <img src={designImage2} alt="Imag" />
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div>}
                                                         {(((request?.landscape_feedback_message) || (request?.portrait_feedback_message)) && !(receivedData?.status === "production")) && (
                                                             <div className="col-md-12">
                                                                 <div className="feedback-request  p-4 mt-4 rounded">

@@ -11,6 +11,7 @@ import ReviewRequest from "../Customer/Requests/ReviewRequest";
 import EmptyList from "../Common/EmptyList";
 import SharedRequest from "../Common/SharedRequest";
 import CustomPagination from "../Common/CustomPagination";
+import DayMonth from "../Common/DayMonth";
 
 const CustomerHome = ({ activerequest, user, activeTotal }) => {
   const dispatch = useDispatch();
@@ -106,10 +107,7 @@ const CustomerHome = ({ activerequest, user, activeTotal }) => {
                                 <span className="d-block">
                                   {!request?.delivery_date
                                     ? "No Date"
-                                    : format(
-                                        new Date(request?.delivery_date),
-                                        "dd/MM/yyyy"
-                                      )}
+                                    : <DayMonth deliverydate={request?.delivery_date}/>}
                                 </span>
                               </p>
                             </td>
