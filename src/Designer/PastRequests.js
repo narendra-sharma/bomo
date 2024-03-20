@@ -32,14 +32,14 @@ const PastRequest = ({ designerpastrequests, user }) => {
               <div className="col-md-12">
                 <div className="table-responsive">
                   {designerpastrequests?.total > 0 ? 
-                  <table className="table table-borderless mb-0">
+                  <table className="table table-borderless mb-0 cursor-pointer">
                     <tbody>
                       {designerpastrequests?.data?.map((request, i) => 
                       <tr onClick={() => { setShow(true); setData(request); }}>
                         <td className="text-center"><ColorCode request={request} /></td>
                         <td><p>{request?.request_name}</p></td>
                         <td><p className="fw-bold">{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p></td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                        <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status && 'Delivered'}</span></p></td>
                         <td><p><span className="fw-bold">Delivery Date</span> <span className="d-block">
                           {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}
                         </span></p></td>

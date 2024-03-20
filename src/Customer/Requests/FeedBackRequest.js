@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import dropdownImage from '../../images/dropdown-img.png';
 import { useNavigate } from "react-router-dom";
+import DayMonth from "../../Common/DayMonth";
 
 const FeedBackRequest = ({ user, feedbacklists }) => {
   const navigate = useNavigate();
@@ -77,10 +78,10 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                             <td>
                               <p>{request?.brand_profile ? request?.brand_profile?.brandname : '-'}</p>
                             </td>
-                            <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status}</span></p></td>
+                            <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status && 'Production'}</span></p></td>
                             <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
                               ? "No Date"
-                              : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
+                              : <DayMonth deliverydate={request?.delivery_date}/>}</span></p></td>
                             <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                             <td>
                               <img src={dropdownImage} alt="imgone" height="20" width="18" />
