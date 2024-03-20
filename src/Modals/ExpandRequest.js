@@ -212,7 +212,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                         }
                     </div>
                 </div>
-                <div className="px-60 py-5 mx-3 review-main-content bg-white">
+                <div className="px-60 py-5 mx-3 review-main-content bg-white mb-4">
                     <div className="row review-content">
                         <div className="col-md-7">
                             <div class="mb-3"><h3 class="fw-bold">{expanddetails?.req_data?.request_name}</h3></div>
@@ -227,7 +227,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                         <div class="col-md-12 col-lg-12">
                             <div class=" d-flex align-items-center review-content ">
                                 <ColorCode request={expanddetails?.req_data} />
-                                <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${expanddetails?.req_data?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                                <span className="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${expanddetails?.req_data?.brand_profile?.logo}`} alt='imga' /></span>
                                 <p class="short0ad project-assets rounded-pill cursor-pointer" onClick={() => DownloadAll(expanddetails?.req_data?.file)}>Project Assets</p>
                             </div>
                         </div>

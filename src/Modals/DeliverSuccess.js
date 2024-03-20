@@ -11,8 +11,8 @@ const DeliverSuccess = ({show,handleClose,data,user}) => {
                     <div className="d-flex align-items-center justify-content-end mb-3">
                         <img src={pay_success} alt='img not found' />
                     </div>
-                    <h5><span className="fw-bold">{user?.name}</span><span className="fw-500">, you succesfully delivered</span></h5>
-                    <h5 className="fw-bold">{data?.request_name}</h5>
+                    <h5><span className="fw-bold">{user?.name}</span><span className="fw-500">, you succesfully delivered</span>
+                    <span className="d-block">{data?.request_name}</span></h5>
                     <p className="">
                        Well done! Files are being reviewed, just sit back and relax.
                     </p>
