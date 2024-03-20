@@ -101,18 +101,18 @@ const CompletedRequest = ({ deliverrequests, user }) => {
             <div className="main-content-wraaper px-60 pt-md-2 pt-lg-5 pb-0">
                 <div className="mx-md-0 mx-lg-4 px-60 ">
                     <div className="order-completed px-5 py-4 rounded mb-5">
-                        <p className="mb-0 extra-dark-green">Order Completed
+                        <p className="mb-0">Order Completed
                             <span className="d-block fw-bold">
                                 All good! You approved this order and files are ready to be used
                             </span>
                         </p>
                     </div>
-                    <div className="bg-white px-3 px-lg-5 py-4 review-main-content rounded pb-5">
+                    <div className="bg-white px-3 px-lg-5 py-5 review-main-content rounded pb-5">
                         <div className="row">
                             <div className="col-md-7 col-lg-6 mb-4">
                                 <h3>{receivedData?.request_name}</h3>
                                 <div className="review-content mt-3">
-                                    <div className="d-flex">
+                                    <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
                                         <span class="brand-poll-circle">
                                             <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_profile?.logo}`} alt='imga' />
@@ -135,65 +135,91 @@ const CompletedRequest = ({ deliverrequests, user }) => {
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <div className="table-responsive">
-                                    <table className="table request-status designer-request-status table-borderless mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th className="ps-0" width="300px">Description</th>
-                                                <th>Size</th>
-                                                <th>File Type </th>
-                                                <th>Transparency</th>
-                                                <th className="text-end">References</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="ps-0">
-                                                    <span className="d-block">
+                                <div className="row order-completed-table">
+                                    
+                                                <div className="col-md-4">
+                                                    <p className="word-break">
+                                                        <span className="fw-bold"> Description </span>
+                                                          <span className="d-block">
                                                         {receivedData?.description}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {receivedData?.size?.map((value) => (
-                                                        <span className="d-block">{value}</span>
-                                                    ))}
-                                                </td>
-                                                <td>{receivedData?.file_type}</td>
-                                                <td>{receivedData?.transparency}</td>
-                                                <td className="text-end">
-                                                    {receivedData?.references?.includes('https') ?
-                                                        <Link
-                                                            className="text-decoration-none"
-                                                            to={`${receivedData?.references}`}
-                                                            target="_blank"
-                                                        >
-                                                            {receivedData?.references}
-                                                        </Link>
-                                                        : <span className="d-block">
-                                                            {receivedData?.references}
-                                                        </span>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                      </span>
+                                                    </p>
+                                                  
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div className="d-flex gap-4 justify-content-center">
+                                                        <div>
+                                                            <p className="word-break">
+                                                                <span className="fw-bold">
+                                                                Size</span>
+                                                                <span className="d-block">
+                                                                        {receivedData?.size?.map((value) => (
+                                                                    <span className="d-block">{value}</span>
+                                                                ))}</span>
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <p>
+                                                                <span className="fw-bold">
+                                                                File Type</span>
+                                                            <span className="d-block">{receivedData?.file_type}
+                                                             </span>
+                                                           </p>
+                                                        </div>
+                                                        <div>
+                                                            <p>
+                                                            <span className="fw-bold"> Transparency  </span>
+                                                            <span className="d-block">{receivedData?.transparency}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                
+                                                <div className="col-md-3">
+                                                    <div className="">
+                                                        <p className="word-break">
+                                                            <span className="fw-bold ">
+                                                            
+                                                        References</span>
+                                                            <span className="d-block">
+                                                            {receivedData?.references?.includes('https') ?
+                                                                <Link
+                                                                    className="text-decoration-none"
+                                                                    to={`${receivedData?.references}`}
+                                                                    target="_blank"
+                                                                >
+                                                                    {receivedData?.references}
+                                                                </Link>
+                                                                : <span className="d-block">
+                                                                    {receivedData?.references}
+                                                                </span>
+                                                            }
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            
                                 </div>
                             </div>
 
-                            <div>
+                            <div className="mt-4">
                                 <div className="col-md-12">
-                                    <div className="delivery-status-section bg-white p-4 rounded mt-3">
-                                        <div className="row justify-content-center">
+                                    <div className="delivery-status-section light-gray p-4 rounded ">
+                                        <div className="row ">
                                             <div className="col-md-3 align-self-center">
                                                 <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                     <div>
+                                                    <i className="fa-solid fa-circle-check"></i>
                                                         <button
                                                             type="button"
-                                                            class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold "
+                                                            class="border-0 h5 m-0 p-0 bg-transparent px-2 py-1 fw-bold "
                                                         >
                                                             Delivery Accepted
                                                         </button>{" "}
-                                                        <i className="fa-solid fa-circle-check"></i>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,11 +229,11 @@ const CompletedRequest = ({ deliverrequests, user }) => {
                                                         {receivedData?.size[0]}
                                                     </div>
                                                     <div className="">
-                                                        <img src={designImage} alt="Imag" />
+                                                        <img src={designImage2} alt="Imag" />
                                                     </div>
                                                     <div className="download-btn">
                                                         <button
-                                                            className="rounded-pill px-3 py-1 fw-bold border-0"
+                                                            className="rounded-pill px-4 py-0 fw-bold border-dark"
                                                             onClick={() =>
                                                                 handleDownload(
                                                                     `designe/landscape/${deliverrequests?.request_id?.landscape}`
@@ -225,11 +251,11 @@ const CompletedRequest = ({ deliverrequests, user }) => {
                                                         {receivedData?.size[1]}
                                                     </div>
                                                     <div className="">
-                                                        <img src={designImage2} alt="Imag" />
+                                                        <img src={designImage} alt="Imag" />
                                                     </div>
                                                     <div className="download-btn">
                                                         <button
-                                                            className="rounded-pill px-3 py-1 fw-bold border-0"
+                                                            className="rounded-pill px-4 py-0 fw-bold border-dark"
                                                             onClick={() =>
                                                                 handleDownload(
                                                                     `designe/portrait/${deliverrequests?.request_id?.portrait}`
@@ -257,7 +283,7 @@ const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
         deliverrequests: state.requests.completeddetails,
-        requestData: state.requests.reviewrequestData,
+        requesdivata: state.requests.reviewrequestData,
     };
 };
 

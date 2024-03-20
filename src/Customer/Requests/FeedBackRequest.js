@@ -55,7 +55,7 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
   };
 
   return (
-    <div className="review-content bg-white px-3 py-5 rounded">
+    <div className="review-content bg-white px-1 py-5 rounded">
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="feedback-queue">
           {(provided) => (
@@ -72,8 +72,8 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                             ref={provided.innerRef}
                             onClick={() => handleView(request)}
                           >
-                            <td><p className="serial-number">{request?.priority}</p></td>
-                            <td className="text-center"><ColorCode request={request} /></td>
+                            <td ><p className="serial-number">{request?.priority}</p></td>
+                            <td  width="122px" className="text-center"><ColorCode request={request} /></td>
                             <td>
                               <p>{request?.brand_profile ? request?.brand_profile?.brandname : '-'}</p>
                             </td>
@@ -81,10 +81,14 @@ const FeedBackRequest = ({ user, feedbacklists }) => {
                             <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date
                               ? "No Date"
                               : format(new Date(request?.delivery_date), 'dd/MM/yyyy')}</span></p></td>
-                            <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                             <td>
-                              <img src={dropdownImage} alt="imgone" height="20" width="18" />
-                            </td>
+                              <div className="d-flex gap-2 align-items-center">
+                              
+                              <p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p>
+                              <img src={dropdownImage} alt="imgone"  />
+                              </div>
+                              </td>
+                            
                             {/* <td>
                               <select type='select' defaultValue='' onChange={() => handleView(request)}>
                                 <option value='' disabled></option>

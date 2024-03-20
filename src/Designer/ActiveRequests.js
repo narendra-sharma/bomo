@@ -120,7 +120,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                         <div className="col-md-5 col-12">
                           <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' height="33" widht="36" />
+                            <span className="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga'  /></span>
                             <span class="deadline-date status position-relative deliver-now-btn">
                               Deadline in{" "}
                               <span class="fw-bold">
