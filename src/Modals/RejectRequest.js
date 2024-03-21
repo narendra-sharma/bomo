@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
-import { get_admin_assign_requestlist, get_admin_pending_requestlist, get_edit_request_data, superadmin_approve_delivery } from "../reduxdata/rootAction";
+import { get_admin_assign_requestlist, get_admin_pending_requestlist, get_approve_delivery_list, get_edit_request_data, superadmin_approve_delivery } from "../reduxdata/rootAction";
 
 const RejectRequest = ({ show, handleClose, detail, user, reqstatus, onRejected }) => {
     const dispatch = useDispatch();
@@ -42,6 +42,7 @@ const RejectRequest = ({ show, handleClose, detail, user, reqstatus, onRejected 
         setTimeout(() => {
             get_admin_pending_requestlist(dispatch, user?.token);
             get_admin_assign_requestlist(dispatch, user?.token);
+            get_approve_delivery_list(user?.token, dispatch);
             dispatch(get_edit_request_data(null));
          },3000);
         handleClose();

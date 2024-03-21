@@ -18,7 +18,7 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
     const [selectedData, setSelectedData] = useState([]);
 
     useEffect(() => {
-        if (user?.token) {
+        if (user?.role === "designer" && user?.token) {
             get_designer_assigned_requestlist(dispatch, user?.token);
         };
     }, [dispatch, user?.token]);
@@ -45,9 +45,18 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                             <div className="mt-4 ms-4 mb-1">
                                 <span className="deadline-date status position-relative ps-3">
                                     Time to accept{" "}
-                                    <span className="fw-bold">
-                                        <CountdownTimer requestDate={request?.req_mail_date} duration={2 * 60 * 60 * 1000} />
-                                    </span>
+                                    {request?.mail_send_to_backup_designer ?
+                                        <span className="fw-bold">
+                                            <CountdownTimer requestDate={request?.req_mail_date} duration={6 * 60 * 60 * 1000} />
+                                        </span>
+                                        :
+                                        <span className="fw-bold">
+                                            <CountdownTimer requestDate={request?.req_mail_date} duration={12 * 60 * 60 * 1000} />
+                                        </span>
+                                    }
+                                    {/* <span className="fw-bold">
+                                        <CountdownTimer requestDate={request?.req_mail_date} duration={12 * 60 * 60 * 1000} />
+                                    </span> */}
                                 </span>
                             </div>
                             <div className="table-responsive rounded">
@@ -56,9 +65,9 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                         <tr key={index}>
                                             <td className="text-center shortad ps-4"><ColorCode request={request} /></td>
                                             <td><p className="extra-dark-green">{request?.brand_profile?.brandname}</p></td>
-                                            <td><p className="fw-bold" style={{fontSize:"15px"}}>{request?.request_name}</p></td>
+                                            <td><p className="fw-bold" style={{ fontSize: "15px" }}>{request?.request_name}</p></td>
                                             <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'Awaiting Acceptance' : ''}</span></p></td>
-                                            <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span></p></td>
+                                            <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span></p></td>
                                             <td className="text-end">
                                                 <p>
                                                     <span
@@ -69,13 +78,13 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                                     </span>{" "}
                                                 </p>
                                             </td>
-                                            
+
                                             <td className="text-end ps-0">
                                                 <div className="d-flex gap-3 justify-content-center" >
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request, 'accepted')}>ACCEPT</Button>
-                                                <Button variant="unset" className="rounded-pill deliver-now-btn rejected fw-bold" onClick={() => handleacceptRequest(request, 'rejected')}>DECLINE</Button>
+                                                    <Button variant="unset" className="rounded-pill deliver-now-btn fw-bold" onClick={() => handleacceptRequest(request, 'accepted')}>ACCEPT</Button>
+                                                    <Button variant="unset" className="rounded-pill deliver-now-btn rejected fw-bold" onClick={() => handleacceptRequest(request, 'rejected')}>DECLINE</Button>
                                                 </div>
-                                                
+
                                             </td>
                                         </tr>
                                     </tbody>

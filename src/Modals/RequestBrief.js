@@ -88,7 +88,18 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             </div>
                             <div className="col-md-5 col-12">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in <span class="fw-bold"><CountdownTimer requestDate={data?.req_mail_date} duration={20 * 60 * 60 * 1000} /> </span></span>
+                                    <span class="deadline-date status position-relative deliver-now-btn">Deadline in{" "}
+                                        {data?.mail_send_to_backup_designer ?
+                                            <span className="fw-bold">
+                                                <CountdownTimer requestDate={data?.req_mail_date} duration={20 * 60 * 60 * 1000} />
+                                            </span>
+                                            :
+                                            <span className="fw-bold">
+                                                <CountdownTimer requestDate={data?.req_mail_date} duration={24 * 60 * 60 * 1000} />
+                                            </span>
+                                        }
+                                        {/* <span class="fw-bold"><CountdownTimer requestDate={data?.req_mail_date} duration={24 * 60 * 60 * 1000} /> </span> */}
+                                    </span>
                                 </div>
                             </div>
                             <div className="col-md-6">
@@ -104,7 +115,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div class="text-end mb-3">
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div><span class="fw-bold"> Delivery Date</span>
-                                            <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span>
+                                            <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span>
                                         </div>
                                         <div><h5 class="fw-bold mb-0">$125</h5></div>
 
@@ -120,11 +131,11 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="row">
-                                   
+
                                     <div class="col-md-4">
-                                    
+
                                         <p>
                                             <span className="d-block fw-bold">Description</span>
                                             <span className="d-block">{data?.description}</span>
@@ -142,14 +153,14 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                         </p>
                                     </div>
                                     <div className="col-md-5">
-                                    <div className="d-flex justify-content-between">
-                                    <div className=""><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>
-                                    <div className=""><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </div>
-                                    <div className=""><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></div>
-                                     </div>
+                                        <div className="d-flex justify-content-between">
+                                            <div className=""><p><span className="fw-bold d-block">Deliverables</span> {data?.size?.map((item) => <span className="fw-bold d-block">{item}</span>)}</p></div>
+                                            <div className=""><p><span className="fw-bold d-block">Format</span> <span className="fw-bold d-block">{data?.file_type}</span></p> </div>
+                                            <div className=""><p><span className="fw-bold d-block">Transparency</span> {data?.transparency}</p></div>
+                                        </div>
                                     </div>
-                                    
-                                           
+
+
                                 </div>
                                 <div className="mt-4">
                                     <button type="button" class="rounded deliver-now-btn btn btn-unset w-100 fw-bold text-uppercase py-2" onClick={() => handleDeliever(data)}>DELIVERY NOW</button>

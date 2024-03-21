@@ -27,13 +27,13 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
   }, [local]);
 
   useEffect(() => {
-    if (userRole) {
+    if (user?.role === "designer") {
       get_designer_active_requestslist(dispatch, user?.token);
       get_designer_assigned_requestlist(dispatch, user?.token);
     }
   }, [dispatch, userRole]);
 
-  const requestsWithEarliestDeadlines = activerequest.filter((request) => {
+  const requestsWithEarliestDeadlines = activerequest?.filter((request) => {
     const requestDateInMs =
       new Date(request?.req_mail_date).getTime() + 20 * 60 * 60 * 1000;
     const currentTime = new Date().getTime();
@@ -73,7 +73,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
               <>
                 <div className="designer-header w-50">
                   <div className="row d-flex justify-content-between align-items-center">
-                    {requestsWithEarliestDeadlines?.map((request) => (
+                    {user?.role === "designer" && requestsWithEarliestDeadlines?.map((request) => (
                       <div className="col-md-6">
                         <div className="d-flex justify-content-between ga-2 align-items-center">
                           <div className="col-md-6"><p className="mb-0 w-100">
@@ -101,7 +101,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
             <div className="d-flex text-right justify-content-between header-user-profile align-items-center">
               <div className="header-profile-side d-flex justify-content-between align-items-center">
               {user?.role === "customer" ||
-              user?.role == "designer" ||
+              user?.role === "designer" ||
           
               userrole === "Designer" ? (
                 <div
