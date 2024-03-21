@@ -194,7 +194,6 @@ export const assign_admin_request = async (requestdata, dispatch, token) => {
     );
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      get_admin_assign_requestlist(dispatch, token);
     } else {
       toast.error(res.data?.message);
     }

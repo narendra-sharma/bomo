@@ -161,7 +161,7 @@ const ViewAsCustomer = ({
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
               <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
-                <p className="fw-bold">Remainig This Period</p>
+                <p className="fw-bold">Remaining This Period</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
                     {singleUserData?.remaining_this_period
@@ -173,7 +173,7 @@ const ViewAsCustomer = ({
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
               <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
-                <p className="fw-bold">Request Booked/Month</p>
+                <p className="fw-bold">Requests Booked/Month</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-dark mb-0">
                     {singleUserData?.request_booked_per_month ? singleUserData?.request_booked_per_month : '0' }
@@ -183,7 +183,7 @@ const ViewAsCustomer = ({
             </div>
             <div className="active-request-section d-flex flex-column rounded mb-4">
               <div className="bg-white p-2 rounded d-flex flex-column h-100 justify-content-between">
-                <p className="fw-bold">Request in Feedback Queue</p>
+                <p className="fw-bold">Requests in Feedback Queue</p>
                 <div className="monthly-revenue-price text-center py-4">
                   <h2 className="text-muted mb-0">
                     {singleUserData?.requests_in_feedback_queue

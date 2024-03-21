@@ -8,7 +8,7 @@ import EmptyList from "../../Common/EmptyList";
 import CustomPagination from "../../Common/CustomPagination";
 import { change_request_status, deliever_request_details } from "../../reduxdata/Requests/requestActions";
 
-const ApproveRequest = ({ user, allRequest, total }) => {
+const ApproveRequest = ({ user, allRequest, total, requestapproved }) => {
   const [show, setShow] = useState(false);
   const [isreject, setIsreject] = useState(false);
   const [reqdata, setReqdata] = useState({});
@@ -43,6 +43,8 @@ const ApproveRequest = ({ user, allRequest, total }) => {
             <div className="table-responsive mt-2">
               <table
                 className={
+                  requestapproved?._id===request?._id ? 
+                  "table table-borderless table-grey rounded" :
                   isapprove[request?._id] === "accepted"
                     ? "table table-borderless table-green rounded"
                     : "table table-borderless"
@@ -87,7 +89,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                     </td>
                     <td style={{ width: "70px" }}>
                       <div class="d-flex gap-1">
-                        <div>
+                       {requestapproved?._id !==request?._id && <div>
                           {isapprove[request?._id] === "accepted" ? (
                             <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">
                               Approved
@@ -98,9 +100,13 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                               onClick={() => handleAccept(request?._id)}
                             ></i>
                           )}
-                        </div>
-                        <div>
-                          {isapprove[request?._id] !== "accepted" && (
+                        </div>}
+                        {isapprove[request?._id] !== "accepted" && <div>
+                          {requestapproved?._id===request?._id ? (
+                            <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">
+                              Rejected
+                            </button>
+                          ) : (
                             <i
                               className="fa-solid fa-circle-xmark cancel cursor-pointer"
                               onClick={(e) =>
@@ -108,7 +114,7 @@ const ApproveRequest = ({ user, allRequest, total }) => {
                               }
                             ></i>
                           )}
-                        </div>
+                        </div>}
                       </div>
                     </td>
                   </tr>
@@ -155,6 +161,7 @@ const mapStateToProps = (state) => {
     approvelist: state.requests.superadminapprovelist,
     allRequest: state.requests.pendingRequests,
     total: state.requests.pendingTotal,
+    requestapproved: state.requests.editrequestData,
   };
 };
 export default connect(mapStateToProps)(ApproveRequest);

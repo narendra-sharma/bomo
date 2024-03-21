@@ -58,7 +58,7 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                             <td><p className="extra-dark-green">{request?.brand_profile?.brandname}</p></td>
                                             <td><p className="fw-bold" style={{fontSize:"15px"}}>{request?.request_name}</p></td>
                                             <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'Awaiting Acceptance' : ''}</span></p></td>
-                                            <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? '-' : 'No Date'}</span></p></td>
+                                            <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span></p></td>
                                             <td className="text-end">
                                                 <p>
                                                     <span

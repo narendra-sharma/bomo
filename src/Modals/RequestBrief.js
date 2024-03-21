@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { deliever_request_details } from "../reduxdata/rootAction";
 import CountdownTimer from "../Common/CountdownTimer";
 import { saveAs } from 'file-saver';
+import { format } from "date-fns";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -103,7 +104,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                                 <div class="text-end mb-3">
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div><span class="fw-bold"> Delivery Date</span>
-                                            <span class="d-block">Mon 10 - 9:00</span>
+                                            <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span>
                                         </div>
                                         <div><h5 class="fw-bold mb-0">$125</h5></div>
 
