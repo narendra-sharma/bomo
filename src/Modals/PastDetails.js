@@ -4,6 +4,7 @@ import reelImage from "../images/reel-image.png";
 import ColorCode from "../Common/ColorCode";
 import { saveAs } from 'file-saver';
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -105,7 +106,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                             <div class="text-end mb-3">
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div><span class="fw-bold"> Delivery Date</span>
-                                        <span class="d-block">Mon 10 - 9:00</span>
+                                        <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span>
                                     </div>
                                 </div>
                             </div>
