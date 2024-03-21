@@ -36,14 +36,23 @@ const PastRequest = ({ designerpastrequests, user }) => {
                     <tbody>
                       {designerpastrequests?.data?.map((request, i) => 
                       <tr onClick={() => { setShow(true); setData(request); }}>
-                        <td className="text-center"><ColorCode request={request} /></td>
-                        <td><p>{request?.request_name}</p></td>
-                        <td><p className="fw-bold">{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p></td>
-                        <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status && 'Delivered'}</span></p></td>
-                        <td><p><span className="fw-bold">Delivery Date</span> <span className="d-block">
-                          {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}
-                        </span></p></td>
-                        <td className="text-left" ><h6 className="fw-bold">$125</h6></td>
+                        <td className="text-center">
+                        <div className="d-flex gap-5 align-items-center">
+                            <ColorCode request={request} />
+                            <p>{request?.request_name}</p>
+                            <p className="fw-bold">{request?.brand_profile ? request?.brand_profile?.brandname : '--'}</p>
+                        </div>
+                        </td>
+                        <td>
+                          <div className="d-flex gap-5 align-items-center">
+                            <p><span className="fw-bold">Status</span> <span className="d-block">{request?.status && 'Delivered'}</span></p>
+                            <p><span className="fw-bold">Delivery Date</span> <span className="d-block">
+                            {request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}
+                            </span></p>
+                           <h6 className="fw-bold">$125</h6>
+                          </div>
+                        </td>
+                       
                         <td className="text-end">
                           <Button variant="light" className="btn px-4 fw-bold feedback-request rounded-pill" onClick={() => { setShow(true); setData(request); }}>
                             View Request

@@ -42,32 +42,35 @@ const DraftRequests = ({ draftrequests, user, total }) => {
                     onMouseLeave={() => setHoverindex(null)}
                   >
                     <td className="text-center">
-                      <ColorCode request={request} />
+                    <ColorCode request={request} />
                     </td>
-                    <td>
-                      <p>
-                        <span className="fw-bold">Status</span>{" "}
-                        <span className="d-block">
-                          {request?.brief_rejected_at_for_customer? <span className="d-block">Need Update</span> : request?.status === "draft" ? "Draft" : "--"}
-                        </span>
-                      </p>
+                    <td >
+                      <div className="row align-items-center">
+                        <div className="col-md-3 col-2"><p>
+                          <span className="fw-bold">Status</span>{" "}
+                          <span className="d-block">
+                            {request?.brief_rejected_at_for_customer? <span className="d-block">Need Update</span> : request?.status === "draft" ? "Draft" : "--"}
+                          </span>
+                        </p> </div>
+                        <div className="col-md-2 col-2 ps-0"><p>
+                          <span className="fw-bold">Delivery</span>{" "}
+                          <span className="d-block">-</span>
+                        </p> </div>
+                        <div className="col-md-4 col-4 ps-0"> <p>
+                          <span className="fw-bold">Request by</span>{" "}
+                          <span className="d-block">
+                            {request?.isEditedByAdmin == true
+                              ? "BOMO team"
+                              : request?.user_id?.name}
+                          </span>
+                        </p> </div>
+                        
+                        
+                       
+                      </div>
+                     
                     </td>
-                    <td>
-                      <p>
-                        <span className="fw-bold">Delivery</span>{" "}
-                        <span className="d-block">-</span>
-                      </p>
-                    </td>
-                    <td>
-                      <p>
-                        <span className="fw-bold">Request by</span>{" "}
-                        <span className="d-block">
-                          {request?.isEditedByAdmin == true
-                            ? "BOMO team"
-                            : request?.user_id?.name}
-                        </span>
-                      </p>
-                    </td>
+                   
                     <td className="text-center">
                       <p>
                         {request?.brand_profile?.brandname

@@ -21,12 +21,16 @@ const ReviewRequest = ({ feedbacklists }) => {
                     {feedbacklists?.design_for_review?.length > 0 ? feedbacklists?.design_for_review?.map((request)=> (
                          <tbody>
                          <tr>
-                             <td className="text-center"><ColorCode request={request} /></td>
+                             <td className="text-center" width="130px"><ColorCode request={request} /></td>
                              <td><p>{request?.brand_profile?.brandname ? request?.brand_profile?.brandname : '-'}</p></td>
                              <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status && 'To Review'}</span></p></td>
                              <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{!request?.delivery_date ? 'No Date' : <DayMonth deliverydate={request?.delivery_date}/>}</span></p></td>
                              <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
-                             <td className="pull-right"> <div className="review-delivery"><Link className="rounded-pill text-decoration-none" onClick={()=>{setIsshow(true);setData(request); dispatch(get_review_request_data(request));}}>Review Delivery</Link></div></td>
+                             <td className="pull-right"> 
+                                <div className="review-delivery">
+                                <Link className="rounded-pill text-decoration-none" onClick={()=>{setIsshow(true);setData(request); dispatch(get_review_request_data(request));}}>Review Delivery</Link>
+                                </div>
+                             </td>
                          </tr>
                      </tbody>
                     )) : (<EmptyList name="Ready to Review" heading="list" />)}
