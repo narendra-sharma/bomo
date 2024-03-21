@@ -43,7 +43,7 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
             <div className="review-content bg-white px-2 px-md-3 py-5 rounded">
 
               {totalpastrequest > 0 ? Object.entries(groupedRequests).map(([monthYear, requests]) => (
-                <div className="row mb-4" key={monthYear}>
+                <div className="row  g-0 mb-4" key={monthYear}>
                   <div className="col-md-12">
                     <h5 className="mx-md-4 mx-sm-0 fw-bold">{monthYear}</h5>
                   </div>
@@ -59,9 +59,13 @@ const PastRequest = ({ user, pastrequests, totalpastrequest }) => {
                                 <td><p><span className="fw-bold">Delivery</span> <span className="d-block">
                                   {!request?.delivery_date ? 'No Date' : format(new Date(request?.design_approved_at_by_customer), 'dd/MM/yyyy')}
                                 </span></p></td>
-                                <td><p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p></td>
                                 <td>
-                                  <img src={dropdownImage} alt="imgone" height="20" width="18" />
+                                  <div className="d-flex align-items-center gap-2">
+                                    <p><span className="fw-bold">Request by</span> <span className="d-block">{request?.user_id?.name}</span></p>
+                                    <div>
+                                    <img src={dropdownImage} alt="imgone" />
+                                    </div>
+                                  </div>
                                 </td>
                                 {/* <td>
                                   <select type='select' defaultValue='' onClick={() => handleView(request)}>
