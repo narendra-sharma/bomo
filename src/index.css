@@ -34,6 +34,9 @@ html body.calculator-page {
 .bg-gray {
   background-color: #f2f2f2;
 }
+.bg-light-green{
+  background-color: #ECF7EE;
+}
 .text-black{
   color: #000;
 }
@@ -916,7 +919,7 @@ table.feedback-queue tr:hover td:first-child {
 
 }
 .past-request-section .review-content .short0ad {
-  width: 85px;
+  width: 90px;
   padding: 4px 2px;
 }
 .designer-past-request.past-request-section .review-content .short0ad {
@@ -2125,6 +2128,7 @@ button.accordion-button.collapsed .late-request-section {
 }
 .ready-to-delivery-section h5 {
   font-size: 13px;
+  line-height:18px;
 }
 .ready-to-delivery-section .upload-zip-file {
   width: 72%;
@@ -2144,10 +2148,13 @@ button.accordion-button.collapsed .late-request-section {
   background: #cdffb5;
   width: 30px;
   height: 30px;
-  display: inline-block;
   line-height: 30px;
   border-radius: 50%;
   border: solid 1px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 .ready-to-delivery-section .upload-nine-mp4:hover .uploadFile  {
   background-color: #ecf7ee;
@@ -2182,10 +2189,12 @@ background-color: #3FCE3C;
   background-color: #F92B34;
   border-color: #F92B34!important;
 }
-.ready-to-delivery-section .uploadFile.bg-red span.filename{
+.ready-to-delivery-section .uploadFile.bg-red span.filename , 
+.ready-to-delivery-section .uploadFile.bg-red:hover span.filename{
   background-color: #000;
 }
-.ready-to-delivery-section .uploadFile.bg-red span.filename i{
+.ready-to-delivery-section .uploadFile.bg-red span.filename i , 
+.ready-to-delivery-section .uploadFile.bg-red:hover span.filename i{
   color: #fff;
 }
 .ready-to-delivery-section .uplaod-dimension , 
@@ -2633,19 +2642,16 @@ table.table-green{
   font-size:12px;
 }
 .past-request-section table tr td:first-child{
-  width: 95px;
+  width: 90px;
 }
 .past-request-section table tr td:nth-child(2) {
-  width: 95px;
+  width: 85px;
 }
 .past-request-section table tr td:nth-child(3) {
-  width: 68px;
+  width: 65px;
 }
 .past-request-section table tr td:nth-child(4) {
-  width: 69px;
-}
-.past-request-section table tr td:nth-child(5) {
-  width: 30px;
+  width: 130px;
 }
 .customer-active-request tr:hover , .customer-active-request tr:hover td{
   background-color:#f7f6f6;

@@ -84,7 +84,7 @@ const PastDetails = ({ show, handleClose, data }) => {
 
     return (
         <Modal show={show} onHide={handleClose} size="lg" className="designer-request-poll logout-popup">
-            <Modal.Body>
+            <Modal.Body className="p-0 bg-white">
                 <div className=" px-5 py-5 px-md-5 review-content ">
                     <div className="row align-items-center">
                         <div className="col-md-7 col-12">
@@ -120,7 +120,7 @@ const PastDetails = ({ show, handleClose, data }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="row expand-request-data">
                               
                                 <div class="col-md-4">
                                     <p>
@@ -162,8 +162,11 @@ const PastDetails = ({ show, handleClose, data }) => {
                                     
                         </div>
                     </div>
-                    <div className="d-flex align-items-center justify-content-between mt-4">
-                        <div>
+                    
+                </div>
+                <div className="bg-light-green py-3 px-4 m-4 mt-2 rounded">
+                    <div className="d-flex align-items-center justify-content-between ">
+                        <div className="extra-dark-green">
                             <span className="fw-bold">DELIVERED - </span><span className="fw-bold">Paid on {formatDate(data?.design_approved_at_by_customer)}</span>
                         </div>
                         <div>
