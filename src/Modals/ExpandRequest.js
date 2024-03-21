@@ -91,6 +91,26 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         })
     };
 
+    const getSuffix = (day) => {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
+    };
+
+    const formatDate = (inputdate) => {
+        const date = new Date(inputdate);
+        date.setDate(date.getDate()+3);
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US',{month: 'long'});
+        const year = date?.getFullYear();
+
+        return ` ${month} ${day}${getSuffix(day)}`
+    };
+
     return (
         <Modal show={show} onHide={handleClose} size="xl" className="expand-request view-as-customer-popup">
             <Modal.Body className="p-3 px-md-5 py-3">
@@ -221,7 +241,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                             <div class="d-flex justify-content-end">
                                 <h5 class="fw-bold">$125</h5>
                                 <h6 class="text-end ps-5 fw-bold"> Completed
-                                    <span class="d-block">Jan 20th</span></h6>
+                                    <span class="d-block">{formatDate(expanddetails?.req_data?.delivery_date)}</span></h6>
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-12">
@@ -315,7 +335,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             </div>}
                                             <div className="col-md-3 d-flex text-center justify-content-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
-                                                    <div className="delivery-status fw-bold">{expanddetails?.req_data?.file_type}</div>
+                                                    <div className="delivery-status fw-bold">.{expanddetails?.req_data?.zip?.split(".").pop().toLowerCase()}</div>
                                                     <div className="">
                                                         <img src={aepdesign} alt="Image" />
                                                     </div>

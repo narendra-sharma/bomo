@@ -20,6 +20,7 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
   const [selectedData, setSelectedData] = useState([]);
   useEffect(() => {
     get_designer_active_requestslist(dispatch, user?.token);
+    localStorage.removeItem('requestData');
     if (user?.isDesignerApproved == false) {
       navigate("/settings");
     }
@@ -49,9 +50,18 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                   <div className="ms-4 mb-3">
                     <span className="deadline-date status position-relative ps-3">
                       Deadline in{" "}
-                      <span className="fw-bold">
-                        <CountdownTimer requestDate={request?.req_mail_date} duration={20 * 60 * 60 * 1000}/>
-                      </span>
+                      {request?.mail_send_to_backup_designer ?
+                        <span className="fw-bold">
+                          <CountdownTimer requestDate={request?.req_mail_date} duration={20 * 60 * 60 * 1000} />
+                        </span>
+                        :
+                        <span className="fw-bold">
+                          <CountdownTimer requestDate={request?.req_mail_date} duration={24 * 60 * 60 * 1000} />
+                        </span>
+                      }
+                      {/* <span className="fw-bold">
+                        <CountdownTimer requestDate={request?.req_mail_date} duration={24 * 60 * 60 * 1000} />
+                      </span> */}
                     </span>
                   </div>
                   <div className="table-responsive rounded">
@@ -87,9 +97,9 @@ const DesignerHome = ({ user, activerequest, pollrequests }) => {
                                 {!request?.delivery_date
                                   ? "No Date"
                                   : format(
-                                      new Date(request?.delivery_date),
-                                      "dd/MM/yyyy"
-                                    )}
+                                    new Date(request?.delivery_date),
+                                    "dd/MM/yyyy"
+                                  )}
                               </span>
                             </p>
                           </td>

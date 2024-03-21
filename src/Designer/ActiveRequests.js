@@ -120,15 +120,24 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
 
                         <div className="col-md-5 col-12">
                           <div class="d-flex justify-content-end align-items-center designer-active-request ">
-                            <span className="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga'  /></span>
+                            <span className="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' /></span>
                             <span class="deadline-date status position-relative deliver-now-btn">
                               Deadline in{" "}
-                              <span class="fw-bold">
+                              {request?.mail_send_to_backup_designer ?
+                                <span className="fw-bold">
+                                  <CountdownTimer requestDate={request?.req_mail_date} duration={20 * 60 * 60 * 1000} />
+                                </span>
+                                :
+                                <span className="fw-bold">
+                                  <CountdownTimer requestDate={request?.req_mail_date} duration={24 * 60 * 60 * 1000} />
+                                </span>
+                              }
+                              {/* <span class="fw-bold">
                                 <CountdownTimer
                                   requestDate={request?.req_mail_date}
-                                  duration={20 * 60 * 60 * 1000}
+                                  duration={24 * 60 * 60 * 1000}
                                 />
-                              </span>
+                              </span> */}
                             </span>
                           </div>
                         </div>
@@ -148,7 +157,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                           </div>
                           <div className="row mb-4">
                             <div className="col-md-4"> </div>
-                            <div className="col-md-8"> 
+                            <div className="col-md-8">
                               <div className="row">
                                 <div className="col-md-5">
                                   <p>
@@ -194,7 +203,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                 </span>
                               </p>
                             </div>
-                            <div className="col-md-8"> 
+                            <div className="col-md-8">
                               <div className="row">
                                 <div className="col-md-5">
                                   <p className="word-break">
@@ -219,7 +228,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
                                   </p>
                                 </div>
                                 <div className="col-md-3">
-                                <p><span className="d-block fw-bold">Format</span> <span className="d-block">{request?.file_type}</span></p>
+                                  <p><span className="d-block fw-bold">Format</span> <span className="d-block">{request?.file_type}</span></p>
                                 </div>
                               </div>
                             </div>

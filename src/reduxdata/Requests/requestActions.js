@@ -303,6 +303,7 @@ export const get_designer_assigned_requestlist = async (dispatch, token) => {
       toast.error(res.data?.message);
     }
   } catch (error) {
+    console.log(error);
     dispatch(catch_errors_handle(error, dispatch));
   } finally {
     dispatch(stop_loading);
@@ -440,11 +441,6 @@ export const superadmin_approve_delivery = async (
     const res = await axios.put(url, JSON.stringify(requestdetails), HEADERS);
     if (res.data && res.data.status) {
       toast.success(res.data?.message);
-      if (approvedata?.deliverystatus==='accepted') {
-        setTimeout(() => {
-           get_approve_delivery_list(token, dispatch);
-        },3000);
-      }
     } else {
       toast.error(res.data?.message);
     }
