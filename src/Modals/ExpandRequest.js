@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap';
 import designImage from "../images/nine-sixteen.png";
 import designImage2 from "../images/sixteen-nine.png";
@@ -20,9 +20,31 @@ const { REACT_APP_BOMO_URL } = process.env;
 
 const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails, reqtype }) => {
     const dispatch = useDispatch();
+    const [isGreen, setIsGreen] = useState([]);
+    const [primaryItem,setPrimaryItem] = useState([]);
+
+    const toggleColor = (item,index) => {
+        setIsGreen(prevState => {
+            const newState = [...prevState];
+            newState[index] = !newState[index];
+            return newState;
+        });
+        setPrimaryItem(prevItems =>  {
+            const findItems = prevItems?.some(d => d?._id === item?._id);
+            if(findItems){
+               return prevItems.filter(d =>  d?._id !== item?._id);
+            } else {
+                return [...prevItems, item];
+            }
+        });
+    };
+
     useEffect(() => {
         if (requestdetails?._id) {
             get_expanded_request_detail(dispatch, user?.token, requestdetails?._id);
+        }
+        return () => {
+            setIsGreen([null]); setPrimaryItem([null]);
         }
     }, [dispatch, user?.token, requestdetails?._id]);
 
@@ -94,18 +116,18 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
     const getSuffix = (day) => {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
             default: return "th";
         }
     };
 
     const formatDate = (inputdate) => {
         const date = new Date(inputdate);
-        date.setDate(date.getDate()+3);
+        date.setDate(date.getDate() + 3);
         const day = date.getDate();
-        const month = date.toLocaleString('en-US',{month: 'long'});
+        const month = date.toLocaleString('en-US', { month: 'long' });
         const year = date?.getFullYear();
 
         return ` ${month} ${day}${getSuffix(day)}`
@@ -178,8 +200,14 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                         <p className="brief-date invisible">16/03/2023 <span className="d-block">12:44</span></p>
                                     </div>
 
-                                    <div class="step">
-                                        <p className="brief-content">Assigned to </p>
+                                    <div class="step">{primaryItem?.map((item) => item?.name)}
+                                        <p className="brief-content">Assigned to
+                                            {expanddetails?.req_data?.primary_designer?.map((item, index) =>
+                                                <span className="badge badge-success mr-1" key={index}>
+                                                    <i  className={`fa-solid fa-circle ${isGreen[index] ? 'text-white' : 'text-success'}`} 
+                                                    onClick={() => toggleColor(item,index)}></i></span>
+                                            )}
+                                        </p>
                                         <div class="deliver-status delivery-check">
                                             <span><i class="fa-solid fa-circle-check"></i></span>
                                         </div>
@@ -290,7 +318,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                     </p>
                                     </div>
                                 </div>
-                                       
+
                             </div>
                         </div>
                         {expanddetails?.delivery_data?.map((request, index) =>
@@ -377,7 +405,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                     </div>
 
                     {(expanddetails?.req_data?.is_approved_by_super_admin) &&
-                        <UploadPieces/>
+                        <UploadPieces />
                     }
                 </div>
             </Modal.Body>

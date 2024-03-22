@@ -24,11 +24,11 @@ const UploadPieces = () => {
   }, [checkfile_type]);
 
 
-  const [formdata, setFormdata] = useState({ zipfile: '' });
+  const [formdata, setFormdata] = useState({ zipfile: null });
   const [deliverdata, setDeliverdata] = useState({ firstfile: '' });
   const [fileErrors, setFileErrors] = useState({});
 
-  const [zipfilepreview, setZipfilepreview] = useState('');
+  const [zipfilepreview, setZipfilepreview] = useState(null);
   const [errors, setErrors] = useState({ zipfile: '' });
   const [show, setShow] = useState(false);
   const [deliverdetail, setDeliverdetail] = useState();
@@ -113,7 +113,7 @@ const UploadPieces = () => {
           setErrors({ ...errors, zipfile: 'Upload your .Zip' });
         } else if (ZipFile.type !== 'application/zip') {
           setErrors({ ...errors, zipfile: 'Please upload a valid zip file' });
-        } else if (ZipFile.type === 'application/zip') {
+        } else {
           setErrors({ ...errors, zipfile: '' });
           setFormdata({
             ...formdata,
@@ -197,11 +197,11 @@ const UploadPieces = () => {
                         </span>
                         :
                         !deliverdata[`firstfile${index}`] ?
-                          <span class="filename">
+                          <span className="filename">
                             <i className="fa fa-plus"></i>
                           </span>
                           : <span className="after-uploaded">
-                            <span className="d-block h6 text-black fw-bold mb-1">SUCCESFUL</span> <span class="filename"><i className="fa-solid fa-check"></i></span></span>
+                            <span className="d-block h6 text-black fw-bold mb-1">SUCCESFUL</span> <span className="filename"><i className="fa-solid fa-check"></i></span></span>
                     }
 
                     <input
@@ -236,7 +236,7 @@ const UploadPieces = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div class="status-btn"><button class="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => { handleSubmit(e); setData(requestData); }}>DELIVERY NOW</button> </div>
+            <div className="status-btn"><button className="btn pause-btn rounded-pill py-2 px-4" onClick={(e) => { handleSubmit(e); setData(requestData); }}>DELIVERY NOW</button> </div>
           </div>
         </div>
       </div>

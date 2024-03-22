@@ -13,7 +13,7 @@ const SubmitRequest = ({ show, handleClose, data, userdetail, isSubmit, user }) 
 
     const handleRequest = async () => {
         if (data) {
-            await newRequest(data, dispatch, userdetail?.token);
+            await newRequest(data, dispatch, userdetail?.token,navigate);
             handleClose();
         }
     };

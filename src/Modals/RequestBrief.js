@@ -16,8 +16,9 @@ const RequestBrief = ({ show, handleClose, data }) => {
     const dispatch = useDispatch();
 
     const handleDeliever = (requestdata) => {
+        localStorage.setItem('requestData', JSON.stringify(requestdata));
         navigate('/deleiver-request');
-        dispatch(deliever_request_details(requestdata));
+        // dispatch(deliever_request_details(requestdata));
     };
 
     const handleDownload = async (fileUrl) => {
