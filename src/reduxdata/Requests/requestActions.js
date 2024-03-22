@@ -868,7 +868,7 @@ export const newRequest = async (requestdata, dispatch, token, navigate) => {
             ? "updated"
             : requestdata?.status === "draft"
             ? "drafted"
-            : "Created"
+            : "submitted"
         } Successfully`
       );
       dispatch({

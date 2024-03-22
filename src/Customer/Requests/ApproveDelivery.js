@@ -8,6 +8,9 @@ import ColorCode from '../../Common/ColorCode';
 import { format } from 'date-fns';
 import ExpandRequest from '../../Modals/ExpandRequest';
 import RejectRequest from '../../Modals/RejectRequest';
+import { saveAs } from 'file-saver';
+
+const { REACT_APP_BOMO_URL } = process.env;
 
 const ApproveDelivery = ({ user, approvelist }) => {
     const [show, setShow] = useState(false);
@@ -26,6 +29,9 @@ const ApproveDelivery = ({ user, approvelist }) => {
             };
             await superadmin_approve_delivery(dispatch, user?.token, approvedata);
             setIsapprove((prev) => ({ ...prev, [requestId]: 'accepted' }));
+            setTimeout(() => {
+                get_approve_delivery_list(user?.token, dispatch);
+            },3000);
         } else if ((status === 'rejected') && data) {
             setIsreject(true);
             setReqdata(data);
@@ -41,6 +47,35 @@ const ApproveDelivery = ({ user, approvelist }) => {
     useEffect(() => {
         get_approve_delivery_list(user?.token, dispatch);
     }, [dispatch, user?.token]);
+
+    const handleDownload = async (fileUrl) => {
+        console.log(fileUrl);
+        const filepath = fileUrl.includes('+') ? fileUrl.replace(/\+/g, '%2B') : fileUrl;
+        const fileContent = `${REACT_APP_BOMO_URL}download?file=${filepath}`;
+        console.log("File Content URL:", fileContent);
+        const fileName = fileUrl?.substring(fileUrl?.lastIndexOf("/") + 1);
+        const getMimeType = (ext) => {
+            const mimeTypes = {
+                txt: "text/plain",
+                pdf: "application/pdf",
+                zip: "application/zip",
+                jpg: "image/jpeg",
+                jpeg: "image/jpeg",
+                png: "image/png",
+                gif: "image/gif",
+                mp4: "video/mp4",
+                mov: "video/quicktime"
+            };
+            return mimeTypes[ext] || "application/octet-stream";
+        };
+
+        const response = await fetch(fileContent);
+        const blobFile = await response.blob();
+        const fileExtension = fileName?.split(".").pop().toLowerCase();
+        const mimeType = getMimeType(fileExtension);
+        const blobwithtype = new Blob([blobFile], { type: mimeType });
+        saveAs(blobwithtype, fileName);
+    };
 
     return (
         <div className="row">
@@ -86,31 +121,31 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </p>
                                     </td>
                                     <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
+                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[0]}</p>
                                             </div>
-                                            <div className="bar-code">
+                                            <div className="bar-code" onClick={() => handleDownload(`designe/landscape/${request?.landscape}`)}>
                                                 <img src={designImage} alt="Image" />
                                             </div>
                                         </div>
                                     </td>
                                     {request?.size[1] && <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
+                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[1]}</p>
                                             </div>
-                                            <div className="bar-code">
+                                            <div className="bar-code" onClick={() => handleDownload(`designe/portrait/${request?.portrait}`)}>
                                                 <img src={designImage2} alt="Image" />
                                             </div>
                                         </div>
                                     </td>}
                                     <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between">
+                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
                                             <div className="delivery-status fw-bold">
-                                                <p>.aep</p>
+                                                <p>.{request?.zip?.split(".").pop().toLowerCase()}</p>
                                             </div>
-                                            <div className="bar-code">
+                                            <div className="bar-code" onClick={() => handleDownload(`${request?.zip}`)}>
                                                 <img src={designImage3} alt="Imag" />
                                             </div>
                                         </div>

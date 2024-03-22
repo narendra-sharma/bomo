@@ -35,7 +35,7 @@ const Header = ({ user, userrole, totalassigns, activerequest, isSwitch }) => {
 
   const requestsWithEarliestDeadlines = activerequest?.filter((request) => {
     const requestDateInMs =
-      new Date(request?.req_mail_date).getTime() + 20 * 60 * 60 * 1000;
+      new Date(request?.req_mail_date).getTime() + 24 * 60 * 60 * 1000;
     const currentTime = new Date().getTime();
     const timeDifference = requestDateInMs - currentTime;
     if (timeDifference > 0 && timeDifference < 2 * 60 * 60 * 1000) {
