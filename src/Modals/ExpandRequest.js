@@ -232,7 +232,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                         }
                     </div>
                 </div>
-                <div className="px-60 py-5 mx-3 review-main-content bg-white mb-4">
+                <div className="px-60 py-5 review-main-content bg-white mb-4">
                     <div className="row review-content">
                         <div className="col-md-7">
                             <div class="mb-3"><h3 class="fw-bold">{expanddetails?.req_data?.request_name}</h3></div>

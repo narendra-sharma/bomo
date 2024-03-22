@@ -910,13 +910,10 @@ table.feedback-queue tr:hover td:first-child {
 .designer-past-request .review-content tr td:first-child {
   border-radius: 5px 0 0 5px;
   padding-left: 20px;
-
 }
-
 .designer-past-request.past-request-section table tr td:last-child {
   width: 200px;
   border-radius: 0px 5px 0 5px;
-
 }
 .past-request-section .review-content .short0ad {
   width: 90px;
@@ -1277,8 +1274,7 @@ ul.talented-designer li i {
   color: #838383;
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 4;
 }
 ul.designer-list {
   background-color: #fbfbfb;
@@ -2196,6 +2192,7 @@ background-color: #3FCE3C;
 .ready-to-delivery-section .uploadFile.bg-red span.filename i , 
 .ready-to-delivery-section .uploadFile.bg-red:hover span.filename i{
   color: #fff;
+  padding-right: 2px;
 }
 .ready-to-delivery-section .uplaod-dimension , 
 .ready-to-delivery-section .uplaod-dimension.four-five {
@@ -2273,18 +2270,22 @@ background-color: #3FCE3C;
   left: 50%;
   transform: translateX(-50%);
 }
-.progress_bar .step .deliver-status:before,
-.progress_bar .step .deliver-status:after {
-  position: absolute;
-  content: "";
-  bottom: 11px;
-  right: -99px;
-  height: 1px;
-  width: 93px;
-  background: #d2cece;
+.progress_bar .step{
+  z-index: 9;
 }
-.progress_bar .step:last-child .deliver-status::before,
-.progress_bar .step:last-child .deliver-status:after {
+.progress_bar .step:before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  height: 1px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  background: #d2cece;
+  z-index: -1;
+}
+.progress_bar .step:last-child::before {
   display: none;
 }
 
@@ -2309,6 +2310,23 @@ background-color: #3FCE3C;
 .progress_bar .step .delivery-request-count span {
   font-size: 12px;
   width: 100%;
+}
+.progress_bar.approve_progress_bar .step {
+  width: auto;
+}
+.progress_bar.approve_progress_bar .step:before,
+ .progress_bar.approve_progress_bar .step:after{
+  display: none;
+}
+.hr_line {
+  width: 85px;
+  margin: 0 10px;
+  height: 1px;
+  background-color: #d2cece;
+  align-self: center;
+}
+.progress_bar.approve_progress_bar .step-request-count{
+  width: 10%;
 }
 .pending-request tr td:first-child {
   width: 110px;

@@ -237,13 +237,13 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 </ul>
                             </div>
                         }
-                        <div className="col-lg-1 align-self-center">
+                        <div className="col-lg-1 p-0 align-self-center">
                             {isWrong[index] ?
                                 <div>
                                     <button className="btn btn-danger rounded-pill">
                                         error
                                     </button>
-                                    <span>select designers</span>
+                                    <span style={{fontSize:"13px"}}>select designers</span>
                                 </div>
                                 : <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request, index)}>
                                     {isAssign[request?._id] === "assigned" ? 'Assigned' : 'Assign'}
