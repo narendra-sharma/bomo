@@ -12,7 +12,7 @@ import { format } from "date-fns";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) => {
+const RequestDetails = ({ show, handleClose, data, requesttype, reqaccept, user, filePath }) => {
     const dispatch = useDispatch();
     const [selectedData, setSelectedData] = useState([]);
     const [isPop, setIsPop] = useState(false);
@@ -68,7 +68,18 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                     <div className=" px-4 py-5 review-content ">
                         <div className="row align-items-center">
                             <div className="col-md-7 col-12 mb-4 designer-active-request">
-                                <span class="deadline-date status position-relative ps-3">Selection in <span class="fw-bold"><span> <CountdownTimer requestDate={data?.accepted_date} duration={14 * 60 * 60 * 1000} reqtype="pool" />hour</span></span></span>
+                                <span class="deadline-date status position-relative ps-3">Selection in{" "}
+                                    <span class="fw-bold">
+                                        <span>
+                                            {requesttype === "pool" ?
+                                                <CountdownTimer requestDate={data?.accepted_date} duration={16 * 60 * 60 * 1000} reqtype="pool" />
+                                                : requesttype === "accept" ?
+                                                    <CountdownTimer requestDate={data?.req_mail_date} duration={12 * 60 * 60 * 1000} reqtype="pool" />
+                                                    : <span></span>
+                                            }
+                                        </span>
+                                    </span>
+                                </span>
                             </div>
                             <div className="col-md-5 col-12 mb-4">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
@@ -92,7 +103,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                                 <div class="text-end mb-3">
                                     <div className="d-flex justify-content-end align-items-center">
                                         <div><span class="fw-bold"> Delivery Date</span>
-                                            <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span>
+                                            <span class="d-block">{data?.delivery_date ? format(new Date(data?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +179,7 @@ const RequestDetails = ({ show, handleClose, data, user, filePath, reqaccept }) 
                     </div>
                 </Modal.Body>
             </Modal>
-            <ApplySuccess show={isPop} handleClose={() => setIsPop(false)} data={selectedData}/>
+            <ApplySuccess show={isPop} handleClose={() => setIsPop(false)} data={selectedData} />
         </div>
     )
 };

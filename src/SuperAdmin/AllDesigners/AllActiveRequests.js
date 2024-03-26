@@ -177,7 +177,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
             />
         </div>
     )
-}
+};
 
 const mapStateToProps = (state) => {
     return {

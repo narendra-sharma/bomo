@@ -41,7 +41,7 @@ const ConfirmFeedback = ({ user, show, handleClose,requestData }) => {
                         <div className="review-submit-popup extra-grren rounded my-5 p-5">
                             <h5 className="mb-0 extra-dark-green fw-bold">{user?.name},</h5>
                             <p className="extra-dark-green"> Are you sure feedback is accurate?
-                                <br />Once submitted,feedback takes 24b hours.</p>
+                                <br />Once submitted,feedback takes 24 hours.</p>
                             <p className="extra-dark-green">Remember, you can have X orders in review at the same time.</p>
                             <div className="d-flex gap-3 mt-4 pt-4">
                                 <div className="col-md-8">

@@ -141,7 +141,7 @@ const PollRequests = ({ user, pollrequests }) => {
           </button>
         </div>
       </div>
-      <RequestDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} />
+      <RequestDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} requesttype="pool"/>
       <ApplySuccess show={isPop} handleClose={() => setIsPop(false)} data={selectedData}/>
     </>
   )

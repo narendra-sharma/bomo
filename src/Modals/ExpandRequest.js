@@ -381,14 +381,30 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             <div className="col-md-3 align-self-center">
                                                 <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                     {request?.is_approved_by_super_admin ?
-                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button>  <i className="fa-solid fa-circle-check"></i></div>
-                                                        : <h6 class="fw-bold">Needs approval by ADMIN</h6>}
+                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button><i className="fa-solid fa-circle-check"></i></div>
+                                                        : (request?.is_approved_by_super_admin===false && request?.feedback_message) ?
+                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Rejected by Admin</button><i className="fa-solid fa-circle-xmark cancel text-danger"></i></div>
+                                                        :
+                                                         <h6 class="fw-bold">Needs approval by ADMIN</h6>}
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
+                                {(request?.is_approved_by_super_admin===false && request?.feedback_message) ? <div className="col-md-12">
+                                    <div className="feedback-request  p-4 mt-4 rounded">
+
+                                        <h5 className="fw-bold">
+                                            Feedback Requested by ADMIN {format(new Date(request?.updatedAt), 'dd/MM/yyyy')} {formattedTime(request?.updatedAt)}
+                                        </h5>
+                                        <p>
+                                            {request?.feedback_message && <span className="d-block">{request?.feedback_message}</span>}
+                                        </p>
+
+                                    </div>
+                                </div> :
+                                    <div></div>}
                                 {(request?.landscape_feedback_message || request?.portrait_feedback_message) ? <div className="col-md-12">
                                     <div className="feedback-request  p-4 mt-4 rounded">
 
