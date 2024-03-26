@@ -128,7 +128,7 @@ const RequestExpand = ({ user, deliverrequests }) => {
                                     <div className="d-flex align-items-center">
                                         <ColorCode request={receivedData} />
                                         <span class="brand-poll-circle">
-                                            <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' /></span>
+                                        <img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${receivedData?.brand_details?.logo}`} alt='imga' /></span>
                                         <p className="short0ad project-assets ms-2 px-4 cursor-pointer" onClick={() => DownloadAll(receivedData?.file)}>Project Assets</p>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ import EmptyList from "../../Common/EmptyList";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Common/CountdownTimer";
 import ApplySuccess from "../../Modals/ApplySuccess";
+import { format } from "date-fns";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -79,7 +80,7 @@ const PollRequests = ({ user, pollrequests }) => {
             <div className="d-flex justify-content-between">
               <h6 className="fw-bold">{request?.request_name}</h6>
               <p className="text-end"><span className="fw-bold">Expected Delivery</span>
-                <span className="d-block">Mon 10 - 9:00</span>
+                <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date),'dd/MM/yyyy') : 'No Date'}</span>
               </p>
             </div>
             <div className="row">
@@ -114,7 +115,7 @@ const PollRequests = ({ user, pollrequests }) => {
               <div className="col-md-7 col-lg-8 d-flex align-items-center">
                 <div className="d-flex justify-content-betwwen">
                   <p className="text-mute"><span>Selection in</span> <span className="fw-bold">
-                    <CountdownTimer requestDate={request?.accepted_date} duration={14 * 60 * 60 * 1000} reqtype="pool" />h
+                    <CountdownTimer requestDate={request?.accepted_date} duration={16 * 60 * 60 * 1000} reqtype="pool" />
                     </span>
                   </p>
                   <p className="text-mute"><span>{request?.designer_list?.length} applications</span></p>
