@@ -102,7 +102,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
             setIsAssign((prev) => ({ ...prev, [requestdetail?._id]: "assigned" }));
             setTimeout(() => {
                 get_admin_assign_requestlist(dispatch, user?.token);
-            }, 5000000);
+            }, 4000);
         }
         // const PrimaryDesigners = [...new Set([...requestdetail.primary_designer.flat(Infinity)])];
         // const BackupDesigners = [...new Set([...requestdetail.backup_designer.flat(Infinity)])];
