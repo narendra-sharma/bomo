@@ -22,14 +22,6 @@ const ApproveStatus = ({ expanddetails }) => {
                     <span className="d-block">{formattedTime(expanddetails?.req_data?.createdAt)}</span></p>
             </div>
             <div class="hr_line"></div>
-            {(!expanddetails?.req_data?.brief_approved_at) && (expanddetails?.req_data?.brief_rejected_at?.length===0) && <div className="mt-3">
-                <div class="deliver-status">
-                    <p className="brief-content mt-2">In-Progress</p>
-                </div>
-                {/* <div class="">
-                    <span> <i className="fa-solid fa-spinner fa-spin"></i></span>
-                </div> */}
-            </div>}
 
             <div class={`${expanddetails?.req_data?.brief_rejected_at ? 'step' : ''}`}>
                 {expanddetails?.req_data?.brief_rejected_at &&
@@ -64,6 +56,14 @@ const ApproveStatus = ({ expanddetails }) => {
                         </p>
                     </div>}
             </div>
+            {(!expanddetails?.req_data?.brief_approved_at) && <div className="mt-3">
+                <div class="deliver-status">
+                    <p className="brief-content mt-2">In-Progress</p>
+                </div>
+                {/* <div class="">
+                    <span> <i className="fa-solid fa-spinner fa-spin"></i></span>
+                </div> */}
+            </div>}
         </div>
     )
 };

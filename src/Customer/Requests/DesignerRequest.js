@@ -94,7 +94,7 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                     )) : <EmptyList name="Acceptance Request" />}
                 </div>
             </div>
-            <RequestsDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} reqaccept='yes' />
+            <RequestsDetails show={toggle} handleClose={() => setToggle(false)} data={selectedData} requesttype="accept" reqaccept='yes'/>
         </div>
     )
 }
