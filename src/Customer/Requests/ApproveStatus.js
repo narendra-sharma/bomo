@@ -36,12 +36,12 @@ const ApproveStatus = ({ expanddetails }) => {
                             <span className="d-block">{formattedTime(item)}</span></p>
                     </div>)}
             </div>
-            <div class={`${expanddetails?.req_data?.brief_rejected_at ? 'step' : ''}`}>
+            {/* <div class={`${expanddetails?.req_data?.brief_rejected_at ? 'd-flex' : ''}`}>
                 {expanddetails?.req_data?.brief_rejected_at &&
                     expanddetails?.req_data?.brief_rejected_at?.map((item) => 
                 <div className="hr_line"></div>
                 )}
-            </div>
+            </div> */}
 
             <div class={`${expanddetails?.req_data?.brief_approved_at ? 'step' : ''}`}>
                 {expanddetails?.req_data?.brief_approved_at &&
