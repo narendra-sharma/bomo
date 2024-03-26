@@ -90,7 +90,7 @@ const RequestBrief = ({ show, handleClose, data }) => {
                             <div className="col-md-5 col-12">
                                 <div class="d-flex justify-content-end align-items-center designer-active-request ">
                                     <span class="deadline-date status position-relative deliver-now-btn">Deadline in{" "}
-                                        {data?.mail_send_to_backup_designer ?
+                                        {data?.mail_send_to_backup_designer===true ?
                                             <span className="fw-bold">
                                                 <CountdownTimer requestDate={data?.req_mail_date} duration={20 * 60 * 60 * 1000} />
                                             </span>

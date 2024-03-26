@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 import ColorCode from "../Common/ColorCode";
 import { format } from "date-fns";
 import EmptyList from "../Common/EmptyList";
+import RequestBrief from "../Modals/RequestBrief";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
@@ -14,6 +15,8 @@ const ActiveDeliveries = ({ activerequest }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [activerequests, setActiverequests] = useState([]);
+    const [istoggle, setIstoggle] = useState(false);
+    const [selectedData, setSelectedData] = useState([]);
 
     useEffect(() => {
         setActiverequests(activerequest);
@@ -100,12 +103,21 @@ const ActiveDeliveries = ({ activerequest }) => {
 
                                     <div className="col-md-5 col-12">
                                         <div class="d-flex justify-content-end align-items-center designer-active-request ">
+                                            <span
+                                                className="extra-dark-green cursor-pointer"
+                                                onClick={() => {
+                                                    setIstoggle(true);
+                                                    setSelectedData(request);
+                                                }}
+                                            >
+                                                + show full brief
+                                            </span>
                                             <span className="brand-poll-circle"><img className="rounded-circle" src={`${REACT_APP_BOMO_URL}${request?.brand_profile?.logo}`} alt='imga' /></span>
                                             <span class="deadline-date status position-relative deliver-now-btn">
                                                 Deadline in {" "}
-                                                    <span className="fw-bold">
-                                                        <CountdownTimer requestDate={request?.req_mail_date} duration={24 * 60 * 60 * 1000} />
-                                                    </span>
+                                                <span className="fw-bold">
+                                                    <CountdownTimer requestDate={request?.req_mail_date} duration={24 * 60 * 60 * 1000} />
+                                                </span>
                                             </span>
                                         </div>
                                     </div>
@@ -237,6 +249,11 @@ const ActiveDeliveries = ({ activerequest }) => {
             ) : (
                 <EmptyList name="Active Request" />
             )}
+            <RequestBrief
+                data={selectedData}
+                show={istoggle}
+                handleClose={() => setIstoggle(false)}
+            />
         </div>
     )
 };

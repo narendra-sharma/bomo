@@ -15,7 +15,7 @@ import CustomPagination from "../Common/CustomPagination";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const ActiveRequests = ({ isLoading, user, activerequest, declinetype }) => {
+const ActiveRequests = ({ isLoading, user, activerequest }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [countdownTime, setCountdownTime] = useState(0);
@@ -26,7 +26,7 @@ const ActiveRequests = ({ isLoading, user, activerequest, declinetype }) => {
   };
 
   useEffect(() => {
-    get_designer_active_requestslist(dispatch, user?.token, declinetype);
+    get_designer_active_requestslist(dispatch, user?.token);
   }, [dispatch]);
 
   useEffect(() => {
