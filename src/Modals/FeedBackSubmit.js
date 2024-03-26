@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 import FeedbackFiles from "./FeedbackFiles";
+import ReactPlayer from "react-player";
 
+const { REACT_APP_BOMO_URL } = process.env;
 
 const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage }) => {
     const [formdata, setFormdata] = useState({
@@ -11,24 +13,10 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
     const [errors, setErrors] = useState({
         feedback: ''
     });
-    // const [data, setData] = useState(null);
     const [isFeed, setIsFeed] = useState(false);
-
-    // useEffect(() => {
-    //     setData({
-    //         _id: details?._id,
-    //         request_name: details?.request_name,
-    //         request_type: details?.request_type,
-    //         delivery_date: details?.delivery_date,
-    //         description: details?.description,
-    //         size: details?.size,
-    //         file_type: details?.file_type,
-    //         transparency: details?.transparency,
-    //         references: details?.references,
-    //         brandname: details?.brand_profile?.brandname,
-    //         status: 'rejected'
-    //     });
-    // }, [details]);
+    // const [ishover,setIshover] = useState(false);
+    // const [isPlay, setIsPlay] = useState(false);
+    // const [isVideo,setIsVideo]= useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -78,7 +66,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
         if (designName === 'landscape') {
             const feedbackmessage = formdata.feedback;
             localStorage.setItem('landscape', JSON.stringify(feedbackmessage));
-            if(details?.size?.length===1){
+            if (details?.size?.length === 1) {
                 setIsFeed(true);
             }
             handleClose();
@@ -94,6 +82,24 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
         }
     };
 
+    // const togglePlay = (videostage) => {
+    //     const video = document.getElementById(videostage===1 ? 'videoLandscape' : videostage===2 && 'videoPortrait');
+    //     if (video.paused && videostage===1) {
+    //         video.play();
+    //         setIsPlay(true);
+    //     } else if (video.paused && videostage===2) {
+    //         video.play();
+    //         setIsVideo(true);
+    //     } else {
+    //         video.pause();
+    //         if(videostage===1){
+    //             setIsPlay(false);
+    //         }else if (videostage===2){
+    //             setIsVideo(false);
+    //         }
+    //     }
+    // };
+
     useEffect(() => {
         return () => { setFormdata({ feedback: '' }); setErrors({ feedback: null }); };
     }, [show]);
@@ -102,6 +108,30 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
         <div>
             <Modal show={show} onHide={handleClose} size="xl" className="logout-popup">
                 <Modal.Body className="py-5">
+                    {/* <div className="col-md-5 d-flex text-center justify-content-center">
+                        <div className="statusbar-section d-flex flex-column justify-content-between">
+                            <div className="delivery-status fw-bold">
+                                {stage === 1 ?
+                                    details?.size?.slice(0, 1).map((item) => item)
+                                    : stage === 2 ?
+                                        details?.size?.slice(1, 2).map((item) => item)
+                                        : 'No Size'}
+                            </div>
+                            <div className="" onMouseEnter={() => setIshover(true)} onMouseLeave={() => setIshover(false)}>
+                                <video
+                                    id={`${stage===1 ? 'videoLandscape' : stage===2 && 'videoPortrait'}`}
+                                    src={`${REACT_APP_BOMO_URL} ${stage===1 ? ` designe/landscape/${details?.landscape}` :  stage===2 && `designe/portrait/${details?.portrait}`}`}
+                                    height={320}
+                                    width={450}
+                                    controls={`${stage===1 ? isPlay : stage===2 && isVideo}`}
+                                    autoPlay={`${stage===1 ? isPlay : stage===2 && isVideo}`}
+                                    controlsList="nodownload" />
+                                {ishover &&
+                                    <button onClick={() => togglePlay(stage)}>{(stage===1 ? isPlay : stage===2 && isVideo) ? "Pause" : "Play"}</button>
+                                }
+                            </div>
+                        </div>
+                    </div> */}
                     <div className="py-5 px-60 ">
                         <div className="w-50 m-auto my-5">
                             <h5 className="mb-0 fw-bold">Specify what needs to be modified</h5>
@@ -123,7 +153,7 @@ const FeedBackSubmit = ({ show, handleClose, details, user, designName, stage })
                     </div>
                 </Modal.Body>
             </Modal>
-            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)}/>
+            <FeedbackFiles show={isFeed} handleClose={() => setIsFeed(false)} />
         </div>
     )
 }
