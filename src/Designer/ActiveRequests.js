@@ -15,7 +15,7 @@ import CustomPagination from "../Common/CustomPagination";
 
 const { REACT_APP_BOMO_URL } = process.env;
 
-const ActiveRequests = ({ isLoading, user, activerequest }) => {
+const ActiveRequests = ({ isLoading, user, activerequest, declinetype }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [countdownTime, setCountdownTime] = useState(0);
@@ -26,7 +26,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
   };
 
   useEffect(() => {
-    get_designer_active_requestslist(dispatch, user?.token);
+    get_designer_active_requestslist(dispatch, user?.token, declinetype);
   }, [dispatch]);
 
   useEffect(() => {
@@ -269,7 +269,7 @@ const ActiveRequests = ({ isLoading, user, activerequest }) => {
             ) : (
               <EmptyList name="Active Request" />
             )}
-            <div className="mt-5 text-center">
+          <div className="mt-5 text-center">
               <p>No more active Requests. See what’s new and apply</p>
               <button
                 className="btn btn-white mt-2 rounded-pill "

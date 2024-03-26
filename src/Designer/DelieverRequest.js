@@ -108,7 +108,7 @@ const DelieverRequest = ({ user, deliverrequests }) => {
 
     const formatDate = (inputdate) => {
         const date = new Date(inputdate);
-        date.setDate(date.getDate()+3);
+        // date.setDate(date.getDate()+3);
         const day = date.getDate();
         const month = date.toLocaleString('en-US',{month: 'long'});
         const year = date?.getFullYear();

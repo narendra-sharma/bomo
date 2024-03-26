@@ -105,7 +105,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                     <div class="d-flex justify-content-end completed-status">
                                         <div className="review-content"><ColorCode request={requestdata} /></div>
                                         <div class="delivery-date text-end ps-3">
-                                            <div class="fw-bold h6 mb-0">Completed<span class="d-block h6">{formatDate(requestdata?.delivery_date)}</span>
+                                            <div class="fw-bold h6 mb-0">Completed<span class="d-block h6">{formatDate(requestdata?.updatedAt)}</span>
                                             </div>
                                         </div>
                                     </div>

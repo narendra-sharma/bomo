@@ -69,6 +69,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                     setShow(true);
                                                     setReqdata(request);
                                                     dispatch(deliever_request_details(request));
+                                                    localStorage.setItem('requestData', JSON.stringify(request));
                                                 }}>
                                                     <tr>
                                                         <td className="text-center">
@@ -125,7 +126,12 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                     <div className="review-content px-4  mb-3">
                                         <div className="table-responsive">
                                             <table className="table table-borderless mb-0">
-                                                <tbody>
+                                                <tbody onClick={() => {
+                                                    setShow(true);
+                                                    setReqdata(request);
+                                                    dispatch(deliever_request_details(request));
+                                                    localStorage.setItem('requestData', JSON.stringify(request));
+                                                }}>
                                                     <tr>
                                                         <td className="text-center">
                                                             <p className="">edit</p>{" "}
@@ -136,7 +142,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         <td>
                                                             <p>
                                                                 <span className="fw-bold">{request?.user_id?.company}</span>{" "}
-                                                                <span className="d-block">DIOR</span>
+                                                                <span className="d-block">{request?.request_name}</span>
                                                             </p>
                                                         </td>
                                                         <td>
@@ -172,7 +178,11 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
             </div>
             <ExpandRequest
                 show={show}
-                handleClose={() => { setShow(false); dispatch(deliever_request_details(null)); }}
+                handleClose={() => {
+                    setShow(false);
+                    localStorage.removeItem('requestData');
+                    dispatch(deliever_request_details(null));
+                }}
                 requestdata={reqdata}
             />
         </div>
