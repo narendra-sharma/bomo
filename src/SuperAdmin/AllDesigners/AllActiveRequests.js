@@ -148,7 +148,12 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                                         <td>
                                                             <p>
                                                                 <span className="fw-bold">Status</span>{" "}
-                                                                <span className="d-block">{request?.status}</span>
+                                                                <span className="d-block">
+                                                                    {request?.status === "design_assigned_pending" ?
+                                                                        'Awaiting Acceptance' :
+                                                                        'Production'
+                                                                    }
+                                                                </span>
                                                             </p>
                                                         </td>
                                                         <td>
