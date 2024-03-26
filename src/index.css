@@ -1268,13 +1268,13 @@ ul.talented-designer {
  font-size: 12px; 
  position: relative;
  padding-left: 15px;
-     line-height: 15px;
+  line-height: 15px;
 }
 ul.talented-designer li i {
   color: #838383;
   position: absolute;
   left: 0;
-  top: 4;
+  top: 2px;
 }
 ul.designer-list {
   background-color: #fbfbfb;
@@ -1288,6 +1288,41 @@ ul.designer-list {
 ul.designer-list li {
   width: 32%;
   display: inline-block;
+}
+.bg-light-green ul.designer-list {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+.bg-light-green ul.designer-list li {
+  width: 28%;
+}
+.bg-light-green ul.designer-list li i {
+  color: #3FCE3C!important;
+}
+.design-list-section.review-content .bg-light-green  td p , 
+.design-list-section .bg-light-green  ul li p{
+  color:#012801;
+}
+  .asigned-button {
+  font-size: 12px;
+  font-weight: 700;
+}
+.bg-light-green .asigned-button  {
+  background: #fff;
+  border-color: #3FCE3C;
+  color: #000;
+}
+.queue-designer {
+  font-size: 13px;
+}
+.row.bg-light-green.rounded {
+  align-items: center;
+}
+.emailed-sucussfully{
+  font-size: 13px;
+  color:#3FCE3C;
+
 }
 .admin-payments .form-control {
   background: var(--gray-dark-color);
@@ -2626,10 +2661,18 @@ table.table-green{
 @media (min-width: 992px) {
   
   .design-list-section .col-lg-2 {
-    width: 14%;
+    width: 15%;
   }
-  .design-list-section .col-lg-3 {
-    width: 27.2%;
+  .design-list-section .bg-light-green .col-lg-2 {
+    width: 27%;
+    align-self: center;
+  }
+  .design-list-section  .col-lg-3 {
+    width: 26.2%;
+  }
+ .design-list-section  .bg-light-green  .col-lg-3 {
+    width: 14.2%;
+    padding-left: 0;
   }
   .main-content-wraaper {
     max-width: 960px;
