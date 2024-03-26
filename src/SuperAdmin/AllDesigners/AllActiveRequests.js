@@ -125,7 +125,7 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                 <div className="col-md-6">
                                     <div className="review-content px-4  mb-3">
                                         <div className="table-responsive">
-                                            <table className="table table-borderless mb-0">
+                                            <table className="table table-borderless mb-0 cursor-pointer">
                                                 <tbody onClick={() => {
                                                     setShow(true);
                                                     setReqdata(request);
