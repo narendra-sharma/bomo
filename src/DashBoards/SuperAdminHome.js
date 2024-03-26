@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import designImage from "../images/nine-sixteen.png";
 import designImage2 from "../images/sixteen-nine.png";
 import designImage3 from "../images/sixteen-nine2.png";
@@ -7,12 +7,27 @@ import { connect } from "react-redux";
 import ApproveDelivery from "../Customer/Requests/ApproveDelivery";
 import ApproveRequest from "../Customer/Requests/ApproveRequest";
 import OverallStats from "../Customer/Requests/OverallStats";
+import ActiveDeliveries from "../SuperAdmin/ActiveDeliveries";
+import { get_designer_active_requestslist } from "../reduxdata/rootAction";
+import { useDispatch } from "react-redux";
 
-const SuperAdminHome = ({ totalassigns, approvelist, total }) => {
+const SuperAdminHome = ({ user, totalassigns, approvelist, total, activerequest }) => {
+    const declinetype = "decline/nondecline";
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        get_designer_active_requestslist(dispatch, user?.token, declinetype);
+    }, [dispatch]);
+
     return (
         <div className="ml-md-auto py-4 ms-md-auto rightside-wrapper">
             <div className="main-content-wraaper px-60 py-md-2 py-lg-5">
                 <div className="review-main-content">
+                    {activerequest?.length > 0 &&
+                        <div className="mb-5">
+                            <ActiveDeliveries />
+                        </div>
+                    }
                     <div className="mb-5">
                         <div className=" d-flex align-items-center mb-3">
                             <h3 className="mb-0 mx-2 mx-md-4">Approve Request</h3>
@@ -53,9 +68,11 @@ const SuperAdminHome = ({ totalassigns, approvelist, total }) => {
 
 const mapStateToProps = (state) => {
     return {
+        user: state.auth.user,
         totalassigns: state.requests.totalassigns,
         approvelist: state.requests.superadminapprovelist,
         total: state.requests.pendingTotal,
+        activerequest: state.requests.activerequest,
     };
 };
 export default connect(mapStateToProps)(SuperAdminHome);

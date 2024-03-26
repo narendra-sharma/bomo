@@ -310,10 +310,10 @@ export const get_designer_assigned_requestlist = async (dispatch, token) => {
   }
 };
 
-export const get_designer_active_requestslist = async (dispatch, token) => {
+export const get_designer_active_requestslist = async (dispatch, token, declinetype) => {
   dispatch(start_loading());
   try {
-    const url = `${REACT_APP_BOMO_URL}designer/assigned-request`;
+    const url =`${REACT_APP_BOMO_URL}${declinetype ? 'superAdmin/requests' : 'designer/assigned-request'}`;
     const HEADERS = {
       headers: {
         "x-access-token": token,

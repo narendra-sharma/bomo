@@ -24,7 +24,7 @@ const ReviewDelivery = ({ show, handleClose, detail }) => {
                             <h4>Your delivery for <span className="fw-bold">{detail?.request_name} </span>
                                 <span className="d-block">is ready for your review</span></h4>
                             <div className="my-5 pt-3 pb-4"><button className="review-btn fw-bold rounded-pill" onClick={() => { setIsconfirm(true); handleClose(); }}>Review</button></div>
-                            <p className="mb-0">Delivered on {formatDate(detail?.delivery_date)}</p>
+                            <p className="mb-0">Delivered on {formatDate(detail?.updatedAt)}</p>
                         </div>
                     </div>
                 </Modal.Body>

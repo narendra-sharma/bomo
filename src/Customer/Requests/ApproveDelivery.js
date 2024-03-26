@@ -157,7 +157,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                             </button>
                                             {isapprove[request?._id] === 'accepted' ?
                                                 <i className="fa-solid fa-check-circle text-success"></i> :
-                                                <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
+                                               request?.is_approved_by_super_admin===false && <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
                                         </div>
                                     </td>
                                 </tr>

@@ -124,7 +124,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
     const formatDate = (inputdate) => {
         const date = new Date(inputdate);
-        date.setDate(date.getDate() + 3);
+        // date.setDate(date.getDate() + 3);
         const day = date.getDate();
         const month = date.toLocaleString('en-US', { month: 'long' });
         const year = date?.getFullYear();
@@ -166,7 +166,8 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
                                     <div class={`${expanddetails?.req_data?.brief_rejected_at ? "step" : ''}`}>
                                         {expanddetails?.req_data?.brief_rejected_at &&
-                                            expanddetails?.req_data?.brief_rejected_at?.map((item) => <div>
+                                            expanddetails?.req_data?.brief_rejected_at?.map((item) => 
+                                            <div>
                                                 <p className="brief-content">Brief Rejected</p>
                                                 <div class="deliver-status delivery-cancel">
                                                     <span><i class="fa-solid fa-circle-xmark"></i></span>
@@ -231,7 +232,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                     </div>}
 
                                     <div class="step">
-                                        {((!expanddetails?.req_data?.is_approved_by_customer)) && (
+                                        {((!expanddetails?.req_data?.is_approved_by_customer) && (expanddetails?.req_data?.is_approved_by_super_admin===true)) && (
                                             <div>
                                                 <p className="brief-content">Delivery Rejected</p>
                                                 <div class="deliver-status delivery-cancel">
@@ -396,7 +397,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                     <div className="feedback-request  p-4 mt-4 rounded">
 
                                         <h5 className="fw-bold">
-                                            Feedback Requested by ADMIN {format(new Date(request?.updatedAt), 'dd/MM/yyyy')} {formattedTime(request?.updatedAt)}
+                                            Feedback {index + 1} Requested by ADMIN {format(new Date(request?.updatedAt), 'dd/MM/yyyy')} {formattedTime(request?.updatedAt)}
                                         </h5>
                                         <p>
                                             {request?.feedback_message && <span className="d-block">{request?.feedback_message}</span>}
@@ -412,8 +413,8 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                             Feedback {index + 1} Requested {format(new Date(request?.design_rejected_at_by_customer), 'dd/MM/yyyy')} {formattedTime(request?.design_rejected_at_by_customer)}
                                         </h5>
                                         <p>
-                                            {request?.landscape_feedback_message && <span className="d-block">{request?.landscape_feedback_message}</span>}
-                                            {request?.portrait_feedback_message && <span className="d-block">{request?.portrait_feedback_message}</span>}
+                                            {request?.landscape_feedback_message && <span className="d-block"><span className='fw-bold'>{expanddetails?.req_data?.size[0]} .{expanddetails?.req_data?.file_type.toLowerCase()} :</span>  {request?.landscape_feedback_message}</span>}
+                                            {request?.portrait_feedback_message && <span className="d-block"><span className='fw-bold'>{expanddetails?.req_data?.size[1]} .{expanddetails?.req_data?.file_type.toLowerCase()} :</span> {request?.portrait_feedback_message}</span>}
                                         </p>
 
                                     </div>
