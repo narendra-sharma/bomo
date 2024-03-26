@@ -63,9 +63,9 @@ const DesignerRequest = ({ designerassignedrequests, user }) => {
                                 <table className="table table-green rounded table-borderless mt-2">
                                     <tbody>
                                         <tr key={index}>
-                                            <td className="text-center shortad ps-4"><ColorCode request={request} /></td>
-                                            <td><p className="extra-dark-green">{request?.brand_profile?.brandname}</p></td>
-                                            <td><p className="fw-bold" style={{ fontSize: "15px" }}>{request?.request_name}</p></td>
+                                            <td className="text-center shortad ps-4" width="150px"><ColorCode request={request} /></td>
+                                            <td className="ps-3" width="100px"><p className="extra-dark-green">{request?.brand_profile?.brandname}</p></td>
+                                            <td  className="ps-3" width="160px"><p className="fw-bold" style={{ fontSize: "15px" }}>{request?.request_name}</p></td>
                                             <td><p><span className="fw-bold">Status</span> <span className="d-block">{request?.status === 'design_assigned_pending' ? 'Awaiting Acceptance' : ''}</span></p></td>
                                             <td><p><span className="fw-bold">Delivery</span> <span className="d-block">{request?.delivery_date ? format(new Date(request?.delivery_date), 'dd/MM/yyyy') : 'No Date'}</span></p></td>
                                             <td className="text-end">

@@ -102,7 +102,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
             setIsAssign((prev) => ({ ...prev, [requestdetail?._id]: "assigned" }));
             setTimeout(() => {
                 get_admin_assign_requestlist(dispatch, user?.token);
-            }, 4000);
+            }, 5000000);
         }
         // const PrimaryDesigners = [...new Set([...requestdetail.primary_designer.flat(Infinity)])];
         // const BackupDesigners = [...new Set([...requestdetail.backup_designer.flat(Infinity)])];
@@ -134,10 +134,10 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     </div>
                 </div>
                 {totalassigns > 0 ? assignData?.map((request, index) => (
-                    <div className={isAssign[request?._id] === "assigned" ? "row bg-success bg-light" : "row" } key={index}>
+                    <div className={isAssign[request?._id] === "assigned" ? "row bg-light-green rounded" : "row" } key={index}>
                         <div className="col-lg-6">
                             <div className="table-responsive">
-                                <table className="table table-borderless">
+                                <table className="table table-borderless mb-0">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -213,8 +213,8 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                         {isAssign[request?._id] === "assigned" ?
                             <div className="col-lg-3">
                                 <div className="d-flex flex-column align-items-center">
-                                    <span>{primarydata?.length} emails have been sent</span>
-                                    {backupdata?.length>0 && <span>{backupdata?.length} extra designers selected in queue</span>}
+                                    <span className="emailed-sucussfully extra-dark-green">{primarydata?.length} emails have been sent</span>
+                                    {backupdata?.length>0 && <span className="queue-designer">{backupdata?.length} extra designers selected in queue</span>}
                                 </div>
                             </div> :
                             <div className="col-lg-3">
@@ -237,7 +237,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 </ul>
                             </div>
                         }
-                        <div className="col-lg-1 p-0 align-self-center">
+                        <div className="col-lg-1 p-0 align-self-center ">
                             {isWrong[index] ?
                                 <div>
                                     <button className="btn btn-danger rounded-pill">
@@ -245,7 +245,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                     </button>
                                     <span style={{fontSize:"13px"}}>select designers</span>
                                 </div>
-                                : <button className="btn btn-sm btn-outline-dark rounded-pill" onClick={() => handleAssignrequest(request, index)}>
+                                : <button className="btn btn-sm btn-outline-dark rounded-pill asigned-button" onClick={() => handleAssignrequest(request, index)}>
                                     {isAssign[request?._id] === "assigned" ? 'Assigned' : 'Assign'}
                                 </button>
                             }
