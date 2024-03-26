@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'react-tagsinput/react-tagsinput.css';
+import 'video-react/dist/video-react.css'; 
 import $ from "jquery";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
