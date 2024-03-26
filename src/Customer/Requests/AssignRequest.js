@@ -76,7 +76,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
 
     const handleAssignrequest = async (requestdetail, index) => {
 
-        if (!requestdetail?.top_designers) {
+        if (!requestdetail?.top_designers?.length>0) {
             setIsWrong(prev => {
                 const newstate = [...prev];
                 newstate[index] = true;

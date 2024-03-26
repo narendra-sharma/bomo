@@ -15,6 +15,7 @@ const DeliverFiles = ({show,onClose,requestdata}) => {
             file_type: requestdata?.file_type,
             transparency: requestdata?.transparency,
             references: requestdata?.references,
+            brand_details: requestdata?.brand_profile,
             brandname: requestdata?.brand_profile?.brandname,
             file: requestdata?.file,
             status: 'completed' 

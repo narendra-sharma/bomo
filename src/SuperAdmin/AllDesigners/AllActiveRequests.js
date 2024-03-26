@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { get_superadmin_all_activerequests } from "../../reduxdata/rootAction";
+import { deliever_request_details, get_superadmin_all_activerequests } from "../../reduxdata/rootAction";
 import ColorCode from "../../Common/ColorCode";
 import { format } from "date-fns";
+import ExpandRequest from "../../Modals/ExpandRequest";
 
 const AllActiveRequests = ({ user, allactiverequests }) => {
+    const [show, setShow] = useState(false);
+    const [reqdata, setReqdata] = useState({});
     const dispatch = useDispatch();
     useEffect(() => {
         get_superadmin_all_activerequests(user?.token, dispatch);
@@ -61,13 +64,17 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                                 <div className="col-md-6">
                                     <div className="review-content px-3  mb-3">
                                         <div className="table-responsive">
-                                            <table className="table table-borderless mb-0">
-                                                <tbody>
+                                            <table className="table table-borderless mb-0 cursor-pointer">
+                                                <tbody onClick={() => {
+                                                    setShow(true);
+                                                    setReqdata(request);
+                                                    dispatch(deliever_request_details(request));
+                                                }}>
                                                     <tr>
                                                         <td className="text-center">
                                                             <p className="">edit</p>{" "}
                                                         </td>
-                                                        <td className="text-center" style={{width:'120px'}}>
+                                                        <td className="text-center" style={{ width: '120px' }}>
                                                             <ColorCode request={request} />
                                                         </td>
                                                         <td>
@@ -163,6 +170,11 @@ const AllActiveRequests = ({ user, allactiverequests }) => {
                     </div>
                 </div>
             </div>
+            <ExpandRequest
+                show={show}
+                handleClose={() => { setShow(false); dispatch(deliever_request_details(null)); }}
+                requestdata={reqdata}
+            />
         </div>
     )
 }

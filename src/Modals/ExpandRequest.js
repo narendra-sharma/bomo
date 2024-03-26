@@ -81,7 +81,6 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
         const fileExtension = fileName?.split(".").pop().toLowerCase();
         const mimeType = getMimeType(fileExtension);
         const blobwithtype = new Blob([blobFile], { type: mimeType });
-        console.log(blobwithtype);
         saveAs(blobwithtype, fileName);
     };
 

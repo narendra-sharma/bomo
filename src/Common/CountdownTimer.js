@@ -33,9 +33,10 @@ const CountdownTimer = ({ requestDate, duration, reqtype }) => {
           return <span>00:00:00</span>;
         } else if (reqtype) {
           const paddedHours = String(hours).padStart(2, '0');
+          const paddedMinutes = String(minutes).padStart(2, '0');
           return (
             <span>
-              {paddedHours}
+              {paddedHours}h:{paddedMinutes}m
             </span>
           );
         } else {
