@@ -2602,7 +2602,17 @@ table.table-green{
 .designer-header.w-50{
   width: 57%!important;
 }
-
+.approverequest-btn button{
+  padding:3px 10px;
+  background-color: #3fce3c;
+  letter-spacing: -0.7px;
+    font-size: 14px;
+    border: solid 1px #3fce3c;
+}
+.approverequest-btn .request-rejected{
+  background-color: #D2CECE;
+  border-color: #D2CECE;
+}
 @media (min-width: 576px){
   .main-content-wraaper {
     max-width: 540px;
@@ -2710,6 +2720,7 @@ table.table-green{
 .after-uploaded .h6{
   font-size: 12px;
 }
+
 @media (max-width: 1900px) {
   .registration-form {
     height: auto;

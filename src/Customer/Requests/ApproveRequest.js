@@ -44,7 +44,7 @@ const ApproveRequest = ({ user, allRequest, total, requestapproved }) => {
               <table
                 className={
                   requestapproved?._id===request?._id ? 
-                  "table table-borderless table-grey rounded" :
+                  "table table-borderless bg-gray rounded" :
                   isapprove[request?._id] === "accepted"
                     ? "table table-borderless table-green rounded"
                     : "table table-borderless"
@@ -55,7 +55,7 @@ const ApproveRequest = ({ user, allRequest, total, requestapproved }) => {
                     <td style={{ width: "37px" }}>
                       <p>12h</p>
                     </td>
-                    <td className="text-center" style={{ width: "130px" }}>
+                    <td className="text-center" style={{ width: "125px" }}>
                       <ColorCode request={request} />
                     </td>
                     <td style={{ width: "110px" }}>
@@ -88,10 +88,10 @@ const ApproveRequest = ({ user, allRequest, total, requestapproved }) => {
                       </p>
                     </td>
                     <td style={{ width: "70px" }}>
-                      <div class="d-flex gap-1">
+                      <div className="d-flex gap-1 approverequest-btn">
                        {requestapproved?._id !==request?._id && <div>
                           {isapprove[request?._id] === "accepted" ? (
-                            <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">
+                            <button className="w-100 rounded-pill fw-bold">
                               Approved
                             </button>
                           ) : (
@@ -103,12 +103,12 @@ const ApproveRequest = ({ user, allRequest, total, requestapproved }) => {
                         </div>}
                         {isapprove[request?._id] !== "accepted" && <div>
                           {requestapproved?._id===request?._id ? (
-                            <button className="btn btn w-100 rounded-pill deliver-now-btn ms-2">
+                            <button className="w-100 rounded-pill fw-bold request-rejected">
                               Rejected
                             </button>
                           ) : (
                             <i
-                              className="fa-solid fa-circle-xmark cancel cursor-pointer"
+                              className="fa-solid fa-circle-xmark cancel cursor-pointer pr-0"
                               onClick={(e) =>
                                 handleReject(e, request, "rejected")
                               }

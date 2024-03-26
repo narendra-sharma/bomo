@@ -260,7 +260,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                         }
                     </div>
                 </div>
-                <div className="px-60 py-5 review-main-content bg-white mb-4">
+                <div className="px-60 py-5 review-main-content bg-white rounded mb-4">
                     <div className="row review-content">
                         <div className="col-md-7">
                             <div class="mb-3"><h3 class="fw-bold">{expanddetails?.req_data?.request_name}</h3></div>
@@ -289,18 +289,21 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                         {/* <span className="d-block">Where is this going to appear?</span> */}
                                     </p>
                                 </div>
-                                <div className="col-md-1">
-                                    <div className="float-right">
-
-                                        <p>
-                                            <span className="fw-bold d-block">Size</span>
-                                            {expanddetails?.req_data?.size?.map((item) => (
-                                                <span className="d-block">{item} </span>
-                                            ))}</p>
+                                <div className="col-md-4">
+                                    <div className="d-flex justify-content-center gap-4">
+                                        <div>
+                                            <p>
+                                                <span className="fw-bold d-block">Size</span>
+                                                {expanddetails?.req_data?.size?.map((item) => (
+                                                    <span className="d-block">{item} </span>
+                                                ))}
+                                            </p>
+                                        </div>
+                                        <div className=""><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></div>
+                                        <div className=""><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </div>
                                     </div>
                                 </div>
-                                <div className="col-md-1"><p><span className="fw-bold d-block">File Type</span> {expanddetails?.req_data?.file_type}</p></div>
-                                <div className="col-md-2"><p><span className="fw-bold d-block">Transparency</span> {expanddetails?.req_data?.transparency}</p> </div>
+                                
                                 <div className="col-md-3">
                                     <div className=""><p className="word-break"><span className="fw-bold d-block">References</span>
                                         {expanddetails?.req_data?.references?.includes('https') ?
