@@ -102,7 +102,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
             setIsAssign((prev) => ({ ...prev, [requestdetail?._id]: "assigned" }));
             setTimeout(() => {
                 get_admin_assign_requestlist(dispatch, user?.token);
-            }, 4000);
+            }, 1500000);
         }
         // const PrimaryDesigners = [...new Set([...requestdetail.primary_designer.flat(Infinity)])];
         // const BackupDesigners = [...new Set([...requestdetail.backup_designer.flat(Infinity)])];
@@ -134,7 +134,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                     </div>
                 </div>
                 {totalassigns > 0 ? assignData?.map((request, index) => (
-                    <div className={isAssign[request?._id] === "assigned" ? "row bg-light-green rounded" : "row" } key={index}>
+                    <div className={isAssign[request?._id] === "assigned" ? "row bg-light-green rounded mb-2" : "row" } key={index}>
                         <div className="col-lg-6">
                             <div className="table-responsive">
                                 <table className="table table-borderless mb-0">
