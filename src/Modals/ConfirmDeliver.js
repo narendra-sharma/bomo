@@ -170,7 +170,7 @@ const ConfirmDeliver = ({ isshow, viewClose, requestdata }) => {
                                             : <i className="fa-solid fa-circle-check cursor-pointer" onClick={() => handleCheck()}></i>
                                         }
                                     </span>
-                                    <span className="delivery-status delivery-cancel bg-white p-1 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={showFeedback}></i></span>
+                                    <span className="delivery-status delivery-cancel bg-white ms-3 cursor-pointer"><i className="fa-solid fa-circle-xmark cancel" onClick={showFeedback}></i></span>
                                     {requestdata?.size?.length > 1 && <div className="mt-5">
                                         <button className="btn btn-outline-dark px-3 py-1" onClick={() => handleStage()}>
                                             {deliveryStage === 1 ? 'Next' : deliveryStage === 2 && 'Previous'}

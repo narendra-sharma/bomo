@@ -22,7 +22,7 @@ const ReviewSubmit = ({ show, handleClose, details, user, isSubmit}) => {
     };
     return (
         <div>
-            <Modal show={show} onHide={handleClose} size="xl" className="logout-popup">
+            <Modal show={show} onHide={handleClose} size="xl" className="delivery-submit-popup logout-popup">
                 <Modal.Body className="py-5">
                     <div className="py-5 px-60 ">
                         <div className="review-submit-popup extra-grren rounded my-5 p-5">

@@ -102,7 +102,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
             setIsAssign((prev) => ({ ...prev, [requestdetail?._id]: "assigned" }));
             setTimeout(() => {
                 get_admin_assign_requestlist(dispatch, user?.token);
-            }, 1500000);
+            }, 4000);
         }
         // const PrimaryDesigners = [...new Set([...requestdetail.primary_designer.flat(Infinity)])];
         // const BackupDesigners = [...new Set([...requestdetail.backup_designer.flat(Infinity)])];
@@ -184,7 +184,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 <ul className="talented-designer designer-list rounded list-unstyled">
                                     {primarydata?.map((item) => (
                                         <li className="mb-1">
-                                            <Link className="text-decoration-none text-dark fw-bold">
+                                            <Link className="text-decoration-none text-dark">
                                                 <p>
                                                     <i className="fa-solid fa-check-circle text-success"></i>{" "}
                                                     {item?.name}
@@ -199,7 +199,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 <ul className="talented-designer  rounded list-unstyled">
                                     {request?.top_designers?.map((item) =>
                                     (<li className="mb-1" key={item._id}>
-                                        <Link className="text-decoration-none text-dark fw-bold">
+                                        <Link className="text-decoration-none text-dark">
                                             <p>
                                                 <i className="fa-solid fa-check-circle text-success" onClick={() => handleDesignerClick(item, request._id)}></i>{" "}
                                                 <span onClick={() => { setView(item); setShow(true); }}>{item?.name}</span>
@@ -221,7 +221,7 @@ const AssignRequest = ({ assignrequests, user, totalassigns }) => {
                                 <ul className="talented-designer designer-list rounded list-unstyled">
                                     {request.designer_list.map((item) => (
                                         <li className="mb-1">
-                                            <Link className="text-decoration-none text-dark fw-bold">
+                                            <Link className="text-decoration-none text-dark">
                                                 <p onClick={() => { setView(item); setShow(true); }}>
                                                     <i className={request?.top_designers?.some(d => d._id === item._id) ? "fa-solid fa-check-circle text-success" : "fa-solid fa-circle-minus"}
                                                         onClick={(e) => {
