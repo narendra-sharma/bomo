@@ -1304,14 +1304,15 @@ ul.designer-list li {
 .design-list-section .bg-light-green  ul li p{
   color:#012801;
 }
-  .asigned-button {
-  font-size: 12px;
+.design-list-section .asigned-button {
+  font-size: 13px;
   font-weight: 700;
+  background-color: #fff!important;
+  border: solid 1px #000;
+  color: #000!important;
 }
-.bg-light-green .asigned-button  {
-  background: #fff;
+ .design-list-section .bg-light-green .asigned-button  {
   border-color: #3FCE3C;
-  color: #000;
 }
 .queue-designer {
   font-size: 13px;
@@ -2647,6 +2648,20 @@ table.table-green{
 .approverequest-btn .request-rejected{
   background-color: #D2CECE;
   border-color: #D2CECE;
+}
+.delivery-status-section .delivery-status .rejected-icon {
+  background: #f2f2f2;
+  justify-content: center;
+  width: 36px;
+  border-radius: 50%;
+  height: 36px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+}
+.delivery-status-section .delivery-status i{
+  font-size: 24px;
+  line-height: 25px
 }
 @media (min-width: 576px){
   .main-content-wraaper {

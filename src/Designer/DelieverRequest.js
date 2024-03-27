@@ -191,14 +191,16 @@ const DelieverRequest = ({ user, deliverrequests }) => {
                             {deliverrequests?.data?.length > 0 ? deliverrequests?.data?.map((item, index) => (
                                 <div key={index}>
                                     <div className="col-md-12">
-                                        <div className="delivery-status-section bg-white p-4 rounded mt-3">
+                                        <div className="delivery-status-section bg-white py-4 ps-md-5 ps-2 ms-md-5 ms-0 rounded mt-3">
                                             <div className="row justify-content-center">
                                                 <div className="col-md-12 text-center mb-4">
                                                     <h3 className="color-dark">Delivery {index + 1}</h3>
                                                     <p>{format(new Date(item?.createdAt), 'dd/MM/yyyy')} {formattedTime(item?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
                                                 </div>
+                                                </div>
+                                                <div className="d-flex justify-content-center gap-4">
 
-                                                {item?.request_id?.landscape && <div className="col-md-3 d-flex text-center justify-content-center">
+                                                {item?.request_id?.landscape && <div className=" d-flex text-center">
                                                     <div className="statusbar-section d-flex flex-column justify-content-between">
                                                         <div className="delivery-status fw-bold">{item?.request_id?.size[0]}</div>
                                                         <div className="">
@@ -213,7 +215,7 @@ const DelieverRequest = ({ user, deliverrequests }) => {
 
                                                     </div>
                                                 </div>}
-                                                {item?.request_id?.portrait && <div className="col-md-3 d-flex text-center justify-content-center">
+                                                {item?.request_id?.portrait && <div className=" d-flex text-center">
                                                     <div className="statusbar-section d-flex flex-column justify-content-between">
                                                         <div className="delivery-status fw-bold">{item?.request_id?.size[1]}</div>
                                                         <div className="">
@@ -228,7 +230,7 @@ const DelieverRequest = ({ user, deliverrequests }) => {
 
                                                     </div>
                                                 </div>}
-                                                <div className="col-md-3 d-flex text-center justify-content-center">
+                                                <div className="d-flex text-center ">
                                                     <div className="statusbar-section d-flex flex-column justify-content-between">
                                                         <div className="delivery-status fw-bold">.{item?.request_id?.zip?.split(".").pop().toLowerCase()}</div>
                                                         <div className="">
@@ -243,10 +245,11 @@ const DelieverRequest = ({ user, deliverrequests }) => {
 
                                                     </div>
                                                 </div>
-                                                <div className="col-md-3 align-self-center">
+                                                <div className="col-md-4  align-self-center">
                                                     <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                         {!item?.request_id?.is_approved_by_super_admin ?
-                                                            <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Rejected by ADMIN</button>  <i className="fa-solid fa-circle-xmark cancel text-danger"></i></div>
+                                                            <div className="d-flex text-center align-items-center gap-3 justify-content-center"> <button type="button" class="btn btn-outline-dark bg-white text-dark rounded-pill px-2 py-1 fw-bold ">Rejected by ADMIN</button>  
+                                                            <div className="rejected-icon"><i className="fa-solid fa-circle-xmark cancel text-danger"></i></div></div>
                                                             : <h6 class="fw-bold">Rejected by ADMIN</h6>}
                                                     </div>
                                                 </div>
@@ -255,7 +258,7 @@ const DelieverRequest = ({ user, deliverrequests }) => {
                                         </div>
                                     </div>
                                     {(item?.feedback_message) ? <div className="col-md-12">
-                                        <div className="feedback-request  p-4 mt-4 rounded">
+                                        <div className="feedback-request  p-4 mt-5 rounded">
 
                                             <h5 className="fw-bold">
                                                 Feedback {index + 1} Requested by ADMIN {format(new Date(item?.updatedAt), 'dd/MM/yyyy')} {formattedTime(item?.updatedAt)}
