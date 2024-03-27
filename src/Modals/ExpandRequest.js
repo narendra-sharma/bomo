@@ -333,8 +333,10 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                                 <h3 className="color-dark">Delivery {index + 1}</h3>
                                                 <p>{format(new Date(request?.createdAt), 'dd/MM/yyyy')} {formattedTime(request?.createdAt)} <span className="ps-1 active-request-status fw-bold">ON TIME</span></p>
                                             </div>
+                                            </div>
+                                            <div className="d-flex justify-content-center gap-4">
 
-                                            {request?.landscape && <div className="col-md-3 d-flex text-center justify-content-center">
+                                            {request?.landscape && <div className="d-flex text-center ">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[0]}</div>
                                                     <div className="">
@@ -349,7 +351,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
                                                 </div>
                                             </div>}
-                                            {request?.portrait && <div className="col-md-3 d-flex text-center justify-content-center">
+                                            {request?.portrait && <div className=" d-flex text-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">{expanddetails?.req_data?.size[1]}</div>
                                                     <div className="">
@@ -364,7 +366,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
                                                 </div>
                                             </div>}
-                                            <div className="col-md-3 d-flex text-center justify-content-center">
+                                            <div className="d-flex text-center">
                                                 <div className="statusbar-section d-flex flex-column justify-content-between">
                                                     <div className="delivery-status fw-bold">.{expanddetails?.req_data?.zip?.split(".").pop().toLowerCase()}</div>
                                                     <div className="">
@@ -379,12 +381,13 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
 
                                                 </div>
                                             </div>
-                                            <div className="col-md-3 align-self-center">
+                                            <div className="col-md-4 align-self-center">
                                                 <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                     {request?.is_approved_by_super_admin ?
-                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button><i className="fa-solid fa-circle-check"></i></div>
+                                                        <div className="d-flex text-center align-items-center gap-3 justify-content-center"> <button type="button" class="btn btn-outline-dark bg-white text-dark rounded-pill px-2 py-1 fw-bold ">Approved by Admin</button><i className="fa-solid fa-circle-check"></i></div>
                                                         : (request?.is_approved_by_super_admin===false && request?.feedback_message) ?
-                                                        <div> <button type="button" class="btn btn-outline-dark rounded-pill px-2 py-1 fw-bold ">Rejected by Admin</button><i className="fa-solid fa-circle-xmark cancel text-danger"></i></div>
+                                                        <div className="d-flex text-center align-items-center gap-3 justify-content-center"> <button type="button" class="btn btn-outline-dark bg-white text-dark rounded-pill px-2 py-1 fw-bold ">Rejected by Admin</button>
+                                                         <div className="rejected-icon"><i className="fa-solid fa-circle-xmark cancel text-danger"></i></div></div>
                                                         :
                                                          <h6 class="fw-bold">Needs approval by ADMIN</h6>}
                                                 </div>
@@ -394,7 +397,7 @@ const ExpandRequest = ({ show, handleClose, user, expanddetails, requestdetails,
                                     </div>
                                 </div>
                                 {(request?.is_approved_by_super_admin===false && request?.feedback_message) ? <div className="col-md-12">
-                                    <div className="feedback-request  p-4 mt-4 rounded">
+                                    <div className="feedback-request  p-4 mt-5 rounded">
 
                                         <h5 className="fw-bold">
                                             Feedback {index + 1} Requested by ADMIN {format(new Date(request?.updatedAt), 'dd/MM/yyyy')} {formattedTime(request?.updatedAt)}

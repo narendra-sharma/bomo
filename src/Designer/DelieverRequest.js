@@ -248,7 +248,8 @@ const DelieverRequest = ({ user, deliverrequests }) => {
                                                 <div className="col-md-4  align-self-center">
                                                     <div className="delivery-status fw-bold d-flex text-center align-items-center justify-content-center">
                                                         {!item?.request_id?.is_approved_by_super_admin ?
-                                                            <div className="d-flex text-center align-items-center gap-3 justify-content-center"> <button type="button" class="btn btn-outline-dark bg-white text-dark rounded-pill px-2 py-1 fw-bold ">Rejected by ADMIN</button>  
+                                                            <div className="d-flex text-center align-items-center gap-3 justify-content-center"> 
+                                                            <button type="button" className="btn btn-outline-dark bg-white text-dark rounded-pill px-2 py-1 fw-bold ">Rejected by ADMIN</button>  
                                                             <div className="rejected-icon"><i className="fa-solid fa-circle-xmark cancel text-danger"></i></div></div>
                                                             : <h6 class="fw-bold">Rejected by ADMIN</h6>}
                                                     </div>

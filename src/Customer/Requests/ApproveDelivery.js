@@ -4,6 +4,7 @@ import { deliever_request_details, get_approve_delivery_list, superadmin_approve
 import designImage from "../../images/nine-sixteen.png";
 import designImage2 from "../../images/sixteen-nine.png";
 import designImage3 from "../../images/sixteen-nine2.png";
+import designAep from "../../images/aep-image-2.png";
 import ColorCode from '../../Common/ColorCode';
 import { format } from 'date-fns';
 import ExpandRequest from '../../Modals/ExpandRequest';
@@ -121,7 +122,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </p>
                                     </td>
                                     <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
+                                        <div className="statusbar-section d-flex align-items-center gap-3 justify-content-center cursor-pointer">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[0]}</p>
                                             </div>
@@ -131,7 +132,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </div>
                                     </td>
                                     {request?.size[1] && <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
+                                        <div className="statusbar-section d-flex align-items-center gap-3 justify-content-center cursor-pointer">
                                             <div className="delivery-status fw-bold">
                                                 <p>{request?.size[1]}</p>
                                             </div>
@@ -141,12 +142,12 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                         </div>
                                     </td>}
                                     <td>
-                                        <div className="statusbar-section d-flex align-items-center justify-content-between cursor-pointer">
+                                        <div className="statusbar-section d-flex align-items-center gap-3 justify-content-center cursor-pointer">
                                             <div className="delivery-status fw-bold">
                                                 <p>.{request?.zip?.split(".").pop().toLowerCase()}</p>
                                             </div>
                                             <div className="bar-code" onClick={() => handleDownload(`${request?.zip}`)}>
-                                                <img src={designImage3} alt="Imag" />
+                                                <img src={designAep} alt="Imag" />
                                             </div>
                                         </div>
                                     </td>
