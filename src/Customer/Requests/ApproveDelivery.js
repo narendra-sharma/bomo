@@ -32,7 +32,7 @@ const ApproveDelivery = ({ user, approvelist }) => {
             setIsapprove((prev) => ({ ...prev, [requestId]: 'accepted' }));
             setTimeout(() => {
                 get_approve_delivery_list(user?.token, dispatch);
-            },3000);
+            }, 3000);
         } else if ((status === 'rejected') && data) {
             setIsreject(true);
             setReqdata(data);
@@ -85,10 +85,13 @@ const ApproveDelivery = ({ user, approvelist }) => {
                     {approvelist?.length} requests left{" "}
                 </small>
             </div>
-            <div className="col-lg-12">
-                <div className="table-responsive">
-                    <table className="table table-borderless">
-                        {approvelist?.map((request) => (
+            {approvelist?.map((request) => (
+                <div className="col-lg-12">
+                    <div className="table-responsive">
+                        <table className={isapprove[request?._id] === 'accepted'
+                            ? "table table-borderless table-green rounded"
+                            : "table table-borderless"}>
+                            {/* {approvelist?.map((request) => ( */}
                             <tbody>
                                 <tr>
                                     <td>
@@ -114,11 +117,11 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                     </td>
                                     <td>
                                         <p>
-                                            <span className="cursor-pointer" onClick={() => { 
-                                                setShow(true); 
-                                                dispatch(deliever_request_details(request)); 
+                                            <span className="cursor-pointer" onClick={() => {
+                                                setShow(true);
+                                                dispatch(deliever_request_details(request));
                                                 localStorage.setItem('requestData', JSON.stringify(request));
-                                                }}>Expand Request</span>{" "}
+                                            }}>Expand Request</span>{" "}
                                         </p>
                                     </td>
                                     <td>
@@ -158,16 +161,17 @@ const ApproveDelivery = ({ user, approvelist }) => {
                                             </button>
                                             {isapprove[request?._id] === 'accepted' ?
                                                 <i className="fa-solid fa-check-circle text-success"></i> :
-                                               request?.is_approved_by_super_admin===false && <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
+                                                request?.is_approved_by_super_admin === false && <i className="fa-solid fa-circle-xmark cancel" onClick={(e) => handleApprove(e, request, 'rejected')}></i>}
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
-                        ))}
-                    </table>
+                            {/* ))} */}
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <ExpandRequest show={show} handleClose={() => { handleExpand();}} />
+            ))}
+            <ExpandRequest show={show} handleClose={() => { handleExpand(); }} />
             <RejectRequest show={isreject} handleClose={() => setIsreject(false)} detail={reqdata} />
         </div>
     )
